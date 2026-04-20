@@ -83,8 +83,8 @@ const tiers = [
     badgeClass: "elite-badge",
     monthlyPrice: null,
     annualPrice: 999,
-    annualOnly: true,
-    desc: "The unfair advantage. Only 100 seats worldwide. Premium everything.",
+    isOneTime: true,
+    desc: "The Ultimate Founders' Seat. Pay once, own for life. Only 100 seats ever.",
     features: [
       { text: "Unlimited Inventory Items", included: true },
       { text: "Unlimited Event Booths", included: true },
@@ -94,7 +94,7 @@ const tiers = [
       { text: "Full Profile (3D, Video, Booking)", included: true },
       { text: "Gold Premium Map Placement", included: true },
       { text: "Quarterly Newsletter Spotlight", included: true },
-      { text: "2% Platform Transaction Fee", included: true },
+      { text: "0% Transaction Fees For Life", included: true },
       { text: "AI Market Analytics Dashboard", included: true },
       { text: "Dedicated Account Rep", included: true },
       { text: "Rare Finds Priority Alerts", included: true },
@@ -157,12 +157,17 @@ export default function PricingToggle() {
 
               <div className="pricing-price-row">
                 <span className="pricing-dollar">{price === 0 ? "Free" : `$${price}`}</span>
-                {price > 0 && <span className="pricing-period">{period}</span>}
+                {price > 0 && <span className="pricing-period">{tier.name === 'Elite Grower' ? "one-time" : period}</span>}
               </div>
 
-              <button className={tier.ctaClass} style={{ width: "100%", marginBottom: "2rem" }} id={`pricing-cta-${tier.name.toLowerCase().replace(/\s/g, "-")}`}>
+              <a
+                href={tier.name === 'Seedling' ? '/onboarding' : '/onboarding'}
+                className={tier.ctaClass}
+                style={{ width: '100%', marginBottom: '2rem', display: 'block', textAlign: 'center', textDecoration: 'none' }}
+                id={`pricing-cta-${tier.name.toLowerCase().replace(/\s/g, '-')}`}
+              >
                 {tier.cta}
-              </button>
+              </a>
 
               <ul className="pricing-features">
                 {tier.features.map((f) => (

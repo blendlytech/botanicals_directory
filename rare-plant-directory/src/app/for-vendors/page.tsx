@@ -80,13 +80,18 @@ export default function ForVendors() {
           </p>
           <div className="vendor-hero-price">
             <span className="price-amount">$999</span>
-            <span className="price-period">/ year</span>
+            <span className="price-period">one-time investment</span>
+          </div>
+          <div style={{ marginBottom: '2.5rem' }}>
+             <a href="/elite-rules" style={{ color: 'var(--gold)', fontSize: '0.85rem', textDecoration: 'underline' }}>
+               Review Good Standing Rules & Lifetime Ownership terms
+             </a>
           </div>
           <div className="hero-actions">
             <button className="btn-primary" id="elite-apply-btn">Apply for Elite Status</button>
             <button className="btn-ghost" id="elite-learn-btn">See What&apos;s Included</button>
           </div>
-          <p style={{ fontSize: "0.75rem", color: "var(--sand)", opacity: 0.5, marginTop: "1.5rem" }}>
+          <p style={{ fontSize: "0.75rem", color: "var(--cream)", opacity: 0.8, marginTop: "1.5rem" }}>
             Only 100 total seats. 73 remain. No waitlist — when they&apos;re gone, they&apos;re gone.
           </p>
         </div>

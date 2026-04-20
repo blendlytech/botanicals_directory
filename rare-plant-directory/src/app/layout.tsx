@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import NavbarClient from "./components/NavbarClient";
 import FooterClient from "./components/FooterClient";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -32,9 +33,11 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png" />
       </head>
       <body suppressHydrationWarning>
-        <NavbarClient />
-        {children}
-        <FooterClient />
+        <ThemeProvider>
+          <NavbarClient />
+          {children}
+          <FooterClient />
+        </ThemeProvider>
       </body>
     </html>
   );

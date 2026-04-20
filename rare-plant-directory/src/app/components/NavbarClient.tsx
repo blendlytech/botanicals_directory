@@ -1,6 +1,7 @@
 'use client';
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function NavbarClient() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,6 +30,7 @@ export default function NavbarClient() {
         <a href="#vendors" id="nav-vendors-link">Vendors</a>
         <a href="#cultivar" id="nav-cultivar-link">CultivarID</a>
         <a href="#about" id="nav-about-link">About</a>
+        <ThemeToggle />
         <a href="/for-vendors" className="btn-primary" id="nav-list-booth-btn">List Your Booth</a>
       </div>
     </nav>
