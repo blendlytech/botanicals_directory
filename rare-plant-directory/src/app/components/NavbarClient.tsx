@@ -29,7 +29,7 @@ export default function NavbarClient() {
         <a href="#vendors" id="nav-vendors-link">Vendors</a>
         <a href="#cultivar" id="nav-cultivar-link">CultivarID</a>
         <a href="#about" id="nav-about-link">About</a>
-        <button className="btn-primary" id="nav-list-booth-btn">List Your Booth</button>
+        <a href="/for-vendors" className="btn-primary" id="nav-list-booth-btn">List Your Booth</a>
       </div>
     </nav>
   );

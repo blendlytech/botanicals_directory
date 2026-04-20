@@ -90,14 +90,14 @@ const events = [
 
 /* ── VENDOR DATA ── */
 const vendors = [
-  { name: "Verdant Roots Co.", specialty: "Rare Aroids", location: "Austin, TX", initials: "VR", events: 12 },
-  { name: "The Philodendron Lab", specialty: "Philodendrons", location: "Portland, OR", initials: "PL", events: 8 },
-  { name: "Monstera Collective", specialty: "Monstera & Variegates", location: "Miami, FL", initials: "MC", events: 19 },
-  { name: "Botanical Cipher", specialty: "Orchids & Epiphytes", location: "Seattle, WA", initials: "BC", events: 5 },
-  { name: "Deep Forest Nursery", specialty: "Hoya Specialists", location: "Denver, CO", initials: "DF", events: 7 },
-  { name: "Apex Aroids", specialty: "Anthurium & Alocasia", location: "Atlanta, GA", initials: "AA", events: 14 },
-  { name: "The Green Vault", specialty: "Caudiciforms", location: "Phoenix, AZ", initials: "GV", events: 3 },
-  { name: "Jungle Dispatch", specialty: "Ferns & Selaginella", location: "New Orleans, LA", initials: "JD", events: 6 },
+  { name: "Verdant Roots Co.", specialty: "Rare Aroids", location: "Austin, TX", initials: "VR", events: 12, isElite: true },
+  { name: "The Philodendron Lab", specialty: "Philodendrons", location: "Portland, OR", initials: "PL", events: 8, isElite: false },
+  { name: "Monstera Collective", specialty: "Monstera & Variegates", location: "Miami, FL", initials: "MC", events: 19, isElite: false },
+  { name: "Botanical Cipher", specialty: "Orchids & Epiphytes", location: "Seattle, WA", initials: "BC", events: 5, isElite: false },
+  { name: "Deep Forest Nursery", specialty: "Hoya Specialists", location: "Denver, CO", initials: "DF", events: 7, isElite: false },
+  { name: "Apex Aroids", specialty: "Anthurium & Alocasia", location: "Atlanta, GA", initials: "AA", events: 14, isElite: false },
+  { name: "The Green Vault", specialty: "Caudiciforms", location: "Phoenix, AZ", initials: "GV", events: 3, isElite: false },
+  { name: "Jungle Dispatch", specialty: "Ferns & Selaginella", location: "New Orleans, LA", initials: "JD", events: 6, isElite: false },
 ];
 
 /* ── FEATURES ── */
@@ -314,7 +314,11 @@ export default function Home() {
                 {v.location}
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
-                <span className="verified-badge">✓ Verified Grower</span>
+                {v.isElite ? (
+                  <span className="elite-badge">✦ Elite Grower</span>
+                ) : (
+                  <span className="verified-badge">✓ Verified Grower</span>
+                )}
                 <span style={{ fontSize: "0.72rem", color: "var(--sand)", opacity: 0.55 }}>{v.events} shows</span>
               </div>
             </div>
