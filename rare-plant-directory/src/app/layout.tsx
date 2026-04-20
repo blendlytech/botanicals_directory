@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import NavbarClient from "./components/NavbarClient";
+import FooterClient from "./components/FooterClient";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -9,42 +11,30 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Rare Plant Vendors | The Botanical Event Directory",
-  description: "Discover upcoming rare plant expos, markets, and verify vendors before the show.",
+  title: "Rare Plant Vendors | The Premier Botanical Event Directory",
+  description: "Discover the world's most exclusive rare plant expos, preview verified vendor inventory before doors open, and connect with serious collectors. Est. 2026.",
+  themeColor: "#0B3D2E",
 };
-
-import Image from "next/image";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${cormorant.variable} ${montserrat.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/icon.png" />
+      </head>
       <body suppressHydrationWarning>
-        <nav className="navbar">
-          <div className="logo-container">
-            <Image src="/brand-seal.png" alt="Rare Plant Vendors Seal" width={60} height={60} className="brand-seal" />
-            <span className="logo-text">RarePlantVendors</span>
-          </div>
-          <div className="nav-links">
-            <a href="#events">Upcoming Events</a>
-            <a href="#vendors">Verified Sellers</a>
-            <a href="#cultivar">CultivarID</a>
-            <button className="btn-primary">For Vendors</button>
-          </div>
-        </nav>
+        <NavbarClient />
         {children}
-        <footer className="footer">
-          <p>&copy; {new Date().getFullYear()} Rare Plant Vendors Directory. All rights reserved.</p>
-        </footer>
+        <FooterClient />
       </body>
     </html>
   );
