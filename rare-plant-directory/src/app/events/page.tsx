@@ -1,140 +1,149 @@
-import { supabase } from "@/lib/supabase";
-import Link from "next/link";
+'use client';
+import { useEffect, useState, useRef } from 'react';
+import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
+import Image from 'next/image';
 
-export const revalidate = 60;
-
-const typeGradients: Record<string, string> = {
-  Expo: "linear-gradient(145deg, #0B3D2E 0%, #145A43 100%)",
-  Conference: "linear-gradient(145deg, #1a3a2a 0%, #2a5a3a 100%)",
-  Festival: "linear-gradient(145deg, #1a2a3a 0%, #2a3a5a 100%)",
-  Showcase: "linear-gradient(145deg, #2a1a3a 0%, #3a2a5a 100%)",
-  Exhibition: "linear-gradient(145deg, #3a2a1a 0%, #5a4a2a 100%)",
-  Swap: "linear-gradient(145deg, #1a3a2a 0%, #4a7a3a 100%)",
-};
-
-const typeEmoji: Record<string, string> = {
-  Expo: "🌿",
-  Conference: "🎤",
-  Festival: "🌸",
-  Showcase: "🏆",
-  Exhibition: "🪴",
-  Swap: "🔄",
-};
-
-function formatDate(start: string | null, end: string | null) {
-  if (!start) return "Date TBA";
-  const s = new Date(start);
-  const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" };
-  if (!end || start === end) return `${s.toLocaleDateString("en-US", { ...opts, year: "numeric" })}`;
-  const e = new Date(end);
-  if (s.getMonth() === e.getMonth()) {
-    return `${s.toLocaleDateString("en-US", opts)}–${e.getDate()}, ${s.getFullYear()}`;
-  }
-  return `${s.toLocaleDateString("en-US", opts)} – ${e.toLocaleDateString("en-US", { ...opts, year: "numeric" })}`;
+interface Event {
+  id: string;
+  slug: string;
+  title: string;
+  start_date: string;
+  end_date: string;
+  location_name: string;
+  location_address: string;
+  image_url: string | null;
+  lat?: number;
+  lng?: number;
 }
 
-export default async function EventsPage() {
-  const { data: events } = await supabase
-    .from("events")
-    .select(`*, event_vendors(count)`)
-    .order("is_featured", { ascending: false })
-    .order("date_start", { ascending: true });
+export default function EventsMapPage() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
 
-  const featured = (events || []).filter((e) => e.is_featured);
-  const regular = (events || []).filter((e) => !e.is_featured);
+  useEffect(() => {
+    async function loadEvents() {
+      // Get events
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .order('start_date', { ascending: true });
+
+      if (data) {
+        // Since we don't have lat/lng in the DB yet, we'll mock them slightly 
+        // around a central area (e.g., US) for demonstration of the map.
+        const eventsWithGeo = data.map((evt, index) => ({
+          ...evt,
+          lat: 39.8283 + (Math.random() * 10 - 5), // Random spread in US
+          lng: -98.5795 + (Math.random() * 20 - 10)
+        }));
+        setEvents(eventsWithGeo);
+      }
+      setLoading(false);
+    }
+    loadEvents();
+  }, []);
+
+  useEffect(() => {
+    if (loading || !mapRef.current || events.length === 0) return;
+
+    // Load Leaflet via CDN dynamically to avoid SSR/NPM versioning issues
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = () => {
+      const L = (window as any).L;
+      if (!L) return;
+
+      // Initialize map
+      if (!mapInstanceRef.current) {
+        mapInstanceRef.current = L.map(mapRef.current).setView([39.8283, -98.5795], 4);
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+          subdomains: 'abcd',
+          maxZoom: 20
+        }).addTo(mapInstanceRef.current);
+      }
+
+      const map = mapInstanceRef.current;
+
+      // Custom markers
+      const standardIcon = L.divIcon({
+        className: 'custom-map-marker',
+        html: `<div style="width:16px;height:16px;background:#2ecc71;border-radius:50%;border:2px solid #000;box-shadow:0 0 10px rgba(46,204,113,0.5);"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+
+      events.forEach(evt => {
+        if (evt.lat && evt.lng) {
+          const marker = L.marker([evt.lat, evt.lng], { icon: standardIcon }).addTo(map);
+          
+          const popupContent = `
+            <div style="font-family: var(--font-body); color: #333; padding: 5px;">
+              <strong style="font-family: var(--font-heading); font-size: 1.1rem; display: block; margin-bottom: 5px;">${evt.title}</strong>
+              <div style="font-size: 0.8rem; margin-bottom: 5px;">📍 ${evt.location_name}</div>
+              <a href="/events/${evt.slug}" style="display: inline-block; background: #2ecc71; color: white; padding: 4px 10px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; font-weight: bold;">View Vendors</a>
+            </div>
+          `;
+          
+          marker.bindPopup(popupContent);
+        }
+      });
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+      document.head.removeChild(link);
+      document.body.removeChild(script);
+    };
+  }, [loading, events]);
 
   return (
-    <main style={{ minHeight: "100vh", paddingTop: "6rem", paddingBottom: "5rem" }}>
-      <div className="section-header">
-        <div className="section-eyebrow">Curated Shows</div>
-        <h1 className="section-title">Upcoming <em>Expos &amp; Swaps</em></h1>
-        <p className="section-desc">
-          Every event is vetted, mapped, and populated with pre-verified vendor inventory.
-        </p>
-        <div className="section-rule" />
-      </div>
+    <main style={{ minHeight: '100vh', padding: '7rem 5% 4rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', color: 'var(--text-primary)', margin: '0 0 1rem' }}>Global Event Map</h1>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
+            Discover rare plant expos, swaps, and exhibitions near you. Click a pin to see the vendor roster.
+          </p>
+        </div>
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 5%" }}>
-        {featured.length > 0 && (
-          <>
-            <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1.5rem" }}>
-              ★ Featured Events
-            </div>
-            <div className="events-grid" style={{ marginBottom: "4rem" }}>
-              {featured.map((ev) => (
-                <EventCard key={ev.id} ev={ev} />
-              ))}
-            </div>
-          </>
-        )}
-
-        {regular.length > 0 && (
-          <>
-            <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
-              All Events This Season
-            </div>
-            <div className="events-grid">
-              {regular.map((ev) => (
-                <EventCard key={ev.id} ev={ev} />
-              ))}
-            </div>
-          </>
-        )}
-
-        {(!events || events.length === 0) && (
-          <div style={{ textAlign: "center", padding: "5rem 0", color: "var(--text-secondary)" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🗓️</div>
-            <h2 style={{ color: "var(--text-primary)", fontFamily: "var(--font-heading)" }}>No Events Listed Yet</h2>
-            <p>Check back soon — we add new shows weekly.</p>
+        {loading ? (
+          <div style={{ height: '500px', background: 'var(--bg-surface)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Loading map data...
+          </div>
+        ) : (
+          <div style={{ position: 'relative', height: '600px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+            <div ref={mapRef} style={{ width: '100%', height: '100%', background: '#0a0a0a' }} />
           </div>
         )}
+
+        <div style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+          {events.map(evt => (
+            <Link key={evt.id} href={`/events/${evt.slug}`} style={{ textDecoration: 'none' }}>
+              <div className="onboarding-card" style={{ padding: '1.5rem', height: '100%', transition: 'transform 0.2s', cursor: 'pointer' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 700, marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>{evt.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>📍 {evt.location_name}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
-  );
-}
-
-function EventCard({ ev }: { ev: any }) {
-  const gradient = typeGradients[ev.event_type] || typeGradients.Expo;
-  const emoji = typeEmoji[ev.event_type] || "🌿";
-  const vendorCount = ev.event_vendors?.[0]?.count || 0;
-  const dateStr = formatDate(ev.date_start, ev.date_end);
-
-  return (
-    <Link href={`/events/${ev.slug}`} className="event-card" style={{ textDecoration: "none", display: "block" }}>
-      <div className="event-card-image">
-        <div className="event-card-image-bg" style={{ background: gradient }}>
-          <span style={{ position: "absolute", fontSize: "4rem", bottom: "1rem", right: "1.5rem", opacity: 0.3 }}>{emoji}</span>
-        </div>
-        <div className={`event-card-badge${ev.is_featured ? "" : " sold"}`}>
-          {ev.event_type || "Event"}
-        </div>
-        {ev.is_featured && (
-          <div style={{ position: "absolute", top: "1rem", left: "1rem", background: "rgba(212,175,55,0.15)", border: "1px solid var(--gold)", borderRadius: "4px", padding: "3px 8px", fontSize: "0.6rem", fontWeight: 700, color: "var(--gold)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-            ★ Featured
-          </div>
-        )}
-      </div>
-      <div className="event-card-body">
-        <div className="event-card-date">{dateStr}</div>
-        <h3 className="event-card-title">{ev.title}</h3>
-        <div className="event-card-location">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-          </svg>
-          {ev.location_name || ev.location_address || "Location TBA"}
-        </div>
-        {ev.description && (
-          <p className="event-card-desc" style={{ WebkitLineClamp: 2, overflow: "hidden", display: "-webkit-box", WebkitBoxOrient: "vertical" }}>
-            {ev.description}
-          </p>
-        )}
-        <div className="event-card-footer">
-          <div className="vendor-count">
-            {vendorCount > 0 ? <><strong>{vendorCount}</strong> Vendor Previews</> : "Preview Coming Soon"}
-          </div>
-          <span style={{ fontSize: "0.72rem", color: "var(--gold)", fontWeight: 600 }}>View Event →</span>
-        </div>
-      </div>
-    </Link>
   );
 }
