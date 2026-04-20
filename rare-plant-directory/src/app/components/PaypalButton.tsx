@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface PaypalButtonProps {
-  amount: string;
+  amount?: string;
+  planId?: string;
   onSuccess: (details: any) => void;
   onError: (err: any) => void;
 }
@@ -20,7 +21,8 @@ export default function PaypalButton({ amount, onSuccess, onError }: PaypalButto
 
     // 2. Load PayPal Script
     const script = document.createElement('script');
-    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD&intent=capture`;
+    const vault = planId ? '&vault=true' : '';
+    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD&intent=${planId ? 'subscription' : 'capture'}${vault}`;
     script.async = true;
     script.onload = () => setLoaded(true);
     document.body.appendChild(script);
@@ -28,14 +30,14 @@ export default function PaypalButton({ amount, onSuccess, onError }: PaypalButto
     return () => {
       // Clean up if necessary, but usually PayPal script stays
     };
-  }, []);
+  }, [planId]);
 
   useEffect(() => {
     if (!loaded || !buttonRef.current || !window.hasOwnProperty('paypal')) return;
 
     // @ts-ignore
     window.paypal.Buttons({
-      createOrder: (data: any, actions: any) => {
+      createOrder: planId ? undefined : (data: any, actions: any) => {
         return actions.order.create({
           purchase_units: [{
             description: "Rare Plant Vendors - Elite Grower Founding Member (Lifetime)",
@@ -46,9 +48,18 @@ export default function PaypalButton({ amount, onSuccess, onError }: PaypalButto
           }]
         });
       },
+      createSubscription: planId ? (data: any, actions: any) => {
+        return actions.subscription.create({
+          plan_id: planId
+        });
+      } : undefined,
       onApprove: async (data: any, actions: any) => {
-        const details = await actions.order.capture();
-        onSuccess(details);
+        if (planId) {
+          onSuccess(data);
+        } else {
+          const details = await actions.order.capture();
+          onSuccess(details);
+        }
       },
       onError: (err: any) => {
         console.error("PayPal Error:", err);
@@ -58,10 +69,10 @@ export default function PaypalButton({ amount, onSuccess, onError }: PaypalButto
         layout: 'vertical',
         color: 'gold',
         shape: 'rect',
-        label: 'pay'
+        label: planId ? 'subscribe' : 'pay'
       }
     }).render(buttonRef.current);
-  }, [loaded, amount, onSuccess, onError]);
+  }, [loaded, amount, planId, onSuccess, onError]);
 
   return (
     <div style={{ marginTop: '2rem', width: '100%', minHeight: '150px' }}>

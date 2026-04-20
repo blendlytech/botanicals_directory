@@ -21,6 +21,7 @@ interface FormData {
   locationCountry: string;
   specialties: string[];
   logoUrl: string;
+  billingPeriod: 'monthly' | 'annual';
 }
 
 /* ─── TIER CONFIG ─── */
@@ -39,7 +40,8 @@ const tierConfig = {
     name: 'Verified Grower',
     badge: '✓ Verified',
     badgeClass: 'verified-badge',
-    price: '$29/mo or $299/yr',
+    monthlyPrice: '$29/mo',
+    annualPrice: '$299/yr',
     color: 'rgba(20,90,67,0.2)',
     borderColor: 'var(--forest)',
     perks: ['Verified Grower badge', '100 inventory items', 'Wishlist matching', '5 digital passports/mo', '4% transaction fee'],
@@ -49,7 +51,8 @@ const tierConfig = {
     name: 'Pro Grower',
     badge: '★ Pro',
     badgeClass: 'pro-tier-badge',
-    price: '$59/mo or $599/yr',
+    monthlyPrice: '$59/mo',
+    annualPrice: '$599/yr',
     color: 'rgba(20,90,67,0.3)',
     borderColor: 'rgba(212,175,55,0.3)',
     perks: ['500 inventory items', 'Premium map placement', 'Newsletter features', '20 digital passports/mo', '3% transaction fee'],
@@ -93,6 +96,7 @@ export default function OnboardingFlow() {
     locationCountry: 'USA',
     specialties: [],
     logoUrl: '',
+    billingPeriod: 'annual',
   });
 
   const update = (key: keyof FormData, value: string | string[]) =>
@@ -197,6 +201,11 @@ function StepTier({ form, update }: { form: FormData; update: (k: keyof FormData
         <p className="onboarding-subtitle">Start free and upgrade anytime. No credit card required for Seedling.</p>
       </div>
 
+      <div className="billing-toggle" style={{ marginBottom: '1.5rem', transform: 'scale(0.9)', originX: 'center' }}>
+        <button className={`toggle-btn${form.billingPeriod === 'monthly' ? ' active' : ''}`} onClick={() => update('billingPeriod', 'monthly')}>Monthly</button>
+        <button className={`toggle-btn${form.billingPeriod === 'annual' ? ' active' : ''}`} onClick={() => update('billingPeriod', 'annual')}>Annual <span className="save-tag">Save 15%</span></button>
+      </div>
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         {(Object.keys(tierConfig) as Tier[]).map(tier => {
           const cfg = tierConfig[tier];
@@ -222,7 +231,9 @@ function StepTier({ form, update }: { form: FormData; update: (k: keyof FormData
                   <span className={cfg.badgeClass}>{cfg.badge}</span>
                   <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: isSelected ? 'var(--text-primary)' : 'var(--text-primary)' }}>{cfg.name}</span>
                 </div>
-                <span style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 600 }}>{cfg.price}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 600 }}>
+                  {tier === 'seedling' ? 'Free' : (tier === 'elite' ? '$999' : (form.billingPeriod === 'annual' ? cfg.annualPrice : cfg.monthlyPrice))}
+                </span>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                 {cfg.perks.map(p => (
@@ -401,17 +412,25 @@ function StepReview({ form }: { form: FormData }) {
         </div>
       )}
 
-      {form.tier === 'elite' ? (
+      {form.tier !== 'seedling' ? (
         <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
-          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '0.5rem' }}>Secure Your Elite Seat</h3>
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '0.5rem' }}>
+            {form.tier === 'elite' ? 'Secure Your Elite Seat' : `Activate Your ${tierConfig[form.tier].name} Status`}
+          </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-            Pay once. Own your legacy. Lifetime access and 0% transaction fees start immediately after payment.
+            {form.tier === 'elite' 
+              ? 'Pay once. Own your legacy. Lifetime access and 0% transaction fees start immediately.'
+              : `Your ${form.billingPeriod} subscription will begin immediately after payment.`}
           </p>
           <PaypalButton 
-            amount="999.00" 
+            amount={form.tier === 'elite' ? '999.00' : undefined}
+            planId={form.tier === 'elite' ? undefined : (
+              form.tier === 'verified' 
+                ? (form.billingPeriod === 'annual' ? process.env.NEXT_PUBLIC_PAYPAL_PLAN_VERIFIED_ANNUAL : process.env.NEXT_PUBLIC_PAYPAL_PLAN_VERIFIED_MONTHLY)
+                : (form.billingPeriod === 'annual' ? process.env.NEXT_PUBLIC_PAYPAL_PLAN_PRO_ANNUAL : process.env.NEXT_PUBLIC_PAYPAL_PLAN_PRO_MONTHLY)
+            )}
             onSuccess={(details) => {
               console.log("Payment Successful:", details);
-              // In a real app, you'd verify this on the server and update the DB
               setStep('success');
             }}
             onError={(err) => {
@@ -420,19 +439,9 @@ function StepReview({ form }: { form: FormData }) {
           />
         </div>
       ) : (
-        <>
-          {form.tier !== 'seedling' && (
-            <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
-              After submitting, our team will review your application within 48 hours.<br />
-              You&apos;ll receive payment instructions via email once approved.
-            </p>
-          )}
-          {form.tier === 'seedling' && (
-            <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
-              Your free profile will be live within minutes. No credit card required.
-            </p>
-          )}
-        </>
+        <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
+          Your free profile will be live within minutes. No credit card required.
+        </p>
       )}
     </div>
   );
