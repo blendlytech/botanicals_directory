@@ -1,12 +1,19 @@
 // scripts/setup_paypal_plans.mjs
 import fetch from 'node-fetch';
 
-const CLIENT_ID = 'ARR05eto46Y5jMRTRTZYv7_MHG44U4sER0eLCVS6U48GcOcIoYNetP1s7L2E0tMCZyA64P3KFkIJoXRv';
-const SECRET = 'EMw-KOb8D-Cg89Z7adYJMcvNu3cAtojcHIEWWwvcpYAVi8pH3TNesxQ3CtQogXfBVqoT1yLpgVxK7Nmj';
+// Use environment variables for PayPal credentials
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
+const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
+
+if (!PAYPAL_CLIENT_ID || !PAYPAL_SECRET) {
+  console.error("Missing PAYPAL_CLIENT_ID or PAYPAL_SECRET in environment variables.");
+  process.exit(1);
+}
+
 const BASE_URL = 'https://api-m.paypal.com'; // LIVE URL
 
 async function getAccessToken() {
-  const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString('base64');
+  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString('base64');
   const response = await fetch(`${BASE_URL}/v1/oauth2/token`, {
     method: 'POST',
     body: 'grant_type=client_credentials',

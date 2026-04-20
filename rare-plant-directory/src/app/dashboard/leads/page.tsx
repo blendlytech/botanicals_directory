@@ -1,101 +1,167 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
 
-// Mock data for demonstration
-const mockLeads = [
-  {
-    id: '1',
-    species: 'Monstera Obliqua Peru',
-    user: 'Collector #842',
-    tier: 'Elite Exclusive',
-    time: '2h ago',
-    status: 'Instant Match',
-    value: '$450 - $600',
-    isElite: true,
-  },
-  {
-    id: '2',
-    species: 'Anthurium Regale',
-    user: 'Collector #129',
-    tier: 'Standard',
-    time: '26h ago',
-    status: 'Released',
-    value: '$120 - $180',
-    isElite: false,
-  },
-  {
-    id: '3',
-    species: 'Philodendron Spiritus Sancti',
-    user: 'Collector #004',
-    tier: 'Elite Exclusive',
-    time: '5h ago',
-    status: 'Instant Match',
-    value: '$1,200+',
-    isElite: true,
-  }
-];
+interface Lead {
+  id: string;
+  created_at: string;
+  general_notified_at: string | null;
+  elite_notified_at: string | null;
+  wishlists: { species_name: string; user_id: string } | null;
+  inventory: { species_name: string; variety: string | null; price: number | null } | null;
+}
 
 export default function LeadsDashboard() {
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [vendorTier, setVendorTier] = useState('seedling');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { window.location.href = '/login'; return; }
+
+      const { data: vendor } = await supabase
+        .from('vendors')
+        .select('id, tier')
+        .eq('contact_email', user.email)
+        .single();
+
+      if (!vendor) { setLoading(false); return; }
+      setVendorTier(vendor.tier || 'seedling');
+
+      // Fetch leads for this vendor
+      const { data } = await supabase
+        .from('wishlist_matches')
+        .select(`
+          id, created_at, general_notified_at, elite_notified_at,
+          wishlists(species_name, user_id),
+          inventory(species_name, variety, price)
+        `)
+        .eq('vendor_id', vendor.id)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      setLeads(data || []);
+      setLoading(false);
+    }
+    load();
+  }, []);
+
+  const timeAgo = (iso: string) => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const hrs = Math.floor(diff / 3600000);
+    if (hrs < 1) return 'Just now';
+    if (hrs < 24) return `${hrs}h ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
+  };
+
+  const navItems = [
+    { href: '/dashboard', label: '⚡ Overview' },
+    { href: '/dashboard/inventory', label: '🌿 Inventory' },
+    { href: '/dashboard/leads', label: '🎯 Leads', active: true },
+    { href: '/dashboard/settings', label: '⚙️ Settings' },
+  ];
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ color: 'var(--text-secondary)' }}>Loading leads...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="onboarding-container" style={{ padding: '6rem 5% 4rem' }}>
-      <div className="onboarding-header">
-        <h1 className="onboarding-title">Market <em>Intelligence</em></h1>
-        <p className="onboarding-subtitle">Real-time leads from the collector wishlist network.</p>
-      </div>
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {/* Sidebar */}
+      <aside style={{ width: '240px', flexShrink: 0, background: 'var(--bg-surface)', borderRight: '1px solid var(--glass-border)', padding: '7rem 1.5rem 2rem' }}>
+        {navItems.map(item => (
+          <Link key={item.href} href={item.href} style={{
+            display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none',
+            fontSize: '0.88rem', fontWeight: item.active ? 700 : 500,
+            color: item.active ? 'var(--text-primary)' : 'var(--text-secondary)',
+            background: item.active ? 'rgba(255,255,255,0.07)' : 'transparent',
+            marginBottom: '0.25rem',
+          }}>
+            {item.label}
+          </Link>
+        ))}
+        <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
+          <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            ← Directory
+          </Link>
+        </div>
+      </aside>
 
-      <div style={{ width: '100%', maxWidth: '1000px', display: 'grid', gridTemplateColumns: '1fr 300px', gap: '2rem' }}>
-        
-        {/* LEADS LIST */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {mockLeads.map((lead) => (
-            <div key={lead.id} className="onboarding-card" style={{ padding: '1.5rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                   {lead.isElite && <span className="elite-badge" style={{ fontSize: '0.6rem' }}>✦ Elite Lead</span>}
-                   <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{lead.time}</span>
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', color: 'var(--text-primary)' }}>{lead.species}</h3>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Interested Buyer: {lead.user}</p>
-              </div>
-              
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '1.1rem', color: 'var(--gold)', fontWeight: 700, marginBottom: '0.25rem' }}>{lead.value}</div>
-                <button className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.7rem' }}>Contact Buyer</button>
-              </div>
-            </div>
-          ))}
+      {/* Main */}
+      <main style={{ flex: 1, padding: '7rem 3rem 4rem', maxWidth: '900px' }}>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.4rem' }}>
+            Market Intelligence
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', margin: 0, color: 'var(--text-primary)' }}>Wishlist Leads</h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.4rem' }}>
+            Real-time matches from the collector wishlist network.
+            {vendorTier === 'elite' && <span style={{ color: 'var(--gold)', fontWeight: 600 }}> · Elite 24hr priority active</span>}
+          </p>
         </div>
 
-        {/* ANALYTICS MINI-PANEL */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div className="onboarding-card" style={{ padding: '1.5rem' }}>
-            <h4 style={{ fontFamily: 'var(--font-heading)', color: 'var(--gold)', marginBottom: '1rem' }}>Trending Now</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div style={{ fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
-                <span>Anthurium</span>
-                <span style={{ color: 'var(--emerald)' }}>+24% ↑</span>
-              </div>
-              <div style={{ fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
-                <span>Variegated Labisia</span>
-                <span style={{ color: 'var(--emerald)' }}>+18% ↑</span>
-              </div>
-              <div style={{ fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
-                <span>Alocasia</span>
-                <span style={{ color: 'var(--text-secondary)' }}>-5% ↓</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="onboarding-card" style={{ padding: '1.5rem', background: 'var(--gold-dim)', borderColor: 'var(--gold)' }}>
-            <h4 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.5rem' }}>Elite Advantage</h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
-              You are seeing <strong>2 Elite Exclusive</strong> leads. These will not be visible to Standard or Verified vendors for another 18 hours.
+        {leads.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '5rem 2rem', background: 'var(--bg-surface)', borderRadius: '16px', border: '1px dashed var(--glass-border)' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.4 }}>🎯</div>
+            <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>No leads yet</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '2rem', maxWidth: '400px', margin: '0 auto 2rem' }}>
+              When collectors add plants to their wishlist that match your inventory, leads will appear here automatically.
             </p>
+            <Link href="/dashboard/inventory" className="btn-primary" style={{ textDecoration: 'none' }}>
+              Add Inventory to Get Matched
+            </Link>
           </div>
-        </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {leads.map(lead => {
+              const isEliteLead = lead.elite_notified_at && !lead.general_notified_at;
+              const species = lead.inventory?.species_name || lead.wishlists?.species_name || 'Unknown';
+              const variety = lead.inventory?.variety;
+              const price = lead.inventory?.price;
 
-      </div>
+              return (
+                <div key={lead.id} style={{
+                  background: isEliteLead ? 'rgba(212,175,55,0.04)' : 'var(--bg-surface)',
+                  border: `1px solid ${isEliteLead ? 'rgba(212,175,55,0.25)' : 'var(--glass-border)'}`,
+                  borderRadius: '10px', padding: '1.25rem 1.5rem',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem',
+                }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.4rem' }}>
+                      {isEliteLead && <span className="elite-badge" style={{ fontSize: '0.6rem' }}>✦ Elite Lead</span>}
+                      <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{timeAgo(lead.created_at)}</span>
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+                      {species}
+                      {variety && <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginLeft: '0.5rem' }}>var. {variety}</span>}
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                      Collector wishlist match · {lead.wishlists?.user_id ? `User ${lead.wishlists.user_id.substring(0, 8)}` : 'Anonymous'}
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    {price && (
+                      <div style={{ fontSize: '1.1rem', color: 'var(--gold)', fontWeight: 700, marginBottom: '0.4rem' }}>
+                        ${price.toFixed(2)}
+                      </div>
+                    )}
+                    <span style={{ fontSize: '0.72rem', color: isEliteLead ? 'var(--gold)' : '#2ecc71', fontWeight: 600 }}>
+                      {isEliteLead ? '✦ Exclusive window' : '● Available'}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </main>
     </div>
   );
 }

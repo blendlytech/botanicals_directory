@@ -1,4 +1,9 @@
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
+import Link from "next/link";
+import NewsletterForm from "@/app/components/NewsletterForm";
+
+export const revalidate = 60;
 
 /* ── SVG LEAF DECORATIONS ── */
 function LeafSVG({ size = 200, opacity = 0.06 }: { size?: number; opacity?: number }) {
@@ -48,57 +53,14 @@ const tickerItems = [
   { label: "CultivarID Scans", value: "2.1M Completed" },
 ];
 
-/* ── EVENT DATA ── */
-const events = [
-  {
-    id: "plantcon-houston",
-    date: "May 15–16, 2026",
-    title: "PlantCon Houston 2026",
-    location: "NRG Arena, Houston, TX",
-    desc: "The largest plant hobbyist convention in the world. 200+ premium vendors. Exclusive collector's auction nightly.",
-    vendors: 42,
-    badge: "VIP · Selling Fast",
-    badgeClass: "",
-    gradient: "linear-gradient(145deg, #0B3D2E 0%, #145A43 100%)",
-    emoji: "🌿",
-  },
-  {
-    id: "texas-aroid",
-    date: "June 8, 2026",
-    title: "Texas Aroid Show",
-    location: "Berry Center, Cypress, TX",
-    desc: "Hyper-focused on rare aroids. Meet specialized regional nurseries, expert breeders, and the rarest Philodendrons.",
-    vendors: 15,
-    badge: "Specialist Show",
-    badgeClass: "",
-    gradient: "linear-gradient(145deg, #1a3a2a 0%, #D4AF37 200%)",
-    emoji: "🪴",
-  },
-  {
-    id: "botanicals-brews",
-    date: "July 22, 2026",
-    title: "Botanicals & Brews",
-    location: "Mayflower Brewing Co, Plymouth, MA",
-    desc: "A curated lifestyle market blending uncommon botanical vendors with craft beverages. New England's finest growers.",
-    vendors: 8,
-    badge: "Lifestyle Event",
-    badgeClass: "sold",
-    gradient: "linear-gradient(145deg, #1a2a1a 0%, #4a7a3a 100%)",
-    emoji: "🍃",
-  },
-];
-
-/* ── VENDOR DATA ── */
-const vendors = [
-  { name: "Verdant Roots Co.", specialty: "Rare Aroids", location: "Austin, TX", initials: "VR", events: 12, isElite: true },
-  { name: "The Philodendron Lab", specialty: "Philodendrons", location: "Portland, OR", initials: "PL", events: 8, isElite: false },
-  { name: "Monstera Collective", specialty: "Monstera & Variegates", location: "Miami, FL", initials: "MC", events: 19, isElite: false },
-  { name: "Botanical Cipher", specialty: "Orchids & Epiphytes", location: "Seattle, WA", initials: "BC", events: 5, isElite: false },
-  { name: "Deep Forest Nursery", specialty: "Hoya Specialists", location: "Denver, CO", initials: "DF", events: 7, isElite: false },
-  { name: "Apex Aroids", specialty: "Anthurium & Alocasia", location: "Atlanta, GA", initials: "AA", events: 14, isElite: false },
-  { name: "The Green Vault", specialty: "Caudiciforms", location: "Phoenix, AZ", initials: "GV", events: 3, isElite: false },
-  { name: "Jungle Dispatch", specialty: "Ferns & Selaginella", location: "New Orleans, LA", initials: "JD", events: 6, isElite: false },
-];
+const typeGradients: Record<string, string> = {
+  Expo: "linear-gradient(145deg, #0B3D2E 0%, #145A43 100%)",
+  Conference: "linear-gradient(145deg, #1a3a2a 0%, #2a5a3a 100%)",
+  Festival: "linear-gradient(145deg, #1a2a3a 0%, #2a3a5a 100%)",
+  Showcase: "linear-gradient(145deg, #2a1a3a 0%, #3a2a5a 100%)",
+  Exhibition: "linear-gradient(145deg, #3a2a1a 0%, #5a4a2a 100%)",
+  Swap: "linear-gradient(145deg, #1a3a2a 0%, #4a7a3a 100%)",
+};
 
 /* ── FEATURES ── */
 const features = [
@@ -134,7 +96,24 @@ const features = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  // Fetch live data from Supabase
+  const { data: dbEvents } = await supabase
+    .from('events')
+    .select('id, title, slug, description, event_type, is_featured, location_name, location_address, date_start, date_end')
+    .order('is_featured', { ascending: false })
+    .order('date_start', { ascending: true })
+    .limit(3);
+
+  const { data: dbVendors } = await supabase
+    .from('vendors')
+    .select('id, name, slug, specialty, location_city, location_state, tier, is_elite, is_verified')
+    .eq('is_verified', true)
+    .order('is_elite', { ascending: false })
+    .limit(8);
+
+  const events = dbEvents || [];
+  const vendors = dbVendors || [];
   return (
     <main>
       {/* ═══════════════════════════════════════ HERO ═══ */}
@@ -170,7 +149,7 @@ export default function Home() {
 
         <div className="hero-actions">
           <button className="btn-primary" id="hero-find-event-btn">Find an Event Near Me</button>
-          <button className="btn-ghost" id="hero-browse-vendors-btn">Browse Verified Vendors</button>
+          <a href="/vendors" className="btn-ghost" id="hero-browse-vendors-btn" style={{ textDecoration: 'none' }}>Browse Verified Vendors</a>
         </div>
 
         <div className="hero-seal">
@@ -243,52 +222,46 @@ export default function Home() {
         </div>
 
         <div className="events-grid">
-          {events.map((ev) => (
-            <div className="event-card" key={ev.id} id={`event-${ev.id}`}>
-              <div className="event-card-image">
-                <div
-                  className="event-card-image-bg"
-                  style={{ background: ev.gradient }}
-                >
-                  {/* SVG botanical art per card */}
-                  <MonsteraSVG size={180} opacity={0.18} />
-                  <span style={{
-                    position: "absolute",
-                    fontSize: "4rem",
-                    bottom: "1rem",
-                    right: "1.5rem",
-                    opacity: 0.3,
-                  }}>{ev.emoji}</span>
-                </div>
-                <div className={`event-card-badge${ev.badgeClass ? " " + ev.badgeClass : ""}`}>
-                  {ev.badge}
-                </div>
-              </div>
-              <div className="event-card-body">
-                <div className="event-card-date">{ev.date}</div>
-                <h3 className="event-card-title">{ev.title}</h3>
-                <div className="event-card-location">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                  </svg>
-                  {ev.location}
-                </div>
-                <p className="event-card-desc">{ev.desc}</p>
-                <div className="event-card-footer">
-                  <div className="vendor-count">
-                    <strong>{ev.vendors}</strong> Vendor Previews Available
-                  </div>
-                  <button className="btn-primary" id={`event-view-btn-${ev.id}`} style={{ padding: "0.6rem 1.25rem", fontSize: "0.72rem" }}>
-                    View Event →
-                  </button>
-                </div>
-              </div>
+          {events.length === 0 && (
+            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
+              Events coming soon — check the <Link href="/events" style={{ color: 'var(--gold)' }}>full calendar</Link>.
             </div>
-          ))}
+          )}
+          {events.map((ev) => {
+            const gradient = typeGradients[ev.event_type] || typeGradients.Expo;
+            const location = ev.location_name || ev.location_address || 'Location TBA';
+            return (
+              <Link href={`/events/${ev.slug}`} className="event-card" key={ev.id} id={`event-${ev.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+                <div className="event-card-image">
+                  <div className="event-card-image-bg" style={{ background: gradient }}>
+                    <MonsteraSVG size={180} opacity={0.18} />
+                  </div>
+                  <div className={`event-card-badge${ev.is_featured ? '' : ' sold'}`}>
+                    {ev.event_type || 'Event'}
+                  </div>
+                </div>
+                <div className="event-card-body">
+                  <div className="event-card-date">{ev.date_start || 'Date TBA'}</div>
+                  <h3 className="event-card-title">{ev.title}</h3>
+                  <div className="event-card-location">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                    </svg>
+                    {location}
+                  </div>
+                  {ev.description && <p className="event-card-desc">{ev.description}</p>}
+                  <div className="event-card-footer">
+                    <div className="vendor-count">View Vendor Roster</div>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 600 }}>View Event →</span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <button className="btn-ghost" id="view-all-events-btn">View All 120 Events This Season</button>
+          <Link href="/events" className="btn-ghost" id="view-all-events-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>View All Events This Season</Link>
         </div>
       </section>
 
@@ -302,31 +275,42 @@ export default function Home() {
         </div>
 
         <div className="vendors-grid">
-          {vendors.map((v) => (
-            <div className="vendor-card" key={v.name} id={`vendor-${v.initials.toLowerCase()}`}>
-              <div className="vendor-avatar">{v.initials}</div>
-              <div className="vendor-name">{v.name}</div>
-              <div className="vendor-specialty">{v.specialty}</div>
-              <div className="vendor-location">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: "inline", marginRight: "4px" }}>
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                </svg>
-                {v.location}
-              </div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
-                {v.isElite ? (
-                  <span className="elite-badge">✦ Elite Grower</span>
-                ) : (
-                  <span className="verified-badge">✓ Verified Grower</span>
-                )}
-                <span style={{ fontSize: "0.72rem", color: "var(--sand)", opacity: 0.55 }}>{v.events} shows</span>
-              </div>
+          {vendors.length === 0 && (
+            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
+              <Link href="/onboarding" style={{ color: 'var(--gold)' }}>Be the first verified vendor</Link> on the directory.
             </div>
-          ))}
+          )}
+          {vendors.map((v) => {
+            const initials = v.name ? v.name.substring(0, 2).toUpperCase() : 'V';
+            const location = [v.location_city, v.location_state].filter(Boolean).join(', ');
+            return (
+              <Link href={`/vendors/${v.slug}`} className="vendor-card" key={v.id} id={`vendor-${v.id}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
+                <div className="vendor-avatar">{initials}</div>
+                <div className="vendor-name">{v.name}</div>
+                <div className="vendor-specialty">
+                  {Array.isArray(v.specialty) ? v.specialty.slice(0, 2).join(', ') : v.specialty || 'Rare Plants'}
+                </div>
+                {location && (
+                  <div className="vendor-location">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: 'inline', marginRight: '4px' }}>
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                    </svg>
+                    {location}
+                  </div>
+                )}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
+                  {v.is_elite
+                    ? <span className="elite-badge">✦ Elite Grower</span>
+                    : <span className="verified-badge">✓ Verified Grower</span>
+                  }
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <button className="btn-ghost" id="browse-all-vendors-btn">Browse All 847 Verified Vendors</button>
+          <a href="/vendors" className="btn-ghost" id="browse-all-vendors-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Browse All Verified Vendors</a>
         </div>
       </section>
 
@@ -391,14 +375,8 @@ export default function Home() {
         <p style={{ position: "relative" }}>
           Get early access to event listings, exclusive vendor inventory previews, and CultivarID alerts — before general release.
         </p>
-        <div className="newsletter-form" style={{ position: "relative" }}>
-          <input
-            id="newsletter-email-input"
-            type="email"
-            className="newsletter-input"
-            placeholder="your@email.com"
-          />
-          <button className="btn-primary" id="newsletter-submit-btn">Subscribe</button>
+        <div style={{ position: "relative", width: "100%", maxWidth: "500px" }}>
+          <NewsletterForm />
         </div>
         <p style={{
           position: "relative",

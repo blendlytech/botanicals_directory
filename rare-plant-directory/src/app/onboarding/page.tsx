@@ -115,9 +115,18 @@ export default function OnboardingFlow() {
   const back = () => setStep(s => Math.max(s - 1, 1));
 
   const handleSubmit = async () => {
-    // Future: POST to Supabase via /api/onboarding
-    console.log('Submitting:', form);
-    setSubmitted(true);
+    try {
+      const res = await fetch('/api/onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      if (!res.ok) throw new Error('Failed to submit application');
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Onboarding error:', error);
+      alert('There was an error submitting your application. Please try again.');
+    }
   };
 
   if (submitted) return <SuccessScreen form={form} />;
@@ -156,7 +165,7 @@ export default function OnboardingFlow() {
         {step === 1 && <StepTier form={form} update={update} />}
         {step === 2 && <StepProfile form={form} update={update} />}
         {step === 3 && <StepSpecialties form={form} toggleSpecialty={toggleSpecialty} update={update} />}
-        {step === 4 && <StepReview form={form} />}
+        {step === 4 && <StepReview form={form} onSubmit={handleSubmit} />}
 
         {/* Navigation */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2.5rem', gap: '1rem' }}>
@@ -369,7 +378,7 @@ function StepSpecialties({ form, toggleSpecialty, update }: {
 }
 
 /* ─── STEP 4: REVIEW ─── */
-function StepReview({ form }: { form: FormData }) {
+function StepReview({ form, onSubmit }: { form: FormData; onSubmit: () => void }) {
   const cfg = tierConfig[form.tier];
   return (
     <div>
@@ -431,7 +440,7 @@ function StepReview({ form }: { form: FormData }) {
             )}
             onSuccess={(details) => {
               console.log("Payment Successful:", details);
-              setStep('success');
+              onSubmit();
             }}
             onError={(err) => {
               alert("Payment failed. Please try again or contact support.");
