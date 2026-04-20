@@ -25,8 +25,8 @@ const eliteBenefits = [
   },
   {
     icon: "💰",
-    title: "Reduced Transaction Fees",
-    desc: "Elite vendors pay a reduced 2% platform fee on all marketplace transactions, compared to the standard 5%. The savings compound fast at volume.",
+    title: "Zero Transaction Fees",
+    desc: "Elite vendors pay 0% platform fees on all marketplace transactions for life. You keep 100% of your revenue, ensuring maximum ROI at any volume.",
   },
   {
     icon: "📊",
@@ -192,15 +192,15 @@ export default function ForVendors() {
         <div className="roi-grid">
           <div className="roi-card">
             <div className="roi-number">$999</div>
-            <div className="roi-label">Annual Investment</div>
+            <div className="roi-label">One-Time Investment</div>
           </div>
           <div className="roi-card">
             <div className="roi-number" style={{ color: "#fff" }}>→</div>
             <div className="roi-label">Converts Into</div>
           </div>
           <div className="roi-card">
-            <div className="roi-number">3%</div>
-            <div className="roi-label">Reduced Platform Fees</div>
+            <div className="roi-number">0%</div>
+            <div className="roi-label">Lifetime Platform Fees</div>
           </div>
           <div className="roi-card">
             <div className="roi-number">24hr</div>
@@ -229,7 +229,7 @@ export default function ForVendors() {
         </p>
         <div style={{ position: "relative", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
           <button className="btn-primary" id="final-apply-btn" style={{ padding: "1rem 2.5rem", fontSize: "0.85rem" }}>
-            Apply for Elite — $999/yr
+            Claim Your Elite Seat — $999 One-Time
           </button>
         </div>
         <p style={{ position: "relative", fontSize: "0.72rem", color: "var(--sand)", opacity: 0.4, marginTop: "1.5rem" }}>

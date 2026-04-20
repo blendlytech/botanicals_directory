@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import PaypalButton from '../components/PaypalButton';
 
 /* ─── TYPES ─── */
 type Tier = 'seedling' | 'verified' | 'pro' | 'elite';
@@ -400,16 +401,38 @@ function StepReview({ form }: { form: FormData }) {
         </div>
       )}
 
-      {form.tier !== 'seedling' && (
-        <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
-          After submitting, our team will review your application within 48 hours.<br />
-          You&apos;ll receive payment instructions via email once approved.
-        </p>
-      )}
-      {form.tier === 'seedling' && (
-        <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
-          Your free profile will be live within minutes. No credit card required.
-        </p>
+      {form.tier === 'elite' ? (
+        <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '0.5rem' }}>Secure Your Elite Seat</h3>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+            Pay once. Own your legacy. Lifetime access and 0% transaction fees start immediately after payment.
+          </p>
+          <PaypalButton 
+            amount="999.00" 
+            onSuccess={(details) => {
+              console.log("Payment Successful:", details);
+              // In a real app, you'd verify this on the server and update the DB
+              setStep('success');
+            }}
+            onError={(err) => {
+              alert("Payment failed. Please try again or contact support.");
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          {form.tier !== 'seedling' && (
+            <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
+              After submitting, our team will review your application within 48 hours.<br />
+              You&apos;ll receive payment instructions via email once approved.
+            </p>
+          )}
+          {form.tier === 'seedling' && (
+            <p style={{ marginTop: '1.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500, textAlign: 'center', lineHeight: 1.6 }}>
+              Your free profile will be live within minutes. No credit card required.
+            </p>
+          )}
+        </>
       )}
     </div>
   );
@@ -429,12 +452,14 @@ function SuccessScreen({ form }: { form: FormData }) {
         </div>
 
         <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-          {form.tier === 'seedling' ? "You're Listed!" : 'Application Received!'}
+          {form.tier === 'seedling' ? "You're Listed!" : (form.tier === 'elite' ? 'Welcome, Founder!' : 'Application Received!')}
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontWeight: 500, lineHeight: 1.7, marginBottom: '2.5rem' }}>
           {form.tier === 'seedling'
-            ? `Welcome to Rare Plant Vendors, ${form.businessName || form.ownerName}! Your free profile is being created. Check your email at ${form.email} to confirm and access your dashboard.`
-            : `Thank you, ${form.businessName || form.ownerName}! We've received your ${cfg.name} application. Our team will review it within 48 hours and send payment instructions to ${form.email}.`
+            ? `Welcome to Rare Plant Vendors, ${form.businessName || form.ownerName}! Your free profile is being created. Check your email at ${form.email} to confirm.`
+            : (form.tier === 'elite'
+                ? `Congratulations, ${form.businessName || form.ownerName}! You are officially Elite Founder #${Math.floor(Math.random() * 100) + 1}. Your lifetime access is active. Check your email for your digital certificate and dashboard login.`
+                : `Thank you, ${form.businessName || form.ownerName}! We've received your ${cfg.name} application. Our team will review it within 48 hours and send payment instructions to ${form.email}.`)
           }
         </p>
 
