@@ -122,28 +122,61 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
 
         {vendors.length > 0 ? (
           <div className="vendors-grid">
-            {vendors.map((v: any) => {
-              const initials = v.name ? v.name.substring(0, 2).toUpperCase() : "V";
+            {vendors.map((v: any, idx: number) => {
+              const initials = v.name ? v.name.substring(0, 1).toUpperCase() : "V";
               const loc = [v.location_city, v.location_state].filter(Boolean).join(", ");
+              
+              // Premium background images for verified vendors
+              const backgrounds = [
+                'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800',
+                'https://images.unsplash.com/photo-1520412099561-63819215bb01?auto=format&fit=crop&q=80&w=800',
+                'https://images.unsplash.com/photo-1466781783364-391eaf50cf2a?auto=format&fit=crop&q=80&w=800',
+                'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=800'
+              ];
+              const bgImage = backgrounds[idx % backgrounds.length];
+
               return (
-                <Link href={`/vendors/${v.slug}`} key={v.id} className="vendor-card" style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}>
-                  {v.logo_url ? (
-                    <div style={{ width: 56, height: 56, borderRadius: "50%", overflow: "hidden", marginBottom: "0.75rem", border: "1px solid var(--glass-border)" }}>
-                      <Image src={v.logo_url} alt={v.name} width={56} height={56} style={{ objectFit: "cover" }} />
-                    </div>
-                  ) : (
-                    <div className="vendor-avatar" style={{ width: 56, height: 56, fontSize: "1.1rem", marginBottom: "0.75rem" }}>{initials}</div>
+                <Link 
+                  href={`/vendors/${v.slug}`} 
+                  key={v.id} 
+                  className={`vendor-card ${v.is_verified ? 'is-verified' : ''}`}
+                  style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}
+                >
+                  {v.is_verified && (
+                    <>
+                      <div className="vendor-card-image-bg">
+                        <img src={bgImage} alt="" aria-hidden="true" />
+                      </div>
+                      <div className="vendor-card-overlay"></div>
+                    </>
                   )}
-                  <div className="vendor-name">{v.name}</div>
-                  <div className="vendor-specialty">
-                    {Array.isArray(v.specialty) ? v.specialty.slice(0, 2).join(", ") : v.specialty || "Rare Plants"}
-                  </div>
-                  {loc && <div className="vendor-location">📍 {loc}</div>}
-                  <div style={{ marginTop: "auto", paddingTop: "0.75rem" }}>
-                    {v.is_elite
-                      ? <span className="elite-badge" style={{ fontSize: "0.62rem" }}>✦ Elite Grower</span>
-                      : <span className="verified-badge" style={{ fontSize: "0.62rem" }}>✓ Verified</span>
-                    }
+
+                  <div className="vendor-card-content">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                      {v.logo_url ? (
+                        <div style={{ width: 56, height: 56, borderRadius: "50%", overflow: "hidden", border: "1px solid var(--glass-border)", background: '#fff' }}>
+                          <Image src={v.logo_url} alt={v.name} width={56} height={56} style={{ objectFit: "cover" }} />
+                        </div>
+                      ) : (
+                        <div className="vendor-avatar" style={{ width: 56, height: 56, fontSize: "1.1rem" }}>{initials}</div>
+                      )}
+                      
+                      {v.is_verified && (
+                        <span className="verified-badge" style={{ fontSize: "0.62rem" }}><ShieldCheck size={10} /> Verified</span>
+                      )}
+                    </div>
+
+                    <div className="vendor-name" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>{v.name}</div>
+                    <div className="vendor-specialty" style={{ fontSize: '0.7rem', marginBottom: '0.5rem' }}>
+                      {Array.isArray(v.specialty) ? v.specialty.slice(0, 2).join(", ") : v.specialty || "Rare Plants"}
+                    </div>
+                    {loc && <div className="vendor-location" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>📍 {loc}</div>}
+                    
+                    <div style={{ marginTop: "auto", paddingTop: "0.75rem" }}>
+                      {v.is_elite && (
+                        <span className="elite-badge" style={{ fontSize: "0.62rem", display: 'inline-flex' }}>✦ Elite Grower</span>
+                      )}
+                    </div>
                   </div>
                 </Link>
               );

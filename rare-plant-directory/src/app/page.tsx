@@ -190,43 +190,68 @@ export default async function Home() {
         </div>
 
         <div className="vendors-grid" style={{ gap: '2rem' }}>
-          {vendors.map((v) => (
-            <Link href={`/vendors/${v.slug}`} key={v.slug} className="vendor-card" style={{ 
-              display: 'block',
-              padding: '2.5rem',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--glass-border)'
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
-                <div className="vendor-avatar" style={{ width: '64px', height: '64px', fontSize: '1.5rem' }}>
-                  {v.name.charAt(0)}
-                </div>
-                {v.is_verified ? (
-                  <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
-                ) : (
-                  <span className="elite-badge" style={{ background: 'var(--charcoal)', color: 'var(--gold)', opacity: 0.6 }}><Lock size={12} /> Unclaimed</span>
+          {vendors.map((v, idx) => {
+            // Premium background images for verified vendors
+            const backgrounds = [
+              'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1520412099561-63819215bb01?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1466781783364-391eaf50cf2a?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=800'
+            ];
+            const bgImage = backgrounds[idx % backgrounds.length];
+
+            return (
+              <Link 
+                href={`/vendors/${v.slug}`} 
+                key={v.slug} 
+                className={`vendor-card ${v.is_verified ? 'is-verified' : ''}`}
+                style={{ 
+                  display: 'flex',
+                  padding: '2.5rem',
+                  textDecoration: 'none'
+                }}
+              >
+                {v.is_verified && (
+                  <>
+                    <div className="vendor-card-image-bg">
+                      <img src={bgImage} alt="" aria-hidden="true" />
+                    </div>
+                    <div className="vendor-card-overlay"></div>
+                  </>
                 )}
-              </div>
-              <h3 className="vendor-name" style={{ fontSize: '1.5rem' }}>{v.name}</h3>
-              <p className="vendor-specialty" style={{ fontSize: '0.8rem', opacity: 0.7 }}>{v.specialty || 'Rare Plant Specialist'}</p>
-              
-              <div style={{ 
-                marginTop: '2rem', 
-                paddingTop: '1.5rem', 
-                borderTop: '1px solid var(--glass-border)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.7rem',
-                fontWeight: 700,
-                color: 'var(--gold)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em'
-              }}>
-                View Profile <ChevronRight size={14} />
-              </div>
-            </Link>
-          ))}
+
+                <div className="vendor-card-content" style={{ width: '100%' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+                    <div className="vendor-avatar" style={{ width: '64px', height: '64px', fontSize: '1.5rem' }}>
+                      {v.name.charAt(0)}
+                    </div>
+                    {v.is_verified ? (
+                      <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
+                    ) : (
+                      <span className="elite-badge" style={{ background: 'var(--charcoal)', color: 'var(--gold)', opacity: 0.6 }}><Lock size={12} /> Unclaimed</span>
+                    )}
+                  </div>
+                  <h3 className="vendor-name" style={{ fontSize: '1.5rem' }}>{v.name}</h3>
+                  <p className="vendor-specialty" style={{ fontSize: '0.8rem', opacity: 0.7 }}>{v.specialty || 'Rare Plant Specialist'}</p>
+                  
+                  <div style={{ 
+                    marginTop: 'auto', 
+                    paddingTop: '1.5rem', 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    color: 'var(--gold)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em'
+                  }}>
+                    View Profile <ChevronRight size={14} />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

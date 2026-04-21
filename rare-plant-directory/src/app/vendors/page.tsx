@@ -54,13 +54,34 @@ export default async function VendorsPage() {
 
         {/* Vendor Grid */}
         <div className="vendors-grid">
-          {vendorsList.map((v) => {
+          {vendorsList.map((v, idx) => {
             const location = [v.location_city, v.location_state || v.location_country].filter(Boolean).join(', ');
             const mockViews = Math.floor(Math.random() * 450) + 120;
+            
+            // Premium background images for verified vendors
+            const backgrounds = [
+              'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1520412099561-63819215bb01?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1466781783364-391eaf50cf2a?auto=format&fit=crop&q=80&w=800',
+              'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=800'
+            ];
+            const bgImage = backgrounds[idx % backgrounds.length];
 
             return (
-              <div key={v.slug} className="vendor-card">
-                <div className="vendor-card-content" style={{ position: 'relative', zIndex: 2 }}>
+              <div 
+                key={v.slug} 
+                className={`vendor-card ${v.is_verified ? 'is-verified' : ''}`}
+              >
+                {v.is_verified && (
+                  <>
+                    <div className="vendor-card-image-bg">
+                      <img src={bgImage} alt="" aria-hidden="true" />
+                    </div>
+                    <div className="vendor-card-overlay"></div>
+                  </>
+                )}
+                
+                <div className="vendor-card-content">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                     <div className="vendor-avatar">
                       {v.name.charAt(0)}
@@ -88,7 +109,7 @@ export default async function VendorsPage() {
                   )}
 
                   {!v.is_verified && (
-                    <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
+                    <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
                       <div style={{ marginBottom: '1rem' }}>
                         <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                           <AlertTriangle size={12} /> Potential Leads
@@ -104,7 +125,7 @@ export default async function VendorsPage() {
                   )}
 
                   {v.is_verified && (
-                    <div style={{ marginTop: '2rem' }}>
+                    <div style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
                       <Link href={`/vendors/${v.slug}`} className="btn-ghost" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
                         View Profile
                       </Link>
