@@ -32,14 +32,7 @@ export default function EventsMapPage() {
         .order('start_date', { ascending: true });
 
       if (data) {
-        // Since we don't have lat/lng in the DB yet, we'll mock them slightly 
-        // around a central area (e.g., US) for demonstration of the map.
-        const eventsWithGeo = data.map((evt, index) => ({
-          ...evt,
-          lat: 39.8283 + (Math.random() * 10 - 5), // Random spread in US
-          lng: -98.5795 + (Math.random() * 20 - 10)
-        }));
-        setEvents(eventsWithGeo);
+        setEvents(data as Event[]);
       }
       setLoading(false);
     }

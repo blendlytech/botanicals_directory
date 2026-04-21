@@ -229,18 +229,58 @@ export default function PassportsDashboard() {
         ) : (
           <div style={{ display: 'grid', gap: '1rem' }}>
             {passports.map(p => (
-              <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-surface)', padding: '1.25rem 1.5rem', borderRadius: '10px', border: '1px solid var(--glass-border)' }}>
-                <div>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', marginBottom: '0.2rem' }}>{p.specimen_name}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                    {p.propagation_method} {p.mother_plant_origin && `· Lineage: ${p.mother_plant_origin}`}
+              <div key={p.id} className="onboarding-card" style={{ 
+                padding: '0', 
+                overflow: 'hidden', 
+                border: '1px solid rgba(212,175,55,0.3)', 
+                background: 'linear-gradient(145deg, rgba(20,20,20,0.95), rgba(11,61,46,0.2))',
+                position: 'relative'
+              }}>
+                <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                      <span style={{ fontSize: '1.5rem' }}>📜</span>
+                      <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', margin: 0, color: 'var(--text-primary)' }}>{p.specimen_name}</h3>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '0.75rem' }}>
+                      <div style={{ fontSize: '0.75rem' }}>
+                        <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Origin:</span>
+                        <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.mother_plant_origin || 'Unknown'}</span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem' }}>
+                        <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Method:</span>
+                        <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.propagation_method}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Authenticity Seal</div>
+                    <div style={{ 
+                      fontFamily: 'monospace', 
+                      fontSize: '0.9rem',
+                      color: 'var(--gold)', 
+                      background: 'rgba(212,175,55,0.1)', 
+                      padding: '0.4rem 0.75rem', 
+                      borderRadius: '4px',
+                      border: '1px solid rgba(212,175,55,0.2)',
+                      boxShadow: '0 0 15px rgba(212,175,55,0.1)'
+                    }}>
+                      {p.verification_hash.toUpperCase()}
+                    </div>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification Hash</div>
-                  <div style={{ fontFamily: 'monospace', color: 'var(--gold)', background: 'rgba(212,175,55,0.1)', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
-                    {p.verification_hash}
-                  </div>
+                <div style={{ 
+                  padding: '0.75rem 1.5rem', 
+                  background: 'rgba(0,0,0,0.3)', 
+                  borderTop: '1px solid var(--glass-border)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontSize: '0.75rem',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span>Issued on {new Date(p.issued_at).toLocaleDateString()}</span>
+                  <Link href={`/verify/${p.verification_hash}`} style={{ color: 'var(--gold)', textDecoration: 'none', fontWeight: 600 }}>Public Verification Page →</Link>
                 </div>
               </div>
             ))}

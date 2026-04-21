@@ -102,31 +102,59 @@ export default function AnalyticsDashboard() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
-          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1.5rem' }}>
-            <div style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>👁️</div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-              {data?.recentViews || 0}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+          {/* Main Stat Card */}
+          <div className="onboarding-card" style={{ 
+            padding: '2rem', 
+            background: 'linear-gradient(145deg, rgba(20,20,20,0.9), rgba(46,204,113,0.1))',
+            border: '1px solid rgba(46,204,113,0.3)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '2rem' }}>👁️</div>
+              <div style={{ padding: '0.2rem 0.6rem', background: 'rgba(46,204,113,0.15)', color: '#2ecc71', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700 }}>+{(data?.recentViews || 0) > 0 ? 'Active' : 'Steady'}</div>
             </div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.15rem' }}>Views (Last 7 Days)</div>
-            <div style={{ fontSize: '0.75rem', color: '#2ecc71' }}>Active traffic</div>
-          </div>
-
-          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1.5rem' }}>
-            <div style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>📈</div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', color: 'var(--text-primary)', marginBottom: '0.25rem', lineHeight: 1 }}>
               {data?.totalViews || 0}
             </div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.15rem' }}>Total Profile Views</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', opacity: 0.6 }}>All-time metric</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Profile Views</div>
           </div>
-          
-          {/* Placeholders for future features */}
-          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1.5rem', opacity: 0.5 }}>
-            <div style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>🔍</div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>—</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.15rem' }}>Search Impressions</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--gold)' }}>Coming soon</div>
+
+          {/* Activity Card */}
+          <div className="onboarding-card" style={{ padding: '2rem' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>7-Day Activity</div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.5rem', height: '80px', marginBottom: '1rem' }}>
+              {/* Mocking a small bar chart for visual flair */}
+              {[30, 45, 25, 60, 40, 75, 90].map((h, i) => (
+                <div key={i} style={{ 
+                  flex: 1, 
+                  height: `${h}%`, 
+                  background: i === 6 ? 'var(--gold)' : 'rgba(255,255,255,0.1)', 
+                  borderRadius: '2px',
+                  transition: 'height 1s ease'
+                }} />
+              ))}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: '1.5rem', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>{data?.recentViews || 0}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Views this week</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: '1.5rem' }}>Advanced Insights</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+          <div className="onboarding-card" style={{ padding: '1.5rem', opacity: 0.6 }}>
+            <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🔍</div>
+            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Search Impressions</div>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: 0 }}>How many times you appeared in search results.</p>
+            <div style={{ marginTop: '1rem', fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 700 }}>AVAILABLE FOR PRO TIER</div>
+          </div>
+          <div className="onboarding-card" style={{ padding: '1.5rem', opacity: 0.6 }}>
+            <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>❤️</div>
+            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Wishlist Additions</div>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: 0 }}>Collectors who added your plants to their wishlist.</p>
+            <div style={{ marginTop: '1rem', fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 700 }}>AVAILABLE FOR ELITE TIER</div>
           </div>
         </div>
       </main>
