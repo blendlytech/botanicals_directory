@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import Image from 'next/image';
+import { MapPin, Calendar, ChevronRight, Search } from 'lucide-react';
 
 interface Event {
   id: string;
@@ -25,7 +26,6 @@ export default function EventsMapPage() {
 
   useEffect(() => {
     async function loadEvents() {
-      // Get events
       const { data, error } = await supabase
         .from('events')
         .select('*')
@@ -42,7 +42,6 @@ export default function EventsMapPage() {
   useEffect(() => {
     if (loading || !mapRef.current || events.length === 0) return;
 
-    // Load Leaflet via CDN dynamically to avoid SSR/NPM versioning issues
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
@@ -54,10 +53,13 @@ export default function EventsMapPage() {
       const L = (window as any).L;
       if (!L) return;
 
-      // Initialize map
       if (!mapInstanceRef.current) {
-        mapInstanceRef.current = L.map(mapRef.current).setView([39.8283, -98.5795], 4);
+        mapInstanceRef.current = L.map(mapRef.current, {
+            zoomControl: false
+        }).setView([39.8283, -98.5795], 4);
         
+        L.control.zoom({ position: 'bottomright' }).addTo(mapInstanceRef.current);
+
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
           subdomains: 'abcd',
@@ -68,12 +70,13 @@ export default function EventsMapPage() {
       const map = mapInstanceRef.current;
       const markerGroup = L.featureGroup().addTo(map);
 
-      // Custom markers
       const standardIcon = L.divIcon({
         className: 'custom-map-marker',
-        html: `<div style="width:16px;height:16px;background:#2ecc71;border-radius:50%;border:2px solid #000;box-shadow:0 0 10px rgba(46,204,113,0.5);"></div>`,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
+        html: `<div style="width:20px;height:20px;background:var(--gold);border-radius:50%;border:3px solid var(--charcoal);box-shadow:0 0 15px var(--gold-dim); position:relative;">
+                <div style="position:absolute; inset:-4px; border:1px solid var(--gold); border-radius:50%; opacity:0.5;"></div>
+               </div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
       });
 
       events.forEach(evt => {
@@ -81,25 +84,23 @@ export default function EventsMapPage() {
           const marker = L.marker([evt.lat, evt.lng], { icon: standardIcon }).addTo(markerGroup);
           
           const popupContent = `
-            <div style="font-family: var(--font-body); color: #fff; padding: 10px; min-width: 180px;">
-              <strong style="font-family: var(--font-heading); font-size: 1.2rem; display: block; margin-bottom: 5px; color: var(--gold);">${evt.title}</strong>
-              <div style="font-size: 0.85rem; margin-bottom: 12px; color: rgba(255,255,255,0.7);">📍 ${evt.location_name}</div>
-              <a href="/events/${evt.slug}" style="display: block; text-align: center; background: var(--gold); color: #000; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; transition: transform 0.2s;">View Roster →</a>
+            <div style="font-family: var(--font-body); color: #fff; padding: 12px; min-width: 200px; background: var(--bg-card); border-radius: 12px;">
+              <strong style="font-family: var(--font-heading); font-size: 1.25rem; display: block; margin-bottom: 6px; color: var(--gold);">${evt.title}</strong>
+              <div style="font-size: 0.8rem; margin-bottom: 12px; opacity: 0.8;">📍 ${evt.location_name}</div>
+              <a href="/events/${evt.slug}" style="display: block; text-align: center; background: var(--gold); color: var(--charcoal); padding: 10px; border-radius: 6px; text-decoration: none; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">View Roster →</a>
             </div>
           `;
           
-          const popupOptions = {
+          marker.bindPopup(popupContent, {
             className: 'premium-popup',
-            maxWidth: 300
-          };
-
-          marker.bindPopup(popupContent, popupOptions);
+            maxWidth: 300,
+            closeButton: false
+          });
         }
       });
 
-      // Fit bounds if markers exist
       if (markerGroup.getBounds().isValid()) {
-        map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
+        map.fitBounds(markerGroup.getBounds(), { padding: [100, 100] });
       }
     };
     document.body.appendChild(script);
@@ -115,40 +116,61 @@ export default function EventsMapPage() {
   }, [loading, events]);
 
   return (
-    <main style={{ minHeight: '100vh', padding: '7rem 5% 4rem' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', color: 'var(--text-primary)', margin: '0 0 1rem' }}>Global Event Map</h1>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
-            Discover rare plant expos, swaps, and exhibitions near you. Click a pin to see the vendor roster.
+    <main className="page-wrapper">
+      <section className="section" style={{ paddingTop: '10rem' }}>
+        <div className="section-header">
+          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Real-Time Geolocation</div>
+          <h1 className="section-title">The Global <em>Event Map</em></h1>
+          <p className="section-desc">
+            Discover rare plant expos, exclusive swaps, and botanical exhibitions worldwide. Pinpoint vendor locations before the doors open.
           </p>
+          <div className="section-rule"></div>
         </div>
 
         {loading ? (
-          <div style={{ height: '500px', background: 'var(--bg-surface)', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', border: '1px solid var(--glass-border)' }}>
-            <div className="hero-eyebrow-dot" style={{ width: '12px', height: '12px' }} />
-            <span style={{ color: 'var(--text-secondary)', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>Loading global event data...</span>
+          <div style={{ height: '600px', background: 'var(--bg-surface)', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', border: '1px solid var(--glass-border)', boxShadow: 'var(--card-shadow)' }}>
+            <div className="hero-eyebrow-dot" style={{ width: '16px', height: '16px' }} />
+            <span style={{ fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.75rem', color: 'var(--gold)' }}>Initializing Global Map...</span>
           </div>
         ) : (
-          <div style={{ position: 'relative', height: '600px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
-            <div ref={mapRef} style={{ width: '100%', height: '100%', background: '#0a0a0a' }} />
+          <div style={{ position: 'relative', height: '650px', borderRadius: '24px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 30px 60px rgba(0,0,0,0.3)' }}>
+            <div ref={mapRef} style={{ width: '100%', height: '100%', background: '#050a08' }} />
           </div>
         )}
 
-        <div style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
-          {events.map(evt => (
-            <Link key={evt.id} href={`/events/${evt.slug}`} style={{ textDecoration: 'none' }}>
-              <div className="onboarding-card" style={{ padding: '1.5rem', height: '100%', transition: 'transform 0.2s', cursor: 'pointer' }}>
-                <div style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 700, marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+        {/* Event List Preview */}
+        <div style={{ marginTop: '5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }}>
+            <h2 className="section-title" style={{ fontSize: '2rem', margin: 0 }}>Upcoming <em>Exhibitions</em></h2>
+            <div style={{ position: 'relative', width: '300px' }}>
+                <Search size={16} style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }} />
+                <input type="text" placeholder="Filter by region..." className="newsletter-input" style={{ width: '100%', padding: '0.75rem 1.25rem', fontSize: '0.8rem', borderRadius: '10px' }} />
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
+            {events.map(evt => (
+              <Link key={evt.id} href={`/events/${evt.slug}`} style={{ textDecoration: 'none' }}>
+                <div className="event-card" style={{ height: '100%' }}>
+                  <div className="event-card-body">
+                    <div className="event-card-date">
+                      {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    </div>
+                    <h3 className="event-card-title">{evt.title}</h3>
+                    <div className="event-card-location">
+                      <MapPin size={14} /> {evt.location_name}
+                    </div>
+                    <div className="event-card-footer">
+                        <span className="btn-ghost" style={{ padding: '0.5rem 1rem', fontSize: '0.65rem' }}>View Details</span>
+                        <ChevronRight size={16} style={{ opacity: 0.5 }} />
+                    </div>
+                  </div>
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>{evt.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>📍 {evt.location_name}</p>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
