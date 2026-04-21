@@ -762,15 +762,20 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212,175,55,0.08), transparent);
 }
+.cta-section .section-eyebrow {
+  color: var(--gold);
+  border-color: rgba(212,175,55,0.3);
+  background: rgba(212,175,55,0.1);
+}
 .cta-section h2 {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  color: #fff;
+  color: #FFFFFF;
   margin-bottom: 1.5rem;
   position: relative;
 }
 .cta-section p {
   font-size: 1rem;
-  color: var(--sand);
+  color: rgba(255,255,255,0.7);
   max-width: 500px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
@@ -815,8 +820,7 @@ a { color: inherit; text-decoration: none; }
 .footer-brand .logo-text { font-size: 1.3rem; margin-bottom: 1rem; display: block; }
 .footer-brand p {
   font-size: 0.85rem;
-  color: var(--sand);
-  opacity: 0.6;
+  color: rgba(255,255,255,0.6);
   line-height: 1.7;
   max-width: 260px;
 }
@@ -832,12 +836,11 @@ a { color: inherit; text-decoration: none; }
 .footer-col a {
   display: block;
   font-size: 0.85rem;
-  color: var(--sand);
-  opacity: 0.6;
+  color: rgba(255,255,255,0.5);
   margin-bottom: 0.6rem;
   transition: all var(--transition);
 }
-.footer-col a:hover { opacity: 1; color: var(--gold); padding-left: 4px; }
+.footer-col a:hover { color: var(--gold); padding-left: 4px; }
 .footer-bottom {
   border-top: 1px solid var(--glass-border);
   padding-top: 2rem;
@@ -845,8 +848,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: space-between;
   align-items: center;
   font-size: 0.78rem;
-  color: var(--sand);
-  opacity: 0.45;
+  color: rgba(255,255,255,0.3);
 }
 
 /* ── TRUST STRIP ── */
@@ -1452,6 +1454,24 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.6;
 }
 
+
+/* ── MAP POPUPS ── */
+.premium-popup .leaflet-popup-content-wrapper {
+  background: #0b1d16;
+  color: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  padding: 0;
+}
+.premium-popup .leaflet-popup-tip {
+  background: #0b1d16;
+  border: 1px solid var(--glass-border);
+}
+.premium-popup .leaflet-popup-content {
+  margin: 0;
+  width: auto !important;
+}
 
 @media (max-width: 900px) {
   .stats-bar { grid-template-columns: repeat(2,1fr); }

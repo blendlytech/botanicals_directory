@@ -81,14 +81,19 @@ export default function EventsMapPage() {
           const marker = L.marker([evt.lat, evt.lng], { icon: standardIcon }).addTo(markerGroup);
           
           const popupContent = `
-            <div style="font-family: var(--font-body); color: #333; padding: 5px;">
-              <strong style="font-family: var(--font-heading); font-size: 1.1rem; display: block; margin-bottom: 5px;">${evt.title}</strong>
-              <div style="font-size: 0.8rem; margin-bottom: 5px;">📍 ${evt.location_name}</div>
-              <a href="/events/${evt.slug}" style="display: inline-block; background: #2ecc71; color: white; padding: 4px 10px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; font-weight: bold;">View Vendors</a>
+            <div style="font-family: var(--font-body); color: #fff; padding: 10px; min-width: 180px;">
+              <strong style="font-family: var(--font-heading); font-size: 1.2rem; display: block; margin-bottom: 5px; color: var(--gold);">${evt.title}</strong>
+              <div style="font-size: 0.85rem; margin-bottom: 12px; color: rgba(255,255,255,0.7);">📍 ${evt.location_name}</div>
+              <a href="/events/${evt.slug}" style="display: block; text-align: center; background: var(--gold); color: #000; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; transition: transform 0.2s;">View Roster →</a>
             </div>
           `;
           
-          marker.bindPopup(popupContent);
+          const popupOptions = {
+            className: 'premium-popup',
+            maxWidth: 300
+          };
+
+          marker.bindPopup(popupContent, popupOptions);
         }
       });
 
@@ -120,8 +125,9 @@ export default function EventsMapPage() {
         </div>
 
         {loading ? (
-          <div style={{ height: '500px', background: 'var(--bg-surface)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            Loading map data...
+          <div style={{ height: '500px', background: 'var(--bg-surface)', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', border: '1px solid var(--glass-border)' }}>
+            <div className="hero-eyebrow-dot" style={{ width: '12px', height: '12px' }} />
+            <span style={{ color: 'var(--text-secondary)', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>Loading global event data...</span>
           </div>
         ) : (
           <div style={{ position: 'relative', height: '600px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>

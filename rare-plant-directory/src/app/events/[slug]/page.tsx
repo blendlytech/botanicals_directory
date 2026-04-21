@@ -55,7 +55,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
 
         <div style={{ maxWidth: "1000px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "1.5rem", alignItems: "center" }}>
-            <Link href="/events" style={{ fontSize: "0.78rem", color: "var(--gold)", textDecoration: "none", opacity: 0.8 }}>
+            <Link href="/events" style={{ fontSize: "0.78rem", color: "var(--gold)", textDecoration: "none", opacity: 0.9, fontWeight: 600 }}>
               ← All Events
             </Link>
             <span style={{ color: "var(--glass-border)" }}>·</span>
@@ -64,34 +64,34 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
                 ★ Featured
               </span>
             )}
-            <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-secondary)", letterSpacing: "0.1em", textTransform: "uppercase", padding: "3px 8px", border: "1px solid var(--glass-border)", borderRadius: "4px" }}>
+            <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "rgba(255,255,255,0.7)", letterSpacing: "0.1em", textTransform: "uppercase", padding: "3px 8px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "4px" }}>
               {event.event_type || "Event"}
             </span>
           </div>
 
-          <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "var(--text-primary)", margin: "0 0 1.5rem", lineHeight: 1.1 }}>
+          <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#FFFFFF", margin: "0 0 1.5rem", lineHeight: 1.1 }}>
             {event.title}
           </h1>
 
           <div style={{ display: "flex", gap: "2.5rem", flexWrap: "wrap", marginBottom: "2rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "var(--text-secondary)", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(255,255,255,0.6)", fontSize: "0.95rem" }}>
               <span>📅</span>
-              <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>{dateStr}</span>
+              <span style={{ color: "#FFFFFF", fontWeight: 500 }}>{dateStr}</span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "var(--text-secondary)", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(255,255,255,0.6)", fontSize: "0.95rem" }}>
               <span>📍</span>
-              <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>{location}</span>
+              <span style={{ color: "#FFFFFF", fontWeight: 500 }}>{location}</span>
             </div>
             {vendors.length > 0 && (
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "var(--text-secondary)", fontSize: "0.95rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(255,255,255,0.6)", fontSize: "0.95rem" }}>
                 <span>🏪</span>
-                <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>{vendors.length} Vendors Attending</span>
+                <span style={{ color: "#FFFFFF", fontWeight: 500 }}>{vendors.length} Vendors Attending</span>
               </div>
             )}
           </div>
 
           {event.description && (
-            <p style={{ fontSize: "1.05rem", color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: "640px", margin: "0 0 2rem" }}>
+            <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: "640px", margin: "0 0 2rem" }}>
               {event.description}
             </p>
           )}
