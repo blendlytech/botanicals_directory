@@ -1,0 +1,132 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Lock, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+
+export default function OnboardingPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call for instant gratification
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      // In production: Redirect to /dashboard with Provisional Access flag
+    }, 1500);
+  };
+
+  if (isSuccess) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white border border-slate-200 shadow-xl shadow-slate-200/50 rounded-2xl p-8 text-center">
+          <CheckCircle2 className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Profile Claimed</h2>
+          <p className="text-slate-600 mb-6">
+            Your Provisional Access to the Authority Suite is now active for 30 days.
+          </p>
+          <a 
+            href="/dashboard"
+            className="w-full inline-flex justify-center items-center px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-colors shadow-md"
+          >
+            Enter Dashboard <ArrowRight className="ml-2 w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Background aesthetics */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-400/20 blur-[100px] rounded-full pointer-events-none"></div>
+
+      <div className="w-full max-w-md relative z-10">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 mb-4 shadow-sm">
+            <Lock className="w-6 h-6" />
+          </div>
+          <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Secure Your Leads</h1>
+          <p className="text-slate-600">
+            Claim your free directory listing in seconds.
+          </p>
+        </div>
+
+        {/* PHASE 1: FRICTIONLESS ONBOARDING
+          Exactly 3 fields to drastically reduce bounce rate.
+          Creates immediate "Instant Gratification".
+        */}
+        <form onSubmit={handleSubmit} className="bg-white border border-slate-200 p-6 sm:p-8 rounded-2xl shadow-xl shadow-slate-200/50">
+          <div className="space-y-5">
+            <div>
+              <label htmlFor="vendorName" className="block text-sm font-bold text-slate-700 mb-1">
+                Nursery / Vendor Name <span className="text-emerald-600">*</span>
+              </label>
+              <input
+                type="text"
+                id="vendorName"
+                required
+                placeholder="e.g. Monstera Syndicate"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-1">
+                Professional Email <span className="text-emerald-600">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                required
+                placeholder="sales@yournursery.com"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="specialty" className="block text-sm font-bold text-slate-700 mb-1">
+                Primary Specialty <span className="text-emerald-600">*</span>
+              </label>
+              <select
+                id="specialty"
+                required
+                defaultValue=""
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+              >
+                <option value="" disabled className="text-slate-400">Select your focus...</option>
+                <option value="aroids">Aroids (Monstera, Philodendron, etc.)</option>
+                <option value="orchids">Orchids</option>
+                <option value="carnivorous">Carnivorous Plants</option>
+                <option value="hoyas">Hoyas & Epiphytes</option>
+                <option value="other">Other / Mixed</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-8 w-full flex items-center justify-center px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed group"
+          >
+            {isSubmitting ? (
+              <span className="animate-pulse">Securing Profile...</span>
+            ) : (
+              <>
+                Unlock Provisional Access
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </button>
+          
+          <p className="mt-4 text-xs text-center text-slate-500 flex items-center justify-center gap-1 font-medium">
+            <ShieldCheck size={14} className="text-emerald-600" /> Includes 30 days of Elite Authority Analytics
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}¬
