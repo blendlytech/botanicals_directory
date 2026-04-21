@@ -134,8 +134,9 @@ export default function PricingToggle() {
       <div className="pricing-grid">
         {tiers.map((tier) => {
           const isAnnualOnly = (tier as any).annualOnly;
-          const price = isAnnualOnly ? tier.annualPrice : (billing === "annual" ? tier.annualPrice : tier.monthlyPrice);
-          const period = isAnnualOnly ? "/year" : (billing === "annual" ? "/year" : "/month");
+          const isOneTime = (tier as any).isOneTime;
+          const price = (tier.monthlyPrice === null || isAnnualOnly || isOneTime || billing === "annual") ? tier.annualPrice : tier.monthlyPrice;
+          const period = isOneTime ? "one-time" : (isAnnualOnly || billing === "annual" ? "/year" : "/month");
           return (
             <div
               className={`pricing-card${tier.highlight ? " pricing-featured" : ""}${tier.limited ? " pricing-elite" : ""}`}

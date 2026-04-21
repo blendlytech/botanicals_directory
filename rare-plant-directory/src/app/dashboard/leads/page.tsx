@@ -43,7 +43,7 @@ export default function LeadsDashboard() {
         .order('created_at', { ascending: false })
         .limit(50);
 
-      setLeads(data || []);
+      setLeads((data as any) || []);
       setLoading(false);
     }
     load();
