@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight } from 'lucide-react';
 
 export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
