@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
+import sharp from 'sharp';
 
 // Load environment variables
 dotenv.config({ path: '.env.local' });
@@ -55,7 +56,6 @@ async function generateBadges() {
     console.log(`Fetched ${vendors.length} vendors from database.`);
 
     // If no elite vendors exist, we'll use the user's requested range (46-100) with mock data
-    // Otherwise, we'll generate for the actual elite vendors found.
     const startNum = 46;
     const endNum = Math.max(100, vendors.length + 45); 
 
@@ -65,8 +65,6 @@ async function generateBadges() {
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(templateImage, 0, 0, width, height);
 
-      // Find real vendor data or use mock
-      // Since currently no vendors are "elite", we fallback to mock data but format it properly
       const dbVendor = vendors.find(v => v.elite_number === i + 1);
       
       const vendor = dbVendor ? {
@@ -107,27 +105,32 @@ async function generateBadges() {
       ctx.fillStyle = COLORS.WHITE;
       ctx.fillText(vendor.companyName.toUpperCase(), textStartX, nameY);
 
-      // 3. City & State (2nd Line) - Refined to Warm Sand for premium feel
+      // 3. City & State (2nd Line)
       ctx.font = '32px sans-serif';
       ctx.fillStyle = COLORS.WARM_SAND;
       ctx.fillText(`${vendor.city}, ${vendor.state}`, textStartX, locationY);
 
-      // 4. Unique ID (3rd Line) - Emerald Green for high-trust verification
+      // 4. Unique ID (3rd Line)
       ctx.font = '24px monospace';
       ctx.fillStyle = COLORS.EMERALD; 
       ctx.fillText(`ID: ${vendor.uniqueId}`, textStartX, idY);
 
+      // --- COMPRESSION PIPELINE ---
       const buffer = canvas.toBuffer('image/png');
       const filename = `elite_badge_${badgeNumber}.png`;
-      fs.writeFileSync(path.join(OUTPUT_DIR, filename), buffer);
       
-      process.stdout.write(`[+] Rendered: ${filename}\r`);
+      await sharp(buffer)
+        .png({ palette: true, quality: 80, compressionLevel: 9 })
+        .toFile(path.join(OUTPUT_DIR, filename));
+      
+      process.stdout.write(`[+] Optimized: ${filename}\r`);
     }
 
-    console.log('\nDeployment Complete: Badges successfully rendered in public/generated-badges/');
+    console.log('\nDeployment Complete: Optimized badges rendered in public/generated-badges/');
   } catch (error) {
     console.error('\nFatal error during badge generation:', error);
   }
 }
 
-generateBadges();
+generateBadges();
+
