@@ -8,7 +8,7 @@ interface PaypalButtonProps {
   onError: (err: any) => void;
 }
 
-export default function PaypalButton({ amount, onSuccess, onError }: PaypalButtonProps) {
+export default function PaypalButton({ amount, planId, onSuccess, onError }: PaypalButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
 
