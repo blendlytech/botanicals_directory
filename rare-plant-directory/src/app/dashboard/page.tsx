@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 
 interface VendorStats {
   name: string;
@@ -19,21 +19,44 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function loadDashboard() {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { window.location.href = '/login'; return; }
+      if (!user) return; // Middleware handles redirect
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('name, tier, is_elite, elite_number, subscription_status, contact_email')
-        .eq('contact_email', user.email)
+        .select('id, name, tier, is_elite, elite_number, subscription_status, contact_email')
+        .eq('user_id', user.id)
         .single();
 
-      if (!vendor) { setLoading(false); return; }
+      if (!vendor) { 
+        // Fallback: search by email if user_id link is missing (for transition)
+        const { data: fallbackVendor } = await supabase
+          .from('vendors')
+          .select('id, name, tier, is_elite, elite_number, subscription_status, contact_email')
+          .eq('contact_email', user.email)
+          .single();
+        
+        if (!fallbackVendor) {
+          setLoading(false); 
+          return; 
+        }
+        
+        // Auto-link user_id if we found it by email
+        await supabase.from('vendors').update({ user_id: user.id }).eq('id', fallbackVendor.id);
+        setStats({
+          ...fallbackVendor,
+          inventoryCount: 0,
+          leadsCount: 0,
+        });
+        setLoading(false);
+        return;
+      }
 
       const { count: invCount } = await supabase
         .from('inventory')
         .select('*', { count: 'exact', head: true })
-        .eq('vendor_id', user.id);
+        .eq('vendor_id', vendor.id);
 
       setStats({
         ...vendor,

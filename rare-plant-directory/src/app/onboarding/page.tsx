@@ -12,6 +12,7 @@ interface FormData {
   businessName: string;
   ownerName: string;
   email: string;
+  password?: string;
   phone: string;
   website: string;
   instagram: string;
@@ -293,9 +294,13 @@ function StepProfile({ form, update }: { form: FormData; update: (k: keyof FormD
           <input className="form-input" id="input-email" type="email" placeholder="you@example.com" value={form.email} onChange={e => update('email', e.target.value)} />
         </div>
         <div className="form-group">
-          <label className="form-label">Phone</label>
-          <input className="form-input" id="input-phone" type="tel" placeholder="+1 (555) 000-0000" value={form.phone} onChange={e => update('phone', e.target.value)} />
+          <label className="form-label">Portal Password *</label>
+          <input className="form-input" id="input-password" type="password" placeholder="Min. 8 characters" value={form.password || ''} onChange={e => update('password', e.target.value)} />
         </div>
+      </div>
+      <div className="form-group">
+        <label className="form-label">Phone</label>
+        <input className="form-input" id="input-phone" type="tel" placeholder="+1 (555) 000-0000" value={form.phone} onChange={e => update('phone', e.target.value)} />
       </div>
       <div className="form-group">
         <label className="form-label">About Me / Business Description</label>

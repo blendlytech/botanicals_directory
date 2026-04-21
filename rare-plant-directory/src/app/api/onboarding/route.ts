@@ -9,14 +9,33 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    // Generate a simple slug from business name or owner name
+    // 1. Create Supabase Auth User
+    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+      email: data.email,
+      password: data.password || 'TemporaryPassword123!', // Should ideally enforce password on frontend
+      email_confirm: true,
+      user_metadata: {
+        business_name: data.businessName,
+        role: 'vendor'
+      }
+    });
+
+    if (authError) {
+      console.error('Auth creation error:', authError);
+      return NextResponse.json({ error: `Auth Error: ${authError.message}` }, { status: 500 });
+    }
+
+    const userId = authData.user.id;
+
+    // 2. Generate a simple slug from business name or owner name
     const nameToSlug = data.businessName || data.ownerName || 'vendor';
     const slug = nameToSlug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     
-    // Insert into vendors
+    // 3. Insert into vendors
     const { data: newVendor, error } = await supabase
       .from('vendors')
       .insert({
+        user_id: userId, // Link to the auth user
         name: data.businessName || data.ownerName,
         slug: slug + '-' + Date.now().toString().slice(-4),
         owner_name: data.ownerName,
@@ -40,6 +59,8 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Supabase insert error:', error);
+      // Rollback: Delete the auth user if vendor creation fails
+      await supabase.auth.admin.deleteUser(userId);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
