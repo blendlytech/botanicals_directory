@@ -66,6 +66,7 @@ export default function EventsMapPage() {
       }
 
       const map = mapInstanceRef.current;
+      const markerGroup = L.featureGroup().addTo(map);
 
       // Custom markers
       const standardIcon = L.divIcon({
@@ -77,7 +78,7 @@ export default function EventsMapPage() {
 
       events.forEach(evt => {
         if (evt.lat && evt.lng) {
-          const marker = L.marker([evt.lat, evt.lng], { icon: standardIcon }).addTo(map);
+          const marker = L.marker([evt.lat, evt.lng], { icon: standardIcon }).addTo(markerGroup);
           
           const popupContent = `
             <div style="font-family: var(--font-body); color: #333; padding: 5px;">
@@ -90,6 +91,11 @@ export default function EventsMapPage() {
           marker.bindPopup(popupContent);
         }
       });
+
+      // Fit bounds if markers exist
+      if (markerGroup.getBounds().isValid()) {
+        map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
+      }
     };
     document.body.appendChild(script);
 
