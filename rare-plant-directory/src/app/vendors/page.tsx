@@ -10,9 +10,8 @@ export default async function VendorsPage() {
   // Fetch active vendors - showing both verified and unverified for the "Baited Hook" effect
   const { data: vendors, error } = await supabase
     .from('vendors')
-    .select('name, slug, specialty, location_city, location_state, location_country, tier, is_elite, is_verified, logo_url')
-    .order('is_verified', { ascending: false }) 
-    .order('is_elite', { ascending: false })
+    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, logo_url')
+    .order('account_tier', { ascending: false }) 
     .order('name', { ascending: true });
 
   if (error) {
@@ -137,9 +136,14 @@ export default async function VendorsPage() {
                       Enter Profile
                       <ChevronRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
                     </a>
-                    {v.is_elite && (
-                      <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100">
+                    {v.account_tier === 'elite' && (
+                      <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-emerald-800 bg-emerald-50 px-2 py-1 rounded border border-emerald-100 shadow-sm">
                         Elite Tier
+                      </div>
+                    )}
+                    {v.account_tier === 'authority' && (
+                      <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100">
+                        Authority Suite
                       </div>
                     )}
                   </div>

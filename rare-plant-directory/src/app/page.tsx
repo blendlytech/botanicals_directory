@@ -17,8 +17,8 @@ export default async function Home() {
 
   const { data: dbVendors } = await supabase
     .from('vendors')
-    .select('id, name, slug, specialty, is_verified')
-    .order('is_verified', { ascending: false })
+    .select('id, name, slug, specialty, is_verified, account_tier')
+    .order('account_tier', { ascending: false })
     .limit(6);
 
   const events = dbEvents || [];
