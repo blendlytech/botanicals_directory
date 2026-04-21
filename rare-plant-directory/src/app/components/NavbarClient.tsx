@@ -28,7 +28,7 @@ export default function NavbarClient() {
       <div className="nav-links">
         <a href="/events" id="nav-events-link">Events</a>
         <a href="/vendors" id="nav-vendors-link">Vendors</a>
-        <a href="/cultivar" id="nav-cultivar-link">CultivarID</a>
+        <a href="/scan" id="nav-cultivar-link">CultivarID</a>
         <a href="/about" id="nav-about-link">About</a>
         <ThemeToggle />
         <a href="/for-vendors" className="btn-primary" id="nav-list-booth-btn">List Your Booth</a>
