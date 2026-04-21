@@ -44,13 +44,41 @@ export default function ForVendors() {
   return (
     <main className="page-wrapper">
       
+      {/* ─── FLASH SALE BANNER ─── */}
+      <div style={{ 
+        background: 'linear-gradient(90deg, var(--gold) 0%, #F2D681 50%, var(--gold) 100%)',
+        color: 'var(--charcoal)',
+        padding: '0.8rem 5%',
+        textAlign: 'center',
+        fontSize: '0.75rem',
+        fontWeight: 800,
+        letterSpacing: '0.15em',
+        textTransform: 'uppercase',
+        position: 'fixed',
+        top: '80px',
+        left: 0,
+        right: 0,
+        zIndex: 999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2rem',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+      }}>
+        <span>🔥 Founder&apos;s Flash Sale: Next 24 Hours Only</span>
+        <div style={{ width: '1px', height: '15px', background: 'rgba(15,15,15,0.2)' }}></div>
+        <span>Get Lifetime Elite Status for $497 (Save $500)</span>
+        <div style={{ width: '1px', height: '15px', background: 'rgba(15,15,15,0.2)' }}></div>
+        <a href="#pricing" style={{ textDecoration: 'underline' }}>Claim Now</a>
+      </div>
+
       {/* ─── HERO: THE ELITE COMMAND ─── */}
-      <section className="hero">
+      <section className="hero" style={{ paddingTop: '14rem' }}>
         <div className="hero-grid-overlay"></div>
         
         <div className="hero-eyebrow">
           <div className="hero-eyebrow-dot"></div>
-          <span>Stabilize Your Pipeline</span>
+          <span>Founding Member Enrollment Open</span>
         </div>
         
         <h1 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
@@ -59,7 +87,7 @@ export default function ForVendors() {
         </h1>
         
         <p className="hero-sub" style={{ maxWidth: '750px' }}>
-          Eliminate vendor invisibility. Leverage AI lead matching and real-time geolocation routing to secure high-ticket botanical sales with absolute certainty.
+          Stop losing buyers at the 2026 Expo. Leverage AI lead matching and Digital Passports to secure high-ticket botanical sales with absolute certainty.
         </p>
 
         <div className="hero-actions">
@@ -138,14 +166,52 @@ export default function ForVendors() {
               <Star size={40} color="var(--gold)" fill="var(--gold-dim)" />
            </div>
            <div>
-              <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Founders&apos; Circle: Lifetime Access</h4>
-              <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '1rem', lineHeight: 1.6 }}>
-                Elite Grower seats are limited to 100 total spots worldwide. Own your legacy with a one-time lifetime payment of $999.
-              </p>
-              <div style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)' }}>
-                 Only 73 seats remain — Claim Yours Today
-              </div>
-           </div>
+               <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Founder&apos;s Flash Sale: Lifetime Elite</h4>
+               <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '1rem', lineHeight: 1.6 }}>
+                 Get all future features, unlimited plant passports, and top-tier search priority forever. 
+                 <br />
+                 <strong style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>$497</strong> <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$999</span>
+               </p>
+               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                 <Link href="/onboarding?plan=founder" className="btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
+                   Claim Your Seat
+                 </Link>
+                 <div style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)' }}>
+                    🔥 Only 3 Founder Slots Remaining at this Price
+                 </div>
+               </div>
+            </div>
+        </div>
+      </section>
+
+      {/* ─── EXPO 2026 BUNDLE ─── */}
+      <section className="section" style={{ background: 'var(--emerald)', color: 'white' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-eyebrow" style={{ color: 'var(--gold)', border: '1px solid var(--gold)' }}>Expo 2026 Exclusive</div>
+          <h2 className="section-title" style={{ color: 'white' }}>Are You Exhibiting at <br /> <em>The BIG Plant Expo 2026?</em></h2>
+          <p className="section-desc" style={{ color: 'var(--text-secondary)', opacity: 0.8 }}>
+            Don&apos;t just show up. Stand out. Get our **Expo Authority Bundle** for $497 and we will:
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '3rem', textAlign: 'left' }}>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+              <ShieldCheck color="var(--gold)" />
+              <h4 style={{ margin: '1rem 0 0.5rem' }}>Digital Passport Setup</h4>
+              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>We manually build 10 Digital Passports for your showpieces so collectors can verify provenance at your booth.</p>
+            </div>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+              <MapPin color="var(--gold)" />
+              <h4 style={{ margin: '1rem 0 0.5rem' }}>Priority Map Routing</h4>
+              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>Your booth will be highlighted as a &quot;Must Visit&quot; for every collector using the RPV Event Map during the expo.</p>
+            </div>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+              <TrendingUp color="var(--gold)" />
+              <h4 style={{ margin: '1rem 0 0.5rem' }}>Featured Placement</h4>
+              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>Top-of-list placement in the directory specifically filtered for the 2026 Expo attendees.</p>
+            </div>
+          </div>
+          <Link href="/onboarding?plan=expo" className="btn-primary" style={{ marginTop: '4rem', padding: '1rem 3rem' }}>
+            Secure My Expo Bundle
+          </Link>
         </div>
       </section>
 
