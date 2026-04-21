@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight } from 'lucide-react';
+import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
 
 export default function OnboardingPage() {
@@ -34,10 +34,10 @@ export default function OnboardingPage() {
       setIsSuccess(true);
     } catch (error) {
       console.error(error);
-      // Fallback for demo/missing API
+      // Fallback for demo
       setTimeout(() => {
         setIsSuccess(true);
-      }, 1000);
+      }, 1500);
     } finally {
       setIsSubmitting(false);
     }
@@ -45,133 +45,243 @@ export default function OnboardingPage() {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white border border-slate-200 shadow-2xl shadow-slate-200/50 rounded-[3rem] p-12 text-center animate-in fade-in zoom-in duration-500 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-600 to-teal-500"></div>
-          <div className="w-24 h-24 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-emerald-100 shadow-inner">
-             <CheckCircle2 className="w-12 h-12 text-emerald-600" />
+      <main className="hero" style={{ minHeight: '100vh', padding: '0' }}>
+        <div className="hero-grid-overlay"></div>
+        <div style={{ 
+          maxWidth: '500px', 
+          width: '90%', 
+          background: 'var(--bg-card)', 
+          border: '1px solid var(--gold)', 
+          borderRadius: '24px', 
+          padding: '4rem 3rem', 
+          textAlign: 'center',
+          boxShadow: '0 30px 60px var(--gold-dim)',
+          position: 'relative',
+          zIndex: 10,
+          animation: 'fadeUp 0.6s ease both'
+        }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
+            <div className="hero-eyebrow-dot"></div>
+            <span>Registry Entry Confirmed</span>
           </div>
-          <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Listing Secured</h2>
-          <p className="text-slate-600 mb-10 font-bold leading-relaxed text-lg">
-            Your Provisional Access to the <span className="text-emerald-600">Authority Suite</span> is now active for 30 days.
+          
+          <div style={{ 
+            width: '80px', 
+            height: '80px', 
+            background: 'var(--gold-dim)', 
+            borderRadius: '50%', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            margin: '0 auto 2rem',
+            border: '1px solid var(--gold)'
+          }}>
+             <CheckCircle2 size={40} color="var(--gold)" />
+          </div>
+          
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', marginBottom: '1.5rem' }}>Listing <em>Secured</em></h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
+            Your Provisional Access to the <strong>Authority Suite</strong> is now active. We are processing your verification credentials.
           </p>
-          <Link 
-            href="/dashboard"
-            className="w-full inline-flex justify-center items-center px-8 py-5 bg-slate-900 hover:bg-slate-800 text-white font-black rounded-2xl transition-all shadow-2xl hover:shadow-slate-200 transform hover:-translate-y-1"
-          >
-            Enter Authority Dashboard <ArrowRight className="ml-2 w-6 h-6" />
+          
+          <Link href="/dashboard" className="btn-primary" style={{ width: '100%', display: 'block' }}>
+            Enter Authority Dashboard <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
           </Link>
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative overflow-hidden pt-24 pb-16">
-      {/* Background aesthetics */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-400/10 blur-[130px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-teal-400/10 blur-[110px] rounded-full pointer-events-none"></div>
+    <main className="hero" style={{ minHeight: '100vh', padding: '10rem 5% 5rem' }}>
+      <div className="hero-grid-overlay"></div>
+      
+      {/* Immersive Brand Background */}
+      <div className="hero-leaf-1" style={{ opacity: 0.1 }}>🌿</div>
+      <div className="hero-leaf-2" style={{ opacity: 0.1 }}>🍃</div>
 
-      <div className="w-full max-w-lg relative z-10">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-white text-emerald-600 mb-8 shadow-2xl border border-emerald-50">
-            <Sparkles className="w-10 h-10" />
+      <div style={{ maxWidth: '600px', width: '100%', position: 'relative', zIndex: 10 }}>
+        <div className="section-header" style={{ marginBottom: '3rem' }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
+            <div className="hero-eyebrow-dot"></div>
+            <span>Founder&apos;s Circle Onboarding</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">Secure Your Leads</h1>
-          <p className="text-xl text-slate-500 font-bold max-w-md mx-auto leading-relaxed">
-            Claim your free directory listing in seconds. Stop the bleed and stabilize your pipeline.
+          <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
+            Secure Your <em>Market Position</em>
+          </h1>
+          <p className="hero-sub" style={{ margin: '0 auto', fontSize: '1rem', opacity: 0.8 }}>
+            Claim your free directory listing in seconds. Stop the bleed and stabilize your botanical client pipeline.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white border border-slate-200 p-10 sm:p-14 rounded-[3rem] shadow-2xl shadow-slate-200/50 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-600 to-teal-500"></div>
-          
-          <div className="space-y-8">
-            <div>
-              <label htmlFor="vendorName" className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 px-1">
+        <form onSubmit={handleSubmit} style={{ 
+          background: 'var(--glass)', 
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid var(--glass-border)', 
+          borderRadius: '24px', 
+          padding: '3rem',
+          boxShadow: 'var(--card-shadow)'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            
+            {/* Input Group */}
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
                 Nursery / Vendor Name
               </label>
               <input
                 type="text"
-                id="vendorName"
                 required
+                placeholder="e.g. Monstera Syndicate"
                 value={form.vendorName}
                 onChange={(e) => setForm({...form, vendorName: e.target.value})}
-                placeholder="e.g. Monstera Syndicate"
-                className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all font-bold text-lg"
+                style={{ 
+                  width: '100%', 
+                  background: 'var(--bg-surface)', 
+                  border: '1px solid var(--glass-border)', 
+                  borderRadius: '12px', 
+                  padding: '1.25rem',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
               />
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 px-1">
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
                 Professional Email
               </label>
               <input
                 type="email"
-                id="email"
                 required
+                placeholder="sales@yournursery.com"
                 value={form.email}
                 onChange={(e) => setForm({...form, email: e.target.value})}
-                placeholder="sales@yournursery.com"
-                className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all font-bold text-lg"
+                style={{ 
+                  width: '100%', 
+                  background: 'var(--bg-surface)', 
+                  border: '1px solid var(--glass-border)', 
+                  borderRadius: '12px', 
+                  padding: '1.25rem',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
               />
             </div>
 
-            <div>
-              <label htmlFor="specialty" className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 px-1">
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
                 Primary Specialty
               </label>
-              <div className="relative">
-                <select
-                  id="specialty"
-                  required
-                  value={form.specialty}
-                  onChange={(e) => setForm({...form, specialty: e.target.value})}
-                  className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all font-bold text-lg appearance-none cursor-pointer"
-                >
-                  <option value="" disabled>Select your focus...</option>
-                  <option value="Rare Aroids">Rare Aroids (Monstera, Philodendron, etc.)</option>
-                  <option value="Orchids">Orchids</option>
-                  <option value="Carnivorous">Carnivorous Plants</option>
-                  <option value="Hoyas">Hoyas & Epiphytes</option>
-                  <option value="Other">Other / Mixed</option>
-                </select>
-                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                   <ChevronRight className="rotate-90 w-6 h-6" />
-                </div>
-              </div>
+              <select
+                required
+                value={form.specialty}
+                onChange={(e) => setForm({...form, specialty: e.target.value})}
+                style={{ 
+                  width: '100%', 
+                  background: 'var(--bg-surface)', 
+                  border: '1px solid var(--glass-border)', 
+                  borderRadius: '12px', 
+                  padding: '1.25rem',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  appearance: 'none'
+                }}
+              >
+                <option value="" disabled>Select your focus...</option>
+                <option value="Rare Aroids">Rare Aroids (Monstera, Philodendron, etc.)</option>
+                <option value="Orchids">Orchids</option>
+                <option value="Carnivorous">Carnivorous Plants</option>
+                <option value="Hoyas">Hoyas & Epiphytes</option>
+                <option value="Other">Other / Mixed</option>
+              </select>
             </div>
+
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-12 w-full flex items-center justify-center gap-3 px-8 py-6 bg-slate-900 hover:bg-slate-800 text-white font-black rounded-2xl transition-all shadow-2xl hover:shadow-slate-200 disabled:opacity-70 disabled:cursor-not-allowed group active:scale-95 text-lg"
+            className="btn-primary"
+            style={{ width: '100%', marginTop: '3rem', padding: '1.25rem', fontSize: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}
           >
             {isSubmitting ? (
-              <span className="animate-pulse flex items-center gap-2">
-                 <Lock className="w-5 h-5" /> Securing Profile...
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Lock size={18} /> Processing...
               </span>
             ) : (
               <>
                 Unlock Provisional Access
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={20} />
               </>
             )}
           </button>
           
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <div className="px-4 py-2 bg-emerald-50 rounded-full border border-emerald-100 flex items-center gap-2 shadow-sm">
-               <ShieldCheck size={16} className="text-emerald-600" />
-               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-800">Elite Authority Analytics Included</span>
+          <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.5rem', 
+              background: 'var(--gold-dim)', 
+              padding: '0.5rem 1rem', 
+              borderRadius: '20px',
+              border: '1px solid rgba(212,175,55,0.2)'
+            }}>
+               <ShieldCheck size={14} color="var(--gold)" />
+               <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)' }}>
+                 Verified Authority Engine
+               </span>
             </div>
           </div>
         </form>
         
-        <p className="mt-8 text-center text-slate-400 font-bold text-sm">
-          Already verified? <Link href="/login" className="text-emerald-600 hover:underline">Access Authority Suite</Link>
-        </p>
+        <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+            Already verified? <Link href="/login" style={{ color: 'var(--gold)', fontWeight: 700, textDecoration: 'underline' }}>Access Authority Suite</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
