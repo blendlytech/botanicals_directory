@@ -60,7 +60,7 @@ export default async function VendorsPage() {
 
             return (
               <div key={v.slug} className="vendor-card">
-                <div className="vendor-card-content" style={{ position: 'relative', z.index: 2 }}>
+                <div className="vendor-card-content" style={{ position: 'relative', zIndex: 2 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                     <div className="vendor-avatar">
                       {v.name.charAt(0)}
