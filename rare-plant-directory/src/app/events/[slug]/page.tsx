@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

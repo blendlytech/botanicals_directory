@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import NavbarClient from "./components/NavbarClient";
@@ -23,8 +23,10 @@ export const metadata: Metadata = {
   description: "Discover the world's most exclusive rare plant expos, preview verified vendor inventory before doors open, and connect with serious collectors. Est. 2026.",
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#0B3D2E",
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
