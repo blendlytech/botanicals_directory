@@ -460,31 +460,58 @@ function StepReview({ form, onSubmit }: { form: FormData; onSubmit: () => void }
 function SuccessScreen({ form }: { form: FormData }) {
   const cfg = tierConfig[form.tier];
   return (
-    <div className="onboarding-container" style={{ justifyContent: 'center' }}>
-      <div className="onboarding-card" style={{ textAlign: 'center' }}>
-        <Image src="/brand-seal.png" alt="RPV Seal" width={100} height={100}
-          style={{ filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.6))', marginBottom: '2rem', animation: 'floatLeaf 4s ease-in-out infinite' }} />
+    <div className="onboarding-container" style={{ justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+      {/* Decorative background glow */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '50%', 
+        left: '50%', 
+        transform: 'translate(-50%, -50%)', 
+        width: '600px', 
+        height: '600px', 
+        background: form.tier === 'elite' ? 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(46,204,113,0.1) 0%, transparent 70%)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
 
-        <div style={{ marginBottom: '1rem' }}>
-          <span className={cfg.badgeClass}>{cfg.badge}</span>
+      <div className="onboarding-card" style={{ textAlign: 'center', position: 'relative', zIndex: 1, padding: '4rem 3rem' }}>
+        <div style={{ marginBottom: '2rem', position: 'relative', display: 'inline-block' }}>
+          <Image src="/brand-seal.png" alt="RPV Seal" width={120} height={120}
+            style={{ filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.6))', animation: 'floatLeaf 4s ease-in-out infinite' }} />
+          {form.tier === 'elite' && (
+            <div style={{ position: 'absolute', top: -10, right: -10, background: 'var(--gold)', color: 'black', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', fontWeight: 900, boxShadow: '0 0 20px var(--gold)' }}>✦</div>
+          )}
         </div>
 
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-          {form.tier === 'seedling' ? "You're Listed!" : (form.tier === 'elite' ? 'Welcome, Founder!' : 'Application Received!')}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <span className={cfg.badgeClass} style={{ fontSize: '0.9rem', padding: '0.5rem 1.2rem' }}>{cfg.badge}</span>
+        </div>
+
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', color: 'var(--text-primary)', marginBottom: '1rem', lineHeight: 1.1 }}>
+          {form.tier === 'seedling' ? "You're Officially Listed!" : (form.tier === 'elite' ? 'Welcome to the Legacy.' : 'Application Secured.')}
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontWeight: 500, lineHeight: 1.7, marginBottom: '2.5rem' }}>
-          {form.tier === 'seedling'
-            ? `Welcome to Rare Plant Vendors, ${form.businessName || form.ownerName}! Your free profile is being created. Check your email at ${form.email} to confirm.`
-            : (form.tier === 'elite'
-                ? `Congratulations, ${form.businessName || form.ownerName}! You are officially Elite Founder #${Math.floor(Math.random() * 100) + 1}. Your lifetime access is active. Check your email for your digital certificate and dashboard login.`
-                : `Thank you, ${form.businessName || form.ownerName}! We've received your ${cfg.name} application. Our team will review it within 48 hours and send payment instructions to ${form.email}.`)
-          }
-        </p>
-
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="/" className="btn-ghost" id="success-home-btn">← Back to Directory</a>
-          <a href="/for-vendors" className="btn-primary" id="success-vendors-btn">View Tier Benefits</a>
+        
+        <div style={{ maxWidth: '500px', margin: '0 auto 3rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontWeight: 500, lineHeight: 1.8, fontSize: '1.1rem' }}>
+            {form.tier === 'seedling'
+              ? `Congratulations, ${form.businessName || form.ownerName}! Your profile is now part of the world's most exclusive rare plant directory. Check your email at ${form.email} to finish setting up your dashboard.`
+              : (form.tier === 'elite'
+                  ? `An extraordinary choice, ${form.businessName || form.ownerName}. You've secured a permanent place in botanical history. Your Elite Founder status is active. Check your email for your digital certificate and concierge onboarding link.`
+                  : `Excellent progress, ${form.businessName || form.ownerName}. We've received your ${cfg.name} application. Our curation team will review your nursery details and activate your premium features within 24-48 hours.`)
+            }
+          </p>
         </div>
+
+        <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link href="/" className="btn-ghost" style={{ padding: '1rem 2rem' }}>← Return to Directory</Link>
+          <Link href="/dashboard" className="btn-primary" style={{ padding: '1rem 2rem' }}>Go to My Dashboard →</Link>
+        </div>
+
+        {form.tier === 'elite' && (
+          <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)', fontSize: '0.8rem', color: 'var(--gold)', letterSpacing: '0.1em', fontWeight: 700, textTransform: 'uppercase' }}>
+            Exclusive Elite Founder Support: Concierge@RarePlantVendors.com
+          </div>
+        )}
       </div>
     </div>
   );
