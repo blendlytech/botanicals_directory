@@ -1,241 +1,213 @@
 import Image from "next/image";
 import PricingToggle from "../components/PricingToggle";
+import { ShieldCheck, TrendingUp, MapPin, Zap, Star, Globe, Lock, ArrowRight, ChevronRight, BarChart3, Users } from 'lucide-react';
 
-/* ── ELITE BENEFITS ── */
-const eliteBenefits = [
+/* ── AUTHORITY SUITE BENEFITS ── */
+const authorityBenefits = [
   {
-    icon: "⚡",
-    title: "Skip-the-Line Wishlist Matching",
-    desc: "When a collector adds a rare specimen to their wishlist, Elite vendors are notified 24 hours before the general marketplace. First right of refusal on the hottest leads.",
+    icon: <BarChart3 className="w-8 h-8" />,
+    title: "Buyer Intent Analytics",
+    desc: "See exactly which species collectors in your region are searching for before you stock for the season. Stop guessing, start scaling.",
   },
   {
-    icon: "🗺️",
-    title: "Premium Map Placement",
-    desc: "Your booth appears in gold on every 3D interactive event map — larger, brighter, and automatically drawing foot traffic on the day of the expo.",
+    icon: <MapPin className="w-8 h-8" />,
+    title: "Geolocation Routing",
+    desc: "Your booth appears as a high-priority destination on interactive maps. We route collectors directly to your location based on their specific wishlist.",
   },
   {
-    icon: "📧",
-    title: "Rare Finds Spotlight",
-    desc: "A guaranteed quarterly feature in our email newsletter to the 34,000+ collector network. We spotlight your highest-ticket specimen to serious buyers.",
+    icon: <Users className="w-8 h-8" />,
+    title: "Direct Lead Matching",
+    desc: "Our AI matches your live inventory against thousands of collector wishlists, sending instant 'Buyer Ready' alerts to your dashboard.",
   },
   {
-    icon: "🎨",
-    title: "Enhanced Profile Customization",
-    desc: "Embed 3D plant scans, video headers, direct booking links for private greenhouse tours, and custom branding on your vendor profile page.",
-  },
-  {
-    icon: "💰",
-    title: "Zero Transaction Fees",
-    desc: "Elite vendors pay 0% platform fees on all marketplace transactions for life. You keep 100% of your revenue, ensuring maximum ROI at any volume.",
-  },
-  {
-    icon: "📊",
-    title: "AI Market Analytics Dashboard",
-    desc: "Exclusive access to real-time search data — see exactly which species are trending up in collector wishlists before you stock for the season.",
+    icon: <Globe className="w-8 h-8" />,
+    title: "Global Registry Status",
+    desc: "Join the verified elite. Your 'Authority' badge is the definitive mark of trust in the botanical marketplace.",
   },
 ];
 
-
-
-/* ── TESTIMONIALS (mock) ── */
 const testimonials = [
   {
-    quote: "The Elite wishlist matching alone paid for the annual fee in the first month. I sold three Monstera Obliqua Peru before the expo doors even opened.",
+    quote: "The lead matching alone paid for the annual fee in the first week. I sold my entire stock of Thai Constellations before the expo doors even opened.",
     name: "Marcus Chen",
-    title: "Verdant Roots Co. · Austin, TX",
-    initials: "MC",
+    title: "Verdant Roots Co. · Miami, FL",
   },
   {
-    quote: "Premium map placement is real. My booth traffic increased 40% compared to last year. Collectors came directly to me because they saw the gold pin.",
+    quote: "Collectors came directly to my booth because the map showed them exactly where the specimens on their wishlist were located. It's a game changer.",
     name: "Sofia Reyes",
-    title: "Apex Aroids · Atlanta, GA",
-    initials: "SR",
-  },
-  {
-    quote: "The analytics dashboard showed me Anthurium Regale searches were spiking two weeks before PlantCon. I stocked heavy and sold out completely.",
-    name: "James Okafor",
-    title: "The Green Vault · Phoenix, AZ",
-    initials: "JO",
+    title: "Apex Aroids · San Diego, CA",
   },
 ];
 
 export default function ForVendors() {
   return (
-    <main>
-      {/* ═══════════════════════ HERO ═══ */}
-      <section className="vendor-hero">
-        <div className="hero-grid-overlay" />
-        <div className="vendor-hero-content">
-          <div className="hero-eyebrow">
-            <div className="hero-eyebrow-dot" />
-            Limited to 100 Vendors Worldwide
-          </div>
-          <h1>
-            The <em>Elite</em> Grower<br />Program
-          </h1>
-          <p className="hero-sub">
-            Join the most exclusive network of verified rare plant vendors on earth.
-            Premium placement. First-access leads. AI-powered market intelligence.
-            Only 100 seats — ever.
-          </p>
-          <div className="vendor-hero-price">
-            <span className="price-amount">$999</span>
-            <span className="price-period">one-time investment</span>
-          </div>
-          <div style={{ marginBottom: '2.5rem' }}>
-             <a href="/elite-rules" style={{ color: 'var(--gold)', fontSize: '0.85rem', textDecoration: 'underline' }}>
-               Review Good Standing Rules & Lifetime Ownership terms
-             </a>
-          </div>
-          <div className="hero-actions">
-            <button className="btn-primary" id="elite-apply-btn">Apply for Elite Status</button>
-            <button className="btn-ghost" id="elite-learn-btn">See What&apos;s Included</button>
-          </div>
-          <p style={{ fontSize: "0.75rem", color: "var(--cream)", opacity: 0.8, marginTop: "1.5rem" }}>
-            Only 100 total seats. 73 remain. No waitlist — when they&apos;re gone, they&apos;re gone.
-          </p>
-        </div>
-        <div className="vendor-hero-seal">
-          <Image
-            src="/brand-seal.png"
-            alt="Elite Grower Seal"
-            width={180}
-            height={180}
-            style={{ filter: "drop-shadow(0 0 40px rgba(212,175,55,0.6))" }}
-          />
-        </div>
-      </section>
+    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-200">
+      
+      {/* ─── HERO: THE ELITE COMMAND ─── */}
+      <section className="relative overflow-hidden pt-32 pb-24 lg:pt-48 lg:pb-40 border-b border-slate-100">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03] mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-emerald-400/10 blur-[150px] rounded-full pointer-events-none"></div>
 
-      {/* ═══════════════════════ SCARCITY BAR ═══ */}
-      <div className="scarcity-bar">
-        <div className="scarcity-inner">
-          <div className="scarcity-label">
-            <span className="elite-badge" style={{ fontSize: "0.6rem" }}>✦ Elite</span>
-            <span>73 of 100 seats remaining</span>
-          </div>
-          <div className="scarcity-track">
-            <div className="scarcity-fill" style={{ width: "27%" }} />
-          </div>
-        </div>
-      </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="flex-1 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-black uppercase tracking-widest mb-10 shadow-sm">
+                <Star size={16} className="fill-emerald-200" />
+                <span>Stabilize Your Pipeline</span>
+              </div>
+              
+              <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95] mb-8">
+                The Authority Suite <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500" style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
+                  For Elite Growers.
+                </span>
+              </h1>
+              
+              <p className="text-xl sm:text-2xl text-slate-500 leading-relaxed font-bold mb-10 max-w-2xl">
+                Eliminate vendor invisibility. Leverage AI lead matching and real-time geolocation routing to secure high-ticket botanical sales with absolute certainty.
+              </p>
 
-      {/* ═══════════════════════ BENEFITS ═══ */}
-      <section className="section section-dark" id="benefits">
-        <div className="section-header">
-          <div className="section-eyebrow">Exclusive Benefits</div>
-          <h2 className="section-title">Everything You Get with <em>Elite</em></h2>
-          <p className="section-desc">
-            Six powerful advantages that separate Elite vendors from the rest of the marketplace.
-          </p>
-          <div className="section-rule" />
-        </div>
-
-        <div className="features-grid">
-          {eliteBenefits.map((b) => (
-            <div className="feature-card" key={b.title} id={`benefit-${b.title.toLowerCase().replace(/[^a-z]/g, "-")}`}>
-              <div className="feature-icon">{b.icon}</div>
-              <h3 className="feature-title">{b.title}</h3>
-              <p className="feature-desc">{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════════════ PRICING ═══ */}
-      <section className="section section-forest" id="pricing">
-        <div className="section-header">
-          <div className="section-eyebrow">Choose Your Tier</div>
-          <h2 className="section-title">Simple, <em>Transparent</em> Pricing</h2>
-          <p className="section-desc">
-            Start free. Upgrade when you&apos;re ready. Every tier unlocks more visibility, trust, and revenue.
-          </p>
-          <div className="section-rule" />
-        </div>
-
-        <PricingToggle />
-      </section>
-
-      {/* ═══════════════════════ TESTIMONIALS ═══ */}
-      <section className="section section-dark" id="testimonials">
-        <div className="section-header">
-          <div className="section-eyebrow">From Our Elite Vendors</div>
-          <h2 className="section-title">Built for <em>Results</em></h2>
-          <div className="section-rule" />
-        </div>
-
-        <div className="testimonials-grid">
-          {testimonials.map((t) => (
-            <div className="testimonial-card" key={t.name} id={`testimonial-${t.initials.toLowerCase()}`}>
-              <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
-              <div className="testimonial-author">
-                <div className="vendor-avatar" style={{ width: 44, height: 44, fontSize: "1rem" }}>
-                  {t.initials}
-                </div>
-                <div>
-                  <div style={{ fontWeight: 600, color: "#fff", fontSize: "0.9rem" }}>{t.name}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--gold)", opacity: 0.8 }}>{t.title}</div>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="#pricing" className="px-10 py-5 bg-slate-900 hover:bg-slate-800 text-white font-black rounded-2xl shadow-2xl hover:shadow-slate-200 transition-all flex items-center justify-center gap-2 group">
+                  Unlock Authority Suite <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a href="#benefits" className="px-10 py-5 bg-white border border-slate-200 text-slate-900 font-black rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                  See Features
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ═══════════════════════ ROI CALCULATOR ═══ */}
-      <section className="section section-forest" id="roi">
-        <div className="section-header">
-          <div className="section-eyebrow">The Math</div>
-          <h2 className="section-title">Your <em>Return</em> on $999</h2>
-          <div className="section-rule" />
-        </div>
-
-        <div className="roi-grid">
-          <div className="roi-card">
-            <div className="roi-number">$999</div>
-            <div className="roi-label">One-Time Investment</div>
-          </div>
-          <div className="roi-card">
-            <div className="roi-number" style={{ color: "#fff" }}>→</div>
-            <div className="roi-label">Converts Into</div>
-          </div>
-          <div className="roi-card">
-            <div className="roi-number">0%</div>
-            <div className="roi-label">Lifetime Platform Fees</div>
-          </div>
-          <div className="roi-card">
-            <div className="roi-number">24hr</div>
-            <div className="roi-label">Head Start on Hot Leads</div>
-          </div>
-          <div className="roi-card">
-            <div className="roi-number">34K</div>
-            <div className="roi-label">Newsletter Reach</div>
-          </div>
-          <div className="roi-card">
-            <div className="roi-number">40%↑</div>
-            <div className="roi-label">Avg. Booth Traffic Increase</div>
+            <div className="flex-1 relative hidden lg:block">
+              <div className="relative z-10 p-4 bg-white border border-slate-200 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] transform hover:rotate-2 transition-transform duration-700">
+                <div className="bg-slate-50 rounded-[2.5rem] p-10">
+                   <div className="flex items-center justify-between mb-10">
+                      <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+                         <TrendingUp className="text-emerald-600 w-8 h-8" />
+                      </div>
+                      <div className="text-right">
+                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Live Intent matching</div>
+                         <div className="text-2xl font-black text-emerald-600">842 Active Leads</div>
+                      </div>
+                   </div>
+                   <div className="space-y-4">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="bg-white p-4 rounded-2xl border border-slate-100 flex items-center justify-between shadow-sm">
+                           <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+                                 <Zap size={18} />
+                              </div>
+                              <div>
+                                 <div className="text-xs font-black text-slate-900 uppercase tracking-tighter">New Lead Match</div>
+                                 <div className="text-[10px] font-bold text-slate-400">Monstera Obliqua Peru</div>
+                              </div>
+                           </div>
+                           <div className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md tracking-widest uppercase">High Intent</div>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+              </div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-emerald-400/5 blur-[120px] rounded-full -z-10"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ FINAL CTA ═══ */}
-      <section className="cta-section">
-        <div className="section-eyebrow" style={{ position: "relative" }}>73 Seats Remaining</div>
-        <h2 style={{ position: "relative" }}>
-          Claim Your <em style={{ fontStyle: "italic", color: "var(--gold)" }}>Elite</em> Seat
-        </h2>
-        <p style={{ position: "relative", fontSize: "1rem", color: "var(--sand)", maxWidth: 520, margin: "0 auto 2.5rem", lineHeight: 1.7, fontWeight: 300 }}>
-          When 100 seats are filled, the program closes. No waitlist. No exceptions.
-          Secure your position as one of the world&apos;s premier rare plant vendors.
-        </p>
-        <div style={{ position: "relative", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <button className="btn-primary" id="final-apply-btn" style={{ padding: "1rem 2.5rem", fontSize: "0.85rem" }}>
-            Claim Your Elite Seat — $999 One-Time
-          </button>
+      {/* ─── BENEFITS GRID ─── */}
+      <section className="py-32 bg-white" id="benefits">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-24">
+            <div className="text-emerald-600 font-black tracking-widest text-xs uppercase mb-4">Strategic Advantage</div>
+            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">Built for the <span className="italic text-emerald-600">Serious</span> Grower</h2>
+            <p className="text-xl text-slate-500 font-bold max-w-2xl mx-auto">
+              Every tool in the Authority Suite is engineered around the core logistics of high-ticket botanical sales.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {authorityBenefits.map((b, i) => (
+              <div key={i} className="group">
+                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 text-slate-900 border border-slate-100 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
+                  {b.icon}
+                </div>
+                <h3 className="text-xl font-black text-slate-900 mb-4 tracking-tight">{b.title}</h3>
+                <p className="text-slate-500 font-bold leading-relaxed text-sm">{b.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <p style={{ position: "relative", fontSize: "0.72rem", color: "var(--sand)", opacity: 0.4, marginTop: "1.5rem" }}>
-          30-day money-back guarantee. Cancel anytime. Your seat is released upon cancellation.
-        </p>
       </section>
-    </main>
+
+      {/* ─── PRICING: THE DECOY MODEL ─── */}
+      <section className="py-32 bg-slate-50 overflow-hidden relative" id="pricing">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-400/5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-20">
+            <div className="text-emerald-600 font-black tracking-widest text-xs uppercase mb-4">Pricing Plans</div>
+            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">The <span className="text-emerald-600">Authority Suite</span> is Now Open</h2>
+          </div>
+          
+          <PricingToggle />
+          
+          <div className="mt-20 max-w-2xl mx-auto bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl text-center flex flex-col md:flex-row items-center gap-8">
+             <div className="w-20 h-20 bg-amber-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-amber-100">
+                <Star className="w-10 h-10 text-amber-500 fill-amber-200" />
+             </div>
+             <div className="text-left">
+                <h4 className="text-xl font-black text-slate-900 mb-2">Looking for the Founders' Circle?</h4>
+                <p className="text-sm font-bold text-slate-500 leading-relaxed mb-4">
+                  Elite Grower seats are limited to 100 total spots worldwide. Own your legacy with a one-time lifetime payment of $999.
+                </p>
+                <div className="text-xs font-black text-amber-600 uppercase tracking-widest flex items-center gap-2">
+                   Only 73 seats remain <ChevronRight size={14} />
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TESTIMONIALS ─── */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {testimonials.map((t, i) => (
+              <div key={i} className="p-10 bg-slate-50 rounded-[3rem] border border-slate-100 relative">
+                <div className="absolute -top-6 left-10 w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-emerald-600 shadow-lg">
+                   <Zap size={24} className="fill-emerald-50" />
+                </div>
+                <p className="text-xl font-bold text-slate-900 mb-8 italic leading-relaxed">
+                  "{t.quote}"
+                </p>
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center text-white font-black text-lg">
+                      {t.name.charAt(0)}
+                   </div>
+                   <div>
+                      <div className="text-sm font-black text-slate-900 uppercase tracking-tighter">{t.name}</div>
+                      <div className="text-xs font-bold text-emerald-600 uppercase tracking-widest">{t.title}</div>
+                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FINAL CALL ─── */}
+      <section className="py-32 bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/leaf.png')]"></div>
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl sm:text-6xl font-black mb-8 tracking-tighter leading-tight">Secure Your Authority <br /> Before the Map Fills.</h2>
+          <p className="text-xl text-slate-400 font-bold mb-12 max-w-2xl mx-auto leading-relaxed">
+            Stop losing collectors to the void. Join the verified network and route serious leads directly to your nursery today.
+          </p>
+          <a href="/onboarding" className="inline-flex items-center gap-3 px-12 py-6 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-[2rem] transition-all shadow-2xl shadow-emerald-500/20 transform hover:-translate-y-1 active:scale-95 text-lg group">
+            Apply for Authority Suite <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <p className="mt-8 text-xs font-black text-slate-500 uppercase tracking-[0.2em] opacity-60">Verified Growers Network · Established 2026</p>
+        </div>
+      </section>
+
+    </div>
   );
 }

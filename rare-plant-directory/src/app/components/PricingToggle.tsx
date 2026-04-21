@@ -1,186 +1,160 @@
 'use client';
+
 import { useState } from "react";
+import { ShieldCheck, Zap, Star, Lock, ChevronRight, Globe, TrendingUp, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 const tiers = [
   {
     name: "Seedling",
-    badge: "Free",
-    badgeClass: "free-tier-badge",
-    monthlyPrice: 0,
-    annualPrice: 0,
-    desc: "Claim your vendor profile. Add your photo, tell your story, and get discovered.",
+    badge: "Free Claim",
+    icon: <Lock className="w-6 h-6 text-slate-400" />,
+    price: 0,
+    period: "/forever",
+    desc: "Establish your presence. Claim your profile and stop being invisible to collectors.",
     features: [
-      { text: "Claim & Own Your Vendor Profile", included: true },
-      { text: "Vendor Photo & Logo Upload", included: true },
-      { text: "About Me / Description Section", included: true },
-      { text: "Social Media Links", included: true },
-      { text: "Up to 10 Inventory Items", included: true },
-      { text: "Event Booth Listing (1 event)", included: true },
+      { text: "Claim & Own Your Profile", included: true },
+      { text: "About Me & Social Links", included: true },
+      { text: "Up to 5 Inventory Items", included: true },
       { text: "Standard Map Pin", included: true },
-      { text: "Community Forum Access", included: true },
-      { text: "Verified Grower Badge", included: false },
-      { text: "Wishlist Match Notifications", included: false },
-      { text: "Profile Customization", included: false },
-      { text: "AI Market Analytics", included: false },
+      { text: "Manual Data Sync", included: true },
+      { text: "AI Lead Matching", included: false },
+      { text: "Authority Suite Analytics", included: false },
     ],
-    cta: "Claim Your Profile",
-    ctaClass: "btn-ghost",
+    cta: "Claim Profile",
     highlight: false,
   },
   {
-    name: "Verified Grower",
-    badge: "✓ Verified",
-    badgeClass: "verified-badge",
-    monthlyPrice: 29,
-    annualPrice: 299,
-    desc: "The professional tier. Verification, visibility, and serious collector access.",
+    name: "Visibility Tier",
+    badge: "Basic Placement",
+    icon: <MapPin className="w-6 h-6 text-slate-600" />,
+    price: 475,
+    period: "/year",
+    desc: "Increased visibility for growing nurseries. Professional verification included.",
     features: [
-      { text: "Enhanced Directory Listing", included: true },
-      { text: "Up to 100 Inventory Items", included: true },
-      { text: "Unlimited Event Booths", included: true },
       { text: "Verified Grower Badge", included: true },
-      { text: "Standard Wishlist Matching", included: true },
-      { text: "5 Digital Passports / month", included: true },
-      { text: "Basic Profile Customization", included: true },
-      { text: "4% Platform Transaction Fee", included: true },
-      { text: "Email Support (48hr)", included: true },
-      { text: "Newsletter Features", included: false },
-      { text: "Premium Map Placement", included: false },
-      { text: "AI Market Analytics", included: false },
+      { text: "Enhanced Search Results", included: true },
+      { text: "Up to 50 Inventory Items", included: true },
+      { text: "Manual Profile Updates", included: true },
+      { text: "Priority Support (48hr)", included: true },
+      { text: "AI Lead Matching", included: false },
+      { text: "Geolocation Engine", included: false },
     ],
-    cta: "Apply for Verification",
-    ctaClass: "btn-verified",
+    cta: "Get Visibility",
     highlight: false,
   },
   {
-    name: "Pro Grower",
-    badge: "★ Pro",
-    badgeClass: "pro-tier-badge",
-    monthlyPrice: 59,
-    annualPrice: 599,
-    desc: "Maximum visibility and advanced tools for high-volume vendors scaling fast.",
+    name: "Authority Suite",
+    badge: "Elite Access",
+    icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+    price: 499,
+    period: "/year",
+    desc: "The definitive choice for serious vendors. Stop guessing and start dominating.",
     features: [
-      { text: "Up to 500 Inventory Items", included: true },
-      { text: "Unlimited Event Booths", included: true },
-      { text: "Pro Grower Badge", included: true },
-      { text: "Enhanced Wishlist Matching", included: true },
-      { text: "20 Digital Passports / month", included: true },
-      { text: "Advanced Profile Customization", included: true },
-      { text: "Premium Map Placement", included: true },
-      { text: "Newsletter Features", included: true },
-      { text: "3% Platform Transaction Fee", included: true },
-      { text: "Basic Analytics Dashboard", included: true },
-      { text: "Priority Email Support (24hr)", included: true },
-      { text: "Rare Finds Priority Alerts", included: false },
+      { text: "AI Lead Matching Engine", included: true },
+      { text: "Real-time Geolocation Engine", included: true },
+      { text: "Priority Mapping Placement", included: true },
+      { text: "Unlimited Inventory Items", included: true },
+      { text: "Automated Data Sync", included: true },
+      { text: "Direct Buyer Intent Alerts", included: true },
+      { text: "Authority Suite Dashboard", included: true },
     ],
-    cta: "Upgrade to Pro",
-    ctaClass: "btn-verified",
+    cta: "Unlock Authority",
     highlight: true,
+    tag: "Best Value (+ $24/yr)"
   },
   {
     name: "Elite Grower",
-    badge: "✦ Elite",
-    badgeClass: "elite-badge",
-    monthlyPrice: null,
-    annualPrice: 999,
-    isOneTime: true,
-    desc: "The Ultimate Founders' Seat. Pay once, own for life. Only 100 seats ever.",
+    badge: "Lifetime Founder",
+    icon: <Globe className="w-6 h-6 text-amber-500" />,
+    price: 999,
+    period: "one-time",
+    desc: "Ultimate authority. One-time payment, lifetime seat in the global inner circle.",
     features: [
-      { text: "Unlimited Inventory Items", included: true },
-      { text: "Unlimited Event Booths", included: true },
-      { text: "Elite Grower Badge", included: true },
-      { text: "24hr Early Wishlist Matching", included: true },
-      { text: "Unlimited Digital Passports", included: true },
-      { text: "Full Profile (3D, Video, Booking)", included: true },
-      { text: "Gold Premium Map Placement", included: true },
-      { text: "Quarterly Newsletter Spotlight", included: true },
+      { text: "All Authority Suite Features", included: true },
+      { text: "Gold Premium Pin (Permanent)", included: true },
       { text: "0% Transaction Fees For Life", included: true },
-      { text: "AI Market Analytics Dashboard", included: true },
-      { text: "Dedicated Account Rep", included: true },
-      { text: "Rare Finds Priority Alerts", included: true },
+      { text: "Newsletter Spotlight Access", included: true },
+      { text: "Concierge Onboarding", included: true },
+      { text: "Elite Badge (1 of 100)", included: true },
+      { text: "Direct API Access", included: true },
     ],
-    cta: "Claim Elite Seat",
-    ctaClass: "btn-primary",
+    cta: "Claim Founder Seat",
     highlight: false,
-    limited: true,
+    limited: "Only 73 Seats Left"
   },
 ];
 
 export default function PricingToggle() {
-  const [billing, setBilling] = useState<"annual" | "monthly">("annual");
-
   return (
-    <div>
-      {/* Toggle */}
-      <div className="billing-toggle" id="billing-toggle">
-        <button
-          className={`toggle-btn${billing === "monthly" ? " active" : ""}`}
-          onClick={() => setBilling("monthly")}
-          id="toggle-monthly-btn"
-        >
-          Monthly
-        </button>
-        <button
-          className={`toggle-btn${billing === "annual" ? " active" : ""}`}
-          onClick={() => setBilling("annual")}
-          id="toggle-annual-btn"
-        >
-          Annual
-          <span className="save-tag">Save 15%</span>
-        </button>
-      </div>
-
-      {/* Pricing Cards */}
-      <div className="pricing-grid">
-        {tiers.map((tier) => {
-          const isAnnualOnly = (tier as any).annualOnly;
-          const isOneTime = (tier as any).isOneTime;
-          const price = (tier.monthlyPrice === null || isAnnualOnly || isOneTime || billing === "annual") ? tier.annualPrice : tier.monthlyPrice;
-          const period = isOneTime ? "one-time" : (isAnnualOnly || billing === "annual" ? "/year" : "/month");
-          return (
-            <div
-              className={`pricing-card${tier.highlight ? " pricing-featured" : ""}${tier.limited ? " pricing-elite" : ""}`}
-              key={tier.name}
-              id={`pricing-${tier.name.toLowerCase().replace(/\s/g, "-")}`}
-            >
-              {tier.limited && (
-                <div className="pricing-limited-tag">Only 100 Seats Worldwide</div>
-              )}
-              {tier.highlight && (
-                <div className="pricing-popular-tag">Most Popular</div>
-              )}
-
-              <span className={tier.badgeClass} style={{ marginBottom: "1rem", display: "inline-flex" }}>
-                {tier.badge}
-              </span>
-              <h3 className="pricing-name">{tier.name}</h3>
-              <p className="pricing-desc">{tier.desc}</p>
-
-              <div className="pricing-price-row">
-                <span className="pricing-dollar">{price === 0 ? "Free" : `$${price}`}</span>
-                {price > 0 && <span className="pricing-period">{tier.name === 'Elite Grower' ? "one-time" : period}</span>}
+    <div className="w-full max-w-7xl mx-auto px-4">
+      {/* Pricing Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {tiers.map((tier) => (
+          <div
+            key={tier.name}
+            className={`flex flex-col bg-white border rounded-[2.5rem] p-8 transition-all duration-500 relative group
+              ${tier.highlight 
+                ? 'border-emerald-200 shadow-2xl shadow-emerald-100/50 scale-105 z-10' 
+                : 'border-slate-200 shadow-xl shadow-slate-200/20 hover:-translate-y-2'}`}
+          >
+            {tier.highlight && (
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                {tier.tag}
               </div>
+            )}
+            
+            {tier.limited && (
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                {tier.limited}
+              </div>
+            )}
 
-              <a
-                href={tier.name === 'Seedling' ? '/onboarding' : '/onboarding'}
-                className={tier.ctaClass}
-                style={{ width: '100%', marginBottom: '2rem', display: 'block', textAlign: 'center', textDecoration: 'none' }}
-                id={`pricing-cta-${tier.name.toLowerCase().replace(/\s/g, '-')}`}
-              >
-                {tier.cta}
-              </a>
-
-              <ul className="pricing-features">
-                {tier.features.map((f) => (
-                  <li key={f.text} className={f.included ? "included" : "excluded"}>
-                    <span className="feature-check">{f.included ? "✓" : "—"}</span>
-                    {f.text}
-                  </li>
-                ))}
-              </ul>
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform">
+                  {tier.icon}
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  {tier.badge}
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">{tier.name}</h3>
+              <p className="text-sm text-slate-500 font-medium leading-relaxed">{tier.desc}</p>
             </div>
-          );
-        })}
+
+            <div className="mb-8">
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black text-slate-900">
+                  {tier.price === 0 ? 'Free' : `$${tier.price}`}
+                </span>
+                <span className="text-sm font-bold text-slate-400">{tier.period}</span>
+              </div>
+            </div>
+
+            <Link
+              href="/onboarding"
+              className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-black text-sm transition-all active:scale-95 mb-10
+                ${tier.highlight 
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-100' 
+                  : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl shadow-slate-200'}`}
+            >
+              {tier.cta}
+              <ChevronRight size={18} />
+            </Link>
+
+            <ul className="space-y-4 flex-grow">
+              {tier.features.map((feature, i) => (
+                <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? 'text-slate-600' : 'text-slate-300'}`}>
+                  <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feature.included ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-300'}`}>
+                    {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />}
+                  </div>
+                  {feature.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
