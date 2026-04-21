@@ -210,7 +210,7 @@ function StepTier({ form, update }: { form: FormData; update: (k: keyof FormData
         <p className="onboarding-subtitle">Start free and upgrade anytime. No credit card required for Seedling.</p>
       </div>
 
-      <div className="billing-toggle" style={{ marginBottom: '1.5rem', transform: 'scale(0.9)', originX: 'center' }}>
+      <div className="billing-toggle" style={{ marginBottom: '1.5rem', transform: 'scale(0.9)', transformOrigin: 'center' }}>
         <button className={`toggle-btn${form.billingPeriod === 'monthly' ? ' active' : ''}`} onClick={() => update('billingPeriod', 'monthly')}>Monthly</button>
         <button className={`toggle-btn${form.billingPeriod === 'annual' ? ' active' : ''}`} onClick={() => update('billingPeriod', 'annual')}>Annual <span className="save-tag">Save 15%</span></button>
       </div>
@@ -241,7 +241,7 @@ function StepTier({ form, update }: { form: FormData; update: (k: keyof FormData
                   <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: isSelected ? 'var(--text-primary)' : 'var(--text-primary)' }}>{cfg.name}</span>
                 </div>
                 <span style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 600 }}>
-                  {tier === 'seedling' ? 'Free' : (tier === 'elite' ? '$999' : (form.billingPeriod === 'annual' ? cfg.annualPrice : cfg.monthlyPrice))}
+                  {tier === 'seedling' ? 'Free' : (tier === 'elite' ? '$999' : (form.billingPeriod === 'annual' ? (cfg as any).annualPrice : (cfg as any).monthlyPrice))}
                 </span>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
@@ -393,7 +393,7 @@ function StepReview({ form, onSubmit }: { form: FormData; onSubmit: () => void }
           <span className={cfg.badgeClass}>{cfg.badge}</span>
           <span style={{ marginLeft: '0.75rem', fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: 'var(--text-primary)' }}>{cfg.name}</span>
         </div>
-        <span style={{ color: 'var(--gold)', fontWeight: 700 }}>{cfg.price}</span>
+        <span style={{ color: 'var(--gold)', fontWeight: 700 }}>{(cfg as any).price || (form.billingPeriod === 'annual' ? (cfg as any).annualPrice : (cfg as any).monthlyPrice)}</span>
       </div>
 
       {/* Profile Summary */}
