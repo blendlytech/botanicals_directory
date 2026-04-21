@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 import ProfileTracker from "@/app/components/ProfileTracker";
 
 export const revalidate = 60; // revalidate every 60 seconds
 
 export default async function VendorProfilePage({ params }: { params: { slug: string } }) {
   const { slug } = params;
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
   // Fetch vendor details
   const { data: vendor, error } = await supabase

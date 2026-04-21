@@ -1,15 +1,18 @@
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 // Prevent Next.js from caching this page statically if we want real-time vendor list
 export const revalidate = 60; // revalidate every 60 seconds
 
 export default async function VendorsPage() {
-  // Fetch active vendors
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  // Fetch active vendors - Note: removed is_verified check for now to show seeded vendors
   const { data: vendors, error } = await supabase
     .from('vendors')
     .select('name, slug, specialty, location_city, location_state, location_country, tier, is_elite, is_verified, logo_url')
-    .eq('is_verified', true)
     .order('is_elite', { ascending: false })
     .order('name', { ascending: true });
 
