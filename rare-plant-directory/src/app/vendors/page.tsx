@@ -1,13 +1,11 @@
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 
 // Prevent Next.js from caching this page statically if we want real-time vendor list
 export const revalidate = 60; // revalidate every 60 seconds
 
 export default async function VendorsPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   // Fetch active vendors - Note: removed is_verified check for now to show seeded vendors
   const { data: vendors, error } = await supabase
