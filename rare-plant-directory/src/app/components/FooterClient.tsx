@@ -46,7 +46,7 @@ export default function FooterClient() {
       </div>
 
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Rare Plant Vendors Directory. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Real Plant Vendors. All rights reserved.</span>
         <span style={{ fontFamily: "var(--font-heading)", fontStyle: "italic", color: "var(--gold)", opacity: 1 }}>
           The Rolex of Plant Sites™
         </span>

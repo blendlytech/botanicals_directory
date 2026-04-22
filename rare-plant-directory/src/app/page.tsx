@@ -96,7 +96,7 @@ export default async function Home() {
           <div className="hero-seal" style={{ marginTop: '5rem', opacity: 1 }}>
             <Image 
               src="/brand-seal.png" 
-              alt="RPV Official Seal" 
+              alt="Real Plant Vendors Official Seal" 
               width={140} 
               height={140} 
               style={{ filter: 'drop-shadow(0 0 30px var(--gold-dim))' }}
