@@ -149,8 +149,10 @@ export default function EventsMapPage() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
-            {events.map(evt => (
-              <Link key={evt.id} href={`/events/${evt.slug}`} style={{ textDecoration: 'none' }}>
+            {events.map(evt => {
+              const href = evt.slug === 'the-big-plant-expo' ? '/events/charleston' : `/events/${evt.slug}`;
+              return (
+                <Link key={evt.id} href={href} style={{ textDecoration: 'none' }}>
                 <div className="event-card" style={{ height: '100%' }}>
                   <div className="event-card-body">
                     <div className="event-card-date">
@@ -161,8 +163,9 @@ export default function EventsMapPage() {
                       <MapPin size={14} /> {evt.location_name}
                     </div>
                     <div className="event-card-footer">
-                        <span className="btn-ghost" style={{ padding: '0.5rem 1rem', fontSize: '0.65rem' }}>View Details</span>
-                        <ChevronRight size={16} style={{ opacity: 0.5 }} />
+                        <span className="btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.7rem', width: '100%', textAlign: 'center' }}>
+                          Complete Event Details
+                        </span>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,104 @@
+.passportMain {
+  min-height: 100dvh;
+  padding-block: var(--space-12);
+  position: relative;
+  overflow: hidden;
+}
+
+.orb1 {
+  position: absolute; width: 800px; height: 800px;
+  top: -200px; left: -200px;
+  background: radial-gradient(circle, rgba(45,138,78,0.15) 0%, transparent 60%);
+  border-radius: 50%; pointer-events: none; z-index: 0;
+}
+.orb2 {
+  position: absolute; width: 600px; height: 600px;
+  bottom: 10%; right: -100px;
+  background: radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 60%);
+  border-radius: 50%; pointer-events: none; z-index: 0;
+}
+
+.wrapper { position: relative; z-index: 10; max-width: 1000px; margin: 0 auto; }
+
+/* Verification Banner */
+.verifiedBanner {
+  display: flex; align-items: center; gap: var(--space-4);
+  background: rgba(45,138,78,0.12);
+  border: 1px solid rgba(45,138,78,0.40);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 0 20px rgba(45,138,78,0.15);
+}
+.shieldIcon { font-size: var(--text-2xl); color: var(--color-emerald-bright); }
+.bannerText { flex: 1; }
+.verifiedTitle { font-size: var(--text-lg); color: var(--color-emerald-bright); margin-bottom: 2px; }
+.hash { font-family: monospace; font-size: var(--text-xs); color: rgba(250,250,248,0.6); }
+.issuedDate { font-size: var(--text-xs); color: var(--color-white-muted); text-align: right; }
+
+/* Grid Layout */
+.contentGrid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-12); }
+
+/* Visual Col */
+.visualCol { display: flex; flex-direction: column; gap: var(--space-6); }
+.imageWrap {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--glass-border);
+  aspect-ratio: 4/5;
+  background: rgba(10,26,15,0.5);
+}
+.heroImage { width: 100%; height: 100%; object-fit: cover; }
+.soldOverlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.noImage {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-xl);
+  border: 1px dashed rgba(201,168,76,0.3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-4); color: var(--color-sand-dark);
+}
+.noImageIcon { font-size: 3rem; }
+
+/* Vendor Card */
+.vendorCard { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); }
+.vendorInfo { display: flex; align-items: center; gap: var(--space-4); }
+.vendorLogo { width: 50px; height: 50px; border-radius: var(--radius-full); object-fit: cover; }
+.vendorLogoPlaceholder {
+  width: 50px; height: 50px; border-radius: var(--radius-full);
+  background: var(--color-gold); color: var(--color-forest-deep);
+  display: flex; align-items: center; justify-content: center; font-size: var(--text-lg);
+}
+.vendorName { font-size: var(--text-lg); color: var(--color-white); }
+.vendorBio { font-size: var(--text-xs); color: var(--color-white-muted); margin-top: 2px; }
+.btnFull { width: 100%; }
+
+/* Info Col */
+.infoCol { padding-top: var(--space-4); }
+.headerBlock { margin-bottom: var(--space-6); }
+.title { font-size: var(--text-4xl); line-height: 1.1; margin-bottom: var(--space-2); background: linear-gradient(135deg, var(--color-white), var(--color-sand)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.variety { font-size: var(--text-2xl); color: var(--color-gold-light); font-weight: 400; font-style: italic; margin-bottom: var(--space-4); }
+.price { font-size: var(--text-xl); color: var(--color-white); font-weight: 500; }
+
+.dataSection { margin-bottom: var(--space-8); }
+.sectionTitle { font-size: var(--text-xl); color: var(--color-sand); margin-bottom: var(--space-4); }
+
+.dataGrid { display: grid; grid-template-columns: 1fr; gap: 0; padding: 0; overflow: hidden; }
+.dataItem { display: flex; justify-content: space-between; padding: var(--space-4); border-bottom: 1px solid rgba(250,250,248,0.05); }
+.dataItem:last-child { border-bottom: none; }
+.dataLabel { color: var(--color-sand-dark); font-size: var(--text-sm); }
+.dataValue { color: var(--color-white); font-weight: 500; text-align: right; }
+
+.careBox { padding: var(--space-5); color: var(--color-white-muted); font-size: var(--text-sm); line-height: 1.7; }
+.actions { margin-top: var(--space-10); }
+
+@media (max-width: 768px) {
+  .contentGrid { grid-template-columns: 1fr; }
+  .verifiedBanner { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .issuedDate { text-align: left; }
+  .title { font-size: var(--text-3xl); }
+}
