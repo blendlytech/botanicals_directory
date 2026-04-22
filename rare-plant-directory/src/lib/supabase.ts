@@ -20,6 +20,17 @@ export type Vendor = {
   events_count?: number;
 };
 
+export type Collector = {
+  id: string;
+  user_id: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  location_city: string | null;
+  location_country: string | null;
+  bio: string | null;
+  created_at: string;
+};
+
 export type Event = {
   id: string;
   title: string;
