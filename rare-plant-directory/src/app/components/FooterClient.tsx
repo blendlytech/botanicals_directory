@@ -15,7 +15,7 @@ export default function FooterClient() {
               height={44}
               style={{ filter: "drop-shadow(0 0 8px rgba(212,175,55,0.4))" }}
             />
-            <span className="logo-text" style={{ fontSize: "1.2rem" }}>Rare Plant Vendors</span>
+            <span className="logo-text" style={{ fontSize: "1.2rem" }}>Real Plant Vendors</span>
           </Link>
           <p>The world&apos;s premier directory for rare botanical events, verified growers, and serious collectors. Est. 2026.</p>
         </div>
