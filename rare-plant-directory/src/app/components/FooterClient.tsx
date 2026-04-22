@@ -38,7 +38,7 @@ export default function FooterClient() {
 
         <div className="footer-col">
           <h4>Company</h4>
-          <a href="#" id="footer-about-link">About Us</a>
+          <Link href="/about" id="footer-about-link">About Us</Link>
           <a href="#" id="footer-blog-link">Blog</a>
           <a href="#" id="footer-contact-link">Contact</a>
           <a href="#" id="footer-privacy-link">Privacy Policy</a>
