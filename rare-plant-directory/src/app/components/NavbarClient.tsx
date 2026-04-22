@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -14,7 +15,7 @@ export default function NavbarClient() {
 
   return (
     <nav className={`navbar${scrolled ? " scrolled" : ""}`} id="main-navbar">
-      <div className="logo-container">
+      <Link href="/" className="logo-container">
         <Image
           src="/brand-seal.png"
           alt="Rare Plant Vendors Seal"
@@ -24,7 +25,7 @@ export default function NavbarClient() {
           priority
         />
         <span className="logo-text">Rare Plant Vendors</span>
-      </div>
+      </Link>
       <div className="nav-links">
         <a href="/events" id="nav-events-link">Events</a>
         <a href="/vendors" id="nav-vendors-link">Vendors</a>

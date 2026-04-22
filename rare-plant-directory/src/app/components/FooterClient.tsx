@@ -1,12 +1,13 @@
 'use client';
 import Image from "next/image";
+import Link from "next/link";
 
 export default function FooterClient() {
   return (
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem", textDecoration: "none", color: "inherit" }}>
             <Image
               src="/brand-seal.png"
               alt="RPV Seal"
@@ -15,7 +16,7 @@ export default function FooterClient() {
               style={{ filter: "drop-shadow(0 0 8px rgba(212,175,55,0.4))" }}
             />
             <span className="logo-text" style={{ fontSize: "1.2rem" }}>Rare Plant Vendors</span>
-          </div>
+          </Link>
           <p>The world&apos;s premier directory for rare botanical events, verified growers, and serious collectors. Est. 2026.</p>
         </div>
 
