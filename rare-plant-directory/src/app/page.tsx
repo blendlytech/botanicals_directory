@@ -156,13 +156,13 @@ export default async function Home() {
               textTransform: 'uppercase',
               whiteSpace: 'nowrap'
             }}>
-              First 100 Vendors Only
+              First 25 Vendors Only
             </div>
             
             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--gold)' }}>Lifetime Access</h3>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ fontSize: '3rem', fontWeight: 700, color: 'white' }}>$49</div>
-              <div style={{ textDecoration: 'line-through', opacity: 0.5, fontSize: '1.2rem', color: 'var(--cream)' }}>$98/yr</div>
+              <div style={{ fontSize: '3rem', fontWeight: 700, color: 'white' }}>$498</div>
+              <div style={{ textDecoration: 'line-through', opacity: 0.5, fontSize: '1.2rem', color: 'var(--cream)' }}>$998/yr</div>
             </div>
             <p style={{ color: 'var(--cream)', opacity: 0.9, marginBottom: '2rem', fontSize: '0.9rem', flex: 1 }}>
               Lifetime access to CultivarID generation, elite badge, and all future premium upgrades. No annual fees, ever.
@@ -187,12 +187,12 @@ export default async function Home() {
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--cream)' }}>Vendor Standard</h3>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--cream)' }}>Vendor Elite</h3>
             <div style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '1rem', color: 'white' }}>
-              $98<span style={{ fontSize: '1.2rem', opacity: 0.6, fontWeight: 400 }}>/yr</span>
+              $998<span style={{ fontSize: '1.2rem', opacity: 0.6, fontWeight: 400 }}>/yr</span>
             </div>
             <p style={{ opacity: 0.7, marginBottom: '2rem', fontSize: '0.9rem', flex: 1 }}>
-              Standard vendor account access after the Founder slots are filled.
+              Elite vendor account access after the Founder slots are filled.
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', opacity: 0.8, fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><ShieldCheck size={18} color="var(--gold)" /> Verified Vendor Profile</li>
@@ -213,7 +213,7 @@ export default async function Home() {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="ticker-item" style={{ fontSize: '0.8rem', letterSpacing: '0.2em' }}>
               <span style={{ color: 'var(--gold)' }}>CultivarID</span> Release <div className="ticker-dot"></div>
-              <span style={{ color: 'var(--gold)' }}>100</span> Lifetime Access Passes <div className="ticker-dot"></div>
+              <span style={{ color: 'var(--gold)' }}>25</span> Lifetime Access Passes <div className="ticker-dot"></div>
             </div>
           ))}
         </div>
@@ -233,7 +233,7 @@ export default async function Home() {
             Ready to secure your legacy?
           </h2>
           <p style={{ opacity: 0.8, marginBottom: '2rem' }}>
-            Only 100 Lifetime Access passes available. Don't miss out on the future of botanical provenance.
+            Only 25 Lifetime Access passes available. Don't miss out on the future of botanical provenance.
           </p>
           <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ padding: '1rem 3rem', borderRadius: '12px', fontSize: '1.1rem' }}>
             Claim Your Spot Now
