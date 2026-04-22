@@ -26,10 +26,10 @@ export default async function Home() {
   return (
     <div className="page-wrapper" style={{ overflow: 'hidden' }}>
       
-      {/* ─── HERO SECTION: THE CROWN JEWEL ─── */}
+      {/* ─── HERO SECTION: CULTIVAR ID RELEASE ─── */}
       <section className="hero" style={{ 
-        paddingTop: '12rem', 
-        paddingBottom: '8rem',
+        paddingTop: '10rem', 
+        paddingBottom: '6rem',
         position: 'relative' 
       }}>
         <div className="hero-grid-overlay" style={{ opacity: 0.15 }}></div>
@@ -48,19 +48,20 @@ export default async function Home() {
           zIndex: 0
         }}></div>
 
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
           <div className="hero-eyebrow" style={{ margin: '0 auto 2.5rem' }}>
             <div className="hero-eyebrow-dot"></div>
-            <span>The Rolex of Botanical Marketplace Technology</span>
+            <span>Official Release</span>
           </div>
           
           <h1 style={{ 
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)', 
-            marginBottom: '2rem',
+            fontSize: 'clamp(3rem, 8vw, 6.5rem)', 
+            marginBottom: '1.5rem',
             letterSpacing: '-0.03em',
-            fontWeight: 700
+            fontWeight: 700,
+            lineHeight: 1.1
           }}>
-            Stop Losing High-Ticket <br />
+            Introducing <br />
             <em style={{ 
               display: 'inline-block',
               background: 'linear-gradient(135deg, var(--gold) 0%, #F2D681 50%, var(--gold) 100%)',
@@ -68,224 +69,175 @@ export default async function Home() {
               WebkitTextFillColor: 'transparent',
               fontStyle: 'italic',
               animation: 'shimmer 4s linear infinite'
-            }}>Leads to the Void.</em>
+            }}>CultivarID</em>
           </h1>
           
           <p className="hero-sub" style={{ 
             maxWidth: '700px', 
+            margin: '0 auto 4rem',
             fontSize: '1.25rem', 
-            marginBottom: '4rem',
             opacity: 0.9,
             lineHeight: 1.6
           }}>
-            Eliminate vendor invisibility and solve logistical anxiety. The Global Event Map 
-            routes serious collectors directly to your booth, turning fleeting event foot-traffic 
-            into a permanent, stabilized client pipeline.
+            The definitive digital passport for botanical provenance. 
+            Secure your legacy, verify your specimens, and connect directly with serious collectors.
           </p>
-          
-          <div className="hero-actions">
-            <Link href="/onboarding" className="btn-primary" style={{ padding: '1.25rem 3rem', fontSize: '1rem' }}>
-              Claim Your Listing
-              <ChevronRight size={18} style={{ marginLeft: '0.5rem' }} />
-            </Link>
-            <Link href="/events" className="btn-ghost" style={{ padding: '1.25rem 3rem', fontSize: '1rem' }}>
-              Explore the Map
-            </Link>
-          </div>
-
-          <div className="hero-seal" style={{ marginTop: '5rem', opacity: 1 }}>
-            <Image 
-              src="/brand-seal.png" 
-              alt="Real Plant Vendors Official Seal" 
-              width={140} 
-              height={140} 
-              style={{ filter: 'drop-shadow(0 0 30px var(--gold-dim))' }}
-            />
-          </div>
-        </div>
-
-        <div className="hero-scroll-hint" style={{ bottom: '3rem' }}>
-          <span style={{ fontWeight: 800 }}>Scroll to Discover</span>
-          <div className="scroll-line" style={{ height: '50px' }}></div>
         </div>
       </section>
 
-      {/* ─── TICKER BAR: TRUST & AUTHORITY ─── */}
+      {/* ─── PRICING / SIGNUP FOCUS ─── */}
+      <section className="section" id="pricing" style={{ padding: '2rem 5% 8rem' }}>
+        <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 className="section-title">Select Your <em>Access Tier</em></h2>
+          <p style={{ opacity: 0.7, maxWidth: '600px', margin: '1rem auto 0' }}>
+            Streamlined access for collectors and an exclusive lifetime opportunity for early-adopting vendors.
+          </p>
+        </div>
+
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+          gap: '2rem',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
+          
+          {/* Collector Tier */}
+          <div className="pricing-card" style={{ 
+            background: 'var(--charcoal)', 
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '24px',
+            padding: '3rem 2rem',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--cream)' }}>Collector</h3>
+            <div style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '1rem', color: 'white' }}>
+              Free
+            </div>
+            <p style={{ opacity: 0.7, marginBottom: '2rem', fontSize: '0.9rem', flex: 1 }}>
+              Standard account access to browse vendors, view CultivarIDs, and track your wishlist.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', opacity: 0.8, fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><ShieldCheck size={18} color="var(--gold)" /> Verify CultivarIDs</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Map size={18} color="var(--gold)" /> Access Global Event Map</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Star size={18} color="var(--gold)" /> Save Favorite Vendors</li>
+            </ul>
+            <Link href="/onboarding?type=collector" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1rem', borderRadius: '12px' }}>
+              Join as Collector
+            </Link>
+          </div>
+
+          {/* Vendor Founder Tier (Highlighted) */}
+          <div className="pricing-card featured" style={{ 
+            background: 'rgba(11,61,46,0.6)', 
+            border: '2px solid var(--gold)',
+            borderRadius: '24px',
+            padding: '3rem 2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            boxShadow: '0 0 40px rgba(212, 175, 55, 0.15)',
+            transform: 'scale(1.05)',
+            zIndex: 10
+          }}>
+            <div style={{ 
+              position: 'absolute', 
+              top: '-15px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              background: 'var(--gold)',
+              color: 'var(--charcoal)',
+              padding: '0.4rem 1.25rem',
+              borderRadius: '20px',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap'
+            }}>
+              First 100 Vendors Only
+            </div>
+            
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--gold)' }}>Lifetime Access</h3>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ fontSize: '3rem', fontWeight: 700, color: 'white' }}>$49</div>
+              <div style={{ textDecoration: 'line-through', opacity: 0.5, fontSize: '1.2rem', color: 'var(--cream)' }}>$98/yr</div>
+            </div>
+            <p style={{ color: 'var(--cream)', opacity: 0.9, marginBottom: '2rem', fontSize: '0.9rem', flex: 1 }}>
+              Lifetime access to CultivarID generation, elite badge, and all future premium upgrades. No annual fees, ever.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', opacity: 0.9, fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Zap size={18} color="var(--gold)" /> Lifetime CultivarID Creation</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Star size={18} color="var(--gold)" /> "Founder" Elite Profile Badge</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><TrendingUp size={18} color="var(--gold)" /> All Future Features Included</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Lock size={18} color="var(--gold)" /> Never Pay Annual Renewal</li>
+            </ul>
+            <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1rem', borderRadius: '12px', background: 'var(--gold)', color: 'var(--charcoal)', fontWeight: 700 }}>
+              Claim Lifetime Access
+            </Link>
+          </div>
+
+          {/* Vendor Standard Tier */}
+          <div className="pricing-card" style={{ 
+            background: 'var(--charcoal)', 
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '24px',
+            padding: '3rem 2rem',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--cream)' }}>Vendor Standard</h3>
+            <div style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '1rem', color: 'white' }}>
+              $98<span style={{ fontSize: '1.2rem', opacity: 0.6, fontWeight: 400 }}>/yr</span>
+            </div>
+            <p style={{ opacity: 0.7, marginBottom: '2rem', fontSize: '0.9rem', flex: 1 }}>
+              Standard vendor account access after the Founder slots are filled.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', opacity: 0.8, fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><ShieldCheck size={18} color="var(--gold)" /> Verified Vendor Profile</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><MapPin size={18} color="var(--gold)" /> Event Map Placement</li>
+              <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}><Zap size={18} color="var(--gold)" /> Standard CultivarIDs</li>
+            </ul>
+            <Link href="/onboarding?type=vendor&plan=standard" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1rem', borderRadius: '12px' }}>
+              Join Waitlist
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── TICKER BAR ─── */}
       <div className="ticker-bar" style={{ padding: '1.25rem 0', background: 'var(--charcoal)', borderTop: '1px solid var(--gold-dim)' }}>
         <div className="ticker-track" style={{ animationDuration: '40s' }}>
-          {[1, 2, 3, 4].map((i) => (
+          {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="ticker-item" style={{ fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-              <span style={{ color: 'var(--gold)' }}>Elite</span> Registry <div className="ticker-dot"></div>
-              <span style={{ color: 'var(--gold)' }}>Verified</span> Inventory <div className="ticker-dot"></div>
-              <span style={{ color: 'var(--gold)' }}>Global</span> Event Map <div className="ticker-dot"></div>
-              <span style={{ color: 'var(--gold)' }}>CultivarID</span> Traceability <div className="ticker-dot"></div>
+              <span style={{ color: 'var(--gold)' }}>CultivarID</span> Release <div className="ticker-dot"></div>
+              <span style={{ color: 'var(--gold)' }}>100</span> Lifetime Access Passes <div className="ticker-dot"></div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ─── FEATURES: THE CORE VALUE ─── */}
-      <section className="section section-dark" style={{ padding: '10rem 5%' }}>
-        <div className="section-header">
-          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Strategic Dominance</div>
-          <h2 className="section-title">Engineered for <em>Market Supremacy</em></h2>
-          <div className="section-rule" style={{ width: '100px', height: '2px' }}></div>
-        </div>
-
-        <div className="features-grid" style={{ gap: '3rem' }}>
-          <div className="feature-card" style={{ padding: '3.5rem 2.5rem', background: 'rgba(11,61,46,0.3)', backdropFilter: 'blur(10px)' }}>
-            <div className="feature-icon" style={{ background: 'var(--gold-dim)', border: '1px solid var(--gold)' }}>
-              <MapPin size={28} color="var(--gold)" />
-            </div>
-            <h3 className="feature-title" style={{ fontSize: '1.75rem' }}>Pinpoint Routing</h3>
-            <p className="feature-desc" style={{ fontSize: '1rem', opacity: 0.7 }}>
-              Buyers find your exact inventory and location before the event doors even open. Direct-to-booth logistics.
-            </p>
-          </div>
-          
-          <div className="feature-card" style={{ 
-            padding: '3.5rem 2.5rem', 
-            background: 'rgba(11,61,46,0.5)', 
-            borderColor: 'var(--gold)',
-            boxShadow: '0 0 40px var(--gold-dim)'
-          }}>
-            <div className="feature-icon" style={{ background: 'var(--gold)', border: '1px solid var(--gold)' }}>
-              <TrendingUp size={28} color="var(--charcoal)" />
-            </div>
-            <h3 className="feature-title" style={{ fontSize: '1.75rem', color: 'var(--gold)' }}>Authority Suite</h3>
-            <p className="feature-desc" style={{ fontSize: '1rem', color: 'var(--cream)' }}>
-              Provisional access to elite analytics. See exactly who is looking for your plants in real-time.
-            </p>
-          </div>
-          
-          <div className="feature-card" style={{ padding: '3.5rem 2.5rem', background: 'rgba(11,61,46,0.3)', backdropFilter: 'blur(10px)' }}>
-            <div className="feature-icon" style={{ background: 'var(--gold-dim)', border: '1px solid var(--gold)' }}>
-              <Zap size={28} color="var(--gold)" />
-            </div>
-            <h3 className="feature-title" style={{ fontSize: '1.75rem' }}>End The Bleed</h3>
-            <p className="feature-desc" style={{ fontSize: '1rem', opacity: 0.7 }}>
-              Stop losing post-event follow-ups. Centralize your presence where serious collectors live and transact.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── DIRECTORY PREVIEW: THE BAITED HOOK ─── */}
-      <section className="section" style={{ padding: '10rem 5%' }}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'flex-end', 
-          marginBottom: '5rem',
-          flexWrap: 'wrap',
-          gap: '2rem'
-        }}>
-          <div className="section-header" style={{ textAlign: 'left', margin: 0 }}>
-            <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Elite Registry</div>
-            <h2 className="section-title" style={{ maxWidth: '600px' }}>The 100 Most <em>Authoritative</em> Growers</h2>
-          </div>
-          <Link href="/vendors" className="btn-ghost" style={{ borderRadius: '12px', padding: '1rem 2rem' }}>
-            View Full Registry <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
-          </Link>
-        </div>
-
-        <div className="vendors-grid" style={{ gap: '2rem' }}>
-          {vendors.map((v, idx) => {
-            // Premium background images for verified vendors
-            const backgrounds = [
-              'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800',
-              'https://images.unsplash.com/photo-1520412099561-63819215bb01?auto=format&fit=crop&q=80&w=800',
-              'https://images.unsplash.com/photo-1466781783364-391eaf50cf2a?auto=format&fit=crop&q=80&w=800',
-              'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=800'
-            ];
-            const bgImage = backgrounds[idx % backgrounds.length];
-
-            return (
-              <Link 
-                href={`/vendors/${v.slug}`} 
-                key={v.slug} 
-                className={`vendor-card ${v.is_verified ? 'is-verified' : ''}`}
-                style={{ 
-                  display: 'flex',
-                  padding: '2.5rem',
-                  textDecoration: 'none'
-                }}
-              >
-                {v.is_verified && (
-                  <>
-                    <div className="vendor-card-image-bg">
-                      <img src={bgImage} alt="" aria-hidden="true" />
-                    </div>
-                    <div className="vendor-card-overlay"></div>
-                  </>
-                )}
-
-                <div className="vendor-card-content" style={{ width: '100%' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
-                    <div className="vendor-avatar" style={{ width: '64px', height: '64px', fontSize: '1.5rem' }}>
-                      {v.name.charAt(0)}
-                    </div>
-                    {v.is_verified ? (
-                      <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
-                    ) : (
-                      <span className="elite-badge" style={{ background: 'var(--charcoal)', color: 'var(--gold)', opacity: 0.6 }}><Lock size={12} /> Unclaimed</span>
-                    )}
-                  </div>
-                  <h3 className="vendor-name" style={{ fontSize: '1.5rem' }}>{v.name}</h3>
-                  <p className="vendor-specialty" style={{ fontSize: '0.8rem', opacity: 0.7 }}>{v.specialty || 'Rare Plant Specialist'}</p>
-                  
-                  <div style={{ 
-                    marginTop: 'auto', 
-                    paddingTop: '1.5rem', 
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    color: 'var(--gold)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em'
-                  }}>
-                    View Profile <ChevronRight size={14} />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
       {/* ─── CTA SECTION: THE CLOSER ─── */}
-      <section className="cta-section" style={{ padding: '10rem 5%' }}>
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem', marginBottom: '2rem' }}>Exclusive Access</div>
-          <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.1 }}>The <em>First to Know</em> <br />Always Find the Rarest</h2>
-          <p style={{ maxWidth: '650px', margin: '2rem auto 4rem', fontSize: '1.15rem', opacity: 0.8, lineHeight: 1.6 }}>
-            Get early access to event listings, exclusive vendor inventory previews, and CultivarID alerts — before general release. Join the verified network.
+      <section className="cta-section" style={{ padding: '6rem 5% 10rem', textAlign: 'center' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px', margin: '0 auto' }}>
+          <Image 
+            src="/brand-seal.png" 
+            alt="Real Plant Vendors Official Seal" 
+            width={100} 
+            height={100} 
+            style={{ filter: 'drop-shadow(0 0 30px var(--gold-dim))', margin: '0 auto 2rem' }}
+          />
+          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.2, marginBottom: '1rem' }}>
+            Ready to secure your legacy?
+          </h2>
+          <p style={{ opacity: 0.8, marginBottom: '2rem' }}>
+            Only 100 Lifetime Access passes available. Don't miss out on the future of botanical provenance.
           </p>
-          
-          <div className="newsletter-form" style={{ 
-            maxWidth: '500px', 
-            margin: '0 auto', 
-            background: 'var(--bg-card)', 
-            padding: '0.5rem', 
-            borderRadius: '16px',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
-          }}>
-            <input 
-              type="email" 
-              placeholder="Enter your professional email" 
-              className="newsletter-input" 
-              style={{ padding: '1rem 1.5rem', border: 'none', background: 'transparent', flex: 1 }}
-            />
-            <button type="submit" className="btn-primary" style={{ borderRadius: '12px', padding: '1rem 2rem' }}>
-              Join Network
-            </button>
-          </div>
-          
-          <p style={{ marginTop: '2.5rem', fontSize: '0.65rem', opacity: 0.5, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-            No spam. Collector-first, always. Established 2026.
-          </p>
+          <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ padding: '1rem 3rem', borderRadius: '12px', fontSize: '1.1rem' }}>
+            Claim Your Spot Now
+          </Link>
         </div>
       </section>
 
