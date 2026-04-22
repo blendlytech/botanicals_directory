@@ -13,9 +13,12 @@ export default function OnboardingPage() {
     specialty: ''
   });
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
     try {
       const res = await fetch('/api/onboarding', {
@@ -29,15 +32,14 @@ export default function OnboardingPage() {
         })
       });
       
-      if (!res.ok) throw new Error('Onboarding failed');
+      const data = await res.json();
+      
+      if (!res.ok) throw new Error(data.error || 'Onboarding failed');
       
       setIsSuccess(true);
-    } catch (error) {
-      console.error(error);
-      // Fallback for demo
-      setTimeout(() => {
-        setIsSuccess(true);
-      }, 1500);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'An error occurred during onboarding.');
     } finally {
       setIsSubmitting(false);
     }
@@ -113,6 +115,20 @@ export default function OnboardingPage() {
             Claim your free directory listing in seconds. Stop the bleed and stabilize your botanical client pipeline.
           </p>
         </div>
+        {error && (
+          <div style={{ 
+            padding: '1rem', 
+            background: 'rgba(239, 68, 68, 0.1)', 
+            border: '1px solid rgba(239, 68, 68, 0.2)', 
+            borderRadius: '12px', 
+            color: '#f87171', 
+            marginBottom: '2rem',
+            fontSize: '0.9rem',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={{ 
           background: 'var(--glass)', 
