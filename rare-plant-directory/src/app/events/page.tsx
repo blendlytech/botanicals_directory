@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
-import Image from 'next/image';
 import { MapPin, Calendar, ChevronRight, Search } from 'lucide-react';
 
 interface Event {
@@ -138,7 +137,6 @@ export default function EventsMapPage() {
           </div>
         )}
 
-        {/* Event List Preview */}
         <div style={{ marginTop: '5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }}>
             <h2 className="section-title" style={{ fontSize: '2rem', margin: 0 }}>Upcoming <em>Exhibitions</em></h2>
@@ -153,24 +151,25 @@ export default function EventsMapPage() {
               const href = evt.slug === 'the-big-plant-expo' ? '/events/charleston' : `/events/${evt.slug}`;
               return (
                 <Link key={evt.id} href={href} style={{ textDecoration: 'none' }}>
-                <div className="event-card" style={{ height: '100%' }}>
-                  <div className="event-card-body">
-                    <div className="event-card-date">
-                      {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                    </div>
-                    <h3 className="event-card-title">{evt.title}</h3>
-                    <div className="event-card-location">
-                      <MapPin size={14} /> {evt.location_name}
-                    </div>
-                    <div className="event-card-footer">
+                  <div className="event-card" style={{ height: '100%' }}>
+                    <div className="event-card-body">
+                      <div className="event-card-date">
+                        {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      </div>
+                      <h3 className="event-card-title">{evt.title}</h3>
+                      <div className="event-card-location">
+                        <MapPin size={14} /> {evt.location_name}
+                      </div>
+                      <div className="event-card-footer">
                         <span className="btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.7rem', width: '100%', textAlign: 'center' }}>
                           Complete Event Details
                         </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

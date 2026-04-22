@@ -32,7 +32,7 @@ export interface DigitalPassport {
   issued_at: string;
   // joined
   inventory?: InventoryItem;
-  vendor?: { name: string; slug: string; logo_url: string | null };
+  vendor?: { name: string; slug: string; logo_url: string | null; bio: string | null };
 }
 
 export interface Vendor {
