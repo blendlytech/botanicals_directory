@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function CollectorLoginPage() {
   const [email, setEmail] = useState('');
@@ -145,7 +146,7 @@ export default function CollectorLoginPage() {
         </form>
         
         <div style={{ marginTop: '2.5rem', fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)' }}>
-          New to the directory? <a href="/signup" style={{ color: '#d4af37', textDecoration: 'none', fontWeight: 600 }}>Create an Account</a>
+          New to the directory? <Link href="/collector/signup" style={{ color: '#d4af37', textDecoration: 'none', fontWeight: 600 }}>Create an Account</Link>
         </div>
       </div>
     </main>

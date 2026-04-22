@@ -17,9 +17,11 @@ export async function POST(request: Request) {
       type: 'signup',
       email: data.email,
       password: data.password || 'TemporaryPassword123!',
-      data: {
-        business_name: data.businessName,
-        role: 'vendor'
+      options: {
+        data: {
+          business_name: data.businessName,
+          role: 'vendor'
+        }
       }
     });
 
