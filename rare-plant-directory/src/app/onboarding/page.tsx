@@ -62,7 +62,7 @@ export default function OnboardingPage() {
         }}>
           <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
             <div className="hero-eyebrow-dot"></div>
-            <span>Registry Entry Confirmed</span>
+            <span>Verification Required</span>
           </div>
           
           <div style={{ 
@@ -79,14 +79,14 @@ export default function OnboardingPage() {
              <CheckCircle2 size={40} color="var(--gold)" />
           </div>
           
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', marginBottom: '1.5rem' }}>Listing <em>Secured</em></h2>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', marginBottom: '1.5rem' }}>Check Your <em>Email</em></h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
-            Your Provisional Access to the <strong>Authority Suite</strong> is now active. We are processing your verification credentials.
+            Your Provisional Access to the <strong>Authority Suite</strong> has been reserved. We have sent a verification link to <strong>{form.email}</strong>. Please click the link to confirm your account and access the dashboard.
           </p>
           
-          <Link href="/dashboard" className="btn-primary" style={{ width: '100%', display: 'block' }}>
-            Enter Authority Dashboard <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
-          </Link>
+          <button onClick={() => window.location.href = '/login'} className="btn-ghost" style={{ width: '100%', display: 'block', padding: '1rem' }}>
+            Return to Login
+          </button>
         </div>
       </main>
     );

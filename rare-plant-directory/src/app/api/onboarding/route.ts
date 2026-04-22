@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -9,12 +10,14 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    // 1. Create Supabase Auth User
-    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+    // 1. Create Supabase Auth User & Generate Link
+    // Instead of creating and auto-confirming, we generate a signup link.
+    // This allows us to manually email the verification link using our own SMTP.
+    const { data: linkData, error: authError } = await supabase.auth.admin.generateLink({
+      type: 'signup',
       email: data.email,
-      password: data.password || 'TemporaryPassword123!', // Should ideally enforce password on frontend
-      email_confirm: true,
-      user_metadata: {
+      password: data.password || 'TemporaryPassword123!',
+      data: {
         business_name: data.businessName,
         role: 'vendor'
       }
@@ -25,7 +28,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: `Auth Error: ${authError.message}` }, { status: 500 });
     }
 
-    const userId = authData.user.id;
+    // The user is created in Supabase Auth, but unconfirmed.
+    // generateLink returns the user object in linkData.user
+    const userId = linkData.user.id;
+    const actionLink = linkData.properties.action_link;
 
     // 2. Generate a simple slug from business name or owner name
     const nameToSlug = data.businessName || data.ownerName || 'vendor';
@@ -35,7 +41,7 @@ export async function POST(request: Request) {
     const { data: newVendor, error } = await supabase
       .from('vendors')
       .insert({
-        user_id: userId, // Link to the auth user
+        user_id: userId,
         name: data.businessName || data.ownerName,
         slug: slug + '-' + Date.now().toString().slice(-4),
         owner_name: data.ownerName,
@@ -59,12 +65,46 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Supabase insert error:', error);
-      // Rollback: Delete the auth user if vendor creation fails
       await supabase.auth.admin.deleteUser(userId);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, vendor: newVendor });
+    // 4. Send Verification Email via Spaceship SMTP (Nodemailer)
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'mail.spaceship.com',
+      port: Number(process.env.SMTP_PORT) || 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    try {
+      await transporter.sendMail({
+        from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
+        to: data.email,
+        subject: "Verify Your Vendor Account - Rare Plant Vendors",
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e4c97a; border-radius: 8px; padding: 30px; background-color: #fafaf8; color: #0a1a0f;">
+            <h1 style="color: #c9a84c; text-align: center;">Welcome to the Authority Suite!</h1>
+            <p>Hi ${data.businessName || 'Vendor'},</p>
+            <p>Thank you for applying for a vendor directory listing on Rare Plant Vendors. To secure your position and access your dashboard, you must verify your email address.</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${actionLink}" style="background-color: #c9a84c; color: #0a1a0f; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Verify Email & Access Dashboard</a>
+            </div>
+            <p>If you did not request this, please safely ignore this email.</p>
+            <p style="font-size: 0.8em; color: #666; margin-top: 30px;">— The Rare Plant Vendors Team</p>
+          </div>
+        `,
+      });
+    } catch (mailError) {
+      console.error('Failed to send verification email:', mailError);
+      // Even if email fails, we return success but warn the client (or we could rollback, but email errors are common due to config)
+      return NextResponse.json({ success: true, vendor: newVendor, email_sent: false, message: 'Vendor created but failed to send verification email. Please check your SMTP settings.' });
+    }
+
+    return NextResponse.json({ success: true, vendor: newVendor, email_sent: true });
   } catch (error: any) {
     console.error('Server error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
