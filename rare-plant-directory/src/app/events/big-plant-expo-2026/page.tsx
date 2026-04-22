@@ -179,8 +179,8 @@ export default function BigPlantExpo2026() {
             { icon: <Sparkles color="var(--gold)" />, title: "Themed Displays", desc: "Immerse yourself in curated, forest-inspired vendor showcases." },
             { icon: <ShieldCheck color="var(--gold)" />, title: "Indoor Comfort", desc: "Fully climate-controlled venue at the Charleston Convention Center." },
             { icon: <Clock color="var(--gold)" />, title: "VIP Access", desc: "Shop early and skip the lines with our exclusive VIP hour entry." },
-            { icon: <CheckCircle2 color="var(--gold)" />, title: "Educational", desc: "Participate in workshops and live demos from industry experts." },
-            { icon: <MapPin color="var(--gold)" />, title: "Community", desc: "Connect with plantfluencers and passionate collectors like you." },
+            { icon: <CheckCircle2 color="var(--gold)" />, title: "Workshops", desc: "Participate in hands-on workshops and live demos from industry experts." },
+            { icon: <Star color="var(--gold)" />, title: "Plantfluencers", desc: "Meet your favorite plant creators and connect with the community." },
           ].map((feat, i) => (
             <div key={i} className="feature-card" style={{ background: 'var(--bg-card)', boxShadow: 'var(--card-shadow)' }}>
               <div className="feature-icon">{feat.icon}</div>
@@ -307,6 +307,25 @@ export default function BigPlantExpo2026() {
                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>5000 Coliseum Dr, North Charleston, SC 29418</p>
                <a href="https://maps.google.com" target="_blank" className="btn-ghost" style={{ marginTop: '1.5rem', borderRadius: '50px' }}>Get Directions</a>
              </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- EXCLUSIVE APPAREL --- */}
+      <section className="section" style={{ background: 'var(--bg-card)', borderTop: '1px solid var(--glass-border)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '3rem', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: '300px' }}>
+            <span className="section-eyebrow">Limited Edition</span>
+            <h2 className="section-title">Exclusive <em>Collector</em> Apparel</h2>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+              Grab the limited edition Plantaddicted_Cass T-Shirt. A must-have for every rare plant enthusiast attending the 2026 Expo.
+            </p>
+            <a href="https://form.jotform.com/260684103758158" className="btn-ghost">Pre-order Now</a>
+          </div>
+          <div style={{ flex: 1, minWidth: '300px', background: 'var(--bg-surface)', borderRadius: '12px', padding: '2rem', textAlign: 'center', border: '1px solid var(--glass-border)' }}>
+            {/* Visual representation of a shirt or merch */}
+            <div style={{ fontSize: '4rem', opacity: 0.8 }}>👕</div>
+            <p style={{ fontWeight: 600, marginTop: '1rem', color: 'var(--gold)' }}>Plantaddicted_Cass Official 2026 Tee</p>
           </div>
         </div>
       </section>
