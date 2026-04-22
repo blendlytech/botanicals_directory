@@ -83,8 +83,10 @@ export async function POST(request: Request) {
     try {
       await transporter.sendMail({
         from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
+        replyTo: process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER,
         to: data.email,
         subject: "Verify Your Vendor Account - Rare Plant Vendors",
+        text: `Welcome to the Authority Suite, ${data.businessName || 'Vendor'}!\n\nThank you for applying for a vendor directory listing on Rare Plant Vendors. To secure your position and access your dashboard, you must verify your email address.\n\nPlease copy and paste the following link into your browser to verify your email:\n${actionLink}\n\nIf you did not request this, please safely ignore this email.\n\n— The Rare Plant Vendors Team`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e4c97a; border-radius: 8px; padding: 30px; background-color: #fafaf8; color: #0a1a0f;">
             <h1 style="color: #c9a84c; text-align: center;">Welcome to the Authority Suite!</h1>
@@ -100,7 +102,6 @@ export async function POST(request: Request) {
       });
     } catch (mailError) {
       console.error('Failed to send verification email:', mailError);
-      // Even if email fails, we return success but warn the client (or we could rollback, but email errors are common due to config)
       return NextResponse.json({ success: true, vendor: newVendor, email_sent: false, message: 'Vendor created but failed to send verification email. Please check your SMTP settings.' });
     }
 
