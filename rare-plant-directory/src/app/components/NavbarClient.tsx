@@ -24,7 +24,7 @@ export default function NavbarClient() {
           className="brand-seal"
           priority
         />
-        <span className="logo-text">Real Plant<br />Vendors</span>
+        <span className="logo-text">Rare Plant<br />Vendors</span>
       </Link>
       <div className="nav-links">
         <Link href="/events" id="nav-events-link">Events</Link>

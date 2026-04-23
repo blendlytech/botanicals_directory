@@ -153,13 +153,13 @@ export default async function Home() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
               <div className="scarcity-pill">Elite Lifetime</div>
               <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.05em' }}>
-                7 SLOTS REMAINING
+                17 SLOTS REMAINING
               </div>
             </div>
             
             <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'var(--gold)', fontWeight: 700 }}>Founder Pass</h3>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div className="pricing-price-display" style={{ color: 'white', fontSize: '4.5rem' }}>$498</div>
+              <div className="pricing-price-display" style={{ color: 'white', fontSize: '4.5rem' }}>$497</div>
               <div style={{ textDecoration: 'line-through', opacity: 0.4, fontSize: '1.2rem', color: 'var(--gold)' }}>$998/yr</div>
             </div>
             
@@ -229,7 +229,7 @@ export default async function Home() {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="ticker-item" style={{ fontSize: '0.8rem', letterSpacing: '0.2em' }}>
               <span style={{ color: 'var(--gold)' }}>CultivarID</span> Release <div className="ticker-dot"></div>
-              <span style={{ color: 'var(--gold)' }}>25</span> Lifetime Access Passes <div className="ticker-dot"></div>
+              <span style={{ color: 'var(--gold)' }}>50</span> Lifetime Access Passes <div className="ticker-dot"></div>
             </div>
           ))}
         </div>
@@ -249,7 +249,7 @@ export default async function Home() {
             }}></div>
             <Image 
               src="/brand-seal.png" 
-              alt="Real Plant Vendors Official Seal" 
+              alt="Rare Plant Vendors Official Seal" 
               width={140} 
               height={140} 
               style={{ filter: 'drop-shadow(0 0 20px rgba(212,175,55,0.4))' }}
@@ -274,7 +274,7 @@ export default async function Home() {
             margin: '0 auto 3.5rem',
             color: 'var(--cream)'
           }}>
-            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>7</span> of 25 lifetime passes remain. <br />
+            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>17</span> of 50 lifetime passes remain. <br />
             Join the elite circle of verified plant professionals today.
           </p>
           
