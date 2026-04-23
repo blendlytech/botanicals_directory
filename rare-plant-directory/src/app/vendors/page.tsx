@@ -11,7 +11,7 @@ export default async function VendorsPage() {
   // Fetch active vendors
   const { data: vendors, error } = await supabase
     .from('vendors')
-    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, logo_url')
+    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url')
     .order('account_tier', { ascending: false }) 
     .order('name', { ascending: true });
 
@@ -57,6 +57,7 @@ export default async function VendorsPage() {
           {vendorsList.map((v, idx) => {
             const location = [v.location_city, v.location_state || v.location_country].filter(Boolean).join(', ');
             const mockViews = Math.floor(Math.random() * 450) + 120;
+            const isClaimed = !!v.user_id;
             
             // Premium background images for verified vendors
             const backgrounds = [
@@ -87,13 +88,16 @@ export default async function VendorsPage() {
                       {v.name.charAt(0)}
                     </div>
                     
-                    {v.is_verified ? (
-                      <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
-                    ) : (
-                      <span className="elite-badge" style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)', boxShadow: 'none' }}>
-                        <LockKeyhole size={12} /> Unclaimed
-                      </span>
-                    )}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                      {v.is_verified && (
+                        <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
+                      )}
+                      {!isClaimed && (
+                        <span className="elite-badge" style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)', boxShadow: 'none', fontSize: '0.6rem' }}>
+                          <LockKeyhole size={10} /> Unclaimed
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <Link href={`/vendors/${v.slug}`} style={{ textDecoration: 'none' }}>
@@ -108,7 +112,7 @@ export default async function VendorsPage() {
                     </p>
                   )}
 
-                  {!v.is_verified && (
+                  {!isClaimed ? (
                     <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
                       <div style={{ marginBottom: '1rem' }}>
                         <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -122,9 +126,7 @@ export default async function VendorsPage() {
                         Claim Listing
                       </Link>
                     </div>
-                  )}
-
-                  {v.is_verified && (
+                  ) : (
                     <div style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
                       <Link href={`/vendors/${v.slug}`} className="btn-ghost" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
                         View Profile
