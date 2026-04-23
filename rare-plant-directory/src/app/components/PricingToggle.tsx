@@ -1,160 +1,227 @@
 'use client';
 
 import { useState } from "react";
-import { ShieldCheck, Zap, Star, Lock, ChevronRight, Globe, TrendingUp, MapPin } from 'lucide-react';
+import { ShieldCheck, Zap, Star, Lock, ChevronRight, Globe, TrendingUp, MapPin, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
-const tiers = [
-  {
-    name: "Seedling",
-    badge: "Free Claim",
-    icon: <Lock className="w-6 h-6 text-slate-400" />,
-    price: 0,
-    period: "/forever",
-    desc: "Establish your presence. Claim your profile and stop being invisible to collectors.",
-    features: [
-      { text: "Claim & Own Your Profile", included: true },
-      { text: "About Me & Social Links", included: true },
-      { text: "Up to 5 Inventory Items", included: true },
-      { text: "Standard Map Pin", included: true },
-      { text: "Manual Data Sync", included: true },
-      { text: "AI Lead Matching", included: false },
-      { text: "Authority Suite Analytics", included: false },
-    ],
-    cta: "Claim Profile",
-    highlight: false,
-  },
-  {
-    name: "Visibility Tier",
-    badge: "Basic Placement",
-    icon: <MapPin className="w-6 h-6 text-slate-600" />,
-    price: 475,
-    period: "/year",
-    desc: "Increased visibility for growing nurseries. Professional verification included.",
-    features: [
-      { text: "Verified Grower Badge", included: true },
-      { text: "Enhanced Search Results", included: true },
-      { text: "Up to 50 Inventory Items", included: true },
-      { text: "Manual Profile Updates", included: true },
-      { text: "Priority Support (48hr)", included: true },
-      { text: "AI Lead Matching", included: false },
-      { text: "Geolocation Engine", included: false },
-    ],
-    cta: "Get Visibility",
-    highlight: false,
-  },
-  {
-    name: "Authority Suite",
-    badge: "Elite Access",
-    icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
-    price: 499,
-    period: "/year",
-    desc: "The definitive choice for serious vendors. Stop guessing and start dominating.",
-    features: [
-      { text: "AI Lead Matching Engine", included: true },
-      { text: "Real-time Geolocation Engine", included: true },
-      { text: "Priority Mapping Placement", included: true },
-      { text: "Unlimited Inventory Items", included: true },
-      { text: "Automated Data Sync", included: true },
-      { text: "Direct Buyer Intent Alerts", included: true },
-      { text: "Authority Suite Dashboard", included: true },
-    ],
-    cta: "Unlock Authority",
-    highlight: true,
-    tag: "Best Value (+ $24/yr)"
-  },
-  {
-    name: "Elite Grower",
-    badge: "Lifetime Founder",
-    icon: <Globe className="w-6 h-6 text-amber-500" />,
-    price: 999,
-    period: "one-time",
-    desc: "Ultimate authority. One-time payment, lifetime seat in the global inner circle.",
-    features: [
-      { text: "All Authority Suite Features", included: true },
-      { text: "Gold Premium Pin (Permanent)", included: true },
-      { text: "0% Transaction Fees For Life", included: true },
-      { text: "Newsletter Spotlight Access", included: true },
-      { text: "Concierge Onboarding", included: true },
-      { text: "Elite Badge (1 of 100)", included: true },
-      { text: "Direct API Access", included: true },
-    ],
-    cta: "Claim Founder Seat",
-    highlight: false,
-    limited: "Only 73 Seats Left"
-  },
-];
-
 export default function PricingToggle() {
+  const [isAnnual, setIsAnnual] = useState(true);
+
+  const tiers = [
+    {
+      name: "Seedling",
+      badge: "Free Claim",
+      icon: <Lock className="w-6 h-6 text-slate-400" />,
+      priceMonthly: 0,
+      priceAnnual: 0,
+      founderMonthly: 0,
+      founderAnnual: 0,
+      period: "/forever",
+      desc: "Establish your presence. Claim your profile and stop being invisible to collectors.",
+      features: [
+        { text: "Claim & Own Your Profile", included: true },
+        { text: "About Me & Social Links", included: true },
+        { text: "Up to 5 Inventory Items", included: true },
+        { text: "Standard Map Pin", included: true },
+        { text: "AI Lead Matching", included: false },
+        { text: "CultivarID Passport", included: false },
+      ],
+      cta: "Claim Profile",
+      highlight: false,
+    },
+    {
+      name: "Growth",
+      badge: "Visibility",
+      icon: <MapPin className="w-6 h-6 text-emerald-500" />,
+      priceMonthly: 29,
+      priceAnnual: 290,
+      founderMonthly: 14,
+      founderAnnual: 140,
+      period: isAnnual ? "/yr" : "/mo",
+      desc: "Increased visibility for growing nurseries. Get verified and get seen.",
+      features: [
+        { text: "Verified Grower Badge", included: true },
+        { text: "Enhanced Search Results", included: true },
+        { text: "Up to 50 Inventory Items", included: true },
+        { text: "Priority Support (48hr)", included: true },
+        { text: "Basic CultivarID Scans", included: true },
+        { text: "AI Lead Matching", included: false },
+      ],
+      cta: "Lock In Founder Rate",
+      highlight: false,
+      limited: "150 Founder Spots"
+    },
+    {
+      name: "Authority Suite",
+      badge: "The Standard",
+      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+      priceMonthly: 99,
+      priceAnnual: 990,
+      founderMonthly: 49,
+      founderAnnual: 490,
+      period: isAnnual ? "/yr" : "/mo",
+      desc: "The definitive choice. Stop guessing and start dominating the local market.",
+      features: [
+        { text: "AI Lead Matching Engine", included: true },
+        { text: "Real-time Geolocation", included: true },
+        { text: "Unlimited Inventory", included: true },
+        { text: "Automated Data Sync", included: true },
+        { text: "Unlimited CultivarID Passports", included: true },
+        { text: "Direct Buyer Intent Alerts", included: true },
+      ],
+      cta: "Unlock Authority",
+      highlight: true,
+      tag: "Best Value",
+      limited: "75 Founder Spots"
+    },
+    {
+      name: "Lifetime Elite",
+      badge: "One-Time",
+      icon: <Globe className="w-6 h-6 text-amber-500" />,
+      priceMonthly: 1499,
+      priceAnnual: 1499,
+      founderMonthly: 497,
+      founderAnnual: 497,
+      period: "once",
+      desc: "Extreme value. Never pay again. Secure a permanent seat in the global inner circle.",
+      features: [
+        { text: "All Authority Suite Features", included: true },
+        { text: "Gold Premium Pin (Permanent)", included: true },
+        { text: "0% Transaction Fees For Life", included: true },
+        { text: "Newsletter Spotlight Access", included: true },
+        { text: "Concierge Onboarding", included: true },
+        { text: "Elite Badge (Permanent)", included: true },
+      ],
+      cta: "Claim Lifetime Seat",
+      highlight: false,
+      limited: "Only 12 Seats Left"
+    },
+  ];
+
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-7xl mx-auto px-4 mt-8">
+      
+      {/* FOMO Messaging */}
+      <div className="max-w-3xl mx-auto text-center mb-12 bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100/50">
+        <h3 className="text-xl font-black text-slate-900 mb-2 flex items-center justify-center gap-2">
+           <AlertCircle className="text-amber-500" /> Don&apos;t Lose Sales to the Booth Next Door
+        </h3>
+        <p className="text-slate-600 font-medium">
+          It&apos;s a no-brainer: The cost of a full year is covered by just <strong>one high-ticket sale</strong>. 
+          The real cost? The thousands in lost revenue because your neighbor booth has <strong>CultivarID</strong> to authenticate their specimens, and you don&apos;t.
+        </p>
+      </div>
+
+      {/* Toggle */}
+      <div className="flex justify-center mb-16">
+        <div className="bg-slate-100 p-1.5 rounded-full inline-flex items-center relative">
+          <button
+            onClick={() => setIsAnnual(false)}
+            className={`relative z-10 px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${!isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          >
+            Monthly
+          </button>
+          <button
+            onClick={() => setIsAnnual(true)}
+            className={`relative z-10 px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          >
+            Annually <span className="ml-1 text-[10px] uppercase tracking-widest text-emerald-600 font-black bg-emerald-100 px-2 py-0.5 rounded-full">Save 20%</span>
+          </button>
+          
+          <div 
+            className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-sm transition-transform duration-300 ease-out"
+            style={{ transform: isAnnual ? 'translateX(calc(100% + 6px))' : 'translateX(6px)' }}
+          />
+        </div>
+      </div>
+
       {/* Pricing Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-        {tiers.map((tier) => (
-          <div
-            key={tier.name}
-            className={`flex flex-col bg-white border rounded-[2.5rem] p-8 transition-all duration-500 relative group
-              ${tier.highlight 
-                ? 'border-emerald-200 shadow-2xl shadow-emerald-100/50 scale-105 z-10' 
-                : 'border-slate-200 shadow-xl shadow-slate-200/20 hover:-translate-y-2'}`}
-          >
-            {tier.highlight && (
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
-                {tier.tag}
-              </div>
-            )}
-            
-            {tier.limited && (
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
-                {tier.limited}
-              </div>
-            )}
+        {tiers.map((tier) => {
+           const regularPrice = isAnnual ? tier.priceAnnual : tier.priceMonthly;
+           const founderPrice = isAnnual ? tier.founderAnnual : tier.founderMonthly;
+           const isFree = tier.priceAnnual === 0;
+           const isLifetime = tier.name === "Lifetime Elite";
 
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform">
-                  {tier.icon}
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  {tier.badge}
-                </span>
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">{tier.name}</h3>
-              <p className="text-sm text-slate-500 font-medium leading-relaxed">{tier.desc}</p>
-            </div>
-
-            <div className="mb-8">
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-slate-900">
-                  {tier.price === 0 ? 'Free' : `$${tier.price}`}
-                </span>
-                <span className="text-sm font-bold text-slate-400">{tier.period}</span>
-              </div>
-            </div>
-
-            <Link
-              href="/onboarding"
-              className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-black text-sm transition-all active:scale-95 mb-10
+           return (
+            <div
+              key={tier.name}
+              className={`flex flex-col bg-white border rounded-[2.5rem] p-8 transition-all duration-500 relative group
                 ${tier.highlight 
-                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-100' 
-                  : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl shadow-slate-200'}`}
+                  ? 'border-emerald-200 shadow-2xl shadow-emerald-100/50 scale-105 z-10' 
+                  : 'border-slate-200 shadow-xl shadow-slate-200/20 hover:-translate-y-2'}`}
             >
-              {tier.cta}
-              <ChevronRight size={18} />
-            </Link>
+              {tier.highlight && (
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                  {tier.tag}
+                </div>
+              )}
+              
+              {tier.limited && (
+                <div className={`absolute -top-5 left-1/2 -translate-x-1/2 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg whitespace-nowrap ${isLifetime ? 'bg-amber-500' : 'bg-slate-900'}`}>
+                  {tier.limited}
+                </div>
+              )}
 
-            <ul className="space-y-4 flex-grow">
-              {tier.features.map((feature, i) => (
-                <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? 'text-slate-600' : 'text-slate-300'}`}>
-                  <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feature.included ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-300'}`}>
-                    {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4 mt-2">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform">
+                    {tier.icon}
                   </div>
-                  {feature.text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    {tier.badge}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">{tier.name}</h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">{tier.desc}</p>
+              </div>
+
+              <div className="mb-8">
+                <div className="flex flex-col">
+                  {!isFree && (
+                     <div className="text-xs font-bold text-slate-400 line-through mb-1">
+                        ${regularPrice}{isLifetime ? '' : (isAnnual ? '/yr' : '/mo')} Regular
+                     </div>
+                  )}
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-black text-slate-900">
+                      {isFree ? 'Free' : `$${founderPrice}`}
+                    </span>
+                    <span className="text-sm font-bold text-slate-400">{tier.period}</span>
+                  </div>
+                  {!isFree && (
+                     <div className="text-[10px] uppercase tracking-widest text-emerald-600 font-black mt-2">
+                        Founder's Discount Applied
+                     </div>
+                  )}
+                </div>
+              </div>
+
+              <Link
+                href="/onboarding"
+                className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-black text-sm transition-all active:scale-95 mb-10
+                  ${tier.highlight 
+                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-100' 
+                    : isLifetime ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-xl shadow-amber-100' 
+                    : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl shadow-slate-200'}`}
+              >
+                {tier.cta}
+                <ChevronRight size={18} />
+              </Link>
+
+              <ul className="space-y-4 flex-grow">
+                {tier.features.map((feature, i) => (
+                  <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? 'text-slate-600' : 'text-slate-300'}`}>
+                    <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feature.included ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-300'}`}>
+                      {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />}
+                    </div>
+                    {feature.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -137,51 +137,6 @@ export default function ForVendors() {
         </div>
         
         <PricingToggle />
-        
-        <div style={{ 
-            marginTop: '5rem', 
-            maxWidth: '800px', 
-            margin: '5rem auto 0',
-            padding: '3rem',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--gold)',
-            borderRadius: '20px',
-            boxShadow: 'var(--card-shadow)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '2.5rem',
-            position: 'relative',
-            overflow: 'hidden'
-        }}>
-           <div style={{ 
-               width: '80px', 
-               height: '80px', 
-               background: 'var(--gold-dim)', 
-               borderRadius: '16px', 
-               display: 'flex', 
-               alignItems: 'center', 
-               justifyContent: 'center',
-               flexShrink: 0
-           }}>
-              <Star size={40} color="var(--gold)" fill="var(--gold-dim)" />
-           </div>
-           <div>
-               <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Founder&apos;s Flash Sale: Lifetime Elite</h4>
-               <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '1rem', lineHeight: 1.6 }}>
-                 Get all future features, unlimited plant passports, and top-tier search priority forever. 
-                 <br />
-                 <strong style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>$497</strong> <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$999</span>
-               </p>
-               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                 <Link href="/onboarding?plan=founder" className="btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
-                   Claim Your Seat
-                 </Link>
-                 <div style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)' }}>
-                    🔥 Only 3 Founder Slots Remaining at this Price
-                 </div>
-               </div>
-            </div>
-        </div>
       </section>
 
       {/* ─── EXPO 2026 BUNDLE ─── */}
