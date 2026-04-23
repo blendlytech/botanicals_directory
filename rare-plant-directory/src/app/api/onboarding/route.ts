@@ -58,8 +58,8 @@ export async function POST(request: Request) {
         location_country: data.locationCountry,
         specialty: data.specialties,
         tier: data.tier,
+        account_tier: data.tier,
         subscription_status: data.tier === 'seedling' ? 'active' : 'pending_payment',
-        is_verified: false,
         is_elite: data.tier === 'elite'
       })
       .select()
