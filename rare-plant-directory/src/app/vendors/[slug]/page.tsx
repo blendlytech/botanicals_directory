@@ -129,10 +129,10 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
           <section>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "1.5rem", borderBottom: "1px solid var(--glass-border)", paddingBottom: "0.5rem" }}>
               <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "1.5rem", color: "var(--text-primary)", margin: 0 }}>
-                Current Inventory
+                {vendor.is_elite ? 'Elite Stage' : 'Current Inventory'}
               </h2>
               <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
-                {inventory?.length || 0} items available
+                {inventory?.length || 0} {vendor.is_elite ? 'showpieces' : 'items'} available
               </span>
             </div>
             

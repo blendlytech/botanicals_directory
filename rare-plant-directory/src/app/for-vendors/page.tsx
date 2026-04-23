@@ -78,7 +78,7 @@ export default function ForVendors() {
         
         <div className="hero-eyebrow">
           <div className="hero-eyebrow-dot"></div>
-          <span>Founding Member Enrollment Open</span>
+          <span>Founding Member Enrollment Open — Only 17 Seats Remaining</span>
         </div>
         
         <h1 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
@@ -203,7 +203,7 @@ export default function ForVendors() {
 
       {/* ─── FINAL CALL ─── */}
       <section className="cta-section" style={{ padding: '8rem 5%' }}>
-        <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Limited Availability</div>
+        <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>17 Founding Seats Left</div>
         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>Secure Your Authority <br /> <em>Before the Map Fills.</em></h2>
         <p style={{ maxWidth: '600px', margin: '1.5rem auto 3rem' }}>
           Stop losing collectors to the void. Join the verified network and route serious leads directly to your nursery today.

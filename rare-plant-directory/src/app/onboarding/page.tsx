@@ -1,10 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export default function OnboardingPage() {
+  const searchParams = useSearchParams();
+  const selectedPlan = searchParams.get('plan') || 'seedling';
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [form, setForm] = useState({
@@ -27,7 +31,7 @@ export default function OnboardingPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          tier: 'seedling',
+          tier: selectedPlan,
           businessName: form.vendorName,
           email: form.email,
           password: form.password,
@@ -140,13 +144,17 @@ export default function OnboardingPage() {
         <div className="section-header" style={{ marginBottom: '3rem' }}>
           <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
             <div className="hero-eyebrow-dot"></div>
-            <span>Founder&apos;s Circle Onboarding</span>
+            <span>{selectedPlan === 'elite' ? "Elite Founder's Circle" : selectedPlan === 'authority' ? "Authority Suite Enrollment" : "Founder's Circle Onboarding"}</span>
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
-            Secure Your <em>Market Position</em>
+            Secure Your <em>{selectedPlan === 'elite' ? "Elite Stage" : "Market Position"}</em>
           </h1>
           <p className="hero-sub" style={{ margin: '0 auto', fontSize: '1rem', opacity: 0.8 }}>
-            Claim your free directory listing in seconds. Stop the bleed and stabilize your botanical client pipeline.
+            {selectedPlan === 'elite' 
+              ? "The Elite Stage is now open. Build your 10-plant showcase and join the verified inner circle."
+              : selectedPlan === 'authority'
+              ? "Join the Authority Suite. List your best 5 plants and get priority lead matching."
+              : "Claim your free directory listing in seconds. Stop the bleed and stabilize your botanical client pipeline."}
           </p>
         </div>
         {error && (

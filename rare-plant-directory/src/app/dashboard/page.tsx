@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, name, tier, is_elite, elite_number, subscription_status, contact_email')
+        .select('id, name, tier, account_tier, is_elite, elite_number, subscription_status, contact_email')
         .eq('user_id', user.id)
         .single();
 
@@ -33,7 +33,7 @@ export default function DashboardPage() {
         // Fallback: search by email if user_id link is missing (for transition)
         const { data: fallbackVendor } = await supabase
           .from('vendors')
-          .select('id, name, tier, is_elite, elite_number, subscription_status, contact_email')
+          .select('id, name, tier, account_tier, is_elite, elite_number, subscription_status, contact_email')
           .eq('contact_email', user.email)
           .single();
         
@@ -70,15 +70,15 @@ export default function DashboardPage() {
 
   if (loading) return <LoadingScreen />;
 
-  const tier = stats?.tier || 'seedling';
+  const tier = stats?.account_tier || stats?.tier || 'seedling';
   const tierLabel: Record<string, string> = {
-    seedling: 'Seedling',
-    verified: 'Verified Grower',
-    pro: 'Pro Grower',
-    elite: 'Elite Grower',
+    seedling: 'Seedling (Free)',
+    visibility: 'Growth Member',
+    authority: 'Authority Suite',
+    elite: 'Elite Member',
   };
   const inventoryLimit: Record<string, number | null> = {
-    seedling: 10, verified: 100, pro: 500, elite: null,
+    seedling: 1, visibility: 3, authority: 5, elite: 10,
   };
   const limit = inventoryLimit[tier];
 

@@ -10,7 +10,8 @@ export default function PricingToggle() {
   const tiers = [
     {
       name: "Seedling",
-      badge: "Free Claim",
+      planId: "seedling",
+      badge: "Free tier",
       icon: <Lock className="w-6 h-6 text-slate-400" />,
       priceMonthly: 0,
       priceAnnual: 0,
@@ -21,7 +22,7 @@ export default function PricingToggle() {
       features: [
         { text: "Claim & Own Your Profile", included: true },
         { text: "About Me & Social Links", included: true },
-        { text: "Up to 5 Inventory Items", included: true },
+        { text: "1 Inventory Spot", included: true },
         { text: "Standard Map Pin", included: true },
         { text: "AI Lead Matching", included: false },
         { text: "CultivarID Passport", included: false },
@@ -30,71 +31,51 @@ export default function PricingToggle() {
       highlight: false,
     },
     {
-      name: "Growth",
-      badge: "Visibility",
-      icon: <MapPin className="w-6 h-6 text-emerald-500" />,
-      priceMonthly: 29,
-      priceAnnual: 290,
-      founderMonthly: 14,
-      founderAnnual: 140,
+      name: "Authority Suite",
+      planId: "authority",
+      badge: "Tier below Elite",
+      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+      priceMonthly: 99,
+      priceAnnual: 990,
+      founderMonthly: 49,
+      founderAnnual: 290,
       period: isAnnual ? "/yr" : "/mo",
       desc: "Increased visibility for growing nurseries. Get verified and get seen.",
       features: [
         { text: "Verified Grower Badge", included: true },
         { text: "Enhanced Search Results", included: true },
-        { text: "Up to 50 Inventory Items", included: true },
+        { text: "5 Inventory Spots", included: true },
         { text: "Priority Support (48hr)", included: true },
-        { text: "Basic CultivarID Scans", included: true },
-        { text: "AI Lead Matching", included: false },
-      ],
-      cta: "Lock In Founder Rate",
-      highlight: false,
-      limited: "150 Founder Spots"
-    },
-    {
-      name: "Authority Suite",
-      badge: "The Standard",
-      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
-      priceMonthly: 99,
-      priceAnnual: 990,
-      founderMonthly: 49,
-      founderAnnual: 490,
-      period: isAnnual ? "/yr" : "/mo",
-      desc: "The definitive choice. Stop guessing and start dominating the local market.",
-      features: [
-        { text: "AI Lead Matching Engine", included: true },
-        { text: "Real-time Geolocation", included: true },
-        { text: "Unlimited Inventory", included: true },
-        { text: "Automated Data Sync", included: true },
-        { text: "Unlimited CultivarID Passports", included: true },
-        { text: "Direct Buyer Intent Alerts", included: true },
+        { text: "AI Lead Matching", included: true },
+        { text: "Digital Passports", included: true },
       ],
       cta: "Unlock Authority",
-      highlight: true,
-      tag: "Best Value",
+      highlight: false,
       limited: "75 Founder Spots"
     },
     {
       name: "Lifetime Elite",
-      badge: "One-Time",
+      planId: "elite",
+      badge: "Founders Package",
       icon: <Globe className="w-6 h-6 text-amber-500" />,
-      priceMonthly: 1499,
-      priceAnnual: 1499,
+      priceMonthly: 998,
+      priceAnnual: 998,
       founderMonthly: 497,
       founderAnnual: 497,
       period: "once",
-      desc: "Extreme value. Never pay again. Secure a permanent seat in the global inner circle.",
+      desc: "The Elite Stage. Show your best 10 plants and secure a permanent seat in the inner circle.",
       features: [
-        { text: "All Authority Suite Features", included: true },
+        { text: "10-Plant 'Elite Stage'", included: true },
         { text: "Gold Premium Pin (Permanent)", included: true },
+        { text: "All Authority Suite Features", included: true },
         { text: "0% Transaction Fees For Life", included: true },
         { text: "Newsletter Spotlight Access", included: true },
-        { text: "Concierge Onboarding", included: true },
-        { text: "Elite Badge (Permanent)", included: true },
+        { text: "Elite Founders Badge", included: true },
       ],
       cta: "Claim Lifetime Seat",
-      highlight: false,
-      limited: "Only 12 Seats Left"
+      highlight: true,
+      tag: "Best Value",
+      limited: "Only 17 Founding Seats Left"
     },
   ];
 
@@ -136,7 +117,7 @@ export default function PricingToggle() {
       </div>
 
       {/* Pricing Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {tiers.map((tier) => {
            const regularPrice = isAnnual ? tier.priceAnnual : tier.priceMonthly;
            const founderPrice = isAnnual ? tier.founderAnnual : tier.founderMonthly;
@@ -198,7 +179,7 @@ export default function PricingToggle() {
               </div>
 
               <Link
-                href="/onboarding"
+                href={`/onboarding?plan=${tier.planId}`}
                 className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-black text-sm transition-all active:scale-95 mb-10
                   ${tier.highlight 
                     ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-100' 

@@ -15,7 +15,7 @@ interface InventoryItem {
 }
 
 const TIER_LIMITS: Record<string, number | null> = {
-  seedling: 10, verified: 100, pro: 500, elite: null,
+  seedling: 1, visibility: 3, authority: 5, elite: 10,
 };
 
 export default function InventoryPage() {
@@ -35,13 +35,13 @@ export default function InventoryPage() {
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, tier, contact_email')
+        .select('id, tier, account_tier, contact_email')
         .eq('contact_email', user.email)
         .single();
 
       if (!vendor) { setLoading(false); return; }
       setVendorId(vendor.id);
-      setVendorTier(vendor.tier || 'seedling');
+      setVendorTier(vendor.account_tier || vendor.tier || 'seedling');
 
       const { data } = await supabase
         .from('inventory')
@@ -163,9 +163,11 @@ export default function InventoryPage() {
             <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.4rem' }}>
               Inventory Management
             </div>
-            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', margin: 0, color: 'var(--text-primary)' }}>Your Plants</h1>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', margin: 0, color: 'var(--text-primary)' }}>
+              {vendorTier === 'elite' ? 'Elite Stage' : 'Your Plants'}
+            </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.4rem' }}>
-              {items.length}{limit ? ` / ${limit}` : ''} items listed
+              {items.length}{limit ? ` / ${limit}` : ''} {vendorTier === 'elite' ? 'showpieces' : 'items'} listed
               {limit && items.length >= limit * 0.8 && (
                 <span style={{ color: 'var(--gold)', marginLeft: '0.5rem', fontWeight: 600 }}>
                   {atLimit ? '— Limit reached' : '— Nearly full'}
