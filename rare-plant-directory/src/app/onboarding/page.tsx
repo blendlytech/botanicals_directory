@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import PayPalButton from '../components/PayPalButton';
 
 export default function OnboardingPage() {
   const searchParams = useSearchParams();
@@ -20,6 +21,9 @@ export default function OnboardingPage() {
 
   const [error, setError] = useState<string | null>(null);
   const [debugLink, setDebugLink] = useState<string | null>(null);
+
+  const [isPaying, setIsPaying] = useState(false);
+  const [createdVendorId, setCreatedVendorId] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,12 +47,18 @@ export default function OnboardingPage() {
       
       if (!res.ok) throw new Error(data.error || 'Onboarding failed');
       
-      if (data.email_sent === false) {
-        setDebugLink(data.debug_link);
-        setError("Account created, but we couldn't send the verification email. You can verify manually below.");
-        setIsSuccess(true); // Still show success screen but with the link
+      setCreatedVendorId(data.vendor.id);
+
+      if (selectedPlan === 'elite' || selectedPlan === 'authority') {
+        setIsPaying(true);
       } else {
-        setIsSuccess(true);
+        if (data.email_sent === false) {
+          setDebugLink(data.debug_link);
+          setError("Account created, but we couldn't send the verification email. You can verify manually below.");
+          setIsSuccess(true);
+        } else {
+          setIsSuccess(true);
+        }
       }
     } catch (err: any) {
       console.error(err);
@@ -57,6 +67,48 @@ export default function OnboardingPage() {
       setIsSubmitting(false);
     }
   };
+
+  if (isPaying && createdVendorId) {
+    return (
+      <main className="hero" style={{ minHeight: '100vh', padding: '0' }}>
+        <div className="hero-grid-overlay"></div>
+        <div style={{ 
+          maxWidth: '500px', 
+          width: '90%', 
+          background: 'var(--bg-card)', 
+          border: '1px solid var(--gold)', 
+          borderRadius: '32px', 
+          padding: '4rem 3rem', 
+          textAlign: 'center',
+          boxShadow: '0 40px 80px var(--gold-dim)',
+          position: 'relative',
+          zIndex: 10
+        }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
+            <div className="hero-eyebrow-dot"></div>
+            <span>Final Step: Verification & Activation</span>
+          </div>
+          
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', marginBottom: '1.5rem' }}>Secure Your <em>Elite</em> Position</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
+            Your account has been created. To activate your <strong>{selectedPlan === 'elite' ? 'Elite Founder' : 'Authority Suite'}</strong> status and unlock lead matching, please complete your one-time payment.
+          </p>
+          
+          <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
+            <PayPalButton 
+              amount={selectedPlan === 'elite' ? "498" : "290"} 
+              vendorId={createdVendorId} 
+              onSuccess={() => setIsSuccess(true)}
+            />
+          </div>
+
+          <p style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+            Secure transaction handled by PayPal. Instant activation upon completion.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   if (isSuccess) {
     return (

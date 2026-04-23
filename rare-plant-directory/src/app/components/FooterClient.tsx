@@ -41,7 +41,8 @@ export default function FooterClient() {
           <Link href="/about" id="footer-about-link">About Us</Link>
           <a href="#" id="footer-blog-link">Blog</a>
           <a href="#" id="footer-contact-link">Contact</a>
-          <a href="#" id="footer-privacy-link">Privacy Policy</a>
+          <Link href="/privacy" id="footer-privacy-link">Privacy Policy</Link>
+          <Link href="/terms" id="footer-terms-link">Terms of Service</Link>
         </div>
       </div>
 
