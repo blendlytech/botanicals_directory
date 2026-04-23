@@ -10,6 +10,7 @@ export default function OnboardingPage() {
   const [form, setForm] = useState({
     vendorName: '',
     email: '',
+    password: '',
     specialty: ''
   });
 
@@ -28,6 +29,7 @@ export default function OnboardingPage() {
           tier: 'seedling',
           businessName: form.vendorName,
           email: form.email,
+          password: form.password,
           specialties: [form.specialty]
         })
       });
@@ -36,7 +38,11 @@ export default function OnboardingPage() {
       
       if (!res.ok) throw new Error(data.error || 'Onboarding failed');
       
-      setIsSuccess(true);
+      if (data.email_sent === false) {
+        setError("Account created, but we couldn't send the verification email. Please contact support or check your spam.");
+      } else {
+        setIsSuccess(true);
+      }
     } catch (err: any) {
       console.error(err);
       setError(err.message || 'An error occurred during onboarding.');
@@ -197,6 +203,42 @@ export default function OnboardingPage() {
                 placeholder="sales@yournursery.com"
                 value={form.email}
                 onChange={(e) => setForm({...form, email: e.target.value})}
+                style={{ 
+                  width: '100%', 
+                  background: 'var(--bg-surface)', 
+                  border: '1px solid var(--glass-border)', 
+                  borderRadius: '12px', 
+                  padding: '1.25rem',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+              />
+            </div>
+
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
+                Create Password
+              </label>
+              <input
+                type="password"
+                required
+                placeholder="••••••••"
+                value={form.password}
+                onChange={(e) => setForm({...form, password: e.target.value})}
                 style={{ 
                   width: '100%', 
                   background: 'var(--bg-surface)', 

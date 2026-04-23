@@ -10,39 +10,80 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    // 1. Create Supabase Auth User & Generate Link
-    // Instead of creating and auto-confirming, we generate a signup link.
-    // This allows us to manually email the verification link using our own SMTP.
-    const { data: linkData, error: authError } = await supabase.auth.admin.generateLink({
-      type: 'signup',
-      email: data.email,
-      password: data.password || 'TemporaryPassword123!',
-      options: {
-        data: {
+    // 1. Check if user already exists
+    const { data: existingUsers, error: listError } = await supabase.auth.admin.listUsers();
+    const existingUser = existingUsers?.users.find(u => u.email === data.email);
+
+    let userId;
+    let actionLink;
+
+    if (existingUser) {
+      userId = existingUser.id;
+      
+      // If already verified, just tell them to login
+      if (existingUser.email_confirmed_at) {
+        return NextResponse.json({ 
+          error: "This email is already registered and verified. Please proceed to login.",
+          code: 'already_verified'
+        }, { status: 400 });
+      }
+
+      // If not verified, update password and get a new link
+      const { data: updateData, error: updateError } = await supabase.auth.admin.updateUserById(userId, {
+        password: data.password || 'TemporaryPassword123!',
+        user_metadata: {
           business_name: data.businessName,
           role: 'vendor'
         }
+      });
+
+      if (updateError) {
+        console.error('Update user error:', updateError);
+        return NextResponse.json({ error: `Update Error: ${updateError.message}` }, { status: 500 });
       }
-    });
 
-    if (authError) {
-      console.error('Auth creation error:', authError);
-      return NextResponse.json({ error: `Auth Error: ${authError.message}` }, { status: 500 });
+      const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
+        type: 'signup',
+        email: data.email
+      });
+
+      if (linkError) {
+        console.error('Link generation error:', linkError);
+        return NextResponse.json({ error: `Link Error: ${linkError.message}` }, { status: 500 });
+      }
+
+      actionLink = linkData.properties.action_link;
+    } else {
+      // Create new user
+      const { data: linkData, error: authError } = await supabase.auth.admin.generateLink({
+        type: 'signup',
+        email: data.email,
+        password: data.password || 'TemporaryPassword123!',
+        options: {
+          data: {
+            business_name: data.businessName,
+            role: 'vendor'
+          }
+        }
+      });
+
+      if (authError) {
+        console.error('Auth creation error:', authError);
+        return NextResponse.json({ error: `Auth Error: ${authError.message}` }, { status: 500 });
+      }
+
+      userId = linkData.user.id;
+      actionLink = linkData.properties.action_link;
     }
-
-    // The user is created in Supabase Auth, but unconfirmed.
-    // generateLink returns the user object in linkData.user
-    const userId = linkData.user.id;
-    const actionLink = linkData.properties.action_link;
 
     // 2. Generate a simple slug from business name or owner name
     const nameToSlug = data.businessName || data.ownerName || 'vendor';
     const slug = nameToSlug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     
-    // 3. Insert into vendors
+    // 3. Upsert into vendors
     const { data: newVendor, error } = await supabase
       .from('vendors')
-      .insert({
+      .upsert({
         user_id: userId,
         name: data.businessName || data.ownerName,
         slug: slug + '-' + Date.now().toString().slice(-4),
@@ -61,7 +102,7 @@ export async function POST(request: Request) {
         account_tier: data.tier,
         subscription_status: data.tier === 'seedling' ? 'active' : 'pending_payment',
         is_elite: data.tier === 'elite'
-      })
+      }, { onConflict: 'contact_email' })
       .select()
       .single();
 
