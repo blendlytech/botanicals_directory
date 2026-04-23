@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/utils/supabase/client';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -64,7 +65,7 @@ export default function LoginPage() {
           <div className="form-group" style={{ marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <label className="form-label">Password</label>
-              <a href="#" style={{ fontSize: '0.75rem', color: 'var(--gold)', textDecoration: 'none' }}>Forgot Password?</a>
+              <Link href="/login/forgot-password" style={{ fontSize: '0.75rem', color: 'var(--gold)', textDecoration: 'none' }}>Forgot Password?</Link>
             </div>
             <input 
               type="password" 
