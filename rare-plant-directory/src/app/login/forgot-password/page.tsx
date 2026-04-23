@@ -27,6 +27,7 @@ export default function ForgotPasswordPage() {
       setSuccess(true);
     } catch (err: any) {
       setError(err.message || 'Failed to send reset link');
+      window.alert('Error: ' + (err.message || 'Failed to send reset link'));
     } finally {
       setLoading(false);
     }

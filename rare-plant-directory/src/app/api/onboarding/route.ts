@@ -1,6 +1,21 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
+import fs from 'fs';
+import path from 'path';
+
+const LOG_FILE = path.join(process.cwd(), 'onboarding-debug.log');
+
+function log(message: string, data?: any) {
+  try {
+    const timestamp = new Date().toISOString();
+    const logMessage = `[${timestamp}] ${message} ${data ? JSON.stringify(data, null, 2) : ''}\n`;
+    fs.appendFileSync(LOG_FILE, logMessage);
+  } catch (e) {
+    console.error('Logging failed', e);
+  }
+  console.log(message, data);
+}
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -9,6 +24,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    log('Onboarding request received', { email: data.email, businessName: data.businessName });
     
     // 1. Check if user already exists
     const { data: existingUsers, error: listError } = await supabase.auth.admin.listUsers();
@@ -114,17 +130,35 @@ export async function POST(request: Request) {
 
     // 4. Send Verification Email via Spaceship SMTP (Nodemailer)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'mail.spaceship.com',
+      host: process.env.SMTP_HOST || 'mail.spacemail.com',
       port: Number(process.env.SMTP_PORT) || 465,
-      secure: true, // true for 465, false for other ports
+      secure: Number(process.env.SMTP_PORT) === 465,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        rejectUnauthorized: false // Helps with some shared hosting environments
+      }
+    });
+
+    log('Verifying SMTP connection...');
+    try {
+      await transporter.verify();
+      log('SMTP connection verified');
+    } catch (verifyError: any) {
+      log('SMTP Verification Failed', { error: verifyError.message });
+      // We'll continue anyway, but log the failure
+    }
+
+    log('Attempting to send email via SMTP', {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER,
     });
 
     try {
-      await transporter.sendMail({
+      const info = await transporter.sendMail({
         from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
         replyTo: process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER,
         to: data.email,
@@ -143,9 +177,10 @@ export async function POST(request: Request) {
           </div>
         `,
       });
-    } catch (mailError) {
-      console.error('Failed to send verification email:', mailError);
-      return NextResponse.json({ success: true, vendor: newVendor, email_sent: false, message: 'Vendor created but failed to send verification email. Please check your SMTP settings.' });
+      log('Email sent successfully', { messageId: info.messageId });
+    } catch (mailError: any) {
+      log('CRITICAL: Email sending failed', { error: mailError.message, stack: mailError.stack });
+      return NextResponse.json({ success: true, vendor: newVendor, email_sent: false, message: 'Vendor created but failed to send verification email. Error: ' + mailError.message });
     }
 
     return NextResponse.json({ success: true, vendor: newVendor, email_sent: true });
