@@ -60,7 +60,8 @@ export async function POST(request: Request) {
 
       const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
         type: 'signup',
-        email: data.email
+        email: data.email,
+        password: data.password || 'TemporaryPassword123!'
       });
 
       if (linkError) {
