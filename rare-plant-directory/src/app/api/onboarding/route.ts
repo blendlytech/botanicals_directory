@@ -180,7 +180,13 @@ export async function POST(request: Request) {
       log('Email sent successfully', { messageId: info.messageId });
     } catch (mailError: any) {
       log('CRITICAL: Email sending failed', { error: mailError.message, stack: mailError.stack });
-      return NextResponse.json({ success: true, vendor: newVendor, email_sent: false, message: 'Vendor created but failed to send verification email. Error: ' + mailError.message });
+      return NextResponse.json({ 
+        success: true, 
+        vendor: newVendor, 
+        email_sent: false, 
+        debug_link: actionLink, // For debugging purposes
+        message: 'Vendor created but failed to send verification email. Error: ' + mailError.message 
+      });
     }
 
     return NextResponse.json({ success: true, vendor: newVendor, email_sent: true });

@@ -15,6 +15,7 @@ export default function OnboardingPage() {
   });
 
   const [error, setError] = useState<string | null>(null);
+  const [debugLink, setDebugLink] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +40,9 @@ export default function OnboardingPage() {
       if (!res.ok) throw new Error(data.error || 'Onboarding failed');
       
       if (data.email_sent === false) {
-        setError("Account created, but we couldn't send the verification email. Please contact support or check your spam.");
+        setDebugLink(data.debug_link);
+        setError("Account created, but we couldn't send the verification email. You can verify manually below.");
+        setIsSuccess(true); // Still show success screen but with the link
       } else {
         setIsSuccess(true);
       }
@@ -91,6 +94,31 @@ export default function OnboardingPage() {
           <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
             Your Provisional Access to the <strong>Authority Suite</strong> has been reserved. We have sent a verification link to <strong>{form.email}</strong>. Please click the link to confirm your account and access the dashboard.
           </p>
+          
+          {debugLink && (
+            <div style={{ 
+              marginBottom: '2rem', 
+              padding: '1.5rem', 
+              background: 'rgba(212,175,55,0.1)', 
+              border: '1px dashed var(--gold)', 
+              borderRadius: '12px' 
+            }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--gold)', marginBottom: '1rem', fontWeight: 600 }}>
+                Verification Link (Debug Mode):
+              </p>
+              <a href={debugLink} style={{ 
+                wordBreak: 'break-all', 
+                fontSize: '0.75rem', 
+                color: 'white', 
+                textDecoration: 'underline' 
+              }}>
+                {debugLink}
+              </a>
+              <p style={{ fontSize: '0.7rem', marginTop: '1rem', opacity: 0.7 }}>
+                Copy and paste this link if you did not receive the email.
+              </p>
+            </div>
+          )}
           
           <button onClick={() => window.location.href = '/login'} className="btn-ghost" style={{ width: '100%', display: 'block', padding: '1rem' }}>
             Return to Login
