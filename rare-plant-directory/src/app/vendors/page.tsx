@@ -122,7 +122,7 @@ export default async function VendorsPage() {
                           <strong>{mockViews}</strong> profile views this month
                         </p>
                       </div>
-                      <Link href="/onboarding" className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
+                      <Link href={`/claim/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
                         Claim Listing
                       </Link>
                     </div>
