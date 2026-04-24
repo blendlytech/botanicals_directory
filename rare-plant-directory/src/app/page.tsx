@@ -66,6 +66,7 @@ export default async function Home() {
               display: 'inline-block',
               background: 'linear-gradient(135deg, var(--gold) 0%, #F2D681 50%, var(--gold) 100%)',
               WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontStyle: 'italic',
               animation: 'shimmer 4s linear infinite'

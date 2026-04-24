@@ -197,6 +197,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, var(--gold) 0%, #fff8e0 50%, var(--gold) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
 }
@@ -350,6 +351,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, var(--gold) 0%, #fff5b0 50%, var(--gold) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
 }
@@ -490,6 +492,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, var(--gold) 0%, #fff5b0 50%, var(--gold) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
 }
@@ -981,6 +984,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, var(--gold) 0%, #fff5b0 50%, var(--gold) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
 }
