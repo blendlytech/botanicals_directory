@@ -46,8 +46,8 @@ export default function ForVendors() {
       
       {/* ─── FLASH SALE BANNER ─── */}
       <div style={{ 
-        background: 'linear-gradient(90deg, var(--gold) 0%, #F2D681 50%, var(--gold) 100%)',
-        color: 'var(--charcoal)',
+        background: 'linear-gradient(90deg, #0A1A12 0%, #1a3d2e 50%, #0A1A12 100%)',
+        color: 'var(--gold)',
         padding: '0.8rem 5%',
         textAlign: 'center',
         fontSize: '0.75rem',
@@ -63,13 +63,14 @@ export default function ForVendors() {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '2rem',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+        boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+        borderBottom: '1px solid var(--gold-dim)'
       }}>
-        <span>🔥 Founder&apos;s Flash Sale: Next 24 Hours Only</span>
-        <div style={{ width: '1px', height: '15px', background: 'rgba(15,15,15,0.2)' }}></div>
-        <span>Get Lifetime Elite Status for $497 (Save $500)</span>
-        <div style={{ width: '1px', height: '15px', background: 'rgba(15,15,15,0.2)' }}></div>
-        <a href="#pricing" style={{ textDecoration: 'underline' }}>Claim Now</a>
+        <span>🔥 FLASH SALE: Next 20 Authority Seats: <strong style={{ color: 'white' }}>$97/yr</strong> (was $979)</span>
+        <div style={{ width: '1px', height: '15px', background: 'rgba(212,175,55,0.3)' }}></div>
+        <span>Lifetime Elite: <strong style={{ color: 'white' }}>$497</strong></span>
+        <div style={{ width: '1px', height: '15px', background: 'rgba(212,175,55,0.3)' }}></div>
+        <a href="#pricing" style={{ textDecoration: 'underline', color: 'white' }}>Claim Now</a>
       </div>
 
       {/* ─── HERO: THE ELITE COMMAND ─── */}

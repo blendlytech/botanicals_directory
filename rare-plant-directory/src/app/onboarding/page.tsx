@@ -96,7 +96,7 @@ export default function OnboardingPage() {
           
           <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
             <PayPalButton 
-              amount={selectedPlan === 'elite' ? "497" : "290"} 
+              amount={selectedPlan === 'elite' ? "497" : "97"} 
               vendorId={createdVendorId} 
               onSuccess={() => setIsSuccess(true)}
             />
