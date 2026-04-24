@@ -54,7 +54,7 @@ export default function PayPalButton({ amount, vendorId, planId, onSuccess }: Pa
           onApprove={async (data, actions) => {
             if (actions.order) {
               const details = await actions.order.capture();
-              console.log("Transaction completed by " + details.payer.name?.given_name);
+              console.log("Transaction completed by " + details.payer?.name?.given_name);
               
               // Call our internal API to upgrade the vendor
               try {

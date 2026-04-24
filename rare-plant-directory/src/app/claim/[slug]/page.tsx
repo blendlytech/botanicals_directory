@@ -161,16 +161,16 @@ export default async function ClaimPage({ params }: { params: { slug: string } }
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Elite Founders Package</h3>
-                            <ul style={{ spaceY: '1rem', listStyle: 'none' }}>
-                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+                            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', listStyle: 'none', padding: 0 }}>
+                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                                     <Zap size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
                                     <span><strong>Permanent</strong> Gold Pin on all event maps.</span>
                                 </li>
-                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                                     <Globe size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
                                     <span><strong>CultivarID</strong> integration for your top 10 specimens.</span>
                                 </li>
-                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+                                <li style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                                     <TrendingUp size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
                                     <span><strong>AI Lead Matching</strong> direct to your inbox.</span>
                                 </li>

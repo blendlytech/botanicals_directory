@@ -6,7 +6,9 @@ import { createClient } from '@/utils/supabase/client';
 interface VendorStats {
   name: string;
   tier: string;
+  account_tier?: string | null;
   is_elite: boolean;
+  is_verified?: boolean;
   elite_number: number | null;
   subscription_status: string | null;
   inventoryCount: number;
@@ -25,7 +27,7 @@ export default function DashboardPage() {
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, name, tier, account_tier, is_elite, elite_number, subscription_status, contact_email')
+        .select('id, name, tier, account_tier, is_elite, is_verified, elite_number, subscription_status, contact_email')
         .eq('user_id', user.id)
         .single();
 
@@ -33,7 +35,7 @@ export default function DashboardPage() {
         // Fallback: search by email if user_id link is missing (for transition)
         const { data: fallbackVendor } = await supabase
           .from('vendors')
-          .select('id, name, tier, account_tier, is_elite, elite_number, subscription_status, contact_email')
+          .select('id, name, tier, account_tier, is_elite, is_verified, elite_number, subscription_status, contact_email')
           .eq('contact_email', user.email)
           .single();
         
