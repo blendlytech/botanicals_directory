@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { notFound } from 'next/navigation';
 import { ShieldCheck, Star, Zap, Globe, MapPin, CheckCircle2, Lock, ArrowRight, TrendingUp } from 'lucide-react';
-import PayPalButton from '../../../components/PayPalButton';
+import PayPalButton from '@/app/components/PayPalButton';
 import Image from 'next/image';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
