@@ -134,53 +134,54 @@ export default function PricingToggle() {
               ${tier.highlight 
                 ? 'bg-slate-900 text-white border-4 border-emerald-500 scale-105 shadow-2xl z-10' 
                 : isElite 
-                  ? 'bg-amber-50 border-2 border-amber-200 shadow-xl'
+                  ? 'bg-[#0B3D2E] text-white border-4 border-amber-500 shadow-[0_0_30px_rgba(212,175,55,0.2)]'
                   : 'bg-white border-2 border-slate-100 shadow-lg hover:border-emerald-200'}`}
             >
               {tier.tag && (
                 <div className={`absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-widest shadow-xl whitespace-nowrap z-20
-                  ${tier.highlight ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white'}`}>
+                  ${tier.highlight ? 'bg-emerald-500 text-white' : isElite ? 'bg-amber-500 text-white' : 'bg-slate-900 text-white'}`}>
                   {tier.tag}
                 </div>
               )}
               
               <div className="mb-10">
                 <div className="flex items-center justify-between gap-4 mb-6">
-                  <div className={`p-3 rounded-2xl ${tier.highlight ? 'bg-white/10' : 'bg-slate-100'}`}>
+                  <div className={`p-3 rounded-2xl ${tier.highlight || isElite ? 'bg-white/10' : 'bg-slate-100'}`}>
                     {tier.icon}
                   </div>
                   {tier.limited && (
                     <span className={`flex items-center gap-1.5 text-[10px] font-black px-3 py-1.5 rounded-full border shadow-sm
-                      ${tier.highlight ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30' : 'bg-amber-100 text-amber-700 border-amber-200'}`}>
+                      ${tier.highlight || isElite ? 'bg-amber-400/20 text-amber-400 border-amber-400/30' : 'bg-amber-100 text-amber-700 border-amber-200'}`}>
                       <Zap size={12} className="fill-current" />
                       {tier.limited}
                     </span>
                   )}
                 </div>
-                <h3 className={`text-3xl font-black mb-3 tracking-tight ${tier.highlight ? 'text-white' : 'text-slate-900'}`}>{tier.name}</h3>
-                <p className={`text-sm font-medium leading-relaxed ${tier.highlight ? 'text-slate-300' : 'text-slate-500'}`}>{tier.desc}</p>
+                <h3 className={`text-3xl font-black mb-3 tracking-tight ${tier.highlight || isElite ? 'text-white' : 'text-slate-900'}`}>{tier.name}</h3>
+                <p className={`text-sm font-medium leading-relaxed ${tier.highlight || isElite ? 'text-slate-200' : 'text-slate-500'}`}>{tier.desc}</p>
               </div>
 
               <div className="mb-10">
                 <div className="flex flex-col">
                   {!isFree && (
-                     <div className={`text-xs font-bold line-through mb-1 ${tier.highlight ? 'text-slate-500' : 'text-slate-400'}`}>
+                     <div className={`text-xs font-bold line-through mb-1 ${tier.highlight || isElite ? 'text-slate-400' : 'text-slate-400'}`}>
                         ${regularPrice}{isElite ? '' : (isAnnual ? '/yr' : '/mo')} Regular
                      </div>
                   )}
                   <div className="flex items-baseline gap-2">
-                    <span className={`text-5xl font-black ${tier.highlight ? 'text-emerald-400' : 'text-slate-900'}`}>
+                    <span className={`text-5xl font-black ${tier.highlight ? 'text-emerald-400' : isElite ? 'text-amber-400' : 'text-slate-900'}`}>
                       {isFree ? 'Free' : `$${founderPrice}`}
                     </span>
-                    <span className={`text-sm font-bold ${tier.highlight ? 'text-slate-500' : 'text-slate-400'}`}>{tier.period}</span>
+                    <span className={`text-sm font-bold ${tier.highlight || isElite ? 'text-slate-400' : 'text-slate-400'}`}>{tier.period}</span>
                   </div>
                   {!isFree && (
                      <div className={`text-[11px] uppercase tracking-widest font-black mt-3 flex items-center gap-2
-                       ${tier.highlight ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                       ${tier.highlight ? 'text-emerald-400' : isElite ? 'text-amber-400' : 'text-emerald-600'}`}>
                         <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
                         Founder's Discount Applied
                      </div>
                   )}
+
                 </div>
               </div>
 
@@ -201,11 +202,11 @@ export default function PricingToggle() {
               </div>
               <ul className="space-y-4 flex-grow">
                 {tier.features.map((feature, i) => (
-                  <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? (tier.highlight ? 'text-slate-200' : 'text-slate-700') : (tier.highlight ? 'text-slate-600' : 'text-slate-300')}`}>
+                  <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? (tier.highlight || isElite ? 'text-slate-200' : 'text-slate-700') : (tier.highlight || isElite ? 'text-slate-600' : 'text-slate-300')}`}>
                     <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 
                       ${feature.included 
-                        ? (tier.highlight ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600') 
-                        : (tier.highlight ? 'bg-slate-800 text-slate-600' : 'bg-slate-50 text-slate-300')}`}>
+                        ? (tier.highlight || isElite ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600') 
+                        : (tier.highlight || isElite ? 'bg-slate-800 text-slate-600' : 'bg-slate-50 text-slate-300')}`}>
                       {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-current" />}
                     </div>
                     {feature.text}

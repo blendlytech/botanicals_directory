@@ -144,28 +144,32 @@ export default async function Home() {
           </div>
 
           {/* Founder Tier (Highlighted) */}
-          <div className="pricing-card pricing-card-founder" style={{ 
+          <div className="pricing-card" style={{ 
             padding: '4rem 2.5rem',
             borderRadius: '32px',
+            background: '#0B3D2E',
+            border: '4px solid var(--gold)',
             transform: 'scale(1.05)',
-            boxShadow: '0 20px 80px rgba(0,0,0,0.5)'
+            boxShadow: '0 20px 80px rgba(0,0,0,0.5)',
+            color: 'white'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <div className="scarcity-pill">Elite Lifetime</div>
+              <div className="scarcity-pill" style={{ background: 'var(--gold)', color: '#0B3D2E' }}>Elite Lifetime</div>
               <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.05em' }}>
                 17 FOUNDING SEATS LEFT
               </div>
             </div>
             
-            <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'var(--gold)', fontWeight: 700 }}>Founder Pass</h3>
+            <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'white', fontWeight: 700 }}>Founder Pass</h3>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div className="pricing-price-display" style={{ color: 'white', fontSize: '4.5rem' }}>$497</div>
-              <div style={{ textDecoration: 'line-through', opacity: 0.4, fontSize: '1.2rem', color: 'var(--gold)' }}>$998/yr</div>
+              <div className="pricing-price-display" style={{ color: 'var(--gold)', fontSize: '4.5rem' }}>$497</div>
+              <div style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>$998/yr</div>
             </div>
             
-            <p style={{ color: 'var(--cream)', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
               One-time investment for life. No renewals. All future premium features included.
             </p>
+
 
             <div style={{ 
               background: 'rgba(212, 175, 55, 0.05)', 

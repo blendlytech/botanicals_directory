@@ -142,15 +142,16 @@ a { color: inherit; text-decoration: none; }
   to   { transform: rotate(360deg); }
 }
 @keyframes border-shimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+  50% { border-color: #fff8e0; box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+  100% { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
 }
 
 @keyframes gold-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); }
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
 }
+
 
 /* ── NAVBAR ── */
 .navbar {
@@ -1242,26 +1243,17 @@ a { color: inherit; text-decoration: none; }
 
 .pricing-card-founder {
   background: linear-gradient(145deg, #0B3D2E, #050d09);
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  border: 2px solid var(--gold);
   position: relative;
   z-index: 1;
-}
-
-.pricing-card-founder::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  z-index: -1;
-  background: linear-gradient(90deg, var(--gold), #fff8e0, var(--gold), #b8920a, var(--gold));
-  background-size: 400% 400%;
-  border-radius: 12px;
-  animation: border-shimmer 8s linear infinite;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
 .pricing-card-founder:hover {
+  border-color: #fff8e0;
   animation: gold-glow 2s ease-in-out infinite;
 }
+
 
 .pricing-price-display {
   font-family: var(--font-heading);
