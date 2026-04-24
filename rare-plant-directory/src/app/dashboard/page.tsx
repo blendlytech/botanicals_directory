@@ -114,8 +114,10 @@ export default function DashboardPage() {
         <div style={{
           background: tier === 'elite'
             ? 'linear-gradient(145deg, rgba(11,61,46,0.6), rgba(212,175,55,0.08))'
-            : 'var(--bg-surface)',
-          border: `1px solid ${tier === 'elite' ? 'var(--gold)' : 'var(--glass-border)'}`,
+            : stats?.subscription_status === 'under_review'
+              ? 'linear-gradient(145deg, rgba(20,20,20,0.8), rgba(212,175,55,0.03))'
+              : 'var(--bg-surface)',
+          border: `1px solid ${tier === 'elite' ? 'var(--gold)' : stats?.subscription_status === 'under_review' ? 'var(--gold)' : 'var(--glass-border)'}`,
           borderRadius: '16px', padding: '2rem', marginBottom: '2rem',
           boxShadow: tier === 'elite' ? '0 0 40px rgba(212,175,55,0.06)' : 'none',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem',
@@ -124,23 +126,35 @@ export default function DashboardPage() {
             <div style={{ marginBottom: '0.75rem' }}>
               {tier === 'elite' && <span className="elite-badge">✦ Elite Grower{stats?.elite_number ? ` #${stats.elite_number}` : ''}</span>}
               {tier === 'pro' && <span className="pro-tier-badge">★ Pro Grower</span>}
-              {tier === 'verified' && <span className="verified-badge">✓ Verified Grower</span>}
-              {tier === 'seedling' && <span className="free-tier-badge">Seedling</span>}
+              {(tier === 'verified' || stats?.is_verified) && <span className="verified-badge">✓ Verified Grower</span>}
+              {tier === 'seedling' && !stats?.is_verified && <span className="free-tier-badge">Seedling</span>}
             </div>
             <div style={{ fontSize: '1.5rem', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-              {tierLabel[tier]}
+              {stats?.subscription_status === 'under_review' ? 'Verification Pending' : tierLabel[tier]}
             </div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
               Status: <span style={{ color: stats?.subscription_status === 'active' ? '#2ecc71' : 'var(--gold)', fontWeight: 600, textTransform: 'capitalize' }}>
-                {stats?.subscription_status || 'Pending'}
+                {stats?.subscription_status === 'under_review' ? 'Under Review' : stats?.subscription_status || 'Pending'}
               </span>
             </div>
           </div>
-          {tier === 'seedling' && (
-            <Link href="/for-vendors" className="btn-primary" style={{ textDecoration: 'none', fontSize: '0.8rem' }}>
-              Upgrade My Tier →
-            </Link>
-          )}
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            {tier === 'seedling' && !stats?.is_verified && stats?.subscription_status !== 'under_review' && (
+              <Link href="/dashboard/verify" className="btn-primary" style={{ textDecoration: 'none', fontSize: '0.8rem', background: 'var(--emerald)', borderColor: 'var(--emerald)' }}>
+                Verify Profile ✓
+              </Link>
+            )}
+            {tier === 'seedling' && (
+              <Link href="/for-vendors" className="btn-primary" style={{ textDecoration: 'none', fontSize: '0.8rem' }}>
+                Upgrade My Tier →
+              </Link>
+            )}
+            {stats?.subscription_status === 'under_review' && (
+              <div style={{ fontSize: '0.75rem', color: 'var(--gold)', background: 'rgba(212,175,55,0.1)', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid rgba(212,175,55,0.2)' }}>
+                Manual Review in Progress (est. 1hr)
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Stats row */}
