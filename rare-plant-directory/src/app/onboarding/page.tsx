@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import PayPalButton from '@/app/components/PayPalButton';
+import PayPalButton from '../components/PayPalButton';
 
 export default function OnboardingPage() {
   const searchParams = useSearchParams();
