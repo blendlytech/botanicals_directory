@@ -1,44 +1,28 @@
+import React from 'react';
+
 export default function TermsPage() {
   return (
-    <main className="page-wrapper" style={{ padding: '10rem 5% 5rem', background: 'var(--bg)' }}>
-      <div className="section-header">
-        <h1 className="section-title">Terms of <em>Service</em></h1>
-        <p className="section-desc">Last Updated: April 23, 2026</p>
-      </div>
-      
-      <div style={{ maxWidth: '800px', margin: '0 auto', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
-        <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>1. The Botanical Marketplace</h2>
-          <p>
-            Rare Plant Vendors (RPV) provides a digital platform for botanical provenance and vendor directory services. 
-            By using our "CultivarID" system or directory services, you agree to these terms.
-          </p>
-        </section>
+    <main className="page-wrapper" style={{ paddingTop: '10rem', paddingBottom: '6rem' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 5%' }}>
+        <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '3.5rem', marginBottom: '2rem' }}>Terms of <em>Service</em></h1>
+        
+        <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '1rem' }}>
+          <p style={{ marginBottom: '2rem' }}>Welcome to Rare Plant Vendors. By accessing our platform, you agree to the following terms and conditions.</p>
+          
+          <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>1. Membership & Access</h2>
+          <p>Founding Lifetime Membership is a one-time payment for perpetual access to the Elite features of the RPV platform as they exist today and in the future. This status is non-transferable and subject to our community standards.</p>
 
-        <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>2. Founding Member Status</h2>
-          <p>
-            "Founder" or "Elite Lifetime" status is a one-time payment that grants perpetual access to the RPV Authority Suite features, 
-            including CultivarID creation and priority map routing. This status is non-transferable unless explicitly authorized by RPV.
-          </p>
-        </section>
+          <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>2. Vendor Responsibilities</h2>
+          <p>Vendors are responsible for the accuracy of their inventory, provenance data, and customer interactions. Rare Plant Vendors acts as a directory and verification service, not a direct party to transactions between collectors and vendors.</p>
 
-        <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>3. Payments and Refunds</h2>
-          <p>
-            All payments are processed securely via PayPal. Due to the immediate delivery of digital authority status and 
-            backend setup services, all "Founder" and "Elite" payments are non-refundable after the first 24 hours of account activation.
-          </p>
-        </section>
+          <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>3. Digital Provenance (CultivarID)</h2>
+          <p>The CultivarID system is a digital record. While we verify nursery identity and location, the genetic claims made about specimens are provided by the vendor. Fraudulent claims will result in immediate termination of Elite status without refund.</p>
 
-        <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>4. Content and Provenance</h2>
-          <p>
-            Vendors are responsible for the accuracy of their plant data and provenance records. RPV acts as a secure 
-            ledger but does not verify the physical condition of botanical specimens. Misrepresentation of species or 
-            lineage may result in immediate revocation of "Verified" status.
-          </p>
-        </section>
+          <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>4. Payments & Refunds</h2>
+          <p>Due to the immediate activation of managed services (24h backend setup) and lifetime digital benefits, all sales of Founding Member passes are final. Refunds are only issued in the event of documented technical failure to provide the service.</p>
+          
+          <p style={{ marginTop: '4rem', fontSize: '0.8rem', opacity: 0.6 }}>Last Updated: April 2026</p>
+        </div>
       </div>
     </main>
   );

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import PayPalButton from '../components/PayPalButton';
+import PayPalButton from '@/app/components/PayPalButton';
 
 export default function OnboardingPage() {
   const searchParams = useSearchParams();
@@ -96,7 +96,7 @@ export default function OnboardingPage() {
           
           <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
             <PayPalButton 
-              amount={selectedPlan === 'elite' ? "498" : "290"} 
+              amount={selectedPlan === 'elite' ? "497" : "290"} 
               vendorId={createdVendorId} 
               onSuccess={() => setIsSuccess(true)}
             />

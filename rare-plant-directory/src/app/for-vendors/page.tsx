@@ -78,7 +78,7 @@ export default function ForVendors() {
         
         <div className="hero-eyebrow">
           <div className="hero-eyebrow-dot"></div>
-          <span>Founding Member Enrollment Open — Only 17 Seats Remaining</span>
+          <span>Founding Member Enrollment Open — 17 Founding Seats Left</span>
         </div>
         
         <h1 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
@@ -157,8 +157,8 @@ export default function ForVendors() {
             </div>
             <div style={{ width: '1px', background: 'var(--glass-border)', height: '40px' }}></div>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--gold)' }}>17/50</div>
-              <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Seats Remaining</div>
+              <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)' }}>17/50</div>
+              <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Founding Seats Left</div>
             </div>
             <div style={{ width: '1px', background: 'var(--glass-border)', height: '40px' }}></div>
             <div style={{ textAlign: 'center' }}>

@@ -77,7 +77,7 @@ export default function PricingToggle() {
       cta: "Claim Lifetime Seat",
       highlight: true,
       tag: "Best Value",
-      limited: "Only 17 Founding Seats Left"
+      limited: "17 Founding Seats Left"
     },
   ];
 
@@ -129,10 +129,12 @@ export default function PricingToggle() {
            return (
             <div
               key={tier.name}
-              className={`flex flex-col bg-white border rounded-[2.5rem] p-8 transition-all duration-500 relative group
-                ${tier.highlight 
-                  ? 'border-emerald-200 shadow-2xl shadow-emerald-100/50 scale-105 z-10' 
-                  : 'border-slate-200 shadow-xl shadow-slate-200/20 hover:-translate-y-2'}`}
+              className={`relative p-10 rounded-[32px] transition-all duration-500 flex flex-col group
+              ${tier.highlight 
+                ? 'bg-white border-2 border-emerald-600 scale-105 shadow-2xl z-10' 
+                : isLifetime ? 'bg-amber-50 border-2 border-amber-200 scale-105 shadow-2xl z-10'
+                : 'bg-slate-50 border border-slate-200 hover:border-emerald-200'}`}
+              style={isLifetime ? { animation: 'gold-glow 3s infinite' } : {}}
             >
               {tier.highlight && (
                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
@@ -147,13 +149,17 @@ export default function PricingToggle() {
               )}
 
               <div className="mb-8">
-                <div className="flex items-center justify-between mb-4 mt-2">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform">
-                    {tier.icon}
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <span className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase
+                    ${tier.highlight ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}>
                     {tier.badge}
                   </span>
+                  {tier.limited && (
+                    <span className="flex items-center gap-1.5 text-[10px] font-black text-emerald-600 animate-pulse bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
+                      <Zap size={12} className="fill-emerald-600" />
+                      {tier.limited}
+                    </span>
+                  )}
                 </div>
                 <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">{tier.name}</h3>
                 <p className="text-sm text-slate-500 font-medium leading-relaxed">{tier.desc}</p>

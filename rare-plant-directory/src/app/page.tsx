@@ -153,7 +153,7 @@ export default async function Home() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
               <div className="scarcity-pill">Elite Lifetime</div>
               <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.05em' }}>
-                17 SLOTS REMAINING
+                17 FOUNDING SEATS LEFT
               </div>
             </div>
             
@@ -274,7 +274,7 @@ export default async function Home() {
             margin: '0 auto 3.5rem',
             color: 'var(--cream)'
           }}>
-            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>17</span> of 50 lifetime passes remain. <br />
+            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>17</span> Founding Seats remain. <br />
             Join the elite circle of verified plant professionals today.
           </p>
           
