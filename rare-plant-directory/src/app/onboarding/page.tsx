@@ -96,8 +96,14 @@ export default function OnboardingPage() {
           
           <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
             <PayPalButton 
-              amount={selectedPlan === 'elite' ? "497" : "97"} 
+              amount={
+                selectedPlan === 'elite' ? "497" : 
+                selectedPlan === 'canopy' ? "129.99" :
+                selectedPlan === 'bloom' ? "39.99" :
+                selectedPlan === 'sprout' ? "14.99" : "14.99"
+              } 
               vendorId={createdVendorId} 
+              planId={selectedPlan}
               onSuccess={() => setIsSuccess(true)}
             />
           </div>
@@ -235,43 +241,6 @@ export default function OnboardingPage() {
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             
-            {/* Input Group */}
-            <div className="input-group">
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.7rem', 
-                fontWeight: 800, 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.2em', 
-                color: 'var(--gold)',
-                marginBottom: '0.75rem',
-                paddingLeft: '0.5rem'
-              }}>
-                Nursery / Vendor Name
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Monstera Syndicate"
-                value={form.vendorName}
-                onChange={(e) => setForm({...form, vendorName: e.target.value})}
-                style={{ 
-                  width: '100%', 
-                  background: 'var(--bg-surface)', 
-                  border: '1px solid var(--glass-border)', 
-                  borderRadius: '12px', 
-                  padding: '1.25rem',
-                  color: 'var(--text-primary)',
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '1rem',
-                  outline: 'none',
-                  transition: 'border-color 0.3s ease'
-                }}
-                onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
-                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
-              />
-            </div>
-
             <div className="input-group">
               <label style={{ 
                 display: 'block', 
@@ -342,46 +311,6 @@ export default function OnboardingPage() {
                 onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
               />
-            </div>
-
-            <div className="input-group">
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.7rem', 
-                fontWeight: 800, 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.2em', 
-                color: 'var(--gold)',
-                marginBottom: '0.75rem',
-                paddingLeft: '0.5rem'
-              }}>
-                Primary Specialty
-              </label>
-              <select
-                required
-                value={form.specialty}
-                onChange={(e) => setForm({...form, specialty: e.target.value})}
-                style={{ 
-                  width: '100%', 
-                  background: 'var(--bg-surface)', 
-                  border: '1px solid var(--glass-border)', 
-                  borderRadius: '12px', 
-                  padding: '1.25rem',
-                  color: 'var(--text-primary)',
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '1rem',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  appearance: 'none'
-                }}
-              >
-                <option value="" disabled>Select your focus...</option>
-                <option value="Rare Aroids">Rare Aroids (Monstera, Philodendron, etc.)</option>
-                <option value="Orchids">Orchids</option>
-                <option value="Carnivorous">Carnivorous Plants</option>
-                <option value="Hoyas">Hoyas & Epiphytes</option>
-                <option value="Other">Other / Mixed</option>
-              </select>
             </div>
 
           </div>

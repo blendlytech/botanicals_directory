@@ -66,11 +66,11 @@ export default function ForVendors() {
         boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
         borderBottom: '1px solid var(--gold-dim)'
       }}>
-        <span>🔥 FLASH SALE: Next 20 Authority Seats: <strong style={{ color: 'white' }}>$97/yr</strong> (was $979)</span>
+        <span>🔥 FLASH SALE: Elite Founder Lifetime Pass: <strong style={{ color: 'white' }}>$497</strong> (Owned Forever)</span>
         <div style={{ width: '1px', height: '15px', background: 'rgba(212,175,55,0.3)' }}></div>
-        <span>Lifetime Elite: <strong style={{ color: 'white' }}>$497</strong></span>
+        <span>17 FOUNDING SEATS LEFT</span>
         <div style={{ width: '1px', height: '15px', background: 'rgba(212,175,55,0.3)' }}></div>
-        <a href="#pricing" style={{ textDecoration: 'underline', color: 'white' }}>Claim Now</a>
+        <a href="#pricing" style={{ textDecoration: 'underline', color: 'white' }}>Claim My Spot</a>
       </div>
 
       {/* ─── HERO: THE ELITE COMMAND ─── */}

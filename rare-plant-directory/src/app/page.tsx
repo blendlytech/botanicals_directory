@@ -109,8 +109,55 @@ export default async function Home() {
           </div>
           <h2 className="section-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>Choose Your <em>Botanical Legacy</em></h2>
           <p style={{ opacity: 0.8, maxWidth: '650px', margin: '1.5rem auto 0', fontSize: '1.1rem' }}>
-            Join a network of elite horticulturalists or browse the world's most exclusive specimens.
+            Secure your market position with our flexible tiers or join the elite founding circle.
           </p>
+        </div>
+
+        {/* ── ELITE FOUNDER PROMO ── */}
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto 5rem', 
+          background: 'linear-gradient(135deg, #0B3D2E 0%, #040806 100%)',
+          border: '4px solid var(--gold)',
+          borderRadius: '40px',
+          padding: '4rem',
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: '4rem',
+          boxShadow: '0 30px 100px rgba(212,175,55,0.15)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{ flex: '1 1 500px' }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                <div className="scarcity-pill" style={{ background: 'var(--gold)', color: '#0B3D2E' }}>Elite Founder Pass</div>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.1em' }}>17 SEATS REMAINING</span>
+             </div>
+             <h3 style={{ fontSize: '3rem', color: 'white', marginBottom: '1.5rem' }}>Lifetime Authority <br /> <em style={{ color: 'var(--gold)' }}>For a One-Time Fee.</em></h3>
+             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+               Skip the subscriptions. Secure everything in the **Canopy Tier** plus exclusive Founder-only perks for life. No renewals. No future fees.
+             </p>
+             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
+                   <ShieldCheck color="var(--gold)" /> Lifetime Verified Status
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
+                   <TrendingUp color="var(--gold)" /> Priority Lead Matching
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
+                   <Zap color="var(--gold)" /> Zero Transaction Fees
+                </div>
+             </div>
+          </div>
+          <div style={{ flex: '0 0 auto', textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '3rem', borderRadius: '32px', border: '1px solid rgba(212,175,55,0.2)' }}>
+             <div style={{ textDecoration: 'line-through', opacity: 0.4, color: 'white', fontSize: '1.2rem', marginBottom: '0.5rem' }}>$1,248/yr</div>
+             <div style={{ fontSize: '5rem', fontWeight: 900, color: 'var(--gold)', lineHeight: 1 }}>$497</div>
+             <div style={{ fontSize: '0.8rem', color: 'white', opacity: 0.6, marginTop: '0.5rem', letterSpacing: '0.1em' }}>PAID ONCE, OWNED FOREVER</div>
+             <Link href="/onboarding?type=vendor&plan=elite" className="btn-primary" style={{ marginTop: '2.5rem', width: '100%', padding: '1.25rem', borderRadius: '16px', display: 'block' }}>
+                Claim Lifetime Access
+             </Link>
+          </div>
         </div>
 
         <div style={{ 
@@ -122,29 +169,28 @@ export default async function Home() {
           alignItems: 'stretch'
         }}>
           
-          {/* Collector Tier */}
+          {/* Sprout Tier */}
           <div className="pricing-card pricing-card-glass" style={{ 
             padding: '4rem 2.5rem',
             borderRadius: '32px'
           }}>
-            <div className="free-tier-badge" style={{ marginBottom: '1.5rem' }}>Collector</div>
-            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>The Enthusiast</h3>
-            <div className="pricing-price-display" style={{ color: 'white' }}>Free</div>
+            <div className="free-tier-badge" style={{ marginBottom: '1.5rem' }}>Starter</div>
+            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>Sprout</h3>
+            <div className="pricing-price-display" style={{ color: 'white' }}>$14.99<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>/mo</span></div>
             <p style={{ opacity: 0.7, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-              Perfect for collectors seeking to verify provenance and discover rare specimens.
+              Digitize your booth in 5 minutes. Perfect for local markets and hobbyists.
             </p>
             <ul className="pricing-feature-list">
-              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> Verify CultivarIDs</li>
-              <li className="pricing-feature-item"><Map size={20} color="var(--gold)" /> Global Event Map</li>
-              <li className="pricing-feature-item"><Star size={20} color="var(--gold)" /> Save Favorite Vendors</li>
-              <li className="pricing-feature-item" style={{ opacity: 0.4 }}><Zap size={20} /> Create CultivarIDs</li>
+              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> 25 Dynamic QR Codes</li>
+              <li className="pricing-feature-item"><Map size={20} color="var(--gold)" /> Basic Scan Analytics</li>
+              <li className="pricing-feature-item"><Star size={20} color="var(--gold)" /> 1 Mobile Linkpage</li>
             </ul>
-            <Link href="/onboarding?type=collector" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
-              Create Collector Profile
+            <Link href="/onboarding?type=vendor&plan=sprout" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
+              Start Growing
             </Link>
           </div>
 
-          {/* Founder Tier (Highlighted) */}
+          {/* Bloom Tier (Highlighted) */}
           <div className="pricing-card" style={{ 
             padding: '4rem 2.5rem',
             borderRadius: '32px',
@@ -155,22 +201,21 @@ export default async function Home() {
             color: 'white'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <div className="scarcity-pill" style={{ background: 'var(--gold)', color: '#0B3D2E' }}>Elite Lifetime</div>
+              <div className="scarcity-pill" style={{ background: 'var(--gold)', color: '#0B3D2E' }}>Vendor Favorite</div>
               <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.05em' }}>
-                17 FOUNDING SEATS LEFT
+                MOST POPULAR
               </div>
             </div>
             
-            <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'white', fontWeight: 700 }}>Founder Pass</h3>
+            <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'white', fontWeight: 700 }}>Bloom</h3>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div className="pricing-price-display" style={{ color: 'var(--gold)', fontSize: '4.5rem' }}>$497</div>
-              <div style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>$998/yr</div>
+              <div className="pricing-price-display" style={{ color: 'var(--gold)', fontSize: '4.5rem' }}>$39</div>
+              <div style={{ opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>.99/mo</div>
             </div>
             
             <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-              One-time investment for life. No renewals. All future premium features included.
+              Advanced analytics and lead capture for established professionals.
             </p>
-
 
             <div style={{ 
               background: 'rgba(212, 175, 55, 0.05)', 
@@ -179,18 +224,15 @@ export default async function Home() {
               padding: '1.5rem',
               marginBottom: '2.5rem'
             }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--gold)', marginBottom: '1rem', textTransform: 'uppercase' }}>
-                Founder Perks:
-              </div>
               <ul className="pricing-feature-list" style={{ margin: 0, gap: '1rem' }}>
-                <li className="pricing-feature-item highlight"><Zap size={20} /> Unlimited CultivarID Creation</li>
-                <li className="pricing-feature-item highlight"><Star size={20} /> "Founder" Profile Seal</li>
-                <li className="pricing-feature-item highlight"><TrendingUp size={20} /> Priority Search Ranking</li>
-                <li className="pricing-feature-item highlight"><Lock size={20} /> Lifetime Zero-Fee Status</li>
+                <li className="pricing-feature-item highlight"><Zap size={20} /> 250 Dynamic QR Codes</li>
+                <li className="pricing-feature-item highlight"><TrendingUp size={20} /> Advanced Market Analytics</li>
+                <li className="pricing-feature-item highlight"><Star size={20} /> 10 Mobile Linkpages</li>
+                <li className="pricing-feature-item highlight"><Lock size={20} /> Digital Care Log Integration</li>
               </ul>
             </div>
 
-            <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ 
+            <Link href="/onboarding?type=vendor&plan=bloom" className="btn-primary" style={{ 
               marginTop: 'auto', 
               textAlign: 'center', 
               width: '100%', 
@@ -199,29 +241,28 @@ export default async function Home() {
               fontSize: '0.9rem',
               letterSpacing: '0.1em'
             }}>
-              Secure Lifetime Access
+              Scale Your Nursery
             </Link>
           </div>
 
-          {/* Vendor Standard Tier */}
+          {/* Canopy Tier */}
           <div className="pricing-card pricing-card-glass" style={{ 
             padding: '4rem 2.5rem',
-            borderRadius: '32px',
-            opacity: 0.8
+            borderRadius: '32px'
           }}>
-            <div style={{ marginBottom: '1.5rem', color: 'var(--sand)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Future Tier</div>
-            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>Standard Elite</h3>
-            <div className="pricing-price-display" style={{ color: 'white' }}>$998<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>/yr</span></div>
+            <div style={{ marginBottom: '1.5rem', color: 'var(--sand)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Enterprise</div>
+            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>Canopy</h3>
+            <div className="pricing-price-display" style={{ color: 'white' }}>$129<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>.99/mo</span></div>
             <p style={{ opacity: 0.7, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-              Professional access for vendors once Founder passes are exhausted.
+              White-label infrastructure for massive greenhouse operations.
             </p>
             <ul className="pricing-feature-list">
-              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> Verified Vendor Profile</li>
-              <li className="pricing-feature-item"><MapPin size={20} color="var(--gold)" /> Event Map Placement</li>
-              <li className="pricing-feature-item"><Zap size={20} color="var(--gold)" /> 50 CultivarIDs / year</li>
+              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> Unlimited Dynamic QRs</li>
+              <li className="pricing-feature-item"><MapPin size={20} color="var(--gold)" /> Custom White-label Domain</li>
+              <li className="pricing-feature-item"><Zap size={20} color="var(--gold)" /> Bulk Generation & API</li>
             </ul>
-            <Link href="/onboarding?type=vendor&plan=standard" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
-              Join the Waitlist
+            <Link href="/onboarding?type=vendor&plan=canopy" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
+              Request Enterprise Access
             </Link>
           </div>
 

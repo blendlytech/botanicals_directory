@@ -64,6 +64,7 @@ export default function PayPalButton({ amount, vendorId, planId, onSuccess }: Pa
                   body: JSON.stringify({
                     vendorId,
                     orderId: data.orderID,
+                    planId,
                     details
                   })
                 });

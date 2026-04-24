@@ -7,23 +7,23 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(request: Request) {
   try {
-    const { vendorId, orderId, details } = await request.json();
+    const { vendorId, orderId, planId, details } = await request.json();
 
     if (!vendorId) {
       return NextResponse.json({ error: 'Vendor ID is required' }, { status: 400 });
     }
 
     // 1. Log the transaction (In a production app, you'd have a transactions table)
-    console.log(`Processing upgrade for Vendor ${vendorId} with Order ${orderId}`);
+    console.log(`Processing upgrade for Vendor ${vendorId} to Plan ${planId} with Order ${orderId}`);
 
     // 2. Update the vendor status in Supabase
     const { data, error } = await supabase
       .from('vendors')
       .update({
-        tier: 'elite',
-        account_tier: 'elite',
+        tier: planId || 'sprout',
+        account_tier: planId || 'sprout',
         is_verified: true,
-        is_elite: true,
+        is_elite: planId === 'elite' || planId === 'canopy',
         subscription_status: 'active',
         // We could also store the PayPal details in a JSONB column if we had one
       })

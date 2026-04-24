@@ -117,8 +117,8 @@ export async function POST(request: Request) {
         specialty: data.specialties,
         tier: data.tier,
         account_tier: data.tier,
-        subscription_status: data.tier === 'seedling' ? 'active' : 'pending_payment',
-        is_elite: data.tier === 'elite'
+        subscription_status: (data.tier === 'seedling' || data.tier === 'free') ? 'active' : 'pending_payment',
+        is_elite: data.tier === 'elite' || data.tier === 'canopy'
       }, { onConflict: 'contact_email' })
       .select()
       .single();
