@@ -1,6 +1,6 @@
 'use client';
 
-import PayPalButton from '@/app/components/PayPalButton';
+import PayPalButton from '../components/PayPalButton';
 import { useState } from 'react';
 
 export default function TestPaymentPage() {

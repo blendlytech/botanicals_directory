@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import ProfileTracker from "@/app/components/ProfileTracker";
+import ProfileTracker from "../../components/ProfileTracker";
 
 export const revalidate = 60; // revalidate every 60 seconds
 
