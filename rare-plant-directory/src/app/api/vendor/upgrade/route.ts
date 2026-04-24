@@ -5,6 +5,20 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+function getInternalTier(tier: string): string {
+  const mapping: Record<string, string> = {
+    'sprout': 'seedling',
+    'bloom': 'visibility',
+    'canopy': 'authority',
+    'elite': 'elite',
+    'free': 'seedling',
+    'seedling': 'seedling',
+    'visibility': 'visibility',
+    'authority': 'authority'
+  };
+  return mapping[tier.toLowerCase()] || 'seedling';
+}
+
 export async function POST(request: Request) {
   try {
     const { vendorId, orderId, planId, details } = await request.json();
@@ -21,7 +35,7 @@ export async function POST(request: Request) {
       .from('vendors')
       .update({
         tier: planId || 'sprout',
-        account_tier: planId || 'sprout',
+        account_tier: getInternalTier(planId || 'sprout') as any,
         is_verified: true,
         is_elite: planId === 'elite' || planId === 'canopy',
         subscription_status: 'active',

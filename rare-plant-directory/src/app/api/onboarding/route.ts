@@ -21,6 +21,20 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+function getInternalTier(tier: string): string {
+  const mapping: Record<string, string> = {
+    'sprout': 'seedling',
+    'bloom': 'visibility',
+    'canopy': 'authority',
+    'elite': 'elite',
+    'free': 'seedling',
+    'seedling': 'seedling',
+    'visibility': 'visibility',
+    'authority': 'authority'
+  };
+  return mapping[tier.toLowerCase()] || 'seedling';
+}
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
@@ -116,7 +130,7 @@ export async function POST(request: Request) {
         location_country: data.locationCountry,
         specialty: data.specialties,
         tier: data.tier,
-        account_tier: data.tier,
+        account_tier: getInternalTier(data.tier) as any,
         subscription_status: (data.tier === 'seedling' || data.tier === 'free') ? 'active' : 'pending_payment',
         is_elite: data.tier === 'elite' || data.tier === 'canopy'
       }, { onConflict: 'contact_email' })
