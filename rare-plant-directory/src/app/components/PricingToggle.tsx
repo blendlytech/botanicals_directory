@@ -12,7 +12,7 @@ export default function PricingToggle() {
       name: "Seedling",
       planId: "seedling",
       badge: "Free tier",
-      icon: <Lock className="w-6 h-6 text-slate-400" />,
+      icon: <Lock className="w-6 h-6 text-slate-500" />,
       priceMonthly: 0,
       priceAnnual: 0,
       founderMonthly: 0,
@@ -33,12 +33,12 @@ export default function PricingToggle() {
     {
       name: "Authority Suite",
       planId: "authority",
-      badge: "Tier below Elite",
-      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+      badge: "Limited Offer",
+      icon: <TrendingUp className="w-6 h-6 text-emerald-700" />,
       priceMonthly: 99,
-      priceAnnual: 990,
+      priceAnnual: 979,
       founderMonthly: 49,
-      founderAnnual: 290,
+      founderAnnual: 97,
       period: isAnnual ? "/yr" : "/mo",
       desc: "Increased visibility for growing nurseries. Get verified and get seen.",
       features: [
@@ -50,14 +50,15 @@ export default function PricingToggle() {
         { text: "Digital Passports", included: true },
       ],
       cta: "Unlock Authority",
-      highlight: false,
-      limited: "75 Founder Spots"
+      highlight: true,
+      tag: "Best Value",
+      limited: "Next 20 Subscribers Only"
     },
     {
       name: "Lifetime Elite",
       planId: "elite",
       badge: "Founders Package",
-      icon: <Globe className="w-6 h-6 text-amber-500" />,
+      icon: <Globe className="w-6 h-6 text-amber-600" />,
       priceMonthly: 998,
       priceAnnual: 998,
       founderMonthly: 497,
@@ -75,8 +76,8 @@ export default function PricingToggle() {
         { text: "Newsletter Spotlight Access", included: true },
       ],
       cta: "Claim Lifetime Seat",
-      highlight: true,
-      tag: "Best Value",
+      highlight: false,
+      tag: "Limited Seats",
       limited: "17 Founding Seats Left"
     },
   ];
@@ -85,101 +86,98 @@ export default function PricingToggle() {
     <div className="w-full max-w-7xl mx-auto px-4 mt-8">
       
       {/* FOMO Messaging */}
-      <div className="max-w-3xl mx-auto text-center mb-12 bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100/50">
-        <h3 className="text-xl font-black text-slate-900 mb-2 flex items-center justify-center gap-2">
-           <AlertCircle className="text-amber-500" /> Don&apos;t Lose Sales to the Booth Next Door
+      <div className="max-w-3xl mx-auto text-center mb-12 bg-white p-8 rounded-3xl border-2 border-emerald-100 shadow-sm">
+        <h3 className="text-2xl font-black text-slate-900 mb-3 flex items-center justify-center gap-3">
+           <AlertCircle className="text-amber-500" size={28} /> Don't Lose Sales to the Booth Next Door
         </h3>
-        <p className="text-slate-600 font-medium">
-          It&apos;s a no-brainer: The cost of a full year is covered by just <strong>one high-ticket sale</strong>. 
-          The real cost? The thousands in lost revenue because your neighbor booth has <strong>CultivarID</strong> to authenticate their specimens, and you don&apos;t.
+        <p className="text-slate-700 text-lg leading-relaxed">
+          It's a no-brainer: The cost of a full year is covered by just <strong>one high-ticket sale</strong>. 
+          The real cost? The thousands in lost revenue because your neighbor booth has <strong>CultivarID</strong> to authenticate their specimens, and you don't.
         </p>
       </div>
 
       {/* Toggle */}
       <div className="flex justify-center mb-16">
-        <div className="bg-slate-100 p-1.5 rounded-full inline-flex items-center relative">
+        <div className="bg-slate-200 p-1.5 rounded-full inline-flex items-center relative">
           <button
             onClick={() => setIsAnnual(false)}
-            className={`relative z-10 px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${!isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`relative z-10 px-10 py-3 rounded-full text-sm font-black transition-all duration-300 ${!isAnnual ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'}`}
           >
             Monthly
           </button>
           <button
             onClick={() => setIsAnnual(true)}
-            className={`relative z-10 px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`relative z-10 px-10 py-3 rounded-full text-sm font-black transition-all duration-300 ${isAnnual ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'}`}
           >
-            Annually <span className="ml-1 text-[10px] uppercase tracking-widest text-emerald-600 font-black bg-emerald-100 px-2 py-0.5 rounded-full">Save 20%</span>
+            Annually <span className="ml-2 text-[10px] uppercase tracking-widest text-white bg-emerald-600 px-2 py-0.5 rounded-full">Save 20%</span>
           </button>
           
           <div 
-            className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-sm transition-transform duration-300 ease-out"
+            className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-md transition-transform duration-300 ease-out"
             style={{ transform: isAnnual ? 'translateX(calc(100% + 6px))' : 'translateX(6px)' }}
           />
         </div>
       </div>
 
       {/* Pricing Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch pb-12">
         {tiers.map((tier) => {
            const regularPrice = isAnnual ? tier.priceAnnual : tier.priceMonthly;
            const founderPrice = isAnnual ? tier.founderAnnual : tier.founderMonthly;
            const isFree = tier.priceAnnual === 0;
-           const isLifetime = tier.name === "Lifetime Elite";
+           const isElite = tier.name === "Lifetime Elite";
 
            return (
             <div
               key={tier.name}
-              className={`relative p-10 rounded-[32px] transition-all duration-500 flex flex-col group
+              className={`relative p-8 md:p-10 rounded-[40px] transition-all duration-300 flex flex-col
               ${tier.highlight 
-                ? 'bg-white border-2 border-emerald-600 scale-105 shadow-2xl z-10' 
-                : isLifetime ? 'bg-amber-50 border-2 border-amber-200 scale-105 shadow-2xl z-10'
-                : 'bg-slate-50 border border-slate-200 hover:border-emerald-200'}`}
-              style={isLifetime ? { animation: 'gold-glow 3s infinite' } : {}}
+                ? 'bg-slate-900 text-white border-4 border-emerald-500 scale-105 shadow-2xl z-10' 
+                : isElite 
+                  ? 'bg-amber-50 border-2 border-amber-200 shadow-xl'
+                  : 'bg-white border-2 border-slate-100 shadow-lg hover:border-emerald-200'}`}
             >
-              {tier.highlight && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+              {tier.tag && (
+                <div className={`absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-widest shadow-xl whitespace-nowrap z-20
+                  ${tier.highlight ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white'}`}>
                   {tier.tag}
                 </div>
               )}
               
-              {tier.limited && (
-                <div className={`absolute -top-5 left-1/2 -translate-x-1/2 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg whitespace-nowrap ${isLifetime ? 'bg-amber-500' : 'bg-slate-900'}`}>
-                  {tier.limited}
-                </div>
-              )}
-
-              <div className="mb-8">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <span className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase
-                    ${tier.highlight ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}>
-                    {tier.badge}
-                  </span>
+              <div className="mb-10">
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <div className={`p-3 rounded-2xl ${tier.highlight ? 'bg-white/10' : 'bg-slate-100'}`}>
+                    {tier.icon}
+                  </div>
                   {tier.limited && (
-                    <span className="flex items-center gap-1.5 text-[10px] font-black text-emerald-600 animate-pulse bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
-                      <Zap size={12} className="fill-emerald-600" />
+                    <span className={`flex items-center gap-1.5 text-[10px] font-black px-3 py-1.5 rounded-full border shadow-sm
+                      ${tier.highlight ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30' : 'bg-amber-100 text-amber-700 border-amber-200'}`}>
+                      <Zap size={12} className="fill-current" />
                       {tier.limited}
                     </span>
                   )}
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">{tier.name}</h3>
-                <p className="text-sm text-slate-500 font-medium leading-relaxed">{tier.desc}</p>
+                <h3 className={`text-3xl font-black mb-3 tracking-tight ${tier.highlight ? 'text-white' : 'text-slate-900'}`}>{tier.name}</h3>
+                <p className={`text-sm font-medium leading-relaxed ${tier.highlight ? 'text-slate-300' : 'text-slate-500'}`}>{tier.desc}</p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-10">
                 <div className="flex flex-col">
                   {!isFree && (
-                     <div className="text-xs font-bold text-slate-400 line-through mb-1">
-                        ${regularPrice}{isLifetime ? '' : (isAnnual ? '/yr' : '/mo')} Regular
+                     <div className={`text-xs font-bold line-through mb-1 ${tier.highlight ? 'text-slate-500' : 'text-slate-400'}`}>
+                        ${regularPrice}{isElite ? '' : (isAnnual ? '/yr' : '/mo')} Regular
                      </div>
                   )}
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-slate-900">
+                  <div className="flex items-baseline gap-2">
+                    <span className={`text-5xl font-black ${tier.highlight ? 'text-emerald-400' : 'text-slate-900'}`}>
                       {isFree ? 'Free' : `$${founderPrice}`}
                     </span>
-                    <span className="text-sm font-bold text-slate-400">{tier.period}</span>
+                    <span className={`text-sm font-bold ${tier.highlight ? 'text-slate-500' : 'text-slate-400'}`}>{tier.period}</span>
                   </div>
                   {!isFree && (
-                     <div className="text-[10px] uppercase tracking-widest text-emerald-600 font-black mt-2">
+                     <div className={`text-[11px] uppercase tracking-widest font-black mt-3 flex items-center gap-2
+                       ${tier.highlight ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                        <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
                         Founder's Discount Applied
                      </div>
                   )}
@@ -188,28 +186,34 @@ export default function PricingToggle() {
 
               <Link
                 href={`/onboarding?plan=${tier.planId}`}
-                className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-black text-sm transition-all active:scale-95 mb-10
+                className={`w-full flex items-center justify-center gap-2 py-5 px-8 rounded-2xl font-black text-base transition-all hover:-translate-y-1 active:scale-95 mb-10 shadow-lg
                   ${tier.highlight 
-                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-100' 
-                    : isLifetime ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-xl shadow-amber-100' 
-                    : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl shadow-slate-200'}`}
+                    ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-900 shadow-emerald-500/20' 
+                    : isElite ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-amber-500/20' 
+                    : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-900/20'}`}
               >
                 {tier.cta}
-                <ChevronRight size={18} />
+                <ChevronRight size={20} />
               </Link>
 
+              <div className={`mb-4 text-[10px] uppercase tracking-widest font-black ${tier.highlight ? 'text-slate-500' : 'text-slate-400'}`}>
+                What's included:
+              </div>
               <ul className="space-y-4 flex-grow">
                 {tier.features.map((feature, i) => (
-                  <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? 'text-slate-600' : 'text-slate-300'}`}>
-                    <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feature.included ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-300'}`}>
-                      {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />}
+                  <li key={i} className={`flex items-start gap-3 text-sm font-bold ${feature.included ? (tier.highlight ? 'text-slate-200' : 'text-slate-700') : (tier.highlight ? 'text-slate-600' : 'text-slate-300')}`}>
+                    <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 
+                      ${feature.included 
+                        ? (tier.highlight ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600') 
+                        : (tier.highlight ? 'bg-slate-800 text-slate-600' : 'bg-slate-50 text-slate-300')}`}>
+                      {feature.included ? <ShieldCheck size={14} /> : <div className="w-1.5 h-1.5 rounded-full bg-current" />}
                     </div>
                     {feature.text}
                   </li>
                 ))}
               </ul>
             </div>
-          );
+           );
         })}
       </div>
     </div>
