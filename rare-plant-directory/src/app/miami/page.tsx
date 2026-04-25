@@ -54,6 +54,37 @@ export default function MiamiLandingPage() {
           </div>
         </div>
 
+        {/* ── HOW IT WORKS (THE "WHAT IS IT?" FIX) ── */}
+        <section style={{ marginBottom: '8rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 className="section-title">What is <em>CultivarID™</em>?</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>A simple 3-step digital bridge between you and the collector.</p>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card">
+              <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>01</div>
+              <h3 style={{ marginBottom: '1rem' }}>The Registry</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                We create a digital "birth certificate" for your high-value specimens including mother plant origin and care history.
+              </p>
+            </div>
+            <div className="feature-card">
+              <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>02</div>
+              <h3 style={{ marginBottom: '1rem' }}>The Secure QR</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                You get unique QR codes for your tags. Scans show the plant's story, care tips, and **curated botanical facts** about the species.
+              </p>
+            </div>
+            <div className="feature-card">
+              <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>03</div>
+              <h3 style={{ marginBottom: '1rem' }}>The Trusted Sale</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                The digital provenance certificate is transferred to the buyer, building lifetime trust and a direct line for future sales.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ── COLD CALL HOOK ── */}
         <section className="pitch-section">
           <div className="pitch-card">
@@ -63,8 +94,7 @@ export default function MiamiLandingPage() {
                 Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the festival.</strong>
               </p>
               <p>
-                If you don't have your digital passports ready, you're invisible to the most serious collectors in the room. 
-                They want the care history, the lineage, and the digital certificate of authenticity.
+                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery. Plus, it automatically pulls in <strong>interesting botanical facts</strong> about that specific species, so it acts like a digital educator for your customers while they browse."
               </p>
               <div className="urgency-tag">
                 OFFER EXPIRES IN 2 HOURS
