@@ -13,7 +13,11 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
     async function verify() {
       const { data, error } = await supabase
         .from('digital_passports')
-        .select('*, vendors(name, location_city, location_state, is_verified, tier)')
+        .select(`
+          *, 
+          vendors(id, name, logo_url, location_city, location_state, is_verified, tier),
+          inventory(image_url, care_instructions, price)
+        `)
         .eq('verification_hash', params.hash.toLowerCase())
         .single();
 
