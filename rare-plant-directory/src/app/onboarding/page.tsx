@@ -10,6 +10,8 @@ import { createClient } from '@/utils/supabase/client';
 function OnboardingContent() {
   const searchParams = useSearchParams();
   const selectedPlan = searchParams.get('plan') || 'seedling';
+  const deal = searchParams.get('deal');
+  const isMiamiDeal = deal === 'miami';
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -56,11 +58,12 @@ function OnboardingContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          tier: selectedPlan,
+          tier: isMiamiDeal ? 'elite' : selectedPlan, // Miami deal gets Elite tier for $1
           businessName: form.vendorName,
           email: form.email,
           password: form.password,
-          specialties: [form.specialty]
+          specialties: [form.specialty],
+          is_miami_deal: isMiamiDeal // Pass flag to API if needed
         })
       });
       
@@ -70,7 +73,7 @@ function OnboardingContent() {
       
       setCreatedVendorId(data.vendor.id);
 
-      if (selectedPlan !== 'seedling' && selectedPlan !== 'free') {
+      if (isMiamiDeal || (selectedPlan !== 'seedling' && selectedPlan !== 'free')) {
         setIsPaying(true);
       } else {
         if (data.email_sent === false) {
@@ -97,34 +100,45 @@ function OnboardingContent() {
           maxWidth: '500px', 
           width: '90%', 
           background: 'var(--bg-card)', 
-          border: '1px solid var(--gold)', 
+          border: `1px solid ${isMiamiDeal ? '#e74c3c' : 'var(--gold)'}`, 
           borderRadius: '32px', 
           padding: '4rem 3rem', 
           textAlign: 'center',
-          boxShadow: '0 40px 80px var(--gold-dim)',
+          boxShadow: isMiamiDeal ? '0 40px 80px rgba(231,76,60,0.2)' : '0 40px 80px var(--gold-dim)',
           position: 'relative',
           zIndex: 10
         }}>
+          {isMiamiDeal && (
+            <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: '#e74c3c', color: 'white', padding: '0.4rem 1.5rem', borderRadius: '30px', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.1em' }}>
+              MIAMI FESTIVAL SPECIAL
+            </div>
+          )}
           <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
             <div className="hero-eyebrow-dot"></div>
-            <span>Final Step: Verification & Activation</span>
+            <span>Final Step: Activation</span>
           </div>
           
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', marginBottom: '1.5rem' }}>Secure Your <em>Elite</em> Position</h2>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', marginBottom: '1.5rem' }}>
+            {isMiamiDeal ? "Claim Your Miami Founding Spot" : "Secure Your Elite Position"}
+          </h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
-            Your account has been created. To activate your <strong>{selectedPlan === 'elite' ? 'Elite Founder' : 'Authority Suite'}</strong> status and unlock lead matching, please complete your one-time payment.
+            {isMiamiDeal 
+              ? `You're one step away from joining the Elite 100 in Miami. Activate your QR suite now for just $1.00.`
+              : `Your account has been created. To activate your status and unlock lead matching, please complete your payment.`
+            }
           </p>
           
           <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
             <PayPalButton 
               amount={
+                isMiamiDeal ? "1.00" :
                 selectedPlan === 'elite' ? "497" : 
                 selectedPlan === 'canopy' ? "129.99" :
                 selectedPlan === 'bloom' ? "39.99" :
                 selectedPlan === 'sprout' ? "14.99" : "14.99"
               } 
               vendorId={createdVendorId} 
-              planId={selectedPlan}
+              planId={isMiamiDeal ? 'elite' : selectedPlan}
               onSuccess={() => setIsSuccess(true)}
             />
           </div>

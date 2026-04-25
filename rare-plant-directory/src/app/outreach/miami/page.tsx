@@ -26,7 +26,7 @@ export default function MiamiFestivalOutreachPage() {
           <span style={{ fontSize: '1.5rem', color: 'var(--gold)' }}>✦</span>
           <span style={{ fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.9rem' }}>Rare Plant Vendors <span style={{ color: 'var(--gold)', marginLeft: '1rem', opacity: 0.6 }}>|</span> <span style={{ marginLeft: '1rem' }}>Miami 2026</span></span>
         </div>
-        <Link href="/signup" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem' }}>Reserve Your Spot</Link>
+        <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem' }}>Reserve Your Spot</Link>
       </nav>
 
       {/* Hero Section: The "Miami" Hook */}
@@ -59,7 +59,7 @@ export default function MiamiFestivalOutreachPage() {
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', boxShadow: '0 0 40px rgba(212,175,55,0.3)' }}>Activate My QR Suite</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', boxShadow: '0 0 40px rgba(212,175,55,0.3)' }}>Activate My QR Suite</Link>
             <a href="#benefits" className="btn-ghost" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem' }}>The ROI Breakdown ↓</a>
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function MiamiFestivalOutreachPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}><ShieldCheck color="var(--gold)" /> Verified Badge</div>
             </div>
 
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>Claim My $1 Miami Spot</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>Claim My $1 Miami Spot</Link>
           </div>
         </div>
       </section>
