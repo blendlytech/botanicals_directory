@@ -56,7 +56,7 @@ export default async function VendorsPage() {
         <div className="vendors-grid">
           {vendorsList.map((v, idx) => {
             const location = [v.location_city, v.location_state || v.location_country].filter(Boolean).join(', ');
-            const mockViews = Math.floor(Math.random() * 450) + 120;
+            const mockViews = Math.floor(Math.random() * 55) + 12;
             const isClaimed = !!v.user_id;
             
             // Premium background images for verified vendors
