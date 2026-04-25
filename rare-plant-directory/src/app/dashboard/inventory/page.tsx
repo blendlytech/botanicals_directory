@@ -22,6 +22,7 @@ export default function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [vendorId, setVendorId] = useState<string | null>(null);
   const [vendorTier, setVendorTier] = useState<string>('seedling');
+  const [vendorSlug, setVendorSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -35,13 +36,14 @@ export default function InventoryPage() {
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, tier, account_tier, contact_email')
+        .select('id, tier, account_tier, contact_email, slug')
         .eq('contact_email', user.email)
         .single();
 
       if (!vendor) { setLoading(false); return; }
       setVendorId(vendor.id);
       setVendorTier(vendor.account_tier || vendor.tier || 'seedling');
+      setVendorSlug(vendor.slug);
 
       const { data } = await supabase
         .from('inventory')
@@ -136,7 +138,15 @@ export default function InventoryPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
-      <aside style={{ width: '240px', flexShrink: 0, background: 'var(--bg-surface)', borderRight: '1px solid var(--glass-border)', padding: '7rem 1.5rem 2rem' }}>
+      <aside style={{ width: '240px', flexShrink: 0, background: 'var(--bg-surface)', borderRight: '1px solid var(--glass-border)', padding: '7rem 1.5rem 2rem', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+            Vendor Portal
+          </div>
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+            Inventory Management
+          </div>
+        </div>
         {navItems.map(item => (
           <Link key={item.href} href={item.href} style={{
             display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none',
@@ -144,6 +154,7 @@ export default function InventoryPage() {
             color: item.active ? 'var(--text-primary)' : 'var(--text-secondary)',
             background: item.active ? 'rgba(255,255,255,0.07)' : 'transparent',
             marginBottom: '0.25rem',
+            transition: 'all 0.15s ease',
           }}>
             {item.label}
           </Link>
@@ -157,6 +168,24 @@ export default function InventoryPage() {
 
       {/* Main */}
       <main style={{ flex: 1, padding: '7rem 3rem 4rem' }}>
+        {/* Public Link Banner */}
+        {vendorSlug && (
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem 1.5rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+              Your Public Listing: <span style={{ color: 'var(--gold)', fontWeight: 600 }}>rareplantvendors.com/vendors/{vendorSlug}</span>
+            </div>
+            <button 
+              onClick={() => {
+                navigator.clipboard.writeText(`https://rareplantvendors.com/vendors/${vendorSlug}`);
+                alert('Public link copied to clipboard!');
+              }}
+              style={{ background: 'transparent', border: '1px solid var(--gold)', color: 'var(--gold)', padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
+            >
+              Copy Link
+            </button>
+          </div>
+        )}
+
         {/* Header row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>

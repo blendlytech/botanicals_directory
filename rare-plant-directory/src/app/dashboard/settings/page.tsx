@@ -101,7 +101,15 @@ export default function SettingsPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
-      <aside style={{ width: '240px', flexShrink: 0, background: 'var(--bg-surface)', borderRight: '1px solid var(--glass-border)', padding: '7rem 1.5rem 2rem' }}>
+      <aside style={{ width: '240px', flexShrink: 0, background: 'var(--bg-surface)', borderRight: '1px solid var(--glass-border)', padding: '7rem 1.5rem 2rem', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+            Vendor Portal
+          </div>
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+            Nursery Settings
+          </div>
+        </div>
         {navItems.map(item => (
           <Link key={item.href} href={item.href} style={{
             display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none',
@@ -109,6 +117,7 @@ export default function SettingsPage() {
             color: item.active ? 'var(--text-primary)' : 'var(--text-secondary)',
             background: item.active ? 'rgba(255,255,255,0.07)' : 'transparent',
             marginBottom: '0.25rem',
+            transition: 'all 0.15s ease',
           }}>
             {item.label}
           </Link>
