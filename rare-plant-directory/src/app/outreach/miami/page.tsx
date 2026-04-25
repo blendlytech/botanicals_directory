@@ -66,7 +66,7 @@ export default function MiamiFestivalOutreachPage() {
       </section>
 
       {/* The Problem Section */}
-      <section style={{ padding: '6rem 5%', background: 'rgba(231,76,60,0.03)', borderY: '1px solid rgba(231,76,60,0.1)' }}>
+      <section style={{ padding: '6rem 5%', background: 'rgba(231,76,60,0.03)', borderTop: '1px solid rgba(231,76,60,0.1)', borderBottom: '1px solid rgba(231,76,60,0.1)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <AlertTriangle size={40} color="#e74c3c" style={{ marginBottom: '1.5rem' }} />
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', marginBottom: '1.5rem' }}>The &quot;Miami Memory Gap&quot; is Killing Your Sales.</h2>
