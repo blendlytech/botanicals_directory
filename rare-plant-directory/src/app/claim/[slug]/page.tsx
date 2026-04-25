@@ -179,7 +179,7 @@ export default async function ClaimPage({ params }: { params: { slug: string } }
                         <div style={{ borderLeft: '1px solid var(--glass-border)', paddingLeft: '4rem' }}>
                             <div style={{ marginBottom: '2rem' }}>
                                 <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-secondary)', textDecoration: 'line-through' }}>$998 USD / YEAR</div>
-                                <div style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--charcoal)' }}>$498</div>
+                                <div style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--gold)' }}>$498</div>
                                 <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.1em' }}>ONE-TIME · LIFETIME ACCESS</div>
                             </div>
                             
