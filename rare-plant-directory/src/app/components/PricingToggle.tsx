@@ -97,9 +97,9 @@ export default function PricingToggle() {
       position: 'relative' as const,
       padding: '3rem 2rem',
       borderRadius: '24px',
-      background: highlight ? 'var(--emerald)' : isElite ? 'var(--bg-card)' : 'var(--bg-card)',
+      background: highlight ? 'var(--emerald)' : isElite ? 'var(--charcoal)' : 'var(--bg-card)',
       border: highlight ? '2px solid var(--gold)' : isElite ? '2px solid var(--gold)' : '1px solid var(--glass-border)',
-      color: highlight ? 'white' : 'var(--text-primary)',
+      color: highlight ? 'white' : isElite ? 'white' : 'var(--text-primary)',
       display: 'flex',
       flexDirection: 'column' as const,
       transition: 'all 0.3s ease',
@@ -208,7 +208,7 @@ export default function PricingToggle() {
                   <span style={{ fontSize: '1rem', opacity: 0.7 }}>{tier.period}</span>
                 </div>
                 {isAnnual && tier.period !== "once" && (
-                  <div style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: tier.highlight ? 'white' : 'var(--emerald)', marginTop: '0.5rem' }}>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: (tier.highlight || isElite) ? 'white' : 'var(--emerald)', marginTop: '0.5rem' }}>
                     Billed Annually
                   </div>
                 )}
@@ -243,8 +243,8 @@ export default function PricingToggle() {
                 {tier.features.map((f, i) => (
                   <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.82rem', opacity: f.included ? 1 : 0.4 }}>
                     <div style={{ 
-                      width: '18px', height: '18px', borderRadius: '50%', background: f.included ? (tier.highlight ? 'rgba(255,255,255,0.2)' : 'var(--gold-dim)') : 'transparent',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: tier.highlight ? 'white' : 'var(--gold)'
+                      width: '18px', height: '18px', borderRadius: '50%', background: f.included ? ((tier.highlight || isElite) ? 'rgba(255,255,255,0.2)' : 'var(--gold-dim)') : 'transparent',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: (tier.highlight || isElite) ? 'white' : 'var(--gold)'
                     }}>
                       {f.included ? <Check size={12} strokeWidth={3} /> : <div style={{ width: '4px', height: '4px', background: 'currentColor', borderRadius: '50%' }} />}
                     </div>

@@ -175,9 +175,9 @@ export default async function Home() {
             borderRadius: '32px'
           }}>
             <div className="free-tier-badge" style={{ marginBottom: '1.5rem' }}>Starter</div>
-            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>Sprout</h3>
-            <div className="pricing-price-display" style={{ color: 'white' }}>$14.99<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>/mo</span></div>
-            <p style={{ opacity: 0.7, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Sprout</h3>
+            <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>$14.99<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>/mo</span></div>
+            <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
               Digitize your booth in 5 minutes. Perfect for local markets and hobbyists.
             </p>
             <ul className="pricing-feature-list">
@@ -251,9 +251,9 @@ export default async function Home() {
             borderRadius: '32px'
           }}>
             <div style={{ marginBottom: '1.5rem', color: 'var(--sand)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Enterprise</div>
-            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--cream)', fontWeight: 600 }}>Canopy</h3>
-            <div className="pricing-price-display" style={{ color: 'white' }}>$129<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>.99/mo</span></div>
-            <p style={{ opacity: 0.7, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Canopy</h3>
+            <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>$129<span style={{ fontSize: '1.2rem', opacity: 0.4 }}>.99/mo</span></div>
+            <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
               White-label infrastructure for massive greenhouse operations.
             </p>
             <ul className="pricing-feature-list">
