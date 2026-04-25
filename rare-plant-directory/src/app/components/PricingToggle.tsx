@@ -38,7 +38,7 @@ export default function PricingToggle() {
       period: isAnnual ? "/yr" : "/mo",
       desc: "The choice for established vendors.",
       features: [
-        { text: "3 Public Listing Items", included: true },
+        { text: "5 Public Listing Items", included: true },
         { text: "Priority Search Ranking", included: true },
         { text: "5 Digital Passports /mo", included: true },
         { text: "Mobile Lead Capture", included: true },
@@ -79,10 +79,9 @@ export default function PricingToggle() {
       period: "once",
       desc: "One-time investment. Owned forever.",
       features: [
-        { text: "10 Public Listing Items", included: true },
+        { text: "Unlimited Public Listing Items", included: true },
         { text: "Permanent 'Founder' Badge", included: true },
         { text: "Unlimited Digital Passports", included: true },
-        { text: "Zero Transaction Fees", included: true },
         { text: "Featured Merchant Status", included: true },
         { text: "Concierge Setup Service", included: true },
       ],

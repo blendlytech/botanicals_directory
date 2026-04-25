@@ -121,7 +121,7 @@ export default async function ClaimPage({ params }: { params: { slug: string } }
                             <CheckCircle2 size={14} color="var(--gold)" /> Priority Event Map Routing
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', opacity: 0.9 }}>
-                            <CheckCircle2 size={14} color="var(--gold)" /> 0% Transaction Fees
+                            <CheckCircle2 size={14} color="var(--gold)" /> Featured Marketplace Spot
                         </div>
                     </div>
 

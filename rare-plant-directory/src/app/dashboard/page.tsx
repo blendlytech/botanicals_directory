@@ -83,7 +83,7 @@ export default function DashboardPage() {
     elite: 'Elite Member',
   };
   const inventoryLimit: Record<string, number | null> = {
-    seedling: 1, visibility: 3, authority: 5, elite: 10,
+    seedling: 1, visibility: 5, authority: 5, elite: null,
   };
   const limit = inventoryLimit[tier];
 
