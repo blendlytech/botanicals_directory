@@ -25,7 +25,7 @@ export default function KrullSmithMiamiOutreachPage() {
           <span style={{ fontSize: '1.5rem', color: 'var(--gold)' }}>✦</span>
           <span style={{ fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.9rem' }}>Rare Plant Vendors <span style={{ color: 'var(--gold)', marginLeft: '1rem', opacity: 0.6 }}>|</span> <span style={{ marginLeft: '1rem' }}>{targetVendor} Private Demo</span></span>
         </div>
-        <Link href="/signup" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem' }}>Claim Krull-Smith Booth</Link>
+        <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem' }}>Claim Krull-Smith Booth</Link>
       </nav>
 
       {/* Hero Section */}
@@ -47,7 +47,7 @@ export default function KrullSmithMiamiOutreachPage() {
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', boxShadow: '0 0 40px rgba(212,175,55,0.3)' }}>Activate Krull-Smith QR Suite</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', boxShadow: '0 0 40px rgba(212,175,55,0.3)' }}>Activate Krull-Smith QR Suite</Link>
             <a href="#krull-demo" className="btn-ghost" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem' }}>See the Digital Pedestal ↓</a>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function KrullSmithMiamiOutreachPage() {
             <div style={{ fontSize: '4.5rem', fontWeight: 800, marginBottom: '0.5rem', color: 'white' }}>$1.00</div>
             <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '3rem' }}>Exclusive first-month trial for Miami Festival exhibitors.</p>
             
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', width: '100%' }}>Claim Krull-Smith Spot</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', width: '100%' }}>Claim Krull-Smith Spot</Link>
           </div>
         </div>
       </section>
