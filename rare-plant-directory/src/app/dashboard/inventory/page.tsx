@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
+import ImageUpload from '@/app/components/ImageUpload';
 
 interface InventoryItem {
   id: string;
@@ -309,8 +310,12 @@ export default function InventoryPage() {
                 </select>
               </div>
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Image URL (optional)</label>
-                <input className="form-input" type="url" placeholder="https://..." value={form.image_url} onChange={e => setForm(p => ({ ...p, image_url: e.target.value }))} />
+                <ImageUpload 
+                  bucket="inventory" 
+                  label="Specimen Photo"
+                  currentImageUrl={form.image_url}
+                  onUploadComplete={(url) => setForm(p => ({ ...p, image_url: url }))}
+                />
               </div>
             </div>
 

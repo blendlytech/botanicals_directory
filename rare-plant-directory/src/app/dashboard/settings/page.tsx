@@ -2,12 +2,14 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
+import ImageUpload from '@/app/components/ImageUpload';
 
 interface VendorProfile {
   id: string;
   name: string;
   owner_name: string | null;
   bio: string | null;
+  logo_url: string | null;
   contact_email: string | null;
   phone_number: string | null;
   website_url: string | null;
@@ -39,7 +41,7 @@ export default function SettingsPage() {
 
       const { data } = await supabase
         .from('vendors')
-        .select('id, name, owner_name, bio, contact_email, phone_number, website_url, instagram, facebook, location_city, location_state, location_country, specialty')
+        .select('id, name, owner_name, bio, logo_url, contact_email, phone_number, website_url, instagram, facebook, location_city, location_state, location_country, specialty')
         .eq('contact_email', user.email)
         .single();
 
@@ -67,6 +69,7 @@ export default function SettingsPage() {
       name: profile.name,
       owner_name: profile.owner_name,
       bio: profile.bio,
+      logo_url: profile.logo_url,
       phone_number: profile.phone_number,
       website_url: profile.website_url,
       instagram: profile.instagram,
@@ -147,7 +150,15 @@ export default function SettingsPage() {
           <h2 style={{ fontSize: '1rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-secondary)', marginBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.75rem' }}>
             Business Information
           </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <ImageUpload 
+                bucket="vendors" 
+                label="Nursery Logo / Branding"
+                currentImageUrl={profile.logo_url}
+                onUploadComplete={(url) => update('logo_url', url)}
+              />
+            </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div className="form-group" style={{ marginBottom: 0 }}>
                 <label className="form-label">Business / Nursery Name</label>
