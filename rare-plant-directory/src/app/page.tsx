@@ -138,7 +138,7 @@ export default async function Home() {
              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem' }}>
                Skip the subscriptions. Secure everything in the **Canopy Tier** plus exclusive Founder-only perks for life. No renewals. No future fees.
              </p>
-             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
                    <Star color="var(--gold)" /> Unlimited Plant Showcases
                 </div>
@@ -148,6 +148,27 @@ export default async function Home() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
                    <Zap color="var(--gold)" /> Zero Platform Fees
                 </div>
+             </div>
+
+             {/* 2026 Roadmap Lock-in */}
+             <div style={{ 
+               background: 'rgba(212,175,55,0.1)', 
+               border: '1px dashed rgba(212,175,55,0.4)', 
+               borderRadius: '16px', 
+               padding: '1.5rem',
+               display: 'flex',
+               gap: '1rem',
+               alignItems: 'flex-start'
+             }}>
+               <MapPin color="var(--gold)" size={24} style={{ flexShrink: 0, marginTop: '2px' }} />
+               <div>
+                 <div style={{ color: 'var(--gold)', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '0.05em', fontSize: '0.8rem', textTransform: 'uppercase' }}>
+                   Included: 2026 Product Roadmap
+                 </div>
+                 <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.95rem', lineHeight: 1.5 }}>
+                   Founders automatically unlock our upcoming <strong>Geo-Location Routing</strong> & Local Pickup Matchmaking algorithms. Never pay for future enterprise upgrades.
+                 </div>
+               </div>
              </div>
           </div>
           <div style={{ flex: '0 0 auto', textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '3rem', borderRadius: '32px', border: '1px solid rgba(212,175,55,0.2)' }}>
