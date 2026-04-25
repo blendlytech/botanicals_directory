@@ -194,46 +194,93 @@ export default function ForVendors() {
         </div>
       </section>
 
-      {/* ─── PRICING ─── */}
-      <section className="section section-dark" id="pricing">
+      {/* ─── HARD PITCH: THE ELITE FOUNDERS CIRCLE ─── */}
+      <section className="section" id="elite-pitch" style={{ background: 'var(--charcoal)', color: 'white', position: 'relative', overflow: 'hidden' }}>
+        <div className="hero-grid-overlay" style={{ opacity: 0.1 }}></div>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <div className="section-eyebrow" style={{ color: 'var(--gold)', borderColor: 'var(--gold)' }}>Limited Legacy Enrollment</div>
+            <h2 className="section-title" style={{ color: 'white', fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+              Own the Market <em>Forever.</em>
+            </h2>
+            <p className="section-desc" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '700px', margin: '1.5rem auto' }}>
+              Standard Elite access will be **$998/year**. For a limited time, we are opening **50 Founding Seats** for a single, one-time payment. No renewals. No recurring fees. Lifetime authority.
+            </p>
+          </div>
+
+          <div style={{ 
+            background: 'linear-gradient(145deg, #0B3D2E, #050d09)', 
+            borderRadius: '40px', 
+            padding: '4rem', 
+            border: '1px solid var(--gold)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '4rem',
+            alignItems: 'center',
+            boxShadow: '0 50px 100px rgba(0,0,0,0.5)'
+          }}>
+            <div>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--gold)', marginBottom: '2rem' }}>
+                Elite Founder <br /> Lifetime Pass
+              </h3>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <li style={{ display: 'flex', gap: '1rem' }}>
+                  <Star size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
+                  <div>
+                    <strong style={{ display: 'block', color: 'white' }}>Permanent Elite Ranking</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Your nursery stays at the top of the directory in perpetuity.</span>
+                  </div>
+                </li>
+                <li style={{ display: 'flex', gap: '1rem' }}>
+                  <Globe size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
+                  <div>
+                    <strong style={{ display: 'block', color: 'white' }}>Unlimited Digital Passports</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Full provenance for every plant in your greenhouse, forever.</span>
+                  </div>
+                </li>
+                <li style={{ display: 'flex', gap: '1rem' }}>
+                  <Zap size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
+                  <div>
+                    <strong style={{ display: 'block', color: 'white' }}>Zero Transaction Fees</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Sell directly to collectors via CultivarID with no platform take.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div style={{ textAlign: 'center', padding: '2rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(212,175,55,0.2)' }}>
+              <div style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-secondary)', textDecoration: 'line-through', marginBottom: '0.5rem' }}>
+                VALUE: $10,000+
+              </div>
+              <div style={{ fontSize: '5rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>
+                $497
+              </div>
+              <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.2em', marginTop: '1rem', textTransform: 'uppercase' }}>
+                One-Time · Owned Forever
+              </div>
+              <Link href="/onboarding?plan=elite" className="btn-primary" style={{ width: '100%', marginTop: '2.5rem', padding: '1.25rem', fontSize: '1rem' }}>
+                Claim Lifetime Seat
+              </Link>
+              <div style={{ marginTop: '1.5rem', fontSize: '0.7rem', opacity: 0.5 }}>
+                Secure payment via PayPal · 17 Seats Remaining
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ALL PLANS ─── */}
+      <section className="section" id="pricing" style={{ background: 'var(--bg)', borderTop: '1px solid var(--glass-border)' }}>
         <div className="section-header">
-          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Pricing Plans</div>
-          <h2 className="section-title">The <em>Authority Suite</em> is Now Open</h2>
+          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Subscription Options</div>
+          <h2 className="section-title">Flexible Plans for <em>Every</em> Scale</h2>
+          <p className="section-desc">
+            Not ready for a lifetime seat? Choose a monthly or annual plan that fits your current inventory needs.
+          </p>
           <div className="section-rule"></div>
         </div>
         
         <PricingToggle />
-      </section>
-
-      {/* ─── EXPO 2026 BUNDLE ─── */}
-      <section className="section" style={{ background: 'var(--emerald)', color: 'white' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-          <div className="section-eyebrow" style={{ color: 'var(--gold)', border: '1px solid var(--gold)' }}>Expo 2026 Exclusive</div>
-          <h2 className="section-title" style={{ color: 'white' }}>Are You Exhibiting at <br /> <em>The BIG Plant Expo 2026?</em></h2>
-          <p className="section-desc" style={{ color: 'var(--text-secondary)', opacity: 0.8 }}>
-            Don&apos;t just show up. Stand out. Get our **Expo Authority Bundle** for $497 and we will:
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '3rem', textAlign: 'left' }}>
-            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-              <ShieldCheck color="var(--gold)" />
-              <h4 style={{ margin: '1rem 0 0.5rem' }}>Digital Passport Setup</h4>
-              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>We manually build 10 Digital Passports for your showpieces so collectors can verify provenance at your booth.</p>
-            </div>
-            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-              <MapPin color="var(--gold)" />
-              <h4 style={{ margin: '1rem 0 0.5rem' }}>Priority Map Routing</h4>
-              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>Your booth will be highlighted as a &quot;Must Visit&quot; for every collector using the RPV Event Map during the expo.</p>
-            </div>
-            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-              <TrendingUp color="var(--gold)" />
-              <h4 style={{ margin: '1rem 0 0.5rem' }}>Featured Placement</h4>
-              <p style={{ fontSize: '0.85rem', opacity: 0.8 }}>Top-of-list placement in the directory specifically filtered for the 2026 Expo attendees.</p>
-            </div>
-          </div>
-          <Link href="/onboarding?plan=expo" className="btn-primary" style={{ marginTop: '4rem', padding: '1rem 3rem' }}>
-            Secure My Expo Bundle
-          </Link>
-        </div>
       </section>
 
       {/* ─── TESTIMONIALS ─── */}
