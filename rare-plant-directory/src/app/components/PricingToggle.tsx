@@ -217,14 +217,21 @@ export default function PricingToggle() {
 
               <Link 
                 href={`/onboarding?plan=${tier.planId}`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
                 style={{ 
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                   padding: '1rem', borderRadius: '12px', background: tier.highlight ? 'var(--gold)' : isElite ? 'var(--gold)' : 'var(--emerald)',
                   color: tier.highlight ? 'var(--charcoal)' : isElite ? 'var(--charcoal)' : 'white',
                   textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem', marginBottom: '2rem',
-                  transition: 'transform 0.2s ease', textAlign: 'center'
+                  transition: 'all 0.2s ease', textAlign: 'center'
                 }}
-                className="hover-lift"
               >
                 {tier.cta} <ChevronRight size={16} />
               </Link>
@@ -250,13 +257,6 @@ export default function PricingToggle() {
           );
         })}
       </div>
-
-      <style jsx>{`
-        .hover-lift:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-      `}</style>
     </div>
   );
 }
