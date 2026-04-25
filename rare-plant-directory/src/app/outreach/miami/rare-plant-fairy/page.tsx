@@ -25,7 +25,7 @@ export default function RarePlantFairyMiamiOutreachPage() {
           <span style={{ fontSize: '1.5rem', color: '#2ecc71' }}>✦</span>
           <span style={{ fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.9rem' }}>Rare Plant Vendors <span style={{ color: '#2ecc71', marginLeft: '1rem', opacity: 0.6 }}>|</span> <span style={{ marginLeft: '1rem' }}>{targetVendor} Private Demo</span></span>
         </div>
-        <Link href="/signup" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem', background: '#2ecc71', color: 'black' }}>Claim Fairy Booth</Link>
+        <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem', background: '#2ecc71', color: 'black' }}>Claim Fairy Booth</Link>
       </nav>
 
       {/* Hero Section */}
@@ -47,7 +47,7 @@ export default function RarePlantFairyMiamiOutreachPage() {
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', background: '#2ecc71', color: 'black', boxShadow: '0 0 40px rgba(46,204,113,0.3)' }}>Activate Fairy QR Suite</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem', background: '#2ecc71', color: 'black', boxShadow: '0 0 40px rgba(46,204,113,0.3)' }}>Activate Fairy QR Suite</Link>
             <a href="#fairy-demo" className="btn-ghost" style={{ padding: '1.5rem 3.5rem', fontSize: '1.1rem' }}>See the Digital Passport ↓</a>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function RarePlantFairyMiamiOutreachPage() {
             <div style={{ fontSize: '4.5rem', fontWeight: 800, marginBottom: '0.5rem', color: 'white' }}>$1.00</div>
             <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '3rem' }}>Unlock the full QR suite for the Miami Festival rollout.</p>
             
-            <Link href="/signup" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', width: '100%', background: '#2ecc71', color: 'black' }}>Claim Fairy Booth Spot</Link>
+            <Link href="/onboarding?deal=miami" className="btn-primary" style={{ padding: '1.5rem 5rem', fontSize: '1.3rem', width: '100%', background: '#2ecc71', color: 'black' }}>Claim Fairy Booth Spot</Link>
           </div>
         </div>
       </section>

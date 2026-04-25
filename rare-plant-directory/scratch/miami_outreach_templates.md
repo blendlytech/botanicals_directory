@@ -22,7 +22,8 @@ https://rareplantvendors.com/outreach/miami
 
 Since we're just 5 days out, I'm offering a **$1.00 Founding Member** spot for the first 100 Miami vendors. 
 
-Are you open to a 2-minute chat today to see how to get your tags printed before the show starts?
+**Direct $1.00 Miami Activation Link:**
+https://rareplantvendors.com/onboarding?deal=miami
 
 Best,
 
