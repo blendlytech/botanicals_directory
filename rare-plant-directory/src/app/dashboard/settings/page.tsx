@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 
 interface VendorProfile {
@@ -33,6 +33,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     async function load() {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { window.location.href = '/login'; return; }
 
@@ -60,9 +61,9 @@ export default function SettingsPage() {
   const handleSave = async () => {
     if (!profile.id) return;
     setSaving(true);
-    setSaved(false);
-
-    await supabase.from('vendors').update({
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('vendors').update({
       name: profile.name,
       owner_name: profile.owner_name,
       bio: profile.bio,

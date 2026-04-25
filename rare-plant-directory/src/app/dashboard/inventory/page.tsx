@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 
 interface InventoryItem {
@@ -31,6 +31,7 @@ export default function InventoryPage() {
 
   useEffect(() => {
     async function load() {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { window.location.href = '/login'; return; }
 
@@ -82,6 +83,7 @@ export default function InventoryPage() {
   const handleSave = async () => {
     if (!vendorId || !form.species_name.trim()) return;
     setSaving(true);
+    const supabase = createClient();
 
     const payload = {
       vendor_id: vendorId,
@@ -107,6 +109,7 @@ export default function InventoryPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Remove this item from your inventory?')) return;
+    const supabase = createClient();
     await supabase.from('inventory').delete().eq('id', id);
     setItems(prev => prev.filter(i => i.id !== id));
   };
