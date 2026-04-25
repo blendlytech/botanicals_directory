@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/client';
 import PayPalButton from '../components/PayPalButton';
 
 interface VendorStats {
+  id: string;
   name: string;
   tier: string;
   account_tier?: string | null;
