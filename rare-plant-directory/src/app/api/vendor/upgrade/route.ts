@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { notificationService } from '@/lib/services/notificationService';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
     console.log(`Processing upgrade for Vendor ${vendorId} to Plan ${planId} with Order ${orderId}`);
 
     // 2. Update the vendor status in Supabase
-    const { data, error } = await supabase
+    const { data: vendor, error } = await supabase
       .from('vendors')
       .update({
         tier: planId || 'sprout',
@@ -50,10 +51,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    // 3. Send Welcome Email
+    if (vendor && vendor.contact_email) {
+      try {
+        await notificationService.sendSubscriptionWelcomeEmail(
+          vendor.contact_email,
+          vendor.name || 'Vendor',
+          planId || 'seedling'
+        );
+      } catch (emailError) {
+        console.error('Failed to send welcome email:', emailError);
+        // We don't fail the whole request just because the email failed
+      }
+    }
+
     return NextResponse.json({ 
       success: true, 
       message: 'Vendor upgraded to Elite Status successfully.',
-      vendor: data
+      vendor
     });
 
   } catch (error: any) {

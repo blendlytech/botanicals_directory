@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { notificationService } from './notificationService';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -17,24 +18,42 @@ export const wishlistMatchService = {
     // 1. Find all inventory items that match this species
     const { data: matches, error: matchError } = await supabase
       .from('inventory')
-      .select('id, vendor_id, vendors(tier)')
+      .select('id, vendor_id, vendors(tier, name, contact_email)')
       .ilike('species_name', `%${speciesName}%`);
 
     if (matchError) throw matchError;
 
-    // 2. Create match records with appropriate notification times
-    const matchRecords = matches.map((m: any) => {
-      const isElite = m.vendors.tier === 'elite';
-      return {
+    // 2. Create match records and notify Elite vendors
+    const matchRecords = [];
+    
+    for (const m of matches) {
+      const vendor: any = m.vendors;
+      const isElite = vendor.tier === 'elite';
+      
+      matchRecords.push({
         wishlist_id: wishlistId,
         inventory_id: m.id,
         vendor_id: m.vendor_id,
         // Elite notified NOW, others notified in 24 hours
         elite_notified_at: isElite ? new Date().toISOString() : null,
-        general_notified_at: isElite ? new Date().toISOString() : null, // General is already "cleared" for Elite
+        general_notified_at: isElite ? new Date().toISOString() : null,
         created_at: new Date().toISOString(),
-      };
-    });
+      });
+
+      // INSTANT NOTIFICATION for Elite vendors
+      if (isElite && vendor.contact_email) {
+        try {
+          await notificationService.sendLeadNotification(
+            vendor.contact_email,
+            vendor.name,
+            speciesName,
+            true
+          );
+        } catch (err) {
+          console.error(`Failed to send Elite notification to ${vendor.contact_email}:`, err);
+        }
+      }
+    }
 
     if (matchRecords.length > 0) {
       const { error: insertError } = await supabase
@@ -56,20 +75,42 @@ export const wishlistMatchService = {
 
     const { data: pendingMatches, error: fetchError } = await supabase
       .from('wishlist_matches')
-      .select('id')
+      .select(`
+        id, 
+        vendor_id, 
+        wishlists(species_name),
+        vendors(tier, name, contact_email)
+      `)
       .is('general_notified_at', null)
       .lt('created_at', twentyFourHoursAgo);
 
     if (fetchError) throw fetchError;
 
     if (pendingMatches.length > 0) {
-      const ids = pendingMatches.map(m => m.id);
-      const { error: updateError } = await supabase
-        .from('wishlist_matches')
-        .update({ general_notified_at: new Date().toISOString() })
-        .in('id', ids);
+      for (const match of pendingMatches) {
+        const vendor: any = match.vendors;
+        const wishlist: any = match.wishlists;
 
-      if (updateError) throw updateError;
+        // Notify non-Elite vendor now
+        if (vendor && vendor.contact_email) {
+          try {
+            await notificationService.sendLeadNotification(
+              vendor.contact_email,
+              vendor.name,
+              wishlist.species_name,
+              false
+            );
+          } catch (err) {
+            console.error(`Failed to send General notification to ${vendor.contact_email}:`, err);
+          }
+        }
+
+        // Mark as notified
+        await supabase
+          .from('wishlist_matches')
+          .update({ general_notified_at: new Date().toISOString() })
+          .eq('id', match.id);
+      }
     }
 
     return pendingMatches.length;

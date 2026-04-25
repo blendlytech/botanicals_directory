@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { wishlistMatchService } from '@/lib/services/wishlistMatchService';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -38,34 +39,11 @@ export async function POST(request: Request) {
 
     if (insertErr) throw insertErr;
 
-    // 2. Find matching inventory across all vendors
-    const { data: matches } = await supabase
-      .from('inventory')
-      .select('id, vendor_id, vendors(tier)')
-      .ilike('species_name', `%${species_name.trim()}%`)
-      .eq('status', 'available');
-
-    // 3. Create match records with Elite priority
-    let matchCount = 0;
-    if (matches && matches.length > 0) {
-      const matchRecords = matches.map((m: any) => {
-        const isElite = m.vendors?.tier === 'elite';
-        return {
-          wishlist_id: wishlistItem.id,
-          inventory_id: m.id,
-          vendor_id: m.vendor_id,
-          elite_notified_at: isElite ? new Date().toISOString() : null,
-          general_notified_at: isElite ? new Date().toISOString() : null,
-        };
-      });
-
-      const { error: matchErr } = await supabase
-        .from('wishlist_matches')
-        .insert(matchRecords);
-
-      if (matchErr) throw matchErr;
-      matchCount = matchRecords.length;
-    }
+    // 2. Trigger the Matching Engine (Centralized in wishlistMatchService)
+    const matchCount = await wishlistMatchService.processNewWishlistItem(
+      wishlistItem.id,
+      species_name.trim()
+    );
 
     return NextResponse.json({
       success: true,
@@ -73,6 +51,7 @@ export async function POST(request: Request) {
       matches_found: matchCount,
     });
   } catch (error: any) {
+    console.error('Wishlist error:', error);
     return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
   }
 }
