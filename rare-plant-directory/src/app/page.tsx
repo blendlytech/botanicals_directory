@@ -140,13 +140,13 @@ export default async function Home() {
              </p>
              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
-                   <ShieldCheck color="var(--gold)" /> Lifetime Verified Status
+                   <Star color="var(--gold)" /> Unlimited Plant Showcases
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
-                   <TrendingUp color="var(--gold)" /> Priority Lead Matching
+                   <ShieldCheck color="var(--gold)" /> Permanent Founder Badge
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
-                   <Zap color="var(--gold)" /> Zero Transaction Fees
+                   <Zap color="var(--gold)" /> Zero Platform Fees
                 </div>
              </div>
           </div>
@@ -181,9 +181,27 @@ export default async function Home() {
               Digitize your booth in 5 minutes. Perfect for local markets and hobbyists.
             </p>
             <ul className="pricing-feature-list">
-              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> 25 Dynamic QR Codes</li>
-              <li className="pricing-feature-item"><Map size={20} color="var(--gold)" /> Basic Scan Analytics</li>
-              <li className="pricing-feature-item"><Star size={20} color="var(--gold)" /> 1 Mobile Linkpage</li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <Star size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>1 Plant Showcase</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>A dedicated digital page for your absolute best specimen.</div>
+                </div>
+              </li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <Map size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>Vendor Linkpage</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>A mobile-first profile listing your nursery info and showcase.</div>
+                </div>
+              </li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <ShieldCheck size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>Direct Inquiries</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Allow collectors to email you directly from your profile.</div>
+                </div>
+              </li>
             </ul>
             <Link href="/onboarding?type=vendor&plan=sprout" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
               Start Growing
@@ -224,11 +242,35 @@ export default async function Home() {
               padding: '1.5rem',
               marginBottom: '2.5rem'
             }}>
-              <ul className="pricing-feature-list" style={{ margin: 0, gap: '1rem' }}>
-                <li className="pricing-feature-item highlight"><Zap size={20} /> 250 Dynamic QR Codes</li>
-                <li className="pricing-feature-item highlight"><TrendingUp size={20} /> Advanced Market Analytics</li>
-                <li className="pricing-feature-item highlight"><Star size={20} /> 10 Mobile Linkpages</li>
-                <li className="pricing-feature-item highlight"><Lock size={20} /> Digital Care Log Integration</li>
+              <ul className="pricing-feature-list" style={{ margin: 0, gap: '1.25rem' }}>
+                <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
+                  <Star size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontWeight: 700 }}>5 Plant Showcases</div>
+                    <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Highlight your top 5 most valuable rare plants with dedicated pages.</div>
+                  </div>
+                </li>
+                <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
+                  <TrendingUp size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontWeight: 700 }}>Priority Directory</div>
+                    <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Appear higher when collectors search for vendors in your region.</div>
+                  </div>
+                </li>
+                <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
+                  <Zap size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontWeight: 700 }}>5 Plant QRs</div>
+                    <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Individual QR codes to display next to your featured plants.</div>
+                  </div>
+                </li>
+                <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
+                  <Lock size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontWeight: 700 }}>Basic Analytics</div>
+                    <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Track how many times your profile and plant pages are viewed.</div>
+                  </div>
+                </li>
               </ul>
             </div>
 
@@ -257,9 +299,27 @@ export default async function Home() {
               White-label infrastructure for massive greenhouse operations.
             </p>
             <ul className="pricing-feature-list">
-              <li className="pricing-feature-item"><ShieldCheck size={20} color="var(--gold)" /> Unlimited Dynamic QRs</li>
-              <li className="pricing-feature-item"><MapPin size={20} color="var(--gold)" /> Custom White-label Domain</li>
-              <li className="pricing-feature-item"><Zap size={20} color="var(--gold)" /> Bulk Generation & API</li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <Star size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>15 Plant Showcases</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Showcase a wider variety of your premium specimens.</div>
+                </div>
+              </li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <MapPin size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>Featured Spot</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Get rotated in the "Featured Vendors" section on the homepage.</div>
+                </div>
+              </li>
+              <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+                <Zap size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 600 }}>Advanced Analytics</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>See detailed geographic and temporal data on your page views.</div>
+                </div>
+              </li>
             </ul>
             <Link href="/onboarding?type=vendor&plan=canopy" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
               Request Enterprise Access

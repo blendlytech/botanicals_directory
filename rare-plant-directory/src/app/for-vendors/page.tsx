@@ -3,27 +3,26 @@ import PricingToggle from "../components/PricingToggle";
 import { ShieldCheck, TrendingUp, MapPin, Zap, Star, Globe, Lock, ArrowRight, ChevronRight, BarChart3, Users } from 'lucide-react';
 import Link from "next/link";
 
-/* ── AUTHORITY SUITE BENEFITS ── */
 const authorityBenefits = [
   {
-    icon: <BarChart3 size={32} />,
-    title: "Buyer Intent Analytics",
-    desc: "See exactly which species collectors in your region are searching for before you stock for the season. Stop guessing, start scaling.",
-  },
-  {
-    icon: <MapPin size={32} />,
-    title: "Geolocation Routing",
-    desc: "Your booth appears as a high-priority destination on interactive maps. We route collectors directly to your location based on their specific wishlist.",
+    icon: <Star size={32} />,
+    title: "Showcase Premium Specimens",
+    desc: "Create high-end digital pages exclusively for your best plants. Focus on highlighting quality and provenance rather than managing a full inventory.",
   },
   {
     icon: <Users size={32} />,
-    title: "Direct Lead Matching",
-    desc: "Our AI matches your live inventory against thousands of collector wishlists, sending instant 'Buyer Ready' alerts to your dashboard.",
+    title: "Direct Collector Inquiries",
+    desc: "Buyers scan your plant's QR code and can instantly email you questions or purchase inquiries with a single tap, right from the showroom floor.",
   },
   {
-    icon: <Globe size={32} />,
-    title: "Global Registry Status",
-    desc: "Join the verified elite. Your 'Authority' badge is the definitive mark of trust in the botanical marketplace.",
+    icon: <BarChart3 size={32} />,
+    title: "Clear Scan Analytics",
+    desc: "See exactly how many times your showcase plants are viewed during an event, so you know which specimens draw the most collector attention.",
+  },
+  {
+    icon: <ShieldCheck size={32} />,
+    title: "Instant Digital Authority",
+    desc: "Every showcase plant gets a beautifully formatted mobile page detailing its history, building instant trust and authority with serious collectors.",
   },
 ];
 
@@ -88,7 +87,7 @@ export default function ForVendors() {
         </h1>
         
         <p className="hero-sub" style={{ maxWidth: '750px' }}>
-          Stop losing buyers at the 2026 Expo. Leverage AI lead matching and Digital Passports to secure high-ticket botanical sales with absolute certainty.
+          Stop losing buyers at the 2026 Expo. Leverage beautiful digital plant showcases to secure high-ticket botanical sales with absolute certainty.
         </p>
 
         <div className="hero-actions">
@@ -227,22 +226,22 @@ export default function ForVendors() {
                 <li style={{ display: 'flex', gap: '1rem' }}>
                   <Star size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
                   <div>
-                    <strong style={{ display: 'block', color: 'white' }}>Permanent Elite Ranking</strong>
-                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Your nursery stays at the top of the directory in perpetuity.</span>
+                    <strong style={{ display: 'block', color: 'white' }}>Unlimited Plant Showcases</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Create beautiful digital pages for any premium plant you sell, forever.</span>
                   </div>
                 </li>
                 <li style={{ display: 'flex', gap: '1rem' }}>
                   <Globe size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
                   <div>
-                    <strong style={{ display: 'block', color: 'white' }}>Unlimited Digital Passports</strong>
-                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Full provenance for every plant in your greenhouse, forever.</span>
+                    <strong style={{ display: 'block', color: 'white' }}>Permanent Founder Badge</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>A special badge on your profile showing you were here from the start.</span>
                   </div>
                 </li>
                 <li style={{ display: 'flex', gap: '1rem' }}>
                   <Zap size={24} color="var(--gold)" style={{ flexShrink: 0 }} />
                   <div>
-                    <strong style={{ display: 'block', color: 'white' }}>Zero Transaction Fees</strong>
-                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Sell directly to collectors via CultivarID with no platform take.</span>
+                    <strong style={{ display: 'block', color: 'white' }}>Zero Platform Fees</strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Direct sales and inquiries with absolutely no platform cuts.</span>
                   </div>
                 </li>
               </ul>

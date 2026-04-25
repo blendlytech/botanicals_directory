@@ -18,12 +18,12 @@ export default function PricingToggle() {
       period: isAnnual ? "/yr" : "/mo",
       desc: "Perfect for weekend market hobbyists.",
       features: [
-        { text: "1 Public Listing Item", included: true },
-        { text: "Unlimited QR Discovery", included: true },
-        { text: "Basic Profile Analytics", included: true },
-        { text: "Mobile Linkpage", included: true },
-        { text: "Digital Passport System", included: false },
-        { text: "Lead Matching Engine", included: false },
+        { title: "1 Showcase Plant Profile", desc: "A dedicated public web page for your absolute best specimen.", included: true },
+        { title: "Mobile Linkpage", desc: "A beautiful mobile-first profile page listing your nursery info.", included: true },
+        { title: "1 Standard Plant QR", desc: "Print a QR code that links directly to your showcase plant.", included: true },
+        { title: "Direct Email Inquiries", desc: "Allow collectors to contact you directly from your profile.", included: true },
+        { title: "Priority Directory Placement", desc: "Appear higher in regional searches.", included: false },
+        { title: "Detailed Analytics", desc: "Track profile and plant page views.", included: false },
       ],
       cta: "Get Sprout",
       highlight: false,
@@ -38,12 +38,11 @@ export default function PricingToggle() {
       period: isAnnual ? "/yr" : "/mo",
       desc: "The choice for established vendors.",
       features: [
-        { text: "5 Public Listing Items", included: true },
-        { text: "Priority Search Ranking", included: true },
-        { text: "5 Digital Passports /mo", included: true },
-        { text: "Mobile Lead Capture", included: true },
-        { text: "Email Match Notifications", included: true },
-        { text: "NFC Seal Integration", included: false },
+        { title: "5 Showcase Plant Profiles", desc: "Highlight your top 5 most valuable rare plants with dedicated pages.", included: true },
+        { title: "Priority Directory Placement", desc: "Appear higher when collectors search for vendors in your region.", included: true },
+        { title: "5 Standard Plant QRs", desc: "Individual QR codes for your 5 featured plants.", included: true },
+        { title: "Basic Scan Analytics", desc: "See how many times your profile and plant pages are viewed.", included: true },
+        { title: "Featured Homepage Spot", desc: "Get rotated in the 'Featured Vendors' section.", included: false },
       ],
       cta: "Grow with Bloom",
       highlight: true,
@@ -59,12 +58,11 @@ export default function PricingToggle() {
       period: isAnnual ? "/yr" : "/mo",
       desc: "Enterprise infrastructure for large nurseries.",
       features: [
-        { text: "5 Public Listing Items", included: true },
-        { text: "20 Digital Passports /mo", included: true },
-        { text: "Bulk QR Generation", included: true },
-        { text: "Meta & Google Ads Integration", included: true },
-        { text: "Priority Support 24/7", included: true },
-        { text: "Featured Marketplace Spot", included: true },
+        { title: "15 Showcase Plant Profiles", desc: "Showcase a wide variety of your premium specimens.", included: true },
+        { title: "15 Standard Plant QRs", desc: "Individual QR codes for all your showcase plants.", included: true },
+        { title: "Advanced Scan Analytics", desc: "See detailed geographic and temporal data on your QR scans.", included: true },
+        { title: "Featured Homepage Spot", desc: "Get rotated in the 'Featured Vendors' section on the homepage.", included: true },
+        { title: "Zero Platform Fees", desc: "Direct sales/inquiries with no platform cuts, ever.", included: false },
       ],
       cta: "Scale with Canopy",
       highlight: false,
@@ -79,11 +77,10 @@ export default function PricingToggle() {
       period: "once",
       desc: "One-time investment. Owned forever.",
       features: [
-        { text: "Unlimited Public Listing Items", included: true },
-        { text: "Permanent 'Founder' Badge", included: true },
-        { text: "Unlimited Digital Passports", included: true },
-        { text: "Featured Merchant Status", included: true },
-        { text: "Concierge Setup Service", included: true },
+        { title: "Unlimited Plant Profiles", desc: "Create beautiful digital pages for any premium plant you sell.", included: true },
+        { title: "Permanent 'Founder' Badge", desc: "A special badge on your profile showing you were here from the start.", included: true },
+        { title: "Zero Platform Fees", desc: "Direct sales/inquiries with no platform cuts, ever.", included: true },
+        { title: "Concierge Onboarding", desc: "We manually input your first 10 plants and optimize your profile for you.", included: true },
       ],
       cta: "Claim Lifetime Seat",
       highlight: false,
@@ -241,14 +238,17 @@ export default function PricingToggle() {
 
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                 {tier.features.map((f, i) => (
-                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.82rem', opacity: f.included ? 1 : 0.4 }}>
+                  <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.82rem', opacity: f.included ? 1 : 0.4 }}>
                     <div style={{ 
                       width: '18px', height: '18px', borderRadius: '50%', background: f.included ? ((tier.highlight || isElite) ? 'rgba(255,255,255,0.2)' : 'var(--gold-dim)') : 'transparent',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: (tier.highlight || isElite) ? 'white' : 'var(--gold)'
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: (tier.highlight || isElite) ? 'white' : 'var(--gold)', flexShrink: 0, marginTop: '2px'
                     }}>
                       {f.included ? <Check size={12} strokeWidth={3} /> : <div style={{ width: '4px', height: '4px', background: 'currentColor', borderRadius: '50%' }} />}
                     </div>
-                    {f.text}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontWeight: 600 }}>{f.title}</span>
+                      <span style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px', lineHeight: 1.3 }}>{f.desc}</span>
+                    </div>
                   </li>
                 ))}
               </ul>
