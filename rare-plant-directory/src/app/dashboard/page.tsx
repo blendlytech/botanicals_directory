@@ -180,9 +180,9 @@ export default function DashboardPage() {
           </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
             {stats?.subscription_status === 'pending_payment' && (
-              <Link href="/for-vendors" className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem', textDecoration: 'none' }}>
+              <button onClick={() => setIsPaying(true)} className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.8rem', border: 'none', cursor: 'pointer' }}>
                 Activate Now →
-              </Link>
+              </button>
             )}
             {tier === 'seedling' && stats?.subscription_status === 'active' && (
               <Link href="/for-vendors" className="btn-primary" style={{ textDecoration: 'none', fontSize: '0.8rem' }}>

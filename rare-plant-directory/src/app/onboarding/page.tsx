@@ -5,6 +5,7 @@ import { Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ChevronRight, St
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import PayPalButton from '../components/PayPalButton';
+import { createClient } from '@/utils/supabase/client';
 
 function OnboardingContent() {
   const searchParams = useSearchParams();
@@ -24,6 +25,26 @@ function OnboardingContent() {
 
   const [isPaying, setIsPaying] = useState(false);
   const [createdVendorId, setCreatedVendorId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function checkAuth() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: vendor } = await supabase
+          .from('vendors')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (vendor) {
+          setCreatedVendorId(vendor.id);
+          setIsPaying(true);
+        }
+      }
+    }
+    checkAuth();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +70,7 @@ function OnboardingContent() {
       
       setCreatedVendorId(data.vendor.id);
 
-      if (selectedPlan === 'elite' || selectedPlan === 'authority') {
+      if (selectedPlan !== 'seedling' && selectedPlan !== 'free') {
         setIsPaying(true);
       } else {
         if (data.email_sent === false) {
