@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
+import { QRCodeSVG } from 'qrcode.react';
+import { Download, ExternalLink, Printer } from 'lucide-react';
 
 interface Passport {
   id: string;
@@ -13,12 +15,18 @@ interface Passport {
   inventory?: { variety: string | null };
 }
 
+interface VendorInfo {
+  name: string;
+  logo_url: string | null;
+  tier: string;
+}
+
 const TIER_LIMITS: Record<string, number> = { seedling: 0, verified: 5, pro: 20, elite: Infinity };
 
 export default function PassportsDashboard() {
   const [passports, setPassports] = useState<Passport[]>([]);
   const [loading, setLoading] = useState(true);
-  const [vendorTier, setVendorTier] = useState('seedling');
+  const [vendor, setVendor] = useState<VendorInfo | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -40,14 +48,18 @@ export default function PassportsDashboard() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) { window.location.href = '/login'; return; }
 
-    const { data: vendor } = await supabase
+    const { data: vendorData } = await supabase
       .from('vendors')
-      .select('id, tier')
+      .select('name, logo_url, tier')
       .eq('contact_email', session.user.email)
       .single();
 
-    if (vendor) {
-      setVendorTier(vendor.tier || 'seedling');
+    if (vendorData) {
+      setVendor({
+        name: vendorData.name,
+        logo_url: vendorData.logo_url,
+        tier: vendorData.tier || 'seedling'
+      });
     }
 
     try {
@@ -62,6 +74,7 @@ export default function PassportsDashboard() {
     setLoading(false);
   }
 
+  const vendorTier = vendor?.tier || 'seedling';
   const limit = TIER_LIMITS[vendorTier] || 0;
   
   // Calculate current month's usage
@@ -247,25 +260,36 @@ export default function PassportsDashboard() {
                 background: 'linear-gradient(145deg, rgba(20,20,20,0.95), rgba(11,61,46,0.2))',
                 position: 'relative'
               }}>
-                <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                      <span style={{ fontSize: '1.5rem' }}>📜</span>
-                      <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', margin: 0, color: 'var(--text-primary)' }}>{p.specimen_name}</h3>
+                <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ flex: 1, display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                    {/* QR Code Section */}
+                    <div style={{ background: 'white', padding: '0.5rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <QRCodeSVG 
+                        value={`${window.location.origin}/verify/${p.verification_hash}`} 
+                        size={80}
+                        level="H"
+                        includeMargin={false}
+                      />
                     </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '0.75rem' }}>
-                      <div style={{ fontSize: '0.75rem' }}>
-                        <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Origin:</span>
-                        <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.mother_plant_origin || 'Unknown'}</span>
+
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                        <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', margin: 0, color: 'var(--text-primary)' }}>{p.specimen_name}</h3>
                       </div>
-                      <div style={{ fontSize: '0.75rem' }}>
-                        <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Method:</span>
-                        <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.propagation_method}</span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '0.75rem' }}>
+                        <div style={{ fontSize: '0.75rem' }}>
+                          <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Origin:</span>
+                          <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.mother_plant_origin || 'Unknown'}</span>
+                        </div>
+                        <div style={{ fontSize: '0.75rem' }}>
+                          <span style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Method:</span>
+                          <span style={{ color: 'var(--text-primary)', marginLeft: '0.4rem', fontWeight: 500 }}>{p.propagation_method}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Authenticity Seal</div>
+
+                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.8rem' }}>
                     <div style={{ 
                       fontFamily: 'monospace', 
                       fontSize: '0.9rem',
@@ -274,9 +298,83 @@ export default function PassportsDashboard() {
                       padding: '0.4rem 0.75rem', 
                       borderRadius: '4px',
                       border: '1px solid rgba(212,175,55,0.2)',
-                      boxShadow: '0 0 15px rgba(212,175,55,0.1)'
                     }}>
                       {p.verification_hash.toUpperCase()}
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <Link 
+                        href={`/verify/${p.verification_hash}`} 
+                        target="_blank"
+                        className="btn-ghost" 
+                        style={{ padding: '0.4rem', borderRadius: '4px', display: 'flex', alignItems: 'center' }}
+                        title="View Showcase"
+                      >
+                        <ExternalLink size={16} />
+                      </Link>
+                      <button 
+                        className="btn-ghost" 
+                        style={{ padding: '0.4rem', borderRadius: '4px', display: 'flex', alignItems: 'center' }}
+                        title="Print QR"
+                        onClick={() => {
+                          const win = window.open('', '_blank');
+                          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${window.location.origin}/verify/${p.verification_hash}`)}`;
+                          const vendorLogo = vendor?.logo_url || '';
+                          const vendorName = vendor?.name || 'Rare Plant Vendors';
+                          
+                          win?.document.write(`
+                            <html>
+                              <head>
+                                <title>Print Tag - ${p.specimen_name}</title>
+                                <style>
+                                  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap');
+                                  body { margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #fff; font-family: 'Inter', sans-serif; }
+                                  .tag { width: 350px; border: 3px solid #c9a84c; padding: 2.5rem; border-radius: 24px; text-align: center; position: relative; background: #fafaf8; box-sizing: border-box; }
+                                  .header { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 1.5rem; }
+                                  .nursery-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #c9a84c; }
+                                  .nursery-name { font-size: 0.9rem; font-weight: 700; color: #0a1a0f; text-transform: uppercase; letter-spacing: 0.05em; }
+                                  .specimen-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #0a1a0f; margin: 0 0 0.2rem; }
+                                  .variety { font-size: 1rem; color: #c9a84c; font-weight: 600; margin-bottom: 1.5rem; }
+                                  .qr-container { background: white; padding: 1rem; border-radius: 12px; display: inline-block; border: 1px solid #eee; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+                                  .qr-image { width: 180px; height: 180px; display: block; }
+                                  .footer { margin-top: 1.5rem; }
+                                  .seal-text { font-size: 0.7rem; font-weight: 800; color: #c9a84c; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+                                  .hash { font-family: monospace; font-size: 1.1rem; color: #333; letter-spacing: 0.1em; background: #f0f0f0; padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-block; }
+                                  .instruction { font-size: 0.75rem; color: #666; margin-top: 1rem; font-weight: 600; }
+                                  @media print { body { background: none; } .tag { border-color: #000; } }
+                                </style>
+                              </head>
+                              <body>
+                                <div class="tag">
+                                  <div class="header">
+                                    ${vendorLogo ? `<img src="${vendorLogo}" class="nursery-logo" />` : ''}
+                                    <span class="nursery-name">${vendorName}</span>
+                                  </div>
+                                  <h2 class="specimen-name">${p.specimen_name}</h2>
+                                  <div class="variety">${p.inventory?.variety || 'Authentic Specimen'}</div>
+                                  <div class="qr-container">
+                                    <img src="${qrUrl}" class="qr-image" />
+                                  </div>
+                                  <div class="footer">
+                                    <div class="seal-text">Verified Provenance</div>
+                                    <div class="hash">${p.verification_hash.toUpperCase()}</div>
+                                    <p class="instruction">SCAN TO VERIFY REGISTRY RECORD</p>
+                                  </div>
+                                </div>
+                                <script>
+                                  window.onload = () => {
+                                    setTimeout(() => { 
+                                      window.print(); 
+                                      window.close(); 
+                                    }, 800);
+                                  };
+                                </script>
+                              </body>
+                            </html>
+                          `);
+                        }}
+                      >
+                        <Printer size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>

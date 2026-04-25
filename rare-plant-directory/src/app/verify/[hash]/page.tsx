@@ -58,83 +58,126 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050505', padding: '8rem 5% 4rem', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ maxWidth: '800px', width: '100%' }}>
-        
-        {/* Certificate Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <Image src="/brand-seal.png" alt="RPV" width={80} height={80} style={{ filter: 'drop-shadow(0 0 20px rgba(212,175,55,0.4))', marginBottom: '1.5rem' }} />
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Certificate of Authenticity</h1>
-          <p style={{ color: 'var(--gold)', letterSpacing: '0.2em', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
-            Rare Plant Vendors Secure Registry
-          </p>
+    <div style={{ minHeight: '100vh', background: '#050505', padding: '0 0 4rem', color: 'var(--text-primary)' }}>
+      {/* Hero Section */}
+      <div style={{ position: 'relative', height: '60vh', width: '100%', overflow: 'hidden' }}>
+        {passport.inventory?.image_url ? (
+          <Image 
+            src={passport.inventory.image_url} 
+            alt={passport.specimen_name} 
+            fill 
+            style={{ objectFit: 'cover', filter: 'brightness(0.7)' }} 
+          />
+        ) : (
+          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to bottom, #0a1a0f, #050505)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: '5rem', opacity: 0.1 }}>🌿</span>
+          </div>
+        )}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '4rem 5%', background: 'linear-gradient(to top, #050505, transparent)' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+              <span className="verified-badge" style={{ background: 'var(--gold)', color: 'black', fontWeight: 700 }}>AUTHENTIC SPECIMEN</span>
+              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', letterSpacing: '0.1em' }}>ID: {params.hash.toUpperCase()}</span>
+            </div>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '4rem', margin: 0, lineHeight: 1 }}>{passport.specimen_name}</h1>
+            <p style={{ fontSize: '1.2rem', color: 'var(--gold)', marginTop: '0.5rem', fontWeight: 500 }}>{passport.inventory?.variety || 'Original Variety'}</p>
+          </div>
         </div>
+      </div>
 
-        {/* The Passport Card */}
-        <div className="onboarding-card" style={{ 
-          padding: '3rem', 
-          border: '2px solid var(--gold)', 
-          background: 'linear-gradient(145deg, rgba(20,20,20,1), rgba(11,61,46,0.3))',
-          boxShadow: '0 0 60px rgba(212,175,55,0.1)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Watermark/Pattern */}
-          <div style={{ position: 'absolute', top: '-10%', right: '-10%', fontSize: '15rem', opacity: 0.03, pointerEvents: 'none' }}>🌿</div>
+      <div style={{ maxWidth: '1000px', margin: '-2rem auto 0', padding: '0 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
           
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Specimen Variety</label>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', color: 'var(--text-primary)', marginBottom: '1.5rem' }}>{passport.specimen_name}</div>
-
-              <label style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Lineage & Provenance</label>
-              <div style={{ fontSize: '1rem', color: 'var(--text-primary)', marginBottom: '1.5rem', fontWeight: 500 }}>
-                {passport.mother_plant_origin || 'Original Stock'}
-              </div>
-
-              <label style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Propagation Method</label>
-              <div style={{ fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 500 }}>
-                {passport.propagation_method}
+          {/* Main Content */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            
+            {/* Provenance Card */}
+            <div className="onboarding-card" style={{ padding: '2.5rem', border: '1px solid var(--gold-dim)', background: 'rgba(10,26,15,0.8)', backdropFilter: 'blur(10px)' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--gold)', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Provenance & History</h3>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Propagation Method</label>
+                  <p style={{ fontSize: '1.1rem', margin: '0.2rem 0 0' }}>{passport.propagation_method}</p>
+                </div>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Genetic Origin</label>
+                  <p style={{ fontSize: '1.1rem', margin: '0.2rem 0 0' }}>{passport.mother_plant_origin || 'Original Stock'}</p>
+                </div>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Issuance Date</label>
+                  <p style={{ fontSize: '1.1rem', margin: '0.2rem 0 0' }}>{new Date(passport.issued_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                </div>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Registry Status</label>
+                  <p style={{ fontSize: '1.1rem', margin: '0.2rem 0 0', color: '#2ecc71' }}>● Verified Active</p>
+                </div>
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--glass-border)', paddingLeft: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Issued By</label>
-                <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: 600 }}>{passport.vendors?.name}</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{passport.vendors?.location_city}, {passport.vendors?.location_state}</div>
-                </div>
-                {passport.vendors?.is_verified && (
-                  <span className="verified-badge" style={{ display: 'inline-block' }}>✓ Verified Grower</span>
+            {/* Care Instructions */}
+            {passport.inventory?.care_instructions && (
+              <div className="onboarding-card" style={{ padding: '2.5rem', border: '1px solid var(--glass-border)' }}>
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>Care Guidelines</h3>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, whiteSpace: 'pre-wrap' }}>
+                  {passport.inventory.care_instructions}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            
+            {/* Vendor Card */}
+            <div className="onboarding-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <div style={{ position: 'relative', width: '80px', height: '80px', margin: '0 auto 1rem', borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--gold)' }}>
+                {passport.vendors?.logo_url ? (
+                  <Image src={passport.vendors.logo_url} alt={passport.vendors.name} fill style={{ objectFit: 'cover' }} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-surface)', fontSize: '2rem' }}>
+                    {passport.vendors?.name.charAt(0)}
+                  </div>
                 )}
               </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Issuance Date</label>
-                <div style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 500 }}>{new Date(passport.issued_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
-              </div>
-
-              <div style={{ marginTop: '2rem' }}>
-                <div style={{ fontSize: '0.65rem', color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Unique Registry ID</div>
-                <div style={{ fontFamily: 'monospace', fontSize: '1.2rem', color: 'var(--gold)', letterSpacing: '0.1em' }}>
-                  {params.hash.toUpperCase()}
+              <h4 style={{ margin: '0 0 0.2rem', fontSize: '1.1rem' }}>{passport.vendors?.name}</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>{passport.vendors?.location_city}, {passport.vendors?.location_state}</p>
+              {passport.vendors?.is_verified && (
+                <div style={{ fontSize: '0.7rem', background: 'rgba(212,175,55,0.1)', color: 'var(--gold)', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--gold-dim)', marginBottom: '1rem' }}>
+                  VERIFIED GROWER
                 </div>
-              </div>
+              )}
+              <Link href={`/vendors/${passport.vendors?.id}`} className="btn-primary" style={{ width: '100%', fontSize: '0.8rem', padding: '0.6rem' }}>View Profile</Link>
             </div>
-          </div>
-        </div>
 
-        <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-            This Digital Passport serves as a permanent record of provenance. It was issued by a member of the Rare Plant Vendors network and verified against our encrypted registry.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link href="/" className="btn-ghost">Registry Home</Link>
-            <Link href={`/vendors/${passport.vendors?.id}`} className="btn-primary">View Vendor Profile</Link>
-          </div>
-        </div>
+            {/* Actions */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <button 
+                onClick={() => window.print()} 
+                className="btn-ghost" 
+                style={{ width: '100%', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+              >
+                🖨️ Print Certificate
+              </button>
+              <button 
+                onClick={() => {
+                  navigator.share?.({
+                    title: `${passport.specimen_name} - CultivarID`,
+                    url: window.location.href
+                  }).catch(() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard');
+                  });
+                }} 
+                className="btn-ghost" 
+                style={{ width: '100%', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+              >
+                🔗 Share Showcase
+              </button>
+            </div>
+          </aside>
 
+        </div>
       </div>
     </div>
   );
