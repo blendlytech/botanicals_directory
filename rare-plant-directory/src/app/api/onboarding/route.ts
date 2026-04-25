@@ -116,7 +116,7 @@ export async function POST(request: Request) {
       .from('vendors')
       .upsert({
         user_id: userId,
-        name: data.businessName || data.ownerName,
+        name: data.businessName || data.ownerName || data.email?.split('@')[0] || 'New Vendor',
         slug: slug + '-' + Date.now().toString().slice(-4),
         owner_name: data.ownerName,
         contact_email: data.email,

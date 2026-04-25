@@ -252,6 +252,42 @@ function OnboardingContent() {
                 marginBottom: '0.75rem',
                 paddingLeft: '0.5rem'
               }}>
+                Business Name
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="The Emerald Nursery"
+                value={form.vendorName}
+                onChange={(e) => setForm({...form, vendorName: e.target.value})}
+                style={{ 
+                  width: '100%', 
+                  background: 'var(--bg-surface)', 
+                  border: '1px solid var(--glass-border)', 
+                  borderRadius: '12px', 
+                  padding: '1.25rem',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+              />
+            </div>
+
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
                 Professional Email
               </label>
               <input
