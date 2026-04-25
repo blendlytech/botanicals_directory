@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import ProfileTracker from "../../components/ProfileTracker";
 
 export const revalidate = 60;
@@ -19,7 +20,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
   const { data: inventory } = await supabase
     .from('inventory')
-    .select('*')
+    .select('*, digital_passports(verification_hash)')
     .eq('vendor_id', vendor.id)
     .eq('status', 'available')
     .order('created_at', { ascending: false });
@@ -152,29 +153,47 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
               {inventory && inventory.length > 0 ? (
                 <div className="elite-inventory-grid">
-                  {inventory.map((item) => (
-                    <div key={item.id} className="elite-inv-card">
-                      <div className="elite-inv-image">
-                        {item.image_url ? (
-                          <Image src={item.image_url} alt={item.species_name} fill style={{ objectFit: 'cover' }} />
-                        ) : (
-                          <div className="elite-inv-placeholder">🌿</div>
-                        )}
-                        {item.quantity && item.quantity < 3 && (
-                          <div className="elite-scarcity">Only {item.quantity} left</div>
-                        )}
-                        <div className="elite-inv-overlay" />
-                      </div>
-                      <div className="elite-inv-body">
-                        <div className="elite-inv-variety">{item.variety ? `var. ${item.variety}` : 'Rare Specimen'}</div>
-                        <h3 className="elite-inv-name">{item.species_name}</h3>
-                        <div className="elite-inv-footer">
-                          <span className="elite-inv-price">{item.price ? `$${item.price}` : 'Price on Request'}</span>
-                          <span className="elite-inv-cta">Inquire →</span>
+                  {inventory.map((item) => {
+                    const hash = item.digital_passports?.[0]?.verification_hash;
+                    
+                    const cardContent = (
+                      <>
+                        <div className="elite-inv-image">
+                          {item.image_url ? (
+                            <Image src={item.image_url} alt={item.species_name} fill style={{ objectFit: 'cover' }} />
+                          ) : (
+                            <div className="elite-inv-placeholder">🌿</div>
+                          )}
+                          {item.quantity && item.quantity < 3 && (
+                            <div className="elite-scarcity">Only {item.quantity} left</div>
+                          )}
+                          <div className="elite-inv-overlay" />
                         </div>
+                        <div className="elite-inv-body">
+                          <div className="elite-inv-variety">{item.variety ? `var. ${item.variety}` : 'Rare Specimen'}</div>
+                          <h3 className="elite-inv-name">{item.species_name}</h3>
+                          <div className="elite-inv-footer">
+                            <span className="elite-inv-price">{item.price ? `$${item.price}` : 'Price on Request'}</span>
+                            <span className="elite-inv-cta">{hash ? 'View CultivarID →' : 'Inquire →'}</span>
+                          </div>
+                        </div>
+                      </>
+                    );
+
+                    if (hash) {
+                      return (
+                        <Link key={item.id} href={`/verify/${hash}`} className="elite-inv-card" style={{ textDecoration: 'none' }}>
+                          {cardContent}
+                        </Link>
+                      );
+                    }
+
+                    return (
+                      <div key={item.id} className="elite-inv-card">
+                        {cardContent}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="elite-empty">
@@ -296,25 +315,50 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
             </div>
             {inventory && inventory.length > 0 ? (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
-                {inventory.map((item) => (
-                  <div key={item.id} style={{ background: "var(--bg-surface)", border: "1px solid var(--glass-border)", borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                    {item.image_url ? (
-                      <div style={{ height: "160px", background: "#111", position: "relative" }}>
-                        <Image src={item.image_url} alt={item.species_name} fill style={{ objectFit: "cover" }} />
+                {inventory.map((item) => {
+                  const hash = item.digital_passports?.[0]?.verification_hash;
+                  
+                  const cardContent = (
+                    <>
+                      {item.image_url ? (
+                        <div style={{ height: "160px", background: "#111", position: "relative" }}>
+                          <Image src={item.image_url} alt={item.species_name} fill style={{ objectFit: "cover" }} />
+                        </div>
+                      ) : (
+                        <div style={{ height: "160px", background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)", fontSize: "2rem" }}>🌿</div>
+                      )}
+                      <div style={{ padding: "1rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                        <h3 style={{ fontSize: "1rem", color: "var(--text-primary)", margin: "0 0 0.5rem" }}>{item.species_name}</h3>
+                        {item.variety && <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>var. {item.variety}</div>}
+                        <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span style={{ color: "var(--gold)", fontWeight: 600, fontSize: "1.1rem" }}>{item.price ? `$${item.price}` : 'Price on Request'}</span>
+                          {item.quantity && item.quantity < 3 && <span style={{ fontSize: "0.65rem", color: "#e74c3c", fontWeight: 700, padding: "2px 6px", background: "rgba(231,76,60,0.1)", borderRadius: "4px" }}>Only {item.quantity} left</span>}
+                        </div>
+                        {hash && (
+                          <div style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "var(--emerald)", fontWeight: 600 }}>
+                            View CultivarID →
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <div style={{ height: "160px", background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)", fontSize: "2rem" }}>🌿</div>
-                    )}
-                    <div style={{ padding: "1rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                      <h3 style={{ fontSize: "1rem", color: "var(--text-primary)", margin: "0 0 0.5rem" }}>{item.species_name}</h3>
-                      {item.variety && <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>var. {item.variety}</div>}
-                      <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ color: "var(--gold)", fontWeight: 600, fontSize: "1.1rem" }}>{item.price ? `$${item.price}` : 'Price on Request'}</span>
-                        {item.quantity && item.quantity < 3 && <span style={{ fontSize: "0.65rem", color: "#e74c3c", fontWeight: 700, padding: "2px 6px", background: "rgba(231,76,60,0.1)", borderRadius: "4px" }}>Only {item.quantity} left</span>}
-                      </div>
+                    </>
+                  );
+
+                  const cardStyle = { background: "var(--bg-surface)", border: "1px solid var(--glass-border)", borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "column" as const, textDecoration: "none" };
+
+                  if (hash) {
+                    return (
+                      <Link key={item.id} href={`/verify/${hash}`} style={cardStyle}>
+                        {cardContent}
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <div key={item.id} style={cardStyle}>
+                      {cardContent}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <div style={{ padding: "3rem", textAlign: "center", background: "var(--bg-surface)", borderRadius: "8px", border: "1px dashed var(--glass-border)" }}>
