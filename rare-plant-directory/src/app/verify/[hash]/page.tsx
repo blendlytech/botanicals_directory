@@ -115,6 +115,23 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
               </div>
             </div>
 
+            {/* Lead Capture Section */}
+            <div className="onboarding-card" style={{ padding: '3rem', border: '2px solid var(--gold)', background: 'linear-gradient(145deg, #0B3D2E, #050505)', textAlign: 'center' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🎯</div>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', marginBottom: '1rem', color: 'white' }}>Want this Specimen?</h3>
+              <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>
+                Join the inner circle of collectors. Add this variety to your digital wishlist to get notified of price drops, availability, and similar rarities from {passport.vendors?.name}.
+              </p>
+              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                <Link href={`/signup?interest=${encodeURIComponent(passport.specimen_name)}&source=qr`} className="btn-primary" style={{ padding: '1rem 2rem' }}>
+                  Add to My Wishlist
+                </Link>
+                <a href={`mailto:${passport.vendors?.contact_email}?subject=Inquiry: ${passport.specimen_name}`} className="btn-ghost" style={{ padding: '1rem 2rem' }}>
+                  Contact Vendor
+                </a>
+              </div>
+            </div>
+
             {/* Care Instructions */}
             {passport.inventory?.care_instructions && (
               <div className="onboarding-card" style={{ padding: '2.5rem', border: '1px solid var(--glass-border)' }}>
