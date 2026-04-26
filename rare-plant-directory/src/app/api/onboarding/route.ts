@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseAdmin as supabase } from '@/lib/supabaseAdmin';
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
@@ -16,10 +16,6 @@ function log(message: string, data?: any) {
   }
   console.log(message, data);
 }
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 function getInternalTier(tier: string): string {
   const mapping: Record<string, string> = {
@@ -195,12 +191,13 @@ export async function POST(request: Request) {
       log('Email sent successfully', { messageId: info.messageId });
     } catch (mailError: any) {
       log('CRITICAL: Email sending failed', { error: mailError.message, stack: mailError.stack });
+      // Log the action link server-side only for manual recovery — NEVER expose to client
+      log('Recovery action link (server-only)', { actionLink });
       return NextResponse.json({ 
         success: true, 
         vendor: newVendor, 
         email_sent: false, 
-        debug_link: actionLink, // For debugging purposes
-        message: 'Vendor created but failed to send verification email. Error: ' + mailError.message 
+        message: 'Vendor created but verification email could not be sent. Please contact support.' 
       });
     }
 

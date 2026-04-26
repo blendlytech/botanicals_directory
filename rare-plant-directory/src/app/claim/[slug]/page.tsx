@@ -1,14 +1,11 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 import { notFound } from 'next/navigation';
 import { ShieldCheck, Star, Zap, Globe, MapPin, CheckCircle2, Lock, ArrowRight, TrendingUp } from 'lucide-react';
 import PayPalButton from '../../components/PayPalButton';
 import Image from 'next/image';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export default async function ClaimPage({ params }: { params: { slug: string } }) {
+  const supabase = await createClient();
   // 1. Fetch vendor data
   const { data: vendor, error } = await supabase
     .from('vendors')
@@ -183,7 +180,7 @@ export default async function ClaimPage({ params }: { params: { slug: string } }
                                 <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.1em' }}>ONE-TIME · LIFETIME ACCESS</div>
                             </div>
                             
-                            <PayPalButton amount="498" vendorId={vendor.id} />
+                            <PayPalButton amount="497" vendorId={vendor.id} />
                             
                             <p style={{ marginTop: '1.5rem', fontSize: '0.65rem', opacity: 0.6, textAlign: 'center' }}>
                                 Secure payment via PayPal · Instant Activation

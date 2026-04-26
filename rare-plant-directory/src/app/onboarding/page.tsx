@@ -35,11 +35,16 @@ function OnboardingContent() {
       if (user) {
         const { data: vendor } = await supabase
           .from('vendors')
-          .select('id')
+          .select('id, subscription_status')
           .eq('user_id', user.id)
           .single();
         
         if (vendor) {
+          // If already active, go straight to dashboard — don't trap them here
+          if (vendor.subscription_status === 'active') {
+            window.location.href = '/dashboard';
+            return;
+          }
           setCreatedVendorId(vendor.id);
           setIsPaying(true);
         }
@@ -139,7 +144,7 @@ function OnboardingContent() {
               } 
               vendorId={createdVendorId} 
               planId={isMiamiDeal ? 'elite' : selectedPlan}
-              onSuccess={() => setIsSuccess(true)}
+              onSuccess={() => { window.location.href = '/dashboard'; }}
             />
           </div>
 

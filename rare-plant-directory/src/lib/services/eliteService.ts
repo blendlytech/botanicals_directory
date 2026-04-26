@@ -1,9 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase Client (Using env variables in real app)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabaseAdmin as supabase } from '@/lib/supabaseAdmin';
 
 /**
  * ✦ Elite Service
@@ -17,7 +12,7 @@ export const eliteService = {
     const { count, error } = await supabase
       .from('vendors')
       .select('*', { count: 'exact', head: true })
-      .eq('tier', 'elite');
+      .eq('account_tier', 'elite');
 
     if (error) throw error;
     return 100 - (count || 0);

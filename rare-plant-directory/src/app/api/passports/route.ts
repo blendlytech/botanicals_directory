@@ -1,16 +1,11 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseAdmin as supabase } from '@/lib/supabaseAdmin';
 import crypto from 'crypto';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-);
 
 const TIER_LIMITS: Record<string, number> = {
   seedling: 0,
-  verified: 5,
-  pro: 20,
+  visibility: 5,    // Bloom tier
+  authority: 15,    // Canopy tier
   elite: Infinity,
 };
 
@@ -63,16 +58,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // 1. Get vendor & tier
+    // 1. Get vendor & tier — use account_tier (enum), not the legacy text column
     const { data: vendor } = await supabase
       .from('vendors')
-      .select('id, tier')
+      .select('id, account_tier')
       .eq('contact_email', user.email)
       .single();
 
     if (!vendor) return NextResponse.json({ error: 'Vendor not found' }, { status: 404 });
 
-    const tier = vendor.tier || 'seedling';
+    const tier = vendor.account_tier || 'seedling';
     const limit = TIER_LIMITS[tier] || 0;
 
     if (limit === 0) {

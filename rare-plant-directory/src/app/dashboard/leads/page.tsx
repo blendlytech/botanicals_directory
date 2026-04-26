@@ -25,15 +25,15 @@ export default function LeadsDashboard() {
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, tier')
-        .eq('contact_email', user.email)
+        .select('id, account_tier')
+        .eq('user_id', user.id)
         .single();
 
       if (!vendor) { setLoading(false); return; }
-      setVendorTier(vendor.tier || 'seedling');
+      setVendorTier(vendor.account_tier || 'seedling');
 
-      // Fetch leads for this vendor
-      const { data } = await supabase
+      // Build leads query — non-elite vendors only see leads after 24hr window
+      let query = supabase
         .from('wishlist_matches')
         .select(`
           id, created_at, general_notified_at, elite_notified_at,
@@ -43,6 +43,13 @@ export default function LeadsDashboard() {
         .eq('vendor_id', vendor.id)
         .order('created_at', { ascending: false })
         .limit(50);
+
+      // Non-elite: only show leads that have passed the 24hr elite window
+      if (vendor.account_tier !== 'elite') {
+        query = query.not('general_notified_at', 'is', null);
+      }
+
+      const { data } = await query;
 
       setLeads((data as any) || []);
       setLoading(false);

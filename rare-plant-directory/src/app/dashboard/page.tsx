@@ -114,8 +114,7 @@ export default function DashboardPage() {
                 amount={
                   tier === 'elite' ? "497" : 
                   tier === 'authority' ? "129.99" :
-                  tier === 'visibility' ? "39.99" :
-                  tier === 'pro' ? "19.99" : "14.99"
+                  tier === 'visibility' ? "39.99" : "14.99"
                 } 
                 vendorId={stats.id} 
                 planId={tier}
