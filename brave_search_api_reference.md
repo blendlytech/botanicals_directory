@@ -5,16 +5,19 @@ This document provides the technical specification for the Brave Search API, to 
 ---
 
 ## 1. Web Search
+
 `GET` `https://api.search.brave.com/res/v1/web/search`
 
 Search the web from a large independent index of web pages.
 
 ### Authorization
+
 | Name | Location | Type | Required | Description |
 |------|----------|------|----------|-------------|
 | `x-subscription-token` | header | string | Yes | The subscription token that was generated for the product. |
 
 ### Query Parameters
+
 | Name | Location | Type | Required | Description |
 |------|----------|------|----------|-------------|
 | `q` | query | string | Yes | The user's search query term. Max 400 chars, 50 words. |
@@ -27,6 +30,7 @@ Search the web from a large independent index of web pages.
 | `units` | query | string | No | `metric` or `imperial`. |
 
 ### Headers
+
 | Name | Description |
 |------|-------------|
 | `x-loc-lat` / `x-loc-long` | Latitude/Longitude for local results. |
@@ -35,9 +39,11 @@ Search the web from a large independent index of web pages.
 | `accept` | `application/json`. |
 
 ### Response Schema (200 OK)
+
 The response is a complex JSON object containing results for the requested filters.
 
 #### Key Web Result Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | `results[].title` | string | Title of the result. |
@@ -49,16 +55,19 @@ The response is a complex JSON object containing results for the requested filte
 ---
 
 ## 2. News Search
+
 `GET` `https://api.search.brave.com/res/v1/news/search`
 
 Search news content from a large independent index of web pages.
 
 ### Authorization
+
 | Name | Location | Type | Required | Description |
 |------|----------|------|----------|-------------|
 | `x-subscription-token` | header | string | Yes | The subscription token that was generated for the product. |
 
 ### Query Parameters
+
 | Name | Location | Type | Required | Description |
 |------|----------|------|----------|-------------|
 | `q` | query | string | Yes | The user's search query term. Max 400 chars, 50 words. |
@@ -71,6 +80,7 @@ Search news content from a large independent index of web pages.
 | `extra_snippets` | query | string | No | Up to 5 additional snippets. |
 
 ### Response Schema (200 OK)
+
 | Field | Type | Description |
 |-------|------|-------------|
 | `results[].title` | string | Title of the news article. |
@@ -81,6 +91,7 @@ Search news content from a large independent index of web pages.
 | `results[].thumbnail.src`| string | URL of the article thumbnail. |
 
 ### Code Sample (cURL)
+
 ```bash
 curl "https://api.search.brave.com/res/v1/news/search?q=rare+botanicals" \
   -H "Accept: application/json" \
@@ -90,4 +101,3 @@ curl "https://api.search.brave.com/res/v1/news/search?q=rare+botanicals" \
 ---
 
 **Usage Tip:** When searching for rare plants, use `Web Search` with `result_filter=discussions` for community advice, and `News Search` for recent discoveries or conservatory updates.
-
