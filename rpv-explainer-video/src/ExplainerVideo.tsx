@@ -88,7 +88,7 @@ export const ExplainerVideo: React.FC = () => {
 
       {/* --- SCENE 1: THE PROBLEM (0 - 18s) --- */}
       <Sequence from={0} durationInFrames={540}>
-        <CinematicVideo src="plant-hook.mp4" />
+        <CinematicVideo src="scene-1.mp4" />
         
         <Sequence from={15} durationInFrames={135}>
           <Caption text="You bring your best specimens to an expo..." />
@@ -106,7 +106,7 @@ export const ExplainerVideo: React.FC = () => {
 
       {/* --- SCENE 2: THE SOLUTION (18s - 26s) --- */}
       <Sequence from={540} durationInFrames={240}>
-        <CinematicVideo src="phone-scan.mp4" />
+        <CinematicVideo src="scene-3.mp4" />
         <PassportUI delay={60} />
         
         <Sequence from={0} durationInFrames={120}>
@@ -119,7 +119,7 @@ export const ExplainerVideo: React.FC = () => {
 
       {/* --- SCENE 3: HOW IT WORKS (26s - 40s) --- */}
       <Sequence from={780} durationInFrames={420}>
-        <CinematicVideo src="plant-hook.mp4" />
+        <CinematicVideo src="scene-2.mp4" />
         <PassportUI delay={0} />
         
         <Sequence from={0} durationInFrames={150}>
@@ -132,7 +132,7 @@ export const ExplainerVideo: React.FC = () => {
 
       {/* --- SCENE 4: THE BENEFIT (40s - 48s) --- */}
       <Sequence from={1200} durationInFrames={240}>
-        <CinematicVideo src="handshake.mp4" />
+        <CinematicVideo src="scene-1.mp4" />
         
         <Sequence from={0} durationInFrames={80}>
           <Caption text="You eliminate the uncertainty gap." />
