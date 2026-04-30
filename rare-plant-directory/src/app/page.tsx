@@ -114,6 +114,45 @@ export default async function Home() {
             The definitive digital passport for botanical provenance. 
             Secure your legacy, verify your specimens, and connect directly with serious collectors.
           </p>
+
+          {/* ─── EXPLAINER VIDEO SHOWCASE ─── */}
+          <div style={{
+            maxWidth: '1000px',
+            margin: '0 auto',
+            padding: '2rem',
+            background: 'rgba(255,255,255,0.03)',
+            borderRadius: '40px',
+            border: '1px solid rgba(212, 175, 55, 0.2)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.6)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              style={{
+                width: '100%',
+                borderRadius: '24px',
+                display: 'block',
+                boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
+              }}
+            >
+              <source src="/rpv-explainer.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Gloss Overlay */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              pointerEvents: 'none',
+              background: 'linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%)',
+              borderRadius: '40px'
+            }}></div>
+          </div>
         </div>
       </section>
 
