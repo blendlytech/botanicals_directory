@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <div className="page-wrapper" style={{ overflow: 'hidden' }}>
       
-      {/* ─── MIAMI FESTIVAL EMERGENCY ALERT ─── */}
+      {/* ─── DETROIT EXPO EMERGENCY ALERT ─── */}
       <div style={{ 
         background: 'var(--gold)', 
         color: 'black', 
@@ -44,8 +44,8 @@ export default async function Home() {
         justifyContent: 'center',
         gap: '1.5rem'
       }}>
-        <span>MIAMI FESTIVAL PUSH: 37/66 VENDORS SECURED</span>
-        <Link href="/miami" style={{ 
+        <span>DETROIT EXPO PUSH: 12/40 VENDORS SECURED</span>
+        <Link href="/detroit" style={{ 
           background: 'black', 
           color: 'white', 
           padding: '0.3rem 1rem', 

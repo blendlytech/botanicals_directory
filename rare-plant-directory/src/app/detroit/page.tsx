@@ -44,8 +44,8 @@ export default function DetroitLandingPage() {
 
           <div className="stats-highlight">
             <div className="stat-box">
-              <div className="stat-val">37/66</div>
-              <div className="stat-lab">VENDORS SIGNED UP</div>
+              <div className="stat-val">12/40</div>
+              <div className="stat-lab">VENDORS SECURED</div>
             </div>
             <div className="stat-box gold-border">
               <div className="stat-val">100%</div>
