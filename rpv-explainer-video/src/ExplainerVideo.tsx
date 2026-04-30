@@ -83,8 +83,7 @@ export const ExplainerVideo: React.FC = () => {
   
   return (
     <AbsoluteFill style={{ backgroundColor: '#040806' }}>
-      {/* ── AUDIO VOICEOVER ── */}
-      <Audio src={staticFile('voiceover.mp3')} />
+      {/* ── AUDIO STRIPPED FOR LANDING PAGE ── */}
 
       {/* --- SCENE 1: THE PROBLEM (0 - 18s) --- */}
       <Sequence from={0} durationInFrames={540}>
@@ -165,19 +164,40 @@ export const ExplainerVideo: React.FC = () => {
             opacity: interpolate(frame % 60, [0, 30, 60], [0.3, 0.6, 0.3])
           }} />
 
-          <div style={{ textAlign: 'center', zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ 
+            zIndex: 20, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}>
             <Img 
               src={staticFile('brand-seal.png')} 
               style={{ 
-                width: '280px', 
-                marginBottom: '3rem',
-                filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))',
+                width: '320px', 
+                marginBottom: '4rem',
+                filter: 'drop-shadow(0 0 50px rgba(212, 175, 55, 0.4))',
               }} 
             />
-            <h2 style={{ color: '#d4af37', fontSize: '3rem', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>
-              17 Founding Seats Left
+            <h2 style={{ 
+              color: '#d4af37', 
+              fontSize: '3.5rem', 
+              fontWeight: 900, 
+              textTransform: 'uppercase', 
+              margin: 0,
+              letterSpacing: '0.05em'
+            }}>
+              50 Founding Seats Released
             </h2>
-            <p style={{ color: 'white', fontSize: '1.4rem', marginTop: '1.5rem', opacity: 0.8, letterSpacing: '0.05em' }}>
+            <p style={{ 
+              color: 'white', 
+              fontSize: '1.6rem', 
+              marginTop: '2rem', 
+              opacity: 0.8, 
+              letterSpacing: '0.1em',
+              fontWeight: 300
+            }}>
               Secure your legacy today at RealPlantVendors.com
             </p>
           </div>

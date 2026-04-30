@@ -153,6 +153,57 @@ export default async function Home() {
               borderRadius: '40px'
             }}></div>
           </div>
+
+          {/* ─── SCARCITY STATUS BAR ─── */}
+          <div style={{
+            maxWidth: '1000px',
+            margin: '2rem auto 0',
+            background: 'rgba(11, 61, 46, 0.4)',
+            borderRadius: '20px',
+            padding: '1.5rem 2rem',
+            border: '1px solid rgba(212, 175, 55, 0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '2rem'
+          }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                color: 'var(--gold)', 
+                fontSize: '0.85rem', 
+                fontWeight: 800, 
+                letterSpacing: '0.1em',
+                marginBottom: '0.75rem'
+              }}>
+                <span>FOUNDING SEATS CAPACITY</span>
+                <span>17 OF 50 LEFT</span>
+              </div>
+              <div style={{ 
+                height: '10px', 
+                background: 'rgba(255,255,255,0.1)', 
+                borderRadius: '10px', 
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.05)'
+              }}>
+                <div style={{ 
+                  width: '66%', 
+                  height: '100%', 
+                  background: 'linear-gradient(90deg, #0B3D2E 0%, var(--gold) 100%)',
+                  boxShadow: '0 0 20px var(--gold-dim)'
+                }}></div>
+              </div>
+            </div>
+            <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ 
+              padding: '0.8rem 1.5rem', 
+              fontSize: '0.8rem', 
+              borderRadius: '12px',
+              whiteSpace: 'nowrap'
+            }}>
+              SECURE SEAT →
+            </Link>
+          </div>
         </div>
       </section>
 
