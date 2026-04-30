@@ -6,7 +6,7 @@ export const metadata = {
   description: "Join the elite vendors already using CultivarID™ for the Rare Plant Fairy Pop-up Expo in Detroit. 100% setup done for you in 24 hours.",
 };
 
-export default function MiamiLandingPage() {
+export default function DetroitLandingPage() {
   return (
     <main className="miami-landing" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh' }}>
       {/* ── CINEMATIC BACKGROUND ── */}
@@ -135,7 +135,7 @@ export default function MiamiLandingPage() {
                 <li>✓ Done-for-you Setup</li>
                 <li>✓ Basic CultivarID™ Integration</li>
               </ul>
-              <Link href="/signup?tier=sprout&promo=miami" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Secure My Spot</Link>
+              <Link href="/signup?tier=sprout&promo=detroit" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Secure My Spot</Link>
             </div>
 
             {/* BLOOM */}
@@ -152,7 +152,7 @@ export default function MiamiLandingPage() {
                 <li>✓ Full CultivarID™ Provenance</li>
                 <li>✓ Detroit Expo Priority Listing</li>
               </ul>
-              <Link href="/signup?tier=bloom&promo=miami" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>Get Festival Ready</Link>
+              <Link href="/signup?tier=bloom&promo=detroit" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>Get Festival Ready</Link>
             </div>
 
             {/* CANOPY */}
@@ -168,7 +168,7 @@ export default function MiamiLandingPage() {
                 <li>✓ Verified "Elite Grower" Badge</li>
                 <li>✓ Featured Festival Showcase</li>
               </ul>
-              <Link href="/signup?tier=canopy&promo=miami" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Go Elite</Link>
+              <Link href="/signup?tier=canopy&promo=detroit" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Go Elite</Link>
             </div>
           </div>
         </section>
@@ -181,7 +181,7 @@ export default function MiamiLandingPage() {
             Will you be the one explaining why you don't have a passport?
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
-             <Link href="/signup?promo=miami" className="btn-primary" style={{ padding: '1.2rem 3rem' }}>START MY 24H SETUP</Link>
+             <Link href="/signup?promo=detroit" className="btn-primary" style={{ padding: '1.2rem 3rem' }}>START MY 24H SETUP</Link>
           </div>
         </div>
 
