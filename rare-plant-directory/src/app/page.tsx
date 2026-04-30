@@ -140,7 +140,7 @@ export default async function Home() {
                 boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
               }}
             >
-              <source src="/rpv-explainer.mp4" type="video/mp4" />
+              <source src="https://dkdrvfemtyuapzuwyrgt.supabase.co/storage/v1/object/public/marketing/rpv-explainer.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             
