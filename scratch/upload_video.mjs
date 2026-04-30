@@ -31,7 +31,7 @@ async function uploadVideo() {
 
   const { data, error } = await supabase.storage
     .from('marketing')
-    .upload('rpv-explainer.mp4', fileBuffer, {
+    .upload('rpv-explainer-detroit.mp4', fileBuffer, {
       contentType: 'video/mp4',
       upsert: true
     });
@@ -42,7 +42,7 @@ async function uploadVideo() {
     console.log('Upload successful:', data);
     const { data: { publicUrl } } = supabase.storage
       .from('marketing')
-      .getPublicUrl('rpv-explainer.mp4');
+      .getPublicUrl('rpv-explainer-detroit.mp4');
     console.log('Public URL:', publicUrl);
   }
 }
