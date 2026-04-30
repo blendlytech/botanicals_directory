@@ -158,48 +158,55 @@ export default async function Home() {
           <div style={{
             maxWidth: '1000px',
             margin: '2rem auto 0',
-            background: 'rgba(11, 61, 46, 0.4)',
-            borderRadius: '20px',
-            padding: '1.5rem 2rem',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
+            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(11, 61, 46, 0.6) 100%)',
+            borderRadius: '24px',
+            padding: '2rem',
+            border: '1px solid var(--gold)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '2rem'
+            gap: '2.5rem',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
           }}>
             <div style={{ flex: 1 }}>
               <div style={{ 
                 display: 'flex', 
                 justifyContent: 'space-between', 
-                color: 'var(--gold)', 
-                fontSize: '0.85rem', 
-                fontWeight: 800, 
-                letterSpacing: '0.1em',
-                marginBottom: '0.75rem'
+                color: '#FFFFFF', 
+                fontSize: '1rem', 
+                fontWeight: 900, 
+                letterSpacing: '0.15em',
+                marginBottom: '1rem',
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)'
               }}>
                 <span>FOUNDING SEATS CAPACITY</span>
-                <span>17 OF 50 LEFT</span>
+                <span style={{ color: 'var(--gold)', fontSize: '1.2rem' }}>17 OF 50 LEFT</span>
               </div>
               <div style={{ 
-                height: '10px', 
-                background: 'rgba(255,255,255,0.1)', 
+                height: '14px', 
+                background: 'rgba(0,0,0,0.3)', 
                 borderRadius: '10px', 
                 overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.05)'
+                border: '1px solid rgba(212,175,55,0.3)',
+                padding: '2px'
               }}>
                 <div style={{ 
                   width: '66%', 
                   height: '100%', 
-                  background: 'linear-gradient(90deg, #0B3D2E 0%, var(--gold) 100%)',
-                  boxShadow: '0 0 20px var(--gold-dim)'
+                  background: 'linear-gradient(90deg, #F2D681 0%, var(--gold) 100%)',
+                  borderRadius: '10px',
+                  boxShadow: '0 0 20px var(--gold)'
                 }}></div>
               </div>
             </div>
             <Link href="/onboarding?type=vendor&plan=founder" className="btn-primary" style={{ 
-              padding: '0.8rem 1.5rem', 
-              fontSize: '0.8rem', 
-              borderRadius: '12px',
-              whiteSpace: 'nowrap'
+              padding: '1.2rem 2.5rem', 
+              fontSize: '0.9rem', 
+              borderRadius: '16px',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 10px 30px rgba(212,175,55,0.4)',
+              fontWeight: 800
             }}>
               SECURE SEAT →
             </Link>
