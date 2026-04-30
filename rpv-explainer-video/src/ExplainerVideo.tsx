@@ -188,7 +188,7 @@ export const ExplainerVideo: React.FC = () => {
               margin: 0,
               letterSpacing: '0.05em'
             }}>
-              50 Founding Seats Released
+              Join the Detroit Expo
             </h2>
             <p style={{ 
               color: 'white', 
@@ -198,7 +198,7 @@ export const ExplainerVideo: React.FC = () => {
               letterSpacing: '0.1em',
               fontWeight: 300
             }}>
-              Secure your legacy today at RealPlantVendors.com
+              Limited Roster • May 20, 2026 • RealPlantVendors.com
             </p>
           </div>
         </AbsoluteFill>
