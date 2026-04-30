@@ -42,11 +42,11 @@ const Caption: React.FC<{
       }}>
         <h1 style={{ 
           color: isGold ? '#d4af37' : 'white', 
-          fontSize: '3.5rem',
-          fontWeight: 700,
-          letterSpacing: '0.02em',
+          fontSize: '2.2rem',
+          fontWeight: 600,
+          letterSpacing: '0.01em',
           margin: 0,
-          lineHeight: 1.3
+          lineHeight: 1.2
         }}>
           {text}
         </h1>
@@ -150,37 +150,37 @@ export const ExplainerVideo: React.FC = () => {
         <AbsoluteFill style={{ 
           background: 'radial-gradient(circle at center, #0b3d2e 0%, #040806 100%)',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column'
         }}>
           {/* Pulsing Glow behind Logo */}
           <div style={{
             position: 'absolute',
-            width: '400px',
-            height: '400px',
-            background: 'rgba(212, 175, 55, 0.15)',
-            filter: 'blur(80px)',
+            width: '600px',
+            height: '600px',
+            background: 'rgba(212, 175, 55, 0.1)',
+            filter: 'blur(100px)',
             borderRadius: '50%',
-            opacity: interpolate(frame % 60, [0, 30, 60], [0.4, 0.8, 0.4])
+            opacity: interpolate(frame % 60, [0, 30, 60], [0.3, 0.6, 0.3])
           }} />
 
-          <Sequence from={0}>
-            <div style={{ textAlign: 'center', zIndex: 20 }}>
-              <Img 
-                src={staticFile('brand-seal.png')} 
-                style={{ 
-                  width: '200px', 
-                  marginBottom: '2rem',
-                  filter: 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.4))',
-                }} 
-              />
-              <h2 style={{ color: '#d4af37', fontSize: '3.5rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                17 Founding Seats Left
-              </h2>
-              <p style={{ color: 'white', fontSize: '1.5rem', marginTop: '1rem', opacity: 0.8 }}>
-                Secure your legacy today at RealPlantVendors.com
-              </p>
-            </div>
-          </Sequence>
+          <div style={{ textAlign: 'center', zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Img 
+              src={staticFile('brand-seal.png')} 
+              style={{ 
+                width: '280px', 
+                marginBottom: '3rem',
+                filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))',
+              }} 
+            />
+            <h2 style={{ color: '#d4af37', fontSize: '3rem', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>
+              17 Founding Seats Left
+            </h2>
+            <p style={{ color: 'white', fontSize: '1.4rem', marginTop: '1.5rem', opacity: 0.8, letterSpacing: '0.05em' }}>
+              Secure your legacy today at RealPlantVendors.com
+            </p>
+          </div>
         </AbsoluteFill>
       </Sequence>
 
