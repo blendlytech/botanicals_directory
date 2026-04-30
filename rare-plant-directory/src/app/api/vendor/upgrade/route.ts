@@ -22,10 +22,6 @@ export async function POST(request: Request) {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { vendorId, orderId, planId, details } = await request.json();
 
     if (!vendorId) {
@@ -36,10 +32,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Payment not completed' }, { status: 400 });
     }
 
-    // Verify that the vendor belongs to the authenticated user
+    // Retrieve existing vendor
     const { data: existingVendor, error: vendorError } = await supabaseAdmin
       .from('vendors')
-      .select('user_id')
+      .select('user_id, subscription_status')
       .eq('id', vendorId)
       .single();
 
@@ -47,8 +43,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Vendor not found' }, { status: 404 });
     }
 
-    if (existingVendor.user_id !== user.id) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (user) {
+      // If user is logged in (dashboard flow), they must own the vendor
+      if (existingVendor.user_id !== user.id) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
+    } else {
+      // If no user is logged in (onboarding flow), we only allow upgrading a pending_payment vendor
+      if (existingVendor.subscription_status !== 'pending_payment') {
+        return NextResponse.json({ error: 'Unauthorized to modify an active vendor without logging in' }, { status: 401 });
+      }
+      
+      // TODO: In a production environment, verify the PayPal orderId server-side using PAYPAL_CLIENT_SECRET
     }
 
     // 1. Log the transaction
