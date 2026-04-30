@@ -53,8 +53,61 @@ export async function POST(request: Request) {
       if (existingVendor.subscription_status !== 'pending_payment') {
         return NextResponse.json({ error: 'Unauthorized to modify an active vendor without logging in' }, { status: 401 });
       }
+    }
+
+    // Server-side PayPal Verification (if secret is configured)
+    const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    const paypalSecret = process.env.PAYPAL_SECRET;
+    
+    if (paypalClientId && paypalSecret && orderId) {
+      const paypalApiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://api-m.paypal.com' 
+        : 'https://api-m.sandbox.paypal.com';
+
+      // 1. Get access token
+      const auth = Buffer.from(`${paypalClientId}:${paypalSecret}`).toString('base64');
+      const tokenRes = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
+        method: 'POST',
+        body: 'grant_type=client_credentials',
+        headers: {
+          Authorization: `Basic ${auth}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       
-      // TODO: In a production environment, verify the PayPal orderId server-side using PAYPAL_CLIENT_SECRET
+      if (!tokenRes.ok) {
+        console.error('PayPal token auth failed. Check your PAYPAL_SECRET.');
+        return NextResponse.json({ error: 'Payment verification failed' }, { status: 500 });
+      }
+      
+      const { access_token } = await tokenRes.json();
+      
+      // 2. Fetch order details
+      const orderRes = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderId}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      
+      if (!orderRes.ok) {
+        return NextResponse.json({ error: 'Order not found in PayPal' }, { status: 400 });
+      }
+      
+      const orderData = await orderRes.json();
+      
+      // 3. Verify order status and custom_id bindings
+      if (orderData.status !== 'COMPLETED') {
+        return NextResponse.json({ error: 'PayPal order is not COMPLETED' }, { status: 400 });
+      }
+      
+      const purchaseUnit = orderData.purchase_units?.[0];
+      if (purchaseUnit?.custom_id !== vendorId) {
+        return NextResponse.json({ error: 'Order does not match the vendor being upgraded' }, { status: 400 });
+      }
+      
+      console.log('Server-side PayPal verification successful.');
+    } else if (!paypalSecret) {
+      console.warn('PAYPAL_SECRET is not configured. Relying on client-side status payload (not secure).');
     }
 
     // 1. Log the transaction
