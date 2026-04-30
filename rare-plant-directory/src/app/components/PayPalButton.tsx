@@ -70,8 +70,11 @@ export default function PayPalButton({ amount, vendorId, planId, onSuccess }: Pa
                 });
                 
                 if (res.ok) {
-                  if (onSuccess) onSuccess(details);
-                  router.push(`/claim/success?vendorId=${vendorId}`);
+                  if (onSuccess) {
+                    onSuccess(details);
+                  } else {
+                    router.push(`/claim/success?vendorId=${vendorId}`);
+                  }
                 } else {
                   setError("Payment received, but failed to update your account. Please contact support.");
                 }
