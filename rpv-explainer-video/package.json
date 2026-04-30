@@ -1,0 +1,21 @@
+{
+  "name": "rpv-explainer-video",
+  "version": "1.0.0",
+  "description": "Remotion video for Rare Plant Vendors",
+  "scripts": {
+    "start": "npx remotion studio src/index.ts",
+    "build": "npx remotion render src/index.ts ExplainerVideo out/video.mp4"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remotion": "4.0.140",
+    "@remotion/cli": "4.0.140",
+    "@remotion/renderer": "4.0.140",
+    "@remotion/player": "4.0.140"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
