@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin as supabase } from '@/lib/supabaseAdmin';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { notificationService } from '@/lib/services/notificationService';
+import { createClient } from '@/utils/supabase/server';
 
 function getInternalTier(tier: string): string {
   const mapping: Record<string, string> = {
@@ -18,17 +19,43 @@ function getInternalTier(tier: string): string {
 
 export async function POST(request: Request) {
   try {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { vendorId, orderId, planId, details } = await request.json();
 
     if (!vendorId) {
       return NextResponse.json({ error: 'Vendor ID is required' }, { status: 400 });
     }
 
-    // 1. Log the transaction (In a production app, you'd have a transactions table)
+    if (!details || details.status !== 'COMPLETED') {
+      return NextResponse.json({ error: 'Payment not completed' }, { status: 400 });
+    }
+
+    // Verify that the vendor belongs to the authenticated user
+    const { data: existingVendor, error: vendorError } = await supabaseAdmin
+      .from('vendors')
+      .select('user_id')
+      .eq('id', vendorId)
+      .single();
+
+    if (vendorError || !existingVendor) {
+      return NextResponse.json({ error: 'Vendor not found' }, { status: 404 });
+    }
+
+    if (existingVendor.user_id !== user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    // 1. Log the transaction
     console.log(`Processing upgrade for Vendor ${vendorId} to Plan ${planId} with Order ${orderId}`);
 
     // 2. Update the vendor status in Supabase
-    const { data: vendor, error } = await supabase
+    const { data: vendor, error } = await supabaseAdmin
       .from('vendors')
       .update({
         tier: planId || 'sprout',
@@ -36,7 +63,6 @@ export async function POST(request: Request) {
         is_verified: true,
         is_elite: planId === 'elite' || planId === 'canopy',
         subscription_status: 'active',
-        // We could also store the PayPal details in a JSONB column if we had one
       })
       .eq('id', vendorId)
       .select()
@@ -63,7 +89,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ 
       success: true, 
-      message: 'Vendor upgraded to Elite Status successfully.',
+      message: 'Vendor upgraded successfully.',
       vendor
     });
 
