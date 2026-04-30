@@ -133,14 +133,9 @@ export default async function Home() {
               muted 
               loop 
               playsInline
-              style={{
-                width: '100%',
-                borderRadius: '24px',
-                display: 'block',
-                boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
-              }}
+              src="https://dkdrvfemtyuapzuwyrgt.supabase.co/storage/v1/object/public/marketing/rpv-explainer-detroit.mp4"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             >
-              <source src="https://dkdrvfemtyuapzuwyrgt.supabase.co/storage/v1/object/public/marketing/rpv-explainer.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             
