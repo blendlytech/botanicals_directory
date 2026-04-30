@@ -3,24 +3,8 @@ import { updateSession } from '@/utils/supabase/middleware'
 import { createClient } from '@/utils/supabase/server'
 
 export async function middleware(request: NextRequest) {
-  // 1. Update session (refreshes if needed)
-  const response = await updateSession(request)
-
-  // 2. Protect dashboard routes
-  if (request.nextUrl.pathname.startsWith('/dashboard')) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) {
-      // Redirect to login if trying to access dashboard without a session
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('redirectTo', request.nextUrl.pathname)
-      return NextResponse.redirect(url)
-    }
-  }
-
-  return response
+  // updateSession handles session refresh and route protection (e.g. /dashboard)
+  return await updateSession(request)
 }
 
 export const config = {
