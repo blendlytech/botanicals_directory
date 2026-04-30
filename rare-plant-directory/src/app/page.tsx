@@ -129,12 +129,20 @@ export default async function Home() {
             overflow: 'hidden'
           }}>
             <video 
+              className="hero-video"
               autoPlay 
               muted 
               loop 
               playsInline
               src="https://dkdrvfemtyuapzuwyrgt.supabase.co/storage/v1/object/public/marketing/rpv-explainer-detroit.mp4"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',
+                borderRadius: '24px',
+                display: 'block',
+                boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
+              }}
             >
               Your browser does not support the video tag.
             </video>
