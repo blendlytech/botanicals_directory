@@ -23,9 +23,18 @@ export default function PayPalButton({ amount, vendorId, planId, description, on
   };
 
   return (
-    <div className="w-full">
+    <div style={{ width: '100%' }}>
       {error && (
-        <div className="p-4 mb-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium">
+        <div style={{ 
+          padding: '1rem', 
+          marginBottom: '1rem', 
+          background: '#FEF2F2', 
+          border: '1px solid #FCA5A5', 
+          color: '#B91C1C', 
+          borderRadius: '12px', 
+          fontSize: '0.875rem', 
+          fontWeight: 500 
+        }}>
           {error}
         </div>
       )}
@@ -57,30 +66,37 @@ export default function PayPalButton({ amount, vendorId, planId, description, on
               const details = await actions.order.capture();
               console.log("Transaction completed by " + details.payer?.name?.given_name);
               
-              // Call our internal API to upgrade the vendor
-              try {
-                const res = await fetch('/api/vendor/upgrade', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    vendorId,
-                    orderId: data.orderID,
-                    planId,
-                    details
-                  })
-                });
-                
-                if (res.ok) {
-                  if (onSuccess) {
-                    onSuccess(details);
+              // Call our internal API to upgrade the vendor (if applicable)
+              if (vendorId !== 'pilot-contractor') {
+                try {
+                  const res = await fetch('/api/vendor/upgrade', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      vendorId,
+                      orderId: data.orderID,
+                      planId,
+                      details
+                    })
+                  });
+                  
+                  if (res.ok) {
+                    if (onSuccess) {
+                      onSuccess(details);
+                    } else {
+                      router.push(`/claim/success?vendorId=${vendorId}`);
+                    }
                   } else {
-                    router.push(`/claim/success?vendorId=${vendorId}`);
+                    setError("Payment received, but failed to update your account. Please contact support.");
                   }
-                } else {
-                  setError("Payment received, but failed to update your account. Please contact support.");
+                } catch (err) {
+                  setError("Connection error. Please contact support with your PayPal Order ID.");
                 }
-              } catch (err) {
-                setError("Connection error. Please contact support with your PayPal Order ID.");
+              } else {
+                // If it's a pilot contractor, skip the API and go straight to success
+                if (onSuccess) {
+                  onSuccess(details);
+                }
               }
             }
           }}
