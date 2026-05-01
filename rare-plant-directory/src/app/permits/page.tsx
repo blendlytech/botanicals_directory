@@ -90,7 +90,7 @@ export default function PermitsPage() {
             }}>
               Browse Lead Database
             </Link>
-            <Link href="/pricing" className="btn-ghost" style={{ 
+            <a href="/checkout" className="btn-ghost" style={{ 
               padding: '1.25rem 3rem', 
               fontSize: '1rem',
               border: '1px solid var(--accent)',
@@ -99,8 +99,8 @@ export default function PermitsPage() {
               textDecoration: 'none',
               fontWeight: 700
             }}>
-              View Pricing
-            </Link>
+              Claim Exclusive Pilot
+            </a>
           </div>
 
           {/* ─── DASHBOARD PREVIEW ─── */}
@@ -130,35 +130,39 @@ export default function PermitsPage() {
               <div style={{ padding: '1rem' }}>
                 {[
                   { type: 'ROOFING', location: 'Lakeland, FL', date: 'Just now', intent: 'High' },
-                  { type: 'POOL', location: 'Winter Haven, FL', date: '14 mins ago', intent: 'Verified' },
+                  { type: 'ROOFING', location: 'Winter Haven, FL', date: '14 mins ago', intent: 'Verified' },
                   { type: 'ROOFING', location: 'Davenport, FL', date: '42 mins ago', intent: 'High' },
                 ].map((lead, i) => (
-                  <div key={i} style={{ 
-                    padding: '1.5rem', 
-                    marginBottom: '0.5rem', 
-                    background: '#F9FAFB', 
-                    borderRadius: '12px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    border: '1px solid transparent'
-                  }}>
-                    <div style={{ textAlign: 'left' }}>
-                      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '0.25rem' }}>
-                         <span style={{ fontSize: '0.7rem', fontWeight: 900, padding: '0.2rem 0.5rem', borderRadius: '4px', background: lead.type === 'POOL' ? '#E0F2FE' : '#FEF3C7', color: lead.type === 'POOL' ? '#0369A1' : '#B45309' }}>{lead.type}</span>
-                         <span style={{ fontWeight: 600, color: '#1A202C' }}>{lead.location}</span>
+                  <Link key={i} href={i === 0 ? "/leads/free-gift" : "/checkout"} style={{ textDecoration: 'none', display: 'block' }}>
+                    <div style={{ 
+                      padding: '1.5rem', 
+                      marginBottom: '0.5rem', 
+                      background: '#F9FAFB', 
+                      borderRadius: '12px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      border: i === 0 ? '1px solid #10B981' : '1px solid transparent',
+                      transition: 'all 0.2s'
+                    }} className="lead-preview-card">
+                      <div style={{ textAlign: 'left' }}>
+                        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '0.25rem' }}>
+                           <span style={{ fontSize: '0.7rem', fontWeight: 900, padding: '0.2rem 0.5rem', borderRadius: '4px', background: lead.type === 'POOL' ? '#E0F2FE' : '#FEF3C7', color: lead.type === 'POOL' ? '#0369A1' : '#B45309' }}>{lead.type}</span>
+                           <span style={{ fontWeight: 600, color: '#1A202C' }}>{lead.location}</span>
+                           {i === 0 && <span style={{ fontSize: '0.6rem', color: '#10B981', fontWeight: 800 }}>CLICK TO VIEW →</span>}
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#666' }}>Owner-Filed Permit • Expected Start: June 2026</div>
                       </div>
-                      <div style={{ fontSize: '0.8rem', color: '#666' }}>Owner-Filed Permit • Expected Start: June 2026</div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontWeight: 700, color: '#10B981' }}>{lead.intent}</div>
+                        <div style={{ fontSize: '0.7rem', color: '#999' }}>{lead.date}</div>
+                      </div>
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontWeight: 700, color: '#10B981' }}>{lead.intent}</div>
-                      <div style={{ fontSize: '0.7rem', color: '#999' }}>{lead.date}</div>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
               <div style={{ padding: '1.5rem', textAlign: 'center', background: '#F3F4F6' }}>
-                 <Link href="#pricing" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Claim Your Territory to Unlock All Leads →</Link>
+                 <a href="/checkout" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Claim Your Territory to Unlock All Leads →</a>
               </div>
             </div>
           </div>
@@ -198,7 +202,7 @@ export default function PermitsPage() {
           <p style={{ fontSize: '1.25rem', marginBottom: '3.5rem', opacity: 0.9 }}>
             Join 200+ contractors in Florida who have stopped cold calling and started closing.
           </p>
-          <Link href="#pricing" style={{ 
+          <a href="/checkout" style={{ 
             background: 'white', 
             color: 'var(--accent)', 
             padding: '1.5rem 4rem', 
@@ -210,7 +214,7 @@ export default function PermitsPage() {
             boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
           }}>
             Claim Your Exclusive Territory
-          </Link>
+          </a>
         </div>
       </section>
     </div>
