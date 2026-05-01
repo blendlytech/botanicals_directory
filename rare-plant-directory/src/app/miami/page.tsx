@@ -5,6 +5,7 @@ import Link from "next/link";
 import "./miami.css";
 
 export default function MiamiLandingPage() {
+  console.log("FIXED BUILD VERSION 2");
   return (
     <main className="miami-landing" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh' }}>
       {/* ── CINEMATIC BACKGROUND ── */}
