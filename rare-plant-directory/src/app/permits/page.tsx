@@ -158,7 +158,7 @@ export default function PermitsPage() {
                 ))}
               </div>
               <div style={{ padding: '1.5rem', textAlign: 'center', background: '#F3F4F6' }}>
-                 <Link href="/login" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Log in to view full contact details →</Link>
+                 <Link href="#pricing" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Claim Your Territory to Unlock All Leads →</Link>
               </div>
             </div>
           </div>

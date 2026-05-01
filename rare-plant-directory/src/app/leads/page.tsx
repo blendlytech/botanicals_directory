@@ -207,7 +207,7 @@ export default function LeadsPage() {
                       <div style={{ color: '#64748B', fontSize: '1.2rem', fontWeight: 600 }}>No leads match your current filters.</div>
                     </td>
                   </tr>
-                ) : filteredLeads.map((lead) => (
+                ) : filteredLeads.map((lead, i) => (
                   <tr key={lead.id} style={{ borderBottom: '1px solid #F1F5F9', transition: 'background 0.2s' }}>
                     <td style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
