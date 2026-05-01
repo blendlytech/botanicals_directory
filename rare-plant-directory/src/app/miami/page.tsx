@@ -1,10 +1,7 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
-
-export const metadata = {
-  title: "Miami Festival × CultivarID™ | Rare Plant Vendors",
-  description: "Join the 37+ vendors already using CultivarID™ for the Miami Rare Plant & Orchid Festival. 100% setup done for you in 24 hours.",
-};
 
 export default function MiamiLandingPage() {
   return (

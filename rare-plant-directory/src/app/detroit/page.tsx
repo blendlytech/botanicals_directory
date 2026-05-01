@@ -3,11 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Detroit Expo × CultivarID™ | Rare Plant Vendors",
-  description: "Join the elite vendors already using CultivarID™ for the Rare Plant Fairy Pop-up Expo in Detroit. 100% setup done for you in 24 hours.",
-};
-
 export default function DetroitLandingPage() {
   return (
     <main className="miami-landing" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh' }}>
