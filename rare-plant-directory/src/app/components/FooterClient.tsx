@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 export default function FooterClient() {
   const pathname = usePathname();
-  const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads');
+  const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads') || pathname?.startsWith('/checkout');
 
   if (isPermitRoute) {
     return (

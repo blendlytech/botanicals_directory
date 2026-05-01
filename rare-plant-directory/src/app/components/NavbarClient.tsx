@@ -20,7 +20,7 @@ export default function NavbarClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Determine Branding based on Path
-  const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads');
+  const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads') || pathname?.startsWith('/checkout');
   
   const brandName = isPermitRoute ? "Permit Data" : "Rare Plant Vendors";
   const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/campaign-logo.png";

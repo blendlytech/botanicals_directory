@@ -53,7 +53,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <button style={{ 
+            <a href="/checkout/success" style={{ 
               width: '100%', 
               padding: '1.25rem', 
               background: '#0088FF', 
@@ -67,10 +67,11 @@ export default function CheckoutPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.75rem',
+              textDecoration: 'none',
               boxShadow: '0 10px 30px rgba(0,136,255,0.3)'
             }}>
               Complete Secure Activation <ArrowRight size={20} />
-            </button>
+            </a>
             
             <p style={{ textAlign: 'center', fontSize: '0.75rem', color: '#94A3B8', marginTop: '1.5rem' }}>
               Secure 256-bit SSL Encrypted Payment. Cancel anytime after the pilot period.
@@ -101,7 +102,7 @@ export default function CheckoutPage() {
 
             <div style={{ marginTop: '4rem', padding: '2rem', background: 'rgba(0,136,255,0.05)', borderRadius: '24px', border: '1px dashed #0088FF' }}>
               <div style={{ fontStyle: 'italic', color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                "We closed three roofing jobs in our first two weeks with the Polk County list. The homeowners were shocked we knew they needed a roof so quickly."
+                "We closed three roofing jobs in our first two weeks with the Hillsborough County list. The homeowners were shocked we knew they needed a roof so quickly."
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ width: '40px', height: '40px', background: '#E2E8F0', borderRadius: '50%' }}></div>
