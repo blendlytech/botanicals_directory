@@ -8,10 +8,11 @@ interface PayPalButtonProps {
   amount: string;
   vendorId: string;
   planId?: string;
+  description?: string;
   onSuccess?: (details: any) => void;
 }
 
-export default function PayPalButton({ amount, vendorId, planId, onSuccess }: PayPalButtonProps) {
+export default function PayPalButton({ amount, vendorId, planId, description, onSuccess }: PayPalButtonProps) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
@@ -46,7 +47,7 @@ export default function PayPalButton({ amount, vendorId, planId, onSuccess }: Pa
                     value: amount,
                   },
                   custom_id: vendorId, // Pass vendor ID to identify who paid
-                  description: `RPV Elite Founder Lifetime Status - Vendor ID: ${vendorId}`,
+                  description: description || `RPV Elite Founder Lifetime Status - Vendor ID: ${vendorId}`,
                 },
               ],
             });

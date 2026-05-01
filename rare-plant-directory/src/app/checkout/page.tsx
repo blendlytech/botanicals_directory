@@ -2,9 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ShieldCheck, Zap, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import PayPalButton from '../components/PayPalButton';
 
 export default function CheckoutPage() {
+  const router = useRouter();
   return (
     <div className="permit-theme" style={{ minHeight: '100vh', background: '#F8FAFC', padding: '120px 5% 60px' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
@@ -53,25 +56,16 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <a href="/checkout/success" style={{ 
-              width: '100%', 
-              padding: '1.25rem', 
-              background: '#0088FF', 
-              color: 'white', 
-              borderRadius: '16px', 
-              fontSize: '1.1rem', 
-              fontWeight: 800,
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.75rem',
-              textDecoration: 'none',
-              boxShadow: '0 10px 30px rgba(0,136,255,0.3)'
-            }}>
-              Complete Secure Activation <ArrowRight size={20} />
-            </a>
+            <div style={{ marginTop: '2rem' }}>
+              <PayPalButton 
+                amount="199.00" 
+                vendorId="pilot-contractor" 
+                description="PermitLeads Pilot - 2 Month Exclusive (Polk)"
+                onSuccess={(details) => {
+                  router.push('/checkout/success');
+                }}
+              />
+            </div>
             
             <p style={{ textAlign: 'center', fontSize: '0.75rem', color: '#94A3B8', marginTop: '1.5rem' }}>
               Secure 256-bit SSL Encrypted Payment. Cancel anytime after the pilot period.
