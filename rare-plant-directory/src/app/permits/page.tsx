@@ -90,7 +90,7 @@ export default function PermitsPage() {
             }}>
               Browse Lead Database
             </Link>
-            <a href="/checkout" className="btn-ghost" style={{ 
+            <a href="/checkout" target="_self" className="btn-ghost" style={{ 
               padding: '1.25rem 3rem', 
               fontSize: '1rem',
               border: '1px solid var(--accent)',
@@ -161,8 +161,20 @@ export default function PermitsPage() {
                   </Link>
                 ))}
               </div>
-              <div style={{ padding: '1.5rem', textAlign: 'center', background: '#F3F4F6' }}>
-                 <a href="/checkout" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Claim Your Territory to Unlock All Leads →</a>
+              <div style={{ padding: '2rem', textAlign: 'center', background: '#F3F4F6', borderTop: '1px solid #E2E8F0' }}>
+                 <a href="/checkout" target="_self" style={{ 
+                   display: 'inline-block',
+                   padding: '1rem 2.5rem',
+                   background: 'var(--accent)',
+                   color: 'white',
+                   borderRadius: '12px',
+                   fontWeight: 800, 
+                   textDecoration: 'none',
+                   boxShadow: '0 10px 20px rgba(0,136,255,0.2)',
+                   transition: 'transform 0.2s'
+                 }}>
+                   Claim Your Territory to Unlock All Leads →
+                 </a>
               </div>
             </div>
           </div>

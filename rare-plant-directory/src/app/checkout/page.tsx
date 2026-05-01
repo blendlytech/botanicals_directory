@@ -24,12 +24,12 @@ export default function CheckoutPage() {
             
             <div style={{ marginBottom: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <span style={{ fontWeight: 600, color: '#475569' }}>Exclusive Territory Pilot (Polk)</span>
-                <span style={{ fontWeight: 700, color: '#1A202C' }}>$300.00/mo</span>
+                <span style={{ fontWeight: 600, color: '#475569' }}>2-Month Exclusive Territory (Polk)</span>
+                <span style={{ fontWeight: 700, color: '#1A202C' }}>$600.00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: '#10B981', fontWeight: 700 }}>
-                <span>Pilot Discount (2-Month Lockout)</span>
-                <span>-$101.00</span>
+                <span>Pilot Launch Discount (-66%)</span>
+                <span>-$401.00</span>
               </div>
             </div>
 
@@ -38,7 +38,7 @@ export default function CheckoutPage() {
                 <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>Total Due Today</span>
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0088FF' }}>$199</span>
-                  <span style={{ fontSize: '1rem', color: '#64748B' }}>/mo</span>
+                  <span style={{ fontSize: '1rem', color: '#64748B' }}> (covers 60 days)</span>
                 </div>
               </div>
             </div>
