@@ -231,12 +231,25 @@ export default function LeadsPage() {
                     <td style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#475569' }}>
                         <MapPin size={14} style={{ color: '#94A3B8' }} />
-                        <span style={{ fontWeight: 500 }}>{lead.property_address}</span>
+                        <span style={{ 
+                          fontWeight: 500,
+                          filter: i > 2 ? 'blur(4px)' : 'none',
+                          opacity: i > 2 ? 0.7 : 1
+                        }}>
+                          {i > 2 ? 'XXXX XXXXXX DR, LAKELAND FL' : lead.property_address}
+                        </span>
                       </div>
                       <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginTop: '0.25rem', marginLeft: '1.25rem' }}>{lead.jurisdiction}</div>
                     </td>
                     <td style={{ padding: '1.5rem' }}>
-                      <div style={{ fontWeight: 800, color: '#10B981', fontSize: '1.1rem' }}>{formatValuation(lead.job_valuation)}</div>
+                      <div style={{ 
+                        fontWeight: 800, 
+                        color: '#10B981', 
+                        fontSize: '1.1rem',
+                        filter: i > 2 ? 'blur(4px)' : 'none'
+                      }}>
+                        {formatValuation(lead.job_valuation)}
+                      </div>
                     </td>
                     <td style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748B', fontSize: '0.9rem' }}>
@@ -245,20 +258,38 @@ export default function LeadsPage() {
                       </div>
                     </td>
                     <td style={{ padding: '1.5rem' }}>
-                      <Link href={`/leads/${lead.id}`} style={{ 
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        padding: '0.75rem 1.25rem',
-                        background: 'var(--accent)',
-                        color: 'white',
-                        borderRadius: '10px',
-                        fontSize: '0.8rem',
-                        fontWeight: 700,
-                        transition: 'transform 0.2s'
-                      }}>
-                        Unlock Details
-                      </Link>
+                      {i <= 2 ? (
+                        <Link href={`/leads/${lead.id}`} style={{ 
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.75rem 1.25rem',
+                          background: 'var(--accent)',
+                          color: 'white',
+                          borderRadius: '10px',
+                          fontSize: '0.8rem',
+                          fontWeight: 700,
+                          transition: 'transform 0.2s'
+                        }}>
+                          View Brief
+                        </Link>
+                      ) : (
+                        <button style={{ 
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.75rem 1.25rem',
+                          background: '#F1F5F9',
+                          color: '#64748B',
+                          borderRadius: '10px',
+                          fontSize: '0.8rem',
+                          fontWeight: 700,
+                          border: '1px solid #E2E8F0',
+                          cursor: 'pointer'
+                        }}>
+                          Unlock Details
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
