@@ -43,6 +43,20 @@ export type Event = {
   vendors_count?: number;
 };
 
+export type PermitLead = {
+  id: string;
+  hash: string;
+  owner_name: string | null;
+  owner_first_name: string | null;
+  owner_last_name: string | null;
+  property_address: string | null;
+  permit_type: string | null;
+  job_valuation: number | null;
+  issue_date: string | null;
+  jurisdiction: string | null;
+  created_at: string;
+};
+
 export async function getPremiumVendors() {
   const { data, error } = await supabase
     .from('vendors')
@@ -77,4 +91,19 @@ export async function getUpcomingEvents() {
     ...e,
     vendors_count: e.event_vendors?.[0]?.count || 0
   }));
+}
+
+export async function getPermitLeads(limit = 50) {
+  const { data, error } = await supabase
+    .from('permit_leads')
+    .select('*')
+    .order('issue_date', { ascending: false })
+    .limit(limit);
+    
+  if (error) {
+    console.error('Error fetching permit leads:', error);
+    return [];
+  }
+  
+  return data as PermitLead[];
 }
