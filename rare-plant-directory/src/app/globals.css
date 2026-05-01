@@ -3,41 +3,37 @@
    Dark Forest Luxe — Parchment Edition
 ═══════════════════════════════════════════════ */
 :root {
-  /* Brand Colors — always fixed */
-  --emerald:    #0B3D2E;
-  --forest:     #145A43;
-  --forest-mid: #1a6b50;
-  --gold:       #B8960C;
-  --gold-light: #D4AF37;
-  --gold-dim:   rgba(184,150,12,0.12);
-  --charcoal:   #0F0F0F;
+  /* Brand Colors — Industrial Tech */
+  --accent:       #0088FF; /* Permit Data Blue */
+  --accent-light: #4DABFF;
+  --accent-dim:   rgba(0,136,255,0.1);
+  --steel:        #718096;
+  --steel-light:  #A0AEC0;
+  --steel-dark:   #1A202C;
+  --charcoal:     #0F172A;
 
   /* Light Theme Tokens */
-  --bg:           #F8F6F1;
-  --bg-surface:   #F0EDE4;
+  --bg:           #F8FAFC;
+  --bg-surface:   #F1F5F9;
   --bg-card:      #FFFFFF;
-  --bg-nav:       rgba(248,246,241,0.96);
-  --bg-nav-scrolled: rgba(248,246,241,0.98);
-  --text-primary: #0A1A12;
-  --text-secondary:#2A3D31;
-  --text-nav:     #0A1A12;
-  --cream:        #F8F6F1;
-  --sand:         #4A5D50;
+  --bg-nav:       rgba(248,250,252,0.96);
+  --bg-nav-scrolled: rgba(248,250,252,0.98);
+  --text-primary: #0F172A;
+  --text-secondary:#475569;
+  --text-nav:     #0F172A;
   --glass:        rgba(255,255,255,0.8);
-  --glass-border: rgba(11,61,46,0.2);
-  --section-alt:  #F0EDE4;
-  --card-shadow:  0 8px 30px rgba(11,61,46,0.1);
-  --hero-bg:      linear-gradient(180deg, #FDFCFB 0%, #E8F0EA 60%, #D0E0D5 100%);
-  --hero-text:    #0A1A12;
-  --hero-sub:     #2A3D31;
-  --ticker-bg:    #082D22;
-  --section-forest: linear-gradient(180deg, #F0F5F2 0%, #DCE8E0 50%, #F0F5F2 100%);
-  --footer-bg:    #0A1A12;
-  --scrollbar-track: #F0EDE4;
+  --glass-border: rgba(0,136,255,0.1);
+  --section-alt:  #F1F5F9;
+  --card-shadow:  0 8px 30px rgba(0,0,0,0.05);
+  --hero-bg:      linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+  --hero-text:    #0F172A;
+  --hero-sub:     #475569;
+  --ticker-bg:    #0F172A;
+  --scrollbar-track: #F1F5F9;
 
   /* Typography */
-  --font-heading: 'Cormorant Garamond', serif;
-  --font-body: 'Montserrat', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
   --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
 

@@ -19,8 +19,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Rare Plant Vendors | The Premier Botanical Event Directory",
-  description: "Discover the world's most exclusive rare plant expos, preview verified vendor inventory before doors open, and connect with serious collectors. Est. 2026.",
+  title: "Permit Data | Premium Roofing & Pool Construction Leads",
+  description: "Real-time homeowner building permit data for roofing and pool contractors. Get high-intent leads as soon as they are filed. Exclusive, verified, and automated.",
 };
 
 export const viewport: Viewport = {
