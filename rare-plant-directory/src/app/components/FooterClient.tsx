@@ -1,8 +1,28 @@
 'use client';
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 export default function FooterClient() {
+  const pathname = usePathname();
+  const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads');
+
+  if (isPermitRoute) {
+    return (
+      <footer className="footer" style={{ padding: '4rem 5%', textAlign: 'center', borderTop: '1px solid #E2E8F0', background: '#F8FAFC' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ fontWeight: 700, color: '#0088FF', fontSize: '1.2rem', marginBottom: '1rem' }}>PermitLeads Data</div>
+          <p style={{ color: '#64748B', fontSize: '0.9rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
+            The premier source for real-time homeowner-filed permit data in Florida.
+          </p>
+          <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '2rem', fontSize: '0.8rem', color: '#94A3B8' }}>
+            © {new Date().getFullYear()} PermitLeads. All rights reserved. Sourced from public records.
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className="footer">
       <div className="footer-top">
