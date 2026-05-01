@@ -160,7 +160,7 @@ export default function TestPaymentPage() {
             overflowY: 'auto',
             border: '1px solid #222'
           }}>
-            <div style={{ color: '#0f0', marginBottom: '0.5rem' }}>RPV_PAYMENT_LOG ></div>
+            <div style={{ color: '#0f0', marginBottom: '0.5rem' }}>RPV_PAYMENT_LOG {'>'}</div>
             {log.map((line, i) => <div key={i} style={{ marginBottom: '4px' }}>{line}</div>)}
             {log.length === 0 && <div style={{ opacity: 0.3 }}>Waiting for action...</div>}
           </div>
