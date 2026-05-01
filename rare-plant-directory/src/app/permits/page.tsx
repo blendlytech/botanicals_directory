@@ -198,7 +198,7 @@ export default function PermitsPage() {
           <p style={{ fontSize: '1.25rem', marginBottom: '3.5rem', opacity: 0.9 }}>
             Join 200+ contractors in Florida who have stopped cold calling and started closing.
           </p>
-          <Link href="/signup" style={{ 
+          <Link href="#pricing" style={{ 
             background: 'white', 
             color: 'var(--accent)', 
             padding: '1.5rem 4rem', 
@@ -209,7 +209,7 @@ export default function PermitsPage() {
             display: 'inline-block',
             boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
           }}>
-            Get Your First 5 Leads Free
+            Claim Your Exclusive Territory
           </Link>
         </div>
       </section>
