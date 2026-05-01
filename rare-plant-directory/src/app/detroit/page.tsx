@@ -53,7 +53,7 @@ export default function DetroitLandingPage() {
         </div>
 
         {/* ── HOW IT WORKS ── */}
-        <section style={{ marginBottom: '8rem' }}>
+        <section id="about" style={{ marginBottom: '8rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 className="section-title">What is <em>CultivarID™</em>?</h2>
             <p style={{ color: 'var(--text-secondary)' }}>A simple 3-step digital bridge between you and the collector.</p>
@@ -114,7 +114,7 @@ export default function DetroitLandingPage() {
         </section>
 
         {/* ── THE "ANY TIER" OFFER ── */}
-        <section style={{ marginTop: '8rem' }}>
+        <section id="apply" style={{ marginTop: '8rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 className="section-title">The "Done-For-You" <em>Flash Sale</em></h2>
             <p style={{ color: 'var(--text-secondary)' }}>Choose any tier. We handle the listing, the passports, and the setup in 24 hours.</p>

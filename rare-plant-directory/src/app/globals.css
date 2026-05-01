@@ -224,6 +224,33 @@ a { color: inherit; text-decoration: none; }
 .nav-links a:hover { color: var(--gold); }
 .nav-links a:hover::after { width: 100%; }
 
+/* ── CAMPAIGN NAVBAR OVERRIDES ── */
+.campaign-navbar {
+  background: rgba(4, 8, 6, 0.85) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+.campaign-logo-text {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #E5C158 0%, #FFF8E0 50%, #E5C158 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.campaign-nav-links a {
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+.campaign-btn {
+  background: linear-gradient(135deg, #E5C158, #B8920A) !important;
+  color: #040806 !important;
+  border-radius: 0 !important; /* Sharp luxury look */
+  padding: 0.8rem 2rem !important;
+}
+
 /* ── BUTTONS ── */
 .btn-primary {
   background: linear-gradient(135deg, var(--gold), #b8920a);
