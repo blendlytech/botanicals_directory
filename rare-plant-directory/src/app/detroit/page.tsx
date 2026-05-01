@@ -8,7 +8,7 @@ export default function DetroitLandingPage() {
   return (
     <main className="detroit-landing" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh' }}>
       {/* ── CINEMATIC BACKGROUND ── */}
-      <div className="miami-hero-bg">
+      <div className="detroit-hero-bg">
         <div className="hero-grid-overlay" />
         <div className="glow-sphere" style={{ top: '10%', left: '20%' }} />
         <div className="glow-sphere" style={{ bottom: '20%', right: '10%' }} />
@@ -18,7 +18,7 @@ export default function DetroitLandingPage() {
       <div className="festival-banner">
         <div className="banner-content">
           <span className="banner-tag">LIVE EVENT ACCESS</span>
-          <span className="banner-text">RARE PLANT FAIRY POP-UP EXPO • DETROIT • MAY 20, 2026</span>
+          <span className="banner-text">RARE PLANT & ORCHID FESTIVAL • DETROIT • JUNE 2026</span>
           <span className="banner-tag">LIMITED SEATS</span>
         </div>
       </div>
@@ -36,14 +36,14 @@ export default function DetroitLandingPage() {
             Revolution is Here.
           </h1>
           <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: 1.6 }}>
-            The Rare Plant Fairy Pop-up Expo in Detroit is the ultimate proving ground. 
+            The Rare Plant & Orchid Festival in Detroit is the ultimate proving ground. 
             Collectors aren't just looking for plants—they're looking for <strong>provenance</strong>.
           </p>
 
           <div className="stats-highlight">
             <div className="stat-box">
-              <div className="stat-val">12/40</div>
-              <div className="stat-lab">VENDORS SECURED</div>
+              <div className="stat-val">37/66</div>
+              <div className="stat-lab">VENDORS SIGNED UP</div>
             </div>
             <div className="stat-box gold-border">
               <div className="stat-val">100%</div>
@@ -52,13 +52,13 @@ export default function DetroitLandingPage() {
           </div>
         </div>
 
-        {/* ── HOW IT WORKS (THE "WHAT IS IT?" FIX) ── */}
+        {/* ── HOW IT WORKS ── */}
         <section style={{ marginBottom: '8rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 className="section-title">What is <em>CultivarID™</em>?</h2>
             <p style={{ color: 'var(--text-secondary)' }}>A simple 3-step digital bridge between you and the collector.</p>
           </div>
-          <div className="features-grid">
+          <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             <div className="feature-card">
               <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>01</div>
               <h3 style={{ marginBottom: '1rem' }}>The Registry</h3>
@@ -89,10 +89,10 @@ export default function DetroitLandingPage() {
             <div className="pitch-content">
               <h2 className="section-title">Subscribers are <em>Searching</em>.</h2>
               <p>
-                Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the Detroit Eastern Market.</strong>
+                Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the festival.</strong>
               </p>
               <p>
-                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery. Plus, it automatically pulls in <strong>interesting botanical facts</strong> about that specific species, so it acts like a digital educator for your customers while they browse."
+                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery."
               </p>
               <div className="urgency-tag">
                 OFFER EXPIRES IN 2 HOURS
@@ -148,7 +148,7 @@ export default function DetroitLandingPage() {
                 <li>✓ 20 Active Listings</li>
                 <li>✓ <strong>Priority</strong> 24h Setup</li>
                 <li>✓ Full CultivarID™ Provenance</li>
-                <li>✓ Detroit Expo Priority Listing</li>
+                <li>✓ Festival Priority Listing</li>
               </ul>
               <Link href="/signup?tier=bloom&promo=detroit" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>Get Festival Ready</Link>
             </div>

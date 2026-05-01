@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Html5QrcodeScanner, Html5Qrcode } from 'html5-qrcode';
+import { Html5Qrcode } from 'html5-qrcode';
 import { useRouter } from 'next/navigation';
 import { Camera, ShieldCheck, X, RefreshCw, Zap } from 'lucide-react';
 import Link from 'next/link';
+import './scan.css';
 
 export default function QRScannerPage() {
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function QRScannerPage() {
             handleScanSuccess(decodedText);
           },
           (errorMessage) => {
-            // Silently ignore scan errors (they happen every frame if no QR found)
+            // Silently ignore scan errors
           }
         );
       } catch (err: any) {
@@ -55,14 +56,11 @@ export default function QRScannerPage() {
   }, []);
 
   const handleScanSuccess = (decodedText: string) => {
-    // Check if the decoded text is a valid RPV verify URL or just a hash
     let hash = "";
-    
     if (decodedText.includes('rareplantvendors.com/verify/')) {
       const parts = decodedText.split('/verify/');
       hash = parts[parts.length - 1].split('?')[0].split('#')[0];
     } else if (decodedText.length === 8 || decodedText.length === 12) {
-      // Direct hash scan (e.g. "A1B2C3D4")
       hash = decodedText;
     }
 
@@ -74,9 +72,6 @@ export default function QRScannerPage() {
       } else {
         router.push(`/verify/${hash}`);
       }
-    } else {
-      // Not a valid RPV code, maybe show a temporary warning?
-      console.log("Invalid QR Code detected:", decodedText);
     }
   };
 
@@ -86,7 +81,6 @@ export default function QRScannerPage() {
       
       <div style={{ maxWidth: '600px', width: '100%', position: 'relative', zIndex: 10 }}>
         
-        {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <div className="hero-eyebrow" style={{ margin: '0 auto 1.5rem' }}>
             <div className="hero-eyebrow-dot"></div>
@@ -100,7 +94,6 @@ export default function QRScannerPage() {
           </p>
         </div>
 
-        {/* Scanner Container */}
         <div style={{ 
           position: 'relative', 
           width: '100%', 
@@ -111,10 +104,8 @@ export default function QRScannerPage() {
           border: '1px solid var(--glass-border)',
           boxShadow: '0 0 50px rgba(0,0,0,0.5)'
         }}>
-          {/* The Actual Reader Div */}
           <div id="reader" style={{ width: '100%', height: '100%' }}></div>
 
-          {/* Viewfinder Overlay (Custom UI) */}
           <div style={{ 
             position: 'absolute', 
             top: 0, left: 0, right: 0, bottom: 0, 
@@ -130,13 +121,11 @@ export default function QRScannerPage() {
               borderRadius: '24px',
               position: 'relative'
             }}>
-              {/* Corner Accents */}
               <div style={{ position: 'absolute', top: '-2px', left: '-2px', width: '30px', height: '30px', borderTop: '4px solid var(--gold)', borderLeft: '4px solid var(--gold)', borderTopLeftRadius: '24px' }}></div>
               <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '30px', height: '30px', borderTop: '4px solid var(--gold)', borderRight: '4px solid var(--gold)', borderTopRightRadius: '24px' }}></div>
               <div style={{ position: 'absolute', bottom: '-2px', left: '-2px', width: '30px', height: '30px', borderBottom: '4px solid var(--gold)', borderLeft: '4px solid var(--gold)', borderBottomLeftRadius: '24px' }}></div>
               <div style={{ position: 'absolute', bottom: '-2px', right: '-2px', width: '30px', height: '30px', borderBottom: '4px solid var(--gold)', borderRight: '4px solid var(--gold)', borderBottomRightRadius: '24px' }}></div>
 
-              {/* Scanning Animation Line */}
               {isScanning && (
                 <div style={{ 
                   position: 'absolute', 
@@ -152,7 +141,6 @@ export default function QRScannerPage() {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div style={{ 
               position: 'absolute', 
@@ -175,13 +163,12 @@ export default function QRScannerPage() {
           )}
         </div>
 
-        {/* Footer info */}
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
           <div style={{ 
             display: 'inline-flex', 
             alignItems: 'center', 
             gap: '0.75rem', 
-            background: 'var(--gold-dim)', 
+            background: 'rgba(212,175,55,0.1)', 
             padding: '0.75rem 1.5rem', 
             borderRadius: '100px',
             border: '1px solid rgba(212,175,55,0.2)'
@@ -200,33 +187,6 @@ export default function QRScannerPage() {
         </div>
 
       </div>
-
-      <style jsx global>{`
-        @keyframes scanLine {
-          0% { top: 0; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
-        }
-        #reader__dashboard_section_csr button {
-          background: var(--gold) !important;
-          color: var(--charcoal) !important;
-          border: none !important;
-          padding: 8px 16px !important;
-          border-radius: 8px !important;
-          font-weight: 700 !important;
-          cursor: pointer !important;
-        }
-        #reader__scan_region {
-          background: transparent !important;
-        }
-        #reader video {
-          object-fit: cover !important;
-          width: 100% !important;
-          height: 100% !important;
-          border-radius: 32px !important;
-        }
-      `}</style>
     </main>
   );
 }

@@ -52,13 +52,13 @@ export default function MiamiLandingPage() {
           </div>
         </div>
 
-        {/* ── HOW IT WORKS (THE "WHAT IS IT?" FIX) ── */}
+        {/* ── HOW IT WORKS ── */}
         <section style={{ marginBottom: '8rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 className="section-title">What is <em>CultivarID™</em>?</h2>
             <p style={{ color: 'var(--text-secondary)' }}>A simple 3-step digital bridge between you and the collector.</p>
           </div>
-          <div className="features-grid">
+          <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             <div className="feature-card">
               <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>01</div>
               <h3 style={{ marginBottom: '1rem' }}>The Registry</h3>
@@ -92,7 +92,7 @@ export default function MiamiLandingPage() {
                 Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the festival.</strong>
               </p>
               <p>
-                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery. Plus, it automatically pulls in <strong>interesting botanical facts</strong> about that specific species, so it acts like a digital educator for your customers while they browse."
+                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery."
               </p>
               <div className="urgency-tag">
                 OFFER EXPIRES IN 2 HOURS
