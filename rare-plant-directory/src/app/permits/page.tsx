@@ -1,135 +1,218 @@
-import { ShieldCheck, TrendingUp, Zap, CheckCircle, Database } from 'lucide-react';
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { Database, ShieldCheck, TrendingUp, Zap, MapPin, Star, Shield } from 'lucide-react';
 
-export default function PermitsLanding() {
+export default function PermitsPage() {
   return (
-    <div className="page-wrapper" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh', fontFamily: 'Inter, sans-serif' }}>
+    <div className="permit-theme page-wrapper" style={{ overflow: 'hidden' }}>
       
-      {/* ─── SCARCITY ALERT ─── */}
+      {/* ─── FLORIDA EXPANSION ALERT ─── */}
       <div style={{ 
-        background: '#D4AF37', 
-        color: 'black', 
+        background: 'var(--accent)', 
+        color: 'white', 
         padding: '0.75rem 5%', 
         textAlign: 'center', 
         fontSize: '0.8rem', 
         fontWeight: 800, 
         letterSpacing: '0.15em',
         position: 'sticky',
-        top: '0',
-        zIndex: 1000
+        top: '80px',
+        zIndex: 900,
+        boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '1.5rem'
       }}>
-        FLORIDA EXPANSION: LEON, POLK, PASCO, & HILLSBOROUGH NOW LIVE
-      </div>
-
-      <section style={{ padding: '8rem 5% 4rem', textAlign: 'center', position: 'relative' }}>
-        <div style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
-          gap: '0.5rem', 
-          padding: '0.5rem 1rem', 
-          background: 'rgba(212, 175, 55, 0.1)', 
-          border: '1px solid rgba(212, 175, 55, 0.3)', 
-          borderRadius: '100px', 
-          fontSize: '0.75rem', 
-          fontWeight: 700, 
-          letterSpacing: '0.1em', 
-          textTransform: 'uppercase', 
-          color: '#D4AF37',
-          marginBottom: '2rem'
+        <span>FLORIDA EXPANSION: LEON, POLK, PASCO, & HILLSBOROUGH NOW LIVE</span>
+        <Link href="/leads" style={{ 
+          background: 'white', 
+          color: 'var(--accent)', 
+          padding: '0.3rem 1rem', 
+          borderRadius: '4px',
+          textDecoration: 'none',
+          fontSize: '0.7rem'
         }}>
-          <div style={{ width: '6px', height: '6px', background: '#D4AF37', borderRadius: '50%' }}></div>
-          <span>Exclusive Data for Contractors</span>
-        </div>
+          VIEW LEAD MAP →
+        </Link>
+      </div>
+      
+      {/* ─── HERO SECTION ─── */}
+      <section className="hero" style={{ 
+        paddingTop: '10rem', 
+        paddingBottom: '6rem',
+        position: 'relative',
+        background: 'var(--hero-bg)'
+      }}>
+        <div className="hero-grid-overlay" style={{ opacity: 0.1 }}></div>
         
-        <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 800 }}>
-          Stop chasing leads.<br />
-          <span style={{ color: '#D4AF37' }}>Let the permits come to you.</span>
-        </h1>
-        
-        <p style={{ maxWidth: '700px', margin: '0 auto 3rem', fontSize: '1.2rem', opacity: 0.8, lineHeight: 1.6 }}>
-          We use proprietary monitoring tech to pull every new homeowner-filed building permit in Florida. 
-          Get exclusive access to the high-intent jobs in your county before anyone else.
-        </p>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 2.5rem' }}>
+            <div className="hero-eyebrow-dot" style={{ backgroundColor: 'var(--accent)' }}></div>
+            <span>Exclusive Contractor Data</span>
+          </div>
+          
+          <h1 style={{ 
+            fontSize: 'clamp(3rem, 8vw, 6.5rem)', 
+            marginBottom: '1.5rem',
+            letterSpacing: '-0.03em',
+            fontWeight: 700,
+            lineHeight: 1.1,
+            color: 'var(--text-primary)'
+          }}>
+            Stop Chasing Leads. <br />
+            <em style={{ 
+              display: 'inline-block',
+              color: 'var(--accent)',
+              fontStyle: 'normal'
+            }}>Let the Permits Come to You.</em>
+          </h1>
+          
+          <p className="hero-sub" style={{ 
+            maxWidth: '700px', 
+            margin: '0 auto 4rem',
+            fontSize: '1.25rem', 
+            color: 'var(--text-secondary)',
+            lineHeight: 1.6
+          }}>
+            We monitor homeowner-filed building permits in real-time. Get exclusive access to roofing and pool projects the moment they are registered—before your competitors even know they exist.
+          </p>
 
-        <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="mailto:info@rareplantvendors.com?subject=Permit%20Sample%20Request" style={{ 
-            background: '#D4AF37', 
-            color: 'black', 
-            padding: '1.25rem 3rem', 
+          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/leads" className="btn-primary" style={{ 
+              padding: '1.25rem 3rem', 
+              fontSize: '1rem',
+              backgroundColor: 'var(--accent)',
+              color: 'white',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              fontWeight: 700
+            }}>
+              Browse Lead Database
+            </Link>
+            <Link href="/pricing" className="btn-ghost" style={{ 
+              padding: '1.25rem 3rem', 
+              fontSize: '1rem',
+              border: '1px solid var(--accent)',
+              color: 'var(--accent)',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              fontWeight: 700
+            }}>
+              View Pricing
+            </Link>
+          </div>
+
+          {/* ─── DASHBOARD PREVIEW ─── */}
+          <div style={{
+            maxWidth: '1000px',
+            margin: '6rem auto 0',
+            padding: '1rem',
+            background: '#FFFFFF',
+            borderRadius: '24px',
+            border: '1px solid rgba(0,0,0,0.05)',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.1)',
+            position: 'relative'
+          }}>
+            <div style={{ 
+              background: '#FFFFFF', 
+              borderRadius: '16px', 
+              overflow: 'hidden',
+              boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ padding: '1.5rem', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#1A202C' }}>
+                   <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10B981' }}></div>
+                   LIVE PERMIT FEED: POLK COUNTY
+                </div>
+                <div style={{ fontSize: '0.8rem', color: '#666' }}>Updated 2 mins ago</div>
+              </div>
+              <div style={{ padding: '1rem' }}>
+                {[
+                  { type: 'ROOFING', location: 'Lakeland, FL', date: 'Just now', intent: 'High' },
+                  { type: 'POOL', location: 'Winter Haven, FL', date: '14 mins ago', intent: 'Verified' },
+                  { type: 'ROOFING', location: 'Davenport, FL', date: '42 mins ago', intent: 'High' },
+                ].map((lead, i) => (
+                  <div key={i} style={{ 
+                    padding: '1.5rem', 
+                    marginBottom: '0.5rem', 
+                    background: '#F9FAFB', 
+                    borderRadius: '12px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    border: '1px solid transparent'
+                  }}>
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '0.25rem' }}>
+                         <span style={{ fontSize: '0.7rem', fontWeight: 900, padding: '0.2rem 0.5rem', borderRadius: '4px', background: lead.type === 'POOL' ? '#E0F2FE' : '#FEF3C7', color: lead.type === 'POOL' ? '#0369A1' : '#B45309' }}>{lead.type}</span>
+                         <span style={{ fontWeight: 600, color: '#1A202C' }}>{lead.location}</span>
+                      </div>
+                      <div style={{ fontSize: '0.8rem', color: '#666' }}>Owner-Filed Permit • Expected Start: June 2026</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontWeight: 700, color: '#10B981' }}>{lead.intent}</div>
+                      <div style={{ fontSize: '0.7rem', color: '#999' }}>{lead.date}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: '1.5rem', textAlign: 'center', background: '#F3F4F6' }}>
+                 <Link href="/login" style={{ fontWeight: 700, color: 'var(--accent)', textDecoration: 'none' }}>Log in to view full contact details →</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FEATURES SECTION ─── */}
+      <section className="section" style={{ padding: '8rem 5%', background: '#FFFFFF' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1.5rem', color: '#1A202C' }}>Why Permit Data?</h2>
+            <p style={{ color: '#64748B', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
+              We don't just sell leads. We provide a competitive advantage built on proprietary scraping technology.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+             {[
+               { icon: <Zap color="var(--accent)" />, title: 'Real-Time Alerts', desc: 'Get SMS or email notifications the moment a homeowner files a permit in your territory.' },
+               { icon: <ShieldCheck color="var(--accent)" />, title: 'Homeowner Direct', desc: 'We filter out developer and commercial permits. These are real homeowners ready to hire.' },
+               { icon: <TrendingUp color="var(--accent)" />, title: 'Zero Competition', desc: 'Our leads are distributed to a limited number of contractors per county. No more price wars.' }
+             ].map((feature, i) => (
+               <div key={i} style={{ padding: '2rem', borderRadius: '24px', background: '#F8FAFC', border: '1px solid #E2E8F0', textAlign: 'left' }}>
+                 <div style={{ marginBottom: '1.5rem' }}>{feature.icon}</div>
+                 <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem', color: '#1A202C' }}>{feature.title}</h3>
+                 <p style={{ color: '#64748B', lineHeight: 1.6 }}>{feature.desc}</p>
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA SECTION ─── */}
+      <section style={{ padding: '10rem 5%', background: 'var(--accent)', color: 'white', textAlign: 'center' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>Ready to fill your pipeline?</h2>
+          <p style={{ fontSize: '1.25rem', marginBottom: '3.5rem', opacity: 0.9 }}>
+            Join 200+ contractors in Florida who have stopped cold calling and started closing.
+          </p>
+          <Link href="/signup" style={{ 
+            background: 'white', 
+            color: 'var(--accent)', 
+            padding: '1.5rem 4rem', 
             borderRadius: '16px', 
-            fontWeight: 700, 
+            fontSize: '1.2rem', 
+            fontWeight: 800,
             textDecoration: 'none',
-            boxShadow: '0 10px 30px rgba(212, 175, 55, 0.3)'
+            display: 'inline-block',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
           }}>
-            Request Free Sample List
-          </Link>
-          <Link href="#pricing" style={{ 
-            background: 'transparent', 
-            color: 'white', 
-            padding: '1.25rem 3rem', 
-            borderRadius: '16px', 
-            fontWeight: 700, 
-            textDecoration: 'none',
-            border: '1px solid rgba(255,255,255,0.2)'
-          }}>
-            View Pricing
+            Get Your First 5 Leads Free
           </Link>
         </div>
       </section>
-
-      {/* ─── VALUE PROPS ─── */}
-      <section style={{ padding: '6rem 5%', background: 'rgba(255,255,255,0.02)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ padding: '2.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(212,175,55,0.2)' }}>
-            <Zap color="#D4AF37" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Zero Competition</h3>
-            <p style={{ opacity: 0.7 }}>We filter for homeowner-filed permits only. These homeowners haven't hired a contractor yet. You are the first call.</p>
-          </div>
-          <div style={{ padding: '2.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(212,175,55,0.2)' }}>
-            <ShieldCheck color="#D4AF37" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Total Exclusivity</h3>
-            <p style={{ opacity: 0.7 }}>One slot per trade, per county. We never sell the same data to two competitors in the same territory.</p>
-          </div>
-          <div style={{ padding: '2.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(212,175,55,0.2)' }}>
-            <Database color="#D4AF37" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Verified Accuracy</h3>
-            <p style={{ opacity: 0.7 }}>Address, Owner Name, and Job Valuation included. Clean, actionable CSVs delivered every Friday morning.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PRICING ─── */}
-      <section id="pricing" style={{ padding: '8rem 5%', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '3rem', marginBottom: '4rem' }}>Pricing & <em style={{ color: '#D4AF37' }}>Availability</em></h2>
-        <div style={{ maxWidth: '500px', margin: '0 auto', background: '#0B3D2E', padding: '4rem 3rem', borderRadius: '40px', border: '4px solid #D4AF37', boxShadow: '0 30px 100px rgba(212,175,55,0.15)' }}>
-          <div style={{ color: '#D4AF37', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '1rem' }}>EXCLUSIVE ACCESS</div>
-          <div style={{ fontSize: '4rem', fontWeight: 900, marginBottom: '1rem' }}>$299<span style={{ fontSize: '1.5rem', opacity: 0.5 }}>/mo</span></div>
-          <p style={{ opacity: 0.8, marginBottom: '2.5rem' }}>Full weekly delivery of all homeowner-filed permits in your county.</p>
-          <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', textAlign: 'left', display: 'grid', gap: '1rem' }}>
-             <li style={{ display: 'flex', gap: '0.75rem' }}><CheckCircle color="#D4AF37" size={20} /> Exclusive County Rights</li>
-             <li style={{ display: 'flex', gap: '0.75rem' }}><CheckCircle color="#D4AF37" size={20} /> Verified Homeowner Filter</li>
-             <li style={{ display: 'flex', gap: '0.75rem' }}><CheckCircle color="#D4AF37" size={20} /> Friday AM Delivery</li>
-             <li style={{ display: 'flex', gap: '0.75rem' }}><CheckCircle color="#D4AF37" size={20} /> No Long-term Contracts</li>
-          </ul>
-          <Link href="mailto:info@rareplantvendors.com?subject=Secure%20County%20Slot" style={{ 
-            display: 'block', 
-            padding: '1.25rem', 
-            borderRadius: '16px', 
-            background: '#D4AF37', 
-            color: 'black', 
-            fontWeight: 700, 
-            textDecoration: 'none' 
-          }}>
-            Claim Your Territory →
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── FOOTER ─── */}
-      <footer style={{ padding: '4rem 5%', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', opacity: 0.6, fontSize: '0.9rem' }}>
-        &copy; 2026 RPV Data Systems | PermitLeads Division
-      </footer>
-
     </div>
   );
 }
