@@ -11,7 +11,7 @@ async function testOnboarding() {
 
   console.log('Sending request to /api/onboarding...');
   try {
-    const res = await fetch('http://localhost:3001/api/onboarding', {
+    const res = await fetch('http://localhost:3000/api/onboarding', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
