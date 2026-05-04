@@ -11,6 +11,9 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [notified, setNotified] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isClaiming, setIsClaiming] = useState(false);
+  const [claimSuccess, setClaimSuccess] = useState(false);
 
   useEffect(() => {
     async function verify() {
@@ -29,10 +32,48 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
       } else {
         setPassport(data);
       }
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      setCurrentUser(user);
+      
       setLoading(false);
     }
     verify();
   }, [params.hash]);
+
+  const handleClaim = async () => {
+    if (!currentUser) {
+      router.push(`/collector/login?next=/verify/${params.hash}`);
+      return;
+    }
+
+    setIsClaiming(true);
+    try {
+      // Get collector record
+      const { data: collector } = await supabase
+        .from('collectors')
+        .select('id')
+        .eq('user_id', currentUser.id)
+        .single();
+
+      if (!collector) throw new Error('Collector profile not found');
+
+      const { error } = await supabase
+        .from('digital_passports')
+        .update({ current_owner_id: collector.id })
+        .eq('id', passport.id);
+
+      if (error) throw error;
+      
+      setClaimSuccess(true);
+      setPassport({ ...passport, current_owner_id: collector.id });
+    } catch (err: any) {
+      console.error('Claim error:', err);
+      alert('Failed to claim passport: ' + err.message);
+    } finally {
+      setIsClaiming(false);
+    }
+  };
 
   const handleRestockSignup = (e: React.FormEvent) => {
     e.preventDefault();
@@ -151,10 +192,42 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
                   <p style={{ fontSize: '1.1rem', margin: '0.3rem 0 0', fontWeight: 600 }}>{new Date(passport.issued_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 800 }}>Status</label>
-                  <p style={{ fontSize: '1.1rem', margin: '0.3rem 0 0', color: '#2ecc71', fontWeight: 700 }}>● SECURE REGISTRY ACTIVE</p>
+                  <label style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 800 }}>Ownership</label>
+                  {passport.current_owner_id ? (
+                    <p style={{ fontSize: '1.1rem', margin: '0.3rem 0 0', color: 'var(--gold)', fontWeight: 700 }}>● SECURELY CLAIMED</p>
+                  ) : (
+                    <p style={{ fontSize: '1.1rem', margin: '0.3rem 0 0', color: '#f39c12', fontWeight: 700 }}>○ UNCLAIMED</p>
+                  )}
                 </div>
               </div>
+
+              {!passport.current_owner_id && !claimSuccess && (
+                <div style={{ marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(212,175,55,0.2)' }}>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem' }}>
+                    This digital passport is currently unclaimed. If you are the owner of this specimen, you can claim it to your collector profile.
+                  </p>
+                  <button 
+                    onClick={handleClaim} 
+                    disabled={isClaiming}
+                    className="btn-primary" 
+                    style={{ width: '100%', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}
+                  >
+                    {isClaiming ? 'Processing Claim...' : (
+                      <>
+                        <ShieldCheck size={20} /> Claim Digital Passport
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {claimSuccess && (
+                <div style={{ marginTop: '2.5rem', background: 'rgba(46, 204, 113, 0.1)', border: '1px solid #2ecc71', color: '#2ecc71', padding: '1.5rem', borderRadius: '12px', textAlign: 'center' }}>
+                  <CheckCircle size={32} style={{ marginBottom: '0.5rem' }} />
+                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Passport Successfully Claimed!</h4>
+                  <p style={{ fontSize: '0.85rem', margin: 0 }}>This specimen is now registered to your collection.</p>
+                </div>
+              )}
             </div>
 
             {/* Dynamic Care Timeline (New Feature) */}

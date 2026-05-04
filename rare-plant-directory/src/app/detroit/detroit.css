@@ -2,6 +2,9 @@
 .detroit-landing {
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 .detroit-hero-bg {
   position: fixed;

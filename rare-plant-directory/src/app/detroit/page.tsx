@@ -1,10 +1,26 @@
 'use client';
-
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
 import "./detroit.css";
 
 export default function DetroitLandingPage() {
+  const [vendorCount, setVendorCount] = useState(37);
+
+  useEffect(() => {
+    async function getCount() {
+      const { count, error } = await supabase
+        .from('event_vendors')
+        .select('*', { count: 'exact', head: true })
+        .eq('event_id', '22ec02cf-8833-4f92-befe-52caa82b84d0');
+      
+      if (!error && count !== null) {
+        setVendorCount(count);
+      }
+    }
+    getCount();
+  }, []);
   return (
     <main className="detroit-landing" style={{ background: '#040806', color: '#FFFFFF', minHeight: '100vh' }}>
       {/* ── CINEMATIC BACKGROUND ── */}
@@ -42,7 +58,7 @@ export default function DetroitLandingPage() {
 
           <div className="stats-highlight">
             <div className="stat-box">
-              <div className="stat-val">37/66</div>
+              <div className="stat-val">{vendorCount}/66</div>
               <div className="stat-lab">VENDORS SIGNED UP</div>
             </div>
             <div className="stat-box gold-border">

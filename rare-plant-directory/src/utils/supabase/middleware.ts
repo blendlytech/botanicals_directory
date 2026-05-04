@@ -56,18 +56,38 @@ export async function updateSession(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // If user is not logged in and trying to access dashboard, redirect to login
+  // PROTECT ROUTES
+  // 1. Vendor Protection
   if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-  // If user is logged in and trying to access login/signup, redirect to dashboard
-  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+  // 2. Collector Protection
+  if (!user && request.nextUrl.pathname.startsWith('/collector/profile')) {
     const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
+    url.pathname = '/collector/login'
     return NextResponse.redirect(url)
+  }
+
+  // 3. Authenticated Redirection (Prevent accessing login while logged in)
+  if (user) {
+    const role = user.user_metadata?.role || 'vendor'
+    
+    // Redirect logged-in vendors away from login pages
+    if (role === 'vendor' && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/collector/login')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard'
+      return NextResponse.redirect(url)
+    }
+
+    // Redirect logged-in collectors away from login pages
+    if (role === 'collector' && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/collector/login')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/collector/profile'
+      return NextResponse.redirect(url)
+    }
   }
 
   return response

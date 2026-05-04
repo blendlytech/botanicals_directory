@@ -12,4 +12,27 @@
 | **PlantHaul** | Logistics/Rare | @planthaul | **Authority** | High volume, fast-moving inventory. |
 | **Moonmere** | Rare Specimens | @moonmere | **Authority** | Boutique collector-focused. |
 | **Lumos Candle Co** | Plant-Themed | @lumoscandleco | **Authority** | Great for the "gift shop" segment of the expo. |
+| **Redland Nursery** | Large Specimens | (305) 248-5109 | **Seedling** | Florida giant. Good for canopy pitch. |
+| **Graye’s Greenhouse** | Succulents/Rare | (734) 453-1220 | **Seedling** | Michigan local. High priority for Detroit. |
+| **Telly’s Greenhouse** | Rare/Bonsai | (248) 689-8735 | **Seedling** | Michigan local. Massive inventory. |
+| **Leafy Soulmates** | Rare Tropicals | (714) 933-6021 | **Seedling** | Exotic aroid specialist. |
+| **Goldner Walsh** | Tropicals/Venue | (248) 332-6430 | **Seedling** | Iconic Michigan location. |
+| **Thai Exotic Greenery** | Rare Tropicals | info@thaiexoticgreenery.com | **Seedling** | Import specialist. |
+| **Arrowhead Alpines** | Rare Perennials | (517) 223-3581 | **Seedling** | Unique Michigan nursery. |
+| **The Plant House** | Houseplants | planthouseferndale@gmail.com | **Seedling** | Ferndale local. Trendy. |
+| **Wildtype Native Plant** | Native Trees | (517) 244-1140 | **Seedling** | Michigan restoration focus. |
+| **Big Shoulders Nursery** | Rare Aroids | info@bigshouldersnursery.com | **Seedling** | Chicago-based heavyweight. |
+| **Dandi Plants** | Rare Tropicals | (734) 237-7008 | **Seedling** | Michigan boutique. |
+| **House of Plants TH** | Rare Tropicals | info@houseofplantsthailand.com | **Seedling** | High-end imports. |
+| **EFG Orchids** | Rare Orchids | (386) 738-8600 | **Seedling** | Florida legend. |
+| **Hortikult** | Rare Aroids | info@hortikult.com | **Seedling** | Designer aroid focus. |
+| **ileafU** | Designer Plants | hello@ileafu.com | **Seedling** | Modern branding. |
+| **Chicago Plant Babe** | Exotic Aroids | chicagoplantbabe@gmail.com | **Seedling** | Influencer status. |
+| **Sunnyside Plants** | Houseplants | (773) 853-2700 | **Seedling** | Chicago staple. |
+| **Scindapsus Borneo** | Rare Scindapsus | info@scindapsusborneo.com | **Seedling** | Specific niche leader. |
+| **Detroit Wildflower** | Native Plants | (313) 473-0400 | **Seedling** | Local native plant authority. |
+| **PhilodenDream** | Rare Philodendron | yulia.alexan@gmail.com | **Seedling** | High-end collector favorite. |
+| **Lost in the Forrest** | Rare Tropicals | (952) 405-6415 | **Seedling** | Minnesota powerhouse. |
+| **The Botanical Bar** | Boutique Plants | hello@thebotanicalbarindy.com | **Seedling** | Indy-based, great aesthetic. |
+
 
