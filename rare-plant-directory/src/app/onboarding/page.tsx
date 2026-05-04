@@ -24,6 +24,8 @@ function OnboardingContent() {
 
   const [error, setError] = useState<string | null>(null);
   const [debugLink, setDebugLink] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
 
   const [isPaying, setIsPaying] = useState(false);
   const [createdVendorId, setCreatedVendorId] = useState<string | null>(null);
@@ -55,6 +57,8 @@ function OnboardingContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // Silent fail for bots
+    
     setIsSubmitting(true);
     setError(null);
     
@@ -257,16 +261,20 @@ function OnboardingContent() {
         </div>
         {error && (
           <div style={{ 
-            padding: '1rem', 
-            background: 'rgba(239, 68, 68, 0.1)', 
-            border: '1px solid rgba(239, 68, 68, 0.2)', 
-            borderRadius: '12px', 
+            padding: '1.25rem', 
+            background: 'rgba(239, 68, 68, 0.05)', 
+            borderLeft: '4px solid #ef4444', 
+            borderRadius: '8px', 
             color: '#f87171', 
-            marginBottom: '2rem',
+            marginBottom: '2.5rem',
             fontSize: '0.9rem',
-            textAlign: 'center'
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+            animation: 'shake 0.4s ease'
           }}>
-            {error}
+            <ShieldCheck size={20} style={{ flexShrink: 0 }} />
+            <span style={{ fontWeight: 600 }}>{error}</span>
           </div>
         )}
 
@@ -279,6 +287,16 @@ function OnboardingContent() {
           padding: '3rem',
           boxShadow: 'var(--card-shadow)'
         }}>
+          {/* Honeypot */}
+          <div style={{ display: 'none' }} aria-hidden="true">
+            <input 
+              type="text" 
+              name="bot-field" 
+              value={honeypot} 
+              onChange={(e) => setHoneypot(e.target.value)} 
+            />
+          </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             
             <div className="input-group">
@@ -366,12 +384,68 @@ function OnboardingContent() {
               }}>
                 Create Password
               </label>
-              <input
-                type="password"
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  minLength={8}
+                  placeholder="Minimum 8 characters"
+                  value={form.password}
+                  onChange={(e) => setForm({...form, password: e.target.value})}
+                  style={{ 
+                    width: '100%', 
+                    background: 'var(--bg-surface)', 
+                    border: '1px solid var(--glass-border)', 
+                    borderRadius: '12px', 
+                    padding: '1.25rem 3.5rem 1.25rem 1.25rem',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                  onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '1.25rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--gold)',
+                    cursor: 'pointer',
+                    opacity: 0.7,
+                    fontSize: '0.75rem',
+                    fontWeight: 800
+                  }}
+                >
+                  {showPassword ? 'HIDE' : 'SHOW'}
+                </button>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
+                Botanical Specialty
+              </label>
+              <select
                 required
-                placeholder="••••••••"
-                value={form.password}
-                onChange={(e) => setForm({...form, password: e.target.value})}
+                value={form.specialty}
+                onChange={(e) => setForm({...form, specialty: e.target.value})}
                 style={{ 
                   width: '100%', 
                   background: 'var(--bg-surface)', 
@@ -382,11 +456,25 @@ function OnboardingContent() {
                   fontFamily: 'var(--font-body)',
                   fontSize: '1rem',
                   outline: 'none',
+                  appearance: 'none',
+                  backgroundImage: 'linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%)',
+                  backgroundPosition: 'calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px)',
+                  backgroundSize: '5px 5px, 5px 5px',
+                  backgroundRepeat: 'no-repeat',
                   transition: 'border-color 0.3s ease'
                 }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
-              />
+              >
+                <option value="" disabled>Select your primary focus</option>
+                <option value="Aroids">Aroids (Monstera, Philodendron)</option>
+                <option value="Orchids">Orchids & Epiphytes</option>
+                <option value="Succulents">Rare Succulents & Cacti</option>
+                <option value="Tropicals">Tropical Exotics</option>
+                <option value="Carnivorous">Carnivorous Plants</option>
+                <option value="Variegated">Variegated Specimens</option>
+                <option value="General">General Rare Plants</option>
+              </select>
             </div>
 
           </div>
@@ -394,18 +482,43 @@ function OnboardingContent() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary"
-            style={{ width: '100%', marginTop: '3rem', padding: '1.25rem', fontSize: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}
+            className={`btn-primary ${isSubmitting ? 'loading' : ''}`}
+            style={{ 
+              width: '100%', 
+              marginTop: '3rem', 
+              padding: '1.25rem', 
+              fontSize: '1rem', 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              gap: '0.75rem',
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: '12px' // Modern luxury rounded
+            }}
           >
             {isSubmitting ? (
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Lock size={18} /> Processing...
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', zIndex: 2 }}>
+                <Lock size={18} /> Syncing Authority Data...
               </span>
             ) : (
-              <>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', zIndex: 2 }}>
                 Unlock Provisional Access
                 <ArrowRight size={20} />
-              </>
+              </span>
+            )}
+            
+            {isSubmitting && (
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: '-100%',
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+                animation: 'shimmer 2s infinite',
+                zIndex: 1
+              }}></div>
             )}
           </button>
           
@@ -450,8 +563,39 @@ function OnboardingLoading() {
 
 export default function OnboardingPage() {
   return (
-    <Suspense fallback={<OnboardingLoading />}>
-      <OnboardingContent />
-    </Suspense>
+    <OnboardingPageWrapper>
+      <Suspense fallback={<OnboardingLoading />}>
+        <OnboardingContent />
+      </Suspense>
+    </OnboardingPageWrapper>
+  );
+}
+
+function OnboardingPageWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+      <style jsx global>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+        @keyframes shimmer {
+          100% { left: 100%; }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-primary.loading {
+          opacity: 0.8;
+          cursor: not-allowed;
+        }
+      `}</style>
+    </>
   );
 }

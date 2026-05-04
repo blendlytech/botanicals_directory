@@ -35,6 +35,10 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     log('Onboarding request received', { email: data.email, businessName: data.businessName });
+
+    if (!data.password) {
+      return NextResponse.json({ error: "Password is required for account creation." }, { status: 400 });
+    }
     
     // 1. Check if user already exists
     const { data: existingUsers, error: listError } = await supabase.auth.admin.listUsers();
@@ -56,7 +60,7 @@ export async function POST(request: Request) {
 
       // If not verified, update password and get a new link
       const { data: updateData, error: updateError } = await supabase.auth.admin.updateUserById(userId, {
-        password: data.password || 'TemporaryPassword123!',
+        password: data.password,
         user_metadata: {
           business_name: data.businessName,
           role: 'vendor'
@@ -71,7 +75,7 @@ export async function POST(request: Request) {
       const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
         type: 'signup',
         email: data.email,
-        password: data.password || 'TemporaryPassword123!'
+        password: data.password
       });
 
       if (linkError) {
@@ -85,7 +89,7 @@ export async function POST(request: Request) {
       const { data: linkData, error: authError } = await supabase.auth.admin.generateLink({
         type: 'signup',
         email: data.email,
-        password: data.password || 'TemporaryPassword123!',
+        password: data.password,
         options: {
           data: {
             business_name: data.businessName,
