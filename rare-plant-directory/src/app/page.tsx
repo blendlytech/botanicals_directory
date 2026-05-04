@@ -548,7 +548,9 @@ export default async function Home() {
             <Link href="/about" className="btn-ghost" style={{ 
               padding: '1.25rem 3.5rem', 
               borderRadius: '16px', 
-              fontSize: '1rem'
+              fontSize: '1rem',
+              color: '#FFFFFF',
+              borderColor: 'rgba(255, 255, 255, 0.4)'
             }}>
               View Full Benefits
             </Link>
