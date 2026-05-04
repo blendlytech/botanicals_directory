@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { CheckCircle, Clock, Droplets, Bell, Star, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function VerifyPassportPage({ params }: { params: { hash: string } }) {
+  const router = useRouter();
   const [passport, setPassport] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
