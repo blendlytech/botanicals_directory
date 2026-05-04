@@ -14,7 +14,7 @@ export default function DetroitLandingPage() {
         .from('event_vendors')
         .select('*', { count: 'exact', head: true })
         .eq('event_id', '22ec02cf-8833-4f92-befe-52caa82b84d0');
-      
+
       if (!error && count !== null) {
         setVendorCount(count);
       }
@@ -40,17 +40,17 @@ export default function DetroitLandingPage() {
       </div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '6rem 5% 4rem', position: 'relative', zIndex: 10 }}>
-        
+
         {/* ── HERO SECTION ── */}
         <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
           <div className="hero-logo-container" style={{ marginBottom: '2rem' }}>
-            <Image 
-              src="/campaign-logo.png" 
-              alt="Rare Plant Vendors Logo" 
-              width={160} 
-              height={160} 
+            <Image
+              src="/campaign-logo.png"
+              alt="Rare Plant Vendors Logo"
+              width={160}
+              height={160}
               className="hero-central-logo"
-              style={{ 
+              style={{
                 filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.4))',
                 borderRadius: '50%'
               }}
@@ -65,7 +65,7 @@ export default function DetroitLandingPage() {
             Revolution is Here.
           </h1>
           <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: 1.6 }}>
-            The Rare Plant & Orchid Festival in Detroit is the ultimate proving ground. 
+            The Rare Plant & Orchid Festival in Detroit is the ultimate proving ground.
             Collectors aren't just looking for plants—they're looking for <strong>provenance</strong>.
           </p>
 
@@ -129,11 +129,11 @@ export default function DetroitLandingPage() {
             </div>
             <div className="pitch-image">
               <div className="qr-preview-container">
-                <Image 
-                  src="/cultivarid_mockup_1777147672958.png" 
-                  alt="CultivarID Mockup" 
-                  width={400} 
-                  height={600} 
+                <Image
+                  src="/cultivarid_mockup_1777147672958.png"
+                  alt="CultivarID Mockup"
+                  width={400}
+                  height={600}
                   style={{ objectFit: 'contain', borderRadius: '20px' }}
                 />
               </div>
@@ -208,7 +208,7 @@ export default function DetroitLandingPage() {
             Will you be the one explaining why you don't have a passport?
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
-             <Link href="/signup?promo=detroit" className="btn-primary" style={{ padding: '1.2rem 3rem' }}>START MY 24H SETUP</Link>
+            <Link href="/signup?promo=detroit" className="btn-primary" style={{ padding: '1.2rem 3rem' }}>START MY 24H SETUP</Link>
           </div>
         </div>
 
