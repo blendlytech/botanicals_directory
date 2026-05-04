@@ -3,8 +3,9 @@
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
   --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
 }
 .detroit-hero-bg {
   position: fixed;
@@ -52,6 +53,10 @@
   border-radius: 4px;
   font-size: 0.6rem;
 }
+.section-title {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
 .hero-title em {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
@@ -90,6 +95,14 @@
   font-weight: 600;
   color: var(--text-secondary, rgba(255,255,255,0.6));
 }
+.feature-card h3 {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+}
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
 .pitch-card {
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -105,10 +118,11 @@
   margin-bottom: 2rem;
 }
 .pitch-content p {
-  font-size: 1.1rem;
-  color: var(--text-secondary, rgba(255,255,255,0.6));
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.8;
   margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 .urgency-tag {
   display: inline-block;
