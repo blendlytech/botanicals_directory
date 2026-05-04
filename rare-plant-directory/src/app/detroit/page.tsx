@@ -43,16 +43,18 @@ export default function DetroitLandingPage() {
 
         {/* ── HERO SECTION ── */}
         <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-          <div className="hero-logo-container" style={{ marginBottom: '2rem' }}>
+          <div className="hero-logo-container" style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
             <Image
               src="/campaign-logo.png"
               alt="Rare Plant Vendors Logo"
-              width={160}
-              height={160}
+              width={480}
+              height={480}
               className="hero-central-logo"
               style={{
-                filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.4))',
-                borderRadius: '50%'
+                filter: 'drop-shadow(0 0 50px rgba(212, 175, 55, 0.6))',
+                borderRadius: '50%',
+                maxWidth: '100%',
+                height: 'auto'
               }}
             />
           </div>
