@@ -73,9 +73,14 @@ export default function PricingCards() {
           <div className="free-tier-badge" style={{ marginBottom: '1.5rem' }}>Starter</div>
           <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Sprout</h3>
           <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>
-            ${isAnnual ? '11.99' : '14.99'}
-            <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>/mo</span>
+            ${isAnnual ? '143' : '14.99'}
+            <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>{isAnnual ? '/yr' : '/mo'}</span>
           </div>
+          {isAnnual && (
+            <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-1rem', marginBottom: '1.5rem' }}>
+              Saves 20% compared to monthly
+            </div>
+          )}
           <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
             Digitize your booth in 5 minutes. Perfect for local markets and hobbyists.
           </p>
@@ -125,12 +130,17 @@ export default function PricingCards() {
           </div>
           
           <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'white', fontWeight: 700 }}>Bloom</h3>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: isAnnual ? '0.5rem' : '1.5rem' }}>
             <div className="pricing-price-display" style={{ color: 'var(--gold)', fontSize: '4.5rem' }}>
-              ${isAnnual ? '29' : '39'}
+              ${isAnnual ? '349' : '39'}
             </div>
-            <div style={{ opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>.99/mo</div>
+            <div style={{ opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>{isAnnual ? '/yr' : '.99/mo'}</div>
           </div>
+          {isAnnual && (
+            <div style={{ color: 'var(--gold)', fontSize: '0.9rem', fontWeight: 800, marginBottom: '1.5rem' }}>
+              Saves 27% compared to monthly
+            </div>
+          )}
           
           <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
             Advanced analytics and lead capture for established professionals.
@@ -196,9 +206,14 @@ export default function PricingCards() {
           <div style={{ marginBottom: '1.5rem', color: 'var(--sand)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Enterprise</div>
           <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Canopy</h3>
           <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>
-            ${isAnnual ? '99' : '129'}
-            <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>.99/mo</span>
+            ${isAnnual ? '1,199' : '129'}
+            <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>{isAnnual ? '/yr' : '.99/mo'}</span>
           </div>
+          {isAnnual && (
+            <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-1rem', marginBottom: '1.5rem' }}>
+              Saves 23% compared to monthly
+            </div>
+          )}
           <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
             White-label infrastructure for massive greenhouse operations.
           </p>
