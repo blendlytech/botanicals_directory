@@ -43,6 +43,19 @@ export default function DetroitLandingPage() {
         
         {/* ── HERO SECTION ── */}
         <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+          <div className="hero-logo-container" style={{ marginBottom: '2rem' }}>
+            <Image 
+              src="/campaign-logo.png" 
+              alt="Rare Plant Vendors Logo" 
+              width={160} 
+              height={160} 
+              className="hero-central-logo"
+              style={{ 
+                filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.4))',
+                borderRadius: '50%'
+              }}
+            />
+          </div>
           <div className="hero-eyebrow">
             <div className="hero-eyebrow-dot" />
             FULL SCALE LAUNCH

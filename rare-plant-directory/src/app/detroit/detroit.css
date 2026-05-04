@@ -1,4 +1,9 @@
 
+
+.hero-central-logo {
+  animation: floatLeaf 6s ease-in-out infinite;
+}
+
 .detroit-landing {
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
