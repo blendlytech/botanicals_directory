@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <p>All financial transactions are handled securely by PayPal. RPV does not store credit card numbers or sensitive financial data on our servers.</p>
 
           <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>3. Public vs. Private Data</h2>
-          <p>Inventory marked as "available" and vendor contact details provided for the directory are public. User passwords, internal analytics, and non-disclosed specimen lineages are kept strictly private.</p>
+          <p>Inventory marked as &quot;available&quot; and vendor contact details provided for the directory are public. User passwords, internal analytics, and non-disclosed specimen lineages are kept strictly private.</p>
 
           <h2 style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1rem' }}>4. Third Parties</h2>
           <p>We never sell your data to third-party marketing firms. Your data is used exclusively to facilitate connections within the Rare Plant Vendors network.</p>

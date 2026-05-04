@@ -187,7 +187,7 @@ export default function PermitsPage() {
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1.5rem', color: '#1A202C' }}>Why Permit Data?</h2>
             <p style={{ color: '#64748B', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
-              We don't just sell leads. We provide a competitive advantage built on proprietary scraping technology.
+              We don&apos;t just sell leads. We provide a competitive advantage built on proprietary scraping technology.
             </p>
           </div>
 

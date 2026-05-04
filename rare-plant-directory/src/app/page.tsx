@@ -462,7 +462,7 @@ export default async function Home() {
                 <MapPin size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
                   <div style={{ fontWeight: 600 }}>Featured Spot</div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Get rotated in the "Featured Vendors" section on the homepage.</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Get rotated in the &quot;Featured Vendors&quot; section on the homepage.</div>
                 </div>
               </li>
               <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>

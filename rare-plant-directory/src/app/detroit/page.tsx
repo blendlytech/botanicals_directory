@@ -66,7 +66,7 @@ export default function DetroitLandingPage() {
           </h1>
           <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: 1.6 }}>
             The Rare Plant & Orchid Festival in Detroit is the ultimate proving ground.
-            Collectors aren't just looking for plants—they're looking for <strong>provenance</strong>.
+            Collectors aren&apos;t just looking for plants—they&apos;re looking for <strong>provenance</strong>.
           </p>
 
           <div className="stats-highlight">
@@ -92,7 +92,7 @@ export default function DetroitLandingPage() {
               <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>01</div>
               <h3 style={{ marginBottom: '1rem' }}>The Registry</h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                We create a digital "birth certificate" for your high-value specimens including mother plant origin and care history.
+                We create a digital &quot;birth certificate&quot; for your high-value specimens including mother plant origin and care history.
               </p>
             </div>
             <div className="feature-card">
@@ -121,7 +121,7 @@ export default function DetroitLandingPage() {
                 Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the festival.</strong>
               </p>
               <p>
-                "Think of it as a <strong>Digital Passport</strong> for your plants. It’s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery."
+                &quot;Think of it as a <strong>Digital Passport</strong> for your plants. It&apos;s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery.&quot;
               </p>
               <div className="urgency-tag">
                 OFFER EXPIRES IN 2 HOURS
@@ -145,7 +145,7 @@ export default function DetroitLandingPage() {
         {/* ── THE "ANY TIER" OFFER ── */}
         <section id="apply" style={{ marginTop: '8rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 className="section-title">The "Done-For-You" <em>Flash Sale</em></h2>
+            <h2 className="section-title">The &quot;Done-For-You&quot; <em>Flash Sale</em></h2>
             <p style={{ color: 'var(--text-secondary)' }}>Choose any tier. We handle the listing, the passports, and the setup in 24 hours.</p>
           </div>
 
@@ -202,10 +202,10 @@ export default function DetroitLandingPage() {
 
         {/* ── FOOTER PITCH ── */}
         <div style={{ textAlign: 'center', marginTop: '8rem', padding: '4rem', borderTop: '1px solid var(--glass-border)' }}>
-          <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Don't show up <em>naked</em>.</h3>
+          <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Don&apos;t show up <em>naked</em>.</h3>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem' }}>
             37 vendors are already preparing their digital displays. <br />
-            Will you be the one explaining why you don't have a passport?
+            Will you be the one explaining why you don&apos;t have a passport?
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
             <Link href="/signup?promo=detroit" className="btn-primary" style={{ padding: '1.2rem 3rem' }}>START MY 24H SETUP</Link>
