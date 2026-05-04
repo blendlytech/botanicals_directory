@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CheckCircle, Clock, Droplets, Bell, Star, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, Droplets, Bell, Star, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function VerifyPassportPage({ params }: { params: { hash: string } }) {
   const [passport, setPassport] = useState<any>(null);
