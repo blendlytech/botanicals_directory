@@ -16,7 +16,7 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function uploadVideo() {
-  const videoPath = 'c:/Users/DELL/RPV Project/rpv-explainer-video/out/video.mp4';
+  const videoPath = 'c:/Users/DELL/RPV Project/rare-plant-directory/public/rpv-explainer.mp4';
   const fileBuffer = fs.readFileSync(videoPath);
 
   console.log('Uploading video...');
