@@ -128,10 +128,10 @@ export default function EliteConciergeForm({ vendorId, vendorName }: EliteConcie
                 setError(null);
               }}
             >
-              <option value="" disabled>Select an option</option>
-              <option value="$500 - $1,000">$500 - $1,000</option>
-              <option value="$1,000 - $5,000">$1,000 - $5,000</option>
-              <option value="$5,000+">$5,000+</option>
+              <option value="" disabled style={{ background: '#051912', color: '#888' }}>Select an option</option>
+              <option value="$500 - $1,000" style={{ background: '#051912', color: '#fff' }}>$500 - $1,000</option>
+              <option value="$1,000 - $5,000" style={{ background: '#051912', color: '#fff' }}>$1,000 - $5,000</option>
+              <option value="$5,000+" style={{ background: '#051912', color: '#fff' }}>$5,000+</option>
             </select>
             <div style={{ position: 'absolute', right: '1.25rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--gold)', opacity: 0.7 }}>
               ▼
