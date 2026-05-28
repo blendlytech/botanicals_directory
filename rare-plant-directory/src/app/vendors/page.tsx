@@ -19,7 +19,13 @@ export default async function VendorsPage() {
     console.error("Error fetching vendors:", error);
   }
 
-  const vendorsList = vendors || [];
+  const vendorsList = [...(vendors || [])].sort((a, b) => {
+    const aClaimed = !!a.user_id;
+    const bClaimed = !!b.user_id;
+    if (aClaimed && !bClaimed) return -1;
+    if (!aClaimed && bClaimed) return 1;
+    return 0;
+  });
 
   return (
     <main className="page-wrapper">
@@ -84,8 +90,14 @@ export default async function VendorsPage() {
                 
                 <div className="vendor-card-content">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                    <div className="vendor-avatar">
-                      {v.name.charAt(0)}
+                    <div className="vendor-avatar" style={(v.logo_url || isClaimed) ? { padding: 0, overflow: 'hidden' } : {}}>
+                      {v.logo_url ? (
+                        <img src={v.logo_url} alt={`${v.name} logo`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : isClaimed ? (
+                        <img src={`https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(v.slug || v.name)}`} alt={`${v.name} generated logo`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        v.name.charAt(0)
+                      )}
                     </div>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
