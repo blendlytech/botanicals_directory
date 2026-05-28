@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import ProfileTracker from "../../components/ProfileTracker";
+import EliteConciergeForm from "../../components/EliteConciergeForm";
 
 export const revalidate = 60;
 
@@ -305,38 +306,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
           {/* Sidebar */}
           <aside className="elite-sidebar">
             {/* Concierge contact card */}
-            <div className="elite-concierge">
-              <div className="elite-concierge-top">
-                <div className="elite-concierge-gem">✦</div>
-                <div>
-                  <div className="elite-concierge-title">Elite Concierge</div>
-                  <div className="elite-concierge-sub">Priority Access · Direct Line</div>
-                </div>
-              </div>
-              <form className="elite-concierge-form">
-                <div>
-                  <label className="elite-form-label">I'm looking for...</label>
-                  <input type="text" className="elite-input" placeholder="Specific plant or genus" />
-                </div>
-                <div>
-                  <label className="elite-form-label">Budget Range</label>
-                  <select className="elite-input" style={{ appearance: 'none', cursor: 'pointer' }}>
-                    <option value="" disabled selected>Select an option</option>
-                    <option>$500 - $1,000</option>
-                    <option>$1,000 - $5,000</option>
-                    <option>$5,000+</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="elite-form-label">Message</label>
-                  <textarea className="elite-textarea" placeholder="Any specific requirements..."></textarea>
-                </div>
-                <button type="button" className="elite-cta-primary" style={{ marginTop: '0.5rem', width: '100%', border: 'none' }}>
-                  Submit VIP Request
-                </button>
-                <button type="button" className="elite-cta-ghost">Request Video Tour</button>
-              </form>
-            </div>
+            <EliteConciergeForm vendorId={vendor.id} vendorName={vendor.name} />
 
             {/* Trust metrics */}
             <div className="elite-trust-card">
