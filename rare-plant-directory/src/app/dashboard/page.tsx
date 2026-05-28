@@ -21,12 +21,14 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<VendorStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadDashboard() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return; // Middleware handles redirect
+      setUserEmail(user.email || null);
 
       const { data: vendor } = await supabase
         .from('vendors')
@@ -99,7 +101,7 @@ export default function DashboardPage() {
   if (isPaying && stats) {
     return (
       <div style={{ display: 'flex', minHeight: '100vh' }}>
-        <Sidebar navItems={navItems} tier={tier} stats={stats} />
+        <Sidebar navItems={navItems} tier={tier} stats={stats} userEmail={userEmail} />
         <main style={{ flex: 1, padding: '7rem 3rem 4rem', maxWidth: '600px' }}>
           <button onClick={() => setIsPaying(false)} style={{ background: 'none', border: 'none', color: 'var(--gold)', cursor: 'pointer', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
             ← Back to Overview
@@ -133,10 +135,44 @@ export default function DashboardPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
-      <Sidebar navItems={navItems} tier={tier} stats={stats} />
+      <Sidebar navItems={navItems} tier={tier} stats={stats} userEmail={userEmail} />
 
       {/* Main */}
       <main style={{ flex: 1, padding: '7rem 3rem 4rem', maxWidth: '1000px' }}>
+        
+        {/* Warning Banner for non-vendor accounts */}
+        {!stats && (
+          <div style={{ 
+            background: 'rgba(231, 76, 60, 0.1)', 
+            border: '1px solid rgba(231, 76, 60, 0.3)', 
+            borderRadius: '16px', 
+            padding: '1.5rem', 
+            marginBottom: '2rem' 
+          }}>
+            <div style={{ fontWeight: 700, color: '#e74c3c', fontSize: '1.1rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              ⚠️ No Vendor Profile Linked
+            </div>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0 0 1rem', lineHeight: 1.5 }}>
+              You are logged in as <strong style={{ color: 'var(--text-primary)' }}>{userEmail}</strong>, but there is no vendor directory profile associated with this account. If you want to use the vendor portal, you can register a new profile or log out to log in with your vendor account.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <Link href="/onboarding" className="btn-primary" style={{ textDecoration: 'none', fontSize: '0.8rem', padding: '0.5rem 1rem' }}>
+                Create Vendor Profile →
+              </Link>
+              <button 
+                onClick={async () => {
+                  const supabase = createClient();
+                  await supabase.auth.signOut();
+                  window.location.href = '/login';
+                }} 
+                style={{ background: 'transparent', border: '1px solid var(--glass-border)', color: 'var(--text-primary)', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }}
+              >
+                Log Out
+              </button>
+            </div>
+          </div>
+        )}
+
         <div style={{ marginBottom: '3rem' }}>
           <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.5rem' }}>
             Vendor Portal
@@ -216,7 +252,7 @@ export default function DashboardPage() {
 
 /* ── Sub-components ── */
 
-function Sidebar({ navItems, tier, stats }: { navItems: any[]; tier: string; stats: VendorStats | null }) {
+function Sidebar({ navItems, tier, stats, userEmail }: { navItems: any[]; tier: string; stats: VendorStats | null; userEmail: string | null }) {
   return (
     <aside style={{
       width: '240px', flexShrink: 0,
@@ -233,6 +269,14 @@ function Sidebar({ navItems, tier, stats }: { navItems: any[]; tier: string; sta
         <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {stats?.name || 'My Nursery'}
         </div>
+        {userEmail && (
+          <div 
+            style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            title={userEmail}
+          >
+            👤 {userEmail}
+          </div>
+        )}
       </div>
 
       {navItems.map((item) => (
@@ -247,10 +291,36 @@ function Sidebar({ navItems, tier, stats }: { navItems: any[]; tier: string; sta
         </Link>
       ))}
 
-      <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
+      <div style={{ marginTop: 'auto', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
           ← Back to Directory
         </Link>
+        <button 
+          onClick={async () => {
+            const supabase = createClient();
+            await supabase.auth.signOut();
+            window.location.href = '/login';
+          }}
+          style={{ 
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            width: '100%',
+            padding: '0.65rem 1rem', 
+            borderRadius: '8px', 
+            border: 'none',
+            background: 'rgba(231, 76, 60, 0.1)',
+            color: '#e74c3c',
+            cursor: 'pointer',
+            fontSize: '0.85rem',
+            fontWeight: 600,
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.2)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'}
+        >
+          🚪 Log Out
+        </button>
       </div>
     </aside>
   );

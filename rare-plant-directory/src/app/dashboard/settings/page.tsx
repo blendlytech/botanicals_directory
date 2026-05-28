@@ -32,12 +32,14 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { window.location.href = '/login'; return; }
+      setUserEmail(user.email || null);
 
       const { data } = await supabase
         .from('vendors')
@@ -110,9 +112,17 @@ export default function SettingsPage() {
           <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
             Vendor Portal
           </div>
-          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-            Nursery Settings
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {profile.name || 'My Nursery'}
           </div>
+          {userEmail && (
+            <div 
+              style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+              title={userEmail}
+            >
+              👤 {userEmail}
+            </div>
+          )}
         </div>
         {navItems.map(item => (
           <Link key={item.href} href={item.href} style={{
@@ -126,10 +136,36 @@ export default function SettingsPage() {
             {item.label}
           </Link>
         ))}
-        <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
-          <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+        <div style={{ marginTop: 'auto', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
             ← Directory
           </Link>
+          <button 
+            onClick={async () => {
+              const supabase = createClient();
+              await supabase.auth.signOut();
+              window.location.href = '/login';
+            }}
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              width: '100%',
+              padding: '0.65rem 1rem', 
+              borderRadius: '8px', 
+              border: 'none',
+              background: 'rgba(231, 76, 60, 0.1)',
+              color: '#e74c3c',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.2)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'}
+          >
+            🚪 Log Out
+          </button>
         </div>
       </aside>
 

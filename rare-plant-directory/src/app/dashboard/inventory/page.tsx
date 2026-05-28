@@ -22,6 +22,7 @@ const TIER_LIMITS: Record<string, number | null> = {
 export default function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [vendorId, setVendorId] = useState<string | null>(null);
+  const [vendorName, setVendorName] = useState<string | null>(null);
   const [vendorTier, setVendorTier] = useState<string>('seedling');
   const [vendorSlug, setVendorSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,21 +30,24 @@ export default function InventoryPage() {
   const [saving, setSaving] = useState(false);
   const [editItem, setEditItem] = useState<InventoryItem | null>(null);
   const [form, setForm] = useState({ species_name: '', variety: '', price: '', quantity: '1', status: 'available', image_url: '' });
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { window.location.href = '/login'; return; }
+      setUserEmail(user.email || null);
 
       const { data: vendor } = await supabase
         .from('vendors')
-        .select('id, tier, account_tier, contact_email, slug')
+        .select('id, name, tier, account_tier, contact_email, slug')
         .eq('contact_email', user.email)
         .single();
 
       if (!vendor) { setLoading(false); return; }
       setVendorId(vendor.id);
+      setVendorName(vendor.name || null);
       setVendorTier(vendor.account_tier || vendor.tier || 'seedling');
       setVendorSlug(vendor.slug);
 
@@ -147,9 +151,17 @@ export default function InventoryPage() {
           <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
             Vendor Portal
           </div>
-          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-            Inventory Management
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {vendorName || 'My Nursery'}
           </div>
+          {userEmail && (
+            <div 
+              style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+              title={userEmail}
+            >
+              👤 {userEmail}
+            </div>
+          )}
         </div>
         {navItems.map(item => (
           <Link key={item.href} href={item.href} style={{
@@ -163,10 +175,36 @@ export default function InventoryPage() {
             {item.label}
           </Link>
         ))}
-        <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
-          <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+        <div style={{ marginTop: 'auto', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <Link href="/" style={{ display: 'block', padding: '0.65rem 1rem', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
             ← Directory
           </Link>
+          <button 
+            onClick={async () => {
+              const supabase = createClient();
+              await supabase.auth.signOut();
+              window.location.href = '/login';
+            }}
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              width: '100%',
+              padding: '0.65rem 1rem', 
+              borderRadius: '8px', 
+              border: 'none',
+              background: 'rgba(231, 76, 60, 0.1)',
+              color: '#e74c3c',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.2)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'}
+          >
+            🚪 Log Out
+          </button>
         </div>
       </aside>
 
