@@ -20,10 +20,17 @@ export default async function VendorsPage() {
   }
 
   const vendorsList = [...(vendors || [])].sort((a, b) => {
+    const aVerifiedElite = a.is_verified && a.account_tier === 'elite';
+    const bVerifiedElite = b.is_verified && b.account_tier === 'elite';
+
+    if (aVerifiedElite && !bVerifiedElite) return -1;
+    if (!aVerifiedElite && bVerifiedElite) return 1;
+
     const aClaimed = !!a.user_id;
     const bClaimed = !!b.user_id;
     if (aClaimed && !bClaimed) return -1;
     if (!aClaimed && bClaimed) return 1;
+
     return 0;
   });
 
