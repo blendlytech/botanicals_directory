@@ -19,6 +19,7 @@ function OnboardingContent() {
     vendorName: '',
     email: '',
     password: '',
+    verifyPassword: '',
     specialty: ''
   });
 
@@ -59,6 +60,11 @@ function OnboardingContent() {
     e.preventDefault();
     if (honeypot) return; // Silent fail for bots
     
+    if (form.password !== form.verifyPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
     
@@ -426,6 +432,45 @@ function OnboardingContent() {
                 >
                   {showPassword ? 'HIDE' : 'SHOW'}
                 </button>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label style={{ 
+                display: 'block', 
+                fontSize: '0.7rem', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.2em', 
+                color: 'var(--gold)',
+                marginBottom: '0.75rem',
+                paddingLeft: '0.5rem'
+              }}>
+                Verify Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  minLength={8}
+                  placeholder="Re-enter password"
+                  value={form.verifyPassword}
+                  onChange={(e) => setForm({...form, verifyPassword: e.target.value})}
+                  style={{ 
+                    width: '100%', 
+                    background: 'var(--bg-surface)', 
+                    border: '1px solid var(--glass-border)', 
+                    borderRadius: '12px', 
+                    padding: '1.25rem 3.5rem 1.25rem 1.25rem',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+                  onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                />
               </div>
             </div>
 
