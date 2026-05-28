@@ -141,6 +141,19 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                 <div className="elite-section-label">Origin Story</div>
                 <h2 className="elite-section-heading">About the Collection</h2>
                 <div className="elite-bio">{vendor.bio}</div>
+                
+                {/* Cinematic Media Integration */}
+                <div className="elite-media-block">
+                  <div style={{ width: '100%', height: '100%', background: '#08120d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <span style={{color: 'var(--gold)', fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                       Play Cinematic Tour
+                     </span>
+                  </div>
+                  <div className="elite-media-overlay">
+                    <h3 className="elite-media-caption">Inside the {vendor.name} Greenhouses</h3>
+                  </div>
+                </div>
               </section>
             )}
 
@@ -203,6 +216,90 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                 </div>
               )}
             </section>
+
+            {/* The Private Vault */}
+            <section className="elite-section">
+              <div className="elite-vault">
+                <div className="elite-vault-header">
+                  <span className="elite-vault-icon">🔒</span>
+                  <div>
+                    <h2 className="elite-vault-title">The Private Vault</h2>
+                    <span className="elite-vault-subtitle">Exclusive access to unreleased specimens and world-class mother plants.</span>
+                  </div>
+                </div>
+                
+                <div className="elite-inventory-grid">
+                  {/* Mock Vault Item */}
+                  <div className="elite-inv-card" style={{ border: '1px solid rgba(212,175,55,0.4)', background: '#000' }}>
+                    <div className="elite-inv-image" style={{ filter: 'grayscale(80%) contrast(1.2)' }}>
+                      <div className="elite-inv-placeholder">🤫</div>
+                      <div className="elite-inv-overlay" />
+                    </div>
+                    <div className="elite-inv-body">
+                      <div className="elite-inv-variety" style={{ color: 'var(--gold)' }}>Classified Asset</div>
+                      <h3 className="elite-inv-name">Unreleased Variegated Mutation</h3>
+                      <div className="elite-inv-footer">
+                        <span className="elite-inv-price" style={{ filter: 'blur(4px)', opacity: 0.5 }}>$5000</span>
+                        <button style={{ background: 'var(--gold)', color: '#000', border: 'none', padding: '0.4rem 0.8rem', fontSize: '0.75rem', fontWeight: 'bold', borderRadius: '4px', cursor: 'pointer' }}>Request Access</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Vouched By Endorsements */}
+            <section className="elite-section">
+              <div className="elite-section-label">Endorsements</div>
+              <h2 className="elite-section-heading">Vouched By</h2>
+              <div className="elite-vouched-grid">
+                <div className="elite-vouched-card">
+                  <div className="elite-vouched-quote">
+                    "I've sourced some of my rarest philodendrons from their private drops. Unmatched quality and genetics. They are the gold standard."
+                  </div>
+                  <div className="elite-vouched-user">
+                    <div className="elite-vouched-avatar">M</div>
+                    <div>
+                      <span className="elite-vouched-name">Mickel D.</span>
+                      <span className="elite-vouched-role">Verified Collector</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="elite-vouched-card">
+                  <div className="elite-vouched-quote">
+                    "Flawless packaging and root systems. The CultivarID integration gives me peace of mind for my high-ticket investments."
+                  </div>
+                  <div className="elite-vouched-user">
+                    <div className="elite-vouched-avatar">S</div>
+                    <div>
+                      <span className="elite-vouched-name">Sarah Jenkins</span>
+                      <span className="elite-vouched-role">Aroid Specialist</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Lineage Showcase */}
+            <section className="elite-section" style={{ paddingBottom: '0' }}>
+              <div className="elite-section-label">Genetics</div>
+              <h2 className="elite-section-heading">Foundation Lineage</h2>
+              <div className="elite-lineage-grid">
+                <div className="elite-lineage-card">
+                  <div style={{ background: '#111', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>🌿</div>
+                  <div className="elite-lineage-label">BBMF Clone #4</div>
+                </div>
+                <div className="elite-lineage-card">
+                  <div style={{ background: '#111', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>🌿</div>
+                  <div className="elite-lineage-label">Spiritus Sancti F1</div>
+                </div>
+                <div className="elite-lineage-card">
+                  <div style={{ background: '#111', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>🌿</div>
+                  <div className="elite-lineage-label">Caramel Marble</div>
+                </div>
+              </div>
+            </section>
+
           </div>
 
           {/* Sidebar */}
@@ -216,12 +313,29 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                   <div className="elite-concierge-sub">Priority Access · Direct Line</div>
                 </div>
               </div>
-              <div className="elite-concierge-actions">
-                <a href={`mailto:${vendor.contact_email}`} className="elite-cta-primary">
-                  Send Private Inquiry
-                </a>
-                <button className="elite-cta-ghost">Request Video Tour</button>
-              </div>
+              <form className="elite-concierge-form">
+                <div>
+                  <label className="elite-form-label">I'm looking for...</label>
+                  <input type="text" className="elite-input" placeholder="Specific plant or genus" />
+                </div>
+                <div>
+                  <label className="elite-form-label">Budget Range</label>
+                  <select className="elite-input" style={{ appearance: 'none', cursor: 'pointer' }}>
+                    <option value="" disabled selected>Select an option</option>
+                    <option>$500 - $1,000</option>
+                    <option>$1,000 - $5,000</option>
+                    <option>$5,000+</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="elite-form-label">Message</label>
+                  <textarea className="elite-textarea" placeholder="Any specific requirements..."></textarea>
+                </div>
+                <button type="button" className="elite-cta-primary" style={{ marginTop: '0.5rem', width: '100%', border: 'none' }}>
+                  Submit VIP Request
+                </button>
+                <button type="button" className="elite-cta-ghost">Request Video Tour</button>
+              </form>
             </div>
 
             {/* Trust metrics */}
