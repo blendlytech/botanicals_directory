@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import AttendanceButton from "../../components/AttendanceButton";
 
 export const revalidate = 60;
 
@@ -98,7 +99,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
             </p>
           )}
 
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap", alignItems: "center" }}>
             {event.website_url && (
               <a href={event.website_url} target="_blank" rel="noreferrer" className="btn-primary" style={{ textDecoration: "none" }}>
                 Official Website →
@@ -107,6 +108,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
             <Link href="/onboarding" className="btn-ghost" style={{ textDecoration: "none" }}>
               List Your Booth
             </Link>
+            <AttendanceButton eventId={event.id} eventName={event.title} isDetailedPage={true} />
           </div>
         </div>
       </div>

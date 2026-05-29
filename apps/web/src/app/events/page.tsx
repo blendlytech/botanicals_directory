@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 import { MapPin, Calendar, ChevronRight, Search } from 'lucide-react';
+import AttendanceButton from '../components/AttendanceButton';
 
 interface Event {
   id: string;
@@ -165,7 +166,8 @@ export default function EventsMapPage() {
                       <div className="event-card-location">
                         <MapPin size={14} /> {evt.location_name}
                       </div>
-                      <div className="event-card-footer">
+                      <div className="event-card-footer" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.25rem', width: '100%' }}>
+                        <AttendanceButton eventId={evt.id} eventName={evt.title} />
                         <span className="btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.7rem', width: '100%', textAlign: 'center' }}>
                           Complete Event Details
                         </span>
