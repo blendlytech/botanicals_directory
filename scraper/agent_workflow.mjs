@@ -3,7 +3,7 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { scrapeIAS } from './scrape_ias.mjs';
+import { scrapeIAS, scrapeVendorWebsite } from './scrape_ias.mjs';
 import { RESEARCHER_SYSTEM_PROMPT, CLOSER_SYSTEM_PROMPT } from './prompts.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -76,10 +76,31 @@ async function main() {
     console.log(`   Specialty: ${vendor.specialty ? vendor.specialty.join(', ') : 'Rare Plants'}`);
     console.log(`   Booth: ${vendor.booth_number || 'N/A'}`);
 
+    // [Deep Crawl Step]
+    if (vendor.website_url && !vendor.contact_email) {
+      console.log(`   🕸️ Deep Crawling website: ${vendor.website_url}`);
+      try {
+        const websiteText = await scrapeVendorWebsite(vendor.website_url);
+        console.log(`   🤖 Flash extracting contact info from website...`);
+        const extractionResponse = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: `Extract the contact email, phone number, and instagram handle from this website text. Return a strict JSON object: {"email": "...", "phone": "...", "instagram": "..."}. Use null if a field is not found.\n\nText: ${websiteText.substring(0, 10000)}`,
+          config: { responseMimeType: 'application/json' }
+        });
+        const contactInfo = JSON.parse(extractionResponse.text);
+        if (contactInfo.email) vendor.contact_email = contactInfo.email;
+        if (contactInfo.phone) vendor.contact_phone = contactInfo.phone;
+        if (contactInfo.instagram) vendor.instagram = contactInfo.instagram;
+        console.log(`   ✅ Extracted: Email (${contactInfo.email || 'N/A'}), Phone (${contactInfo.phone || 'N/A'}), IG (${contactInfo.instagram || 'N/A'})`);
+      } catch (err) {
+        console.log(`   ⚠️ Deep crawl skipped or failed: ${err.message}`);
+      }
+    }
+
     try {
-      // Call the Pro model for high-end writing and personalization
+      // Call the Flash model to bypass free-tier Pro limits
       const closerResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: `Draft the personalized Instagram DM and Email outreach drafts for this vendor:\n\n${JSON.stringify(vendor, null, 2)}`,
         config: {
           systemInstruction: CLOSER_SYSTEM_PROMPT,
