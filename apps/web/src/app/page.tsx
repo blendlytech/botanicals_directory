@@ -497,6 +497,54 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ─── COLLECTOR WAITLIST CTA ─── */}
+      <section style={{
+        padding: '5rem 5%',
+        background: 'var(--bg-surface)',
+        borderTop: '1px solid var(--glass-border)',
+        borderBottom: '1px solid var(--glass-border)',
+      }}>
+        <div style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          background: 'linear-gradient(145deg, rgba(212,175,55,0.06), rgba(0,0,0,0))',
+          border: '1px solid rgba(212,175,55,0.2)',
+          borderRadius: '32px',
+          padding: '3.5rem',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '2.5rem',
+          alignItems: 'center',
+        }}>
+          <div>
+            <div style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--gold)', marginBottom: '1rem' }}>
+              🔥 Collectors · Limited Founding Offer
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', lineHeight: 1.15, marginBottom: '1rem' }}>
+              Get <em>50% Off</em> Your First Year of Premium Access
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.7 }}>
+              Join the waitlist now and lock in <strong style={{ color: 'var(--gold)' }}>$24.50/year</strong> for verified pre-sale reservations, CultivarID™ scanning, and priority alerts. No credit card required.
+            </p>
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '4rem', color: 'var(--gold)', lineHeight: 1 }}>50%</div>
+            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-secondary)', marginTop: '0.5rem', marginBottom: '2rem', fontWeight: 700 }}>Off First Year</div>
+            <Link href="/collector/waitlist" className="btn-primary" style={{
+              padding: '1rem 2.5rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              textDecoration: 'none',
+              borderRadius: '12px',
+              fontSize: '0.95rem',
+            }}>
+              Join the Waitlist <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

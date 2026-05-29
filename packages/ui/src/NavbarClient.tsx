@@ -42,7 +42,7 @@ export default function NavbarClient() {
     { name: 'Partners', href: '/partners', icon: <Handshake size={16} /> },
     { name: 'Detroit Expo', href: '/detroit', icon: <MapPin size={16} /> },
     { name: 'Collector Sign In', href: '/collector/login', icon: <LogIn size={16} /> },
-    { name: 'Collector Register', href: '/collector/signup', icon: <UserPlus size={16} /> },
+    { name: '🔥 Collector Waitlist', href: '/collector/waitlist', icon: <UserPlus size={16} /> },
     { name: 'Vendor Login', href: '/login', icon: <LogIn size={16} /> },
   ];
 
