@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { wishlistMatchService } from '@rpv/supabase/services/wishlistMatchService';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     // Basic security check (could be an API key in production)
