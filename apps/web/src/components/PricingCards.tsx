@@ -220,17 +220,17 @@ export default function PricingCards() {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <div style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Lifetime Access</div>
-            <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--emerald)', background: 'rgba(11,61,46,0.3)', padding: '0.25rem 0.75rem', borderRadius: '20px', letterSpacing: '0.08em' }}>17 SEATS LEFT</div>
+            <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#FFFFFF', background: 'var(--emerald)', padding: '0.25rem 0.75rem', borderRadius: '20px', letterSpacing: '0.08em' }}>17 SEATS LEFT</div>
           </div>
-          <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Elite Founder</h3>
+          <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'white', fontWeight: 600 }}>Elite Founder</h3>
           <div className="pricing-price-display" style={{ color: 'var(--gold)' }}>
             $497
-            <span style={{ fontSize: '1.2rem', opacity: 0.4, color: 'var(--text-secondary)' }}> once</span>
+            <span style={{ fontSize: '1.2rem', opacity: 0.8, color: 'white' }}> once</span>
           </div>
           <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-0.5rem', marginBottom: '1.5rem' }}>
             Paid once, owned forever
           </div>
-          <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
+          <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
             Unlimited showcases, exclusive Founder perks, and deeply discounted $10/tag hardware for life.
           </p>
           <ul className="pricing-feature-list">

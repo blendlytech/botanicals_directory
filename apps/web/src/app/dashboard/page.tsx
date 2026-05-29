@@ -101,7 +101,7 @@ export default function DashboardPage() {
   if (isPaying && stats) {
     return (
       <div style={{ display: 'flex', minHeight: '100vh' }}>
-        <Sidebar navItems={navItems} tier={tier} stats={stats} userEmail={userEmail} />
+        <Sidebar navItems={navItems} stats={stats} userEmail={userEmail} />
         <main style={{ flex: 1, padding: '7rem 3rem 4rem', maxWidth: '600px' }}>
           <button onClick={() => setIsPaying(false)} style={{ background: 'none', border: 'none', color: 'var(--gold)', cursor: 'pointer', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
             ← Back to Overview
@@ -134,7 +134,7 @@ export default function DashboardPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
-      <Sidebar navItems={navItems} tier={tier} stats={stats} userEmail={userEmail} />
+      <Sidebar navItems={navItems} stats={stats} userEmail={userEmail} />
 
       {/* Main */}
       <main style={{ flex: 1, padding: '7rem 3rem 4rem', maxWidth: '1000px' }}>
@@ -251,7 +251,7 @@ export default function DashboardPage() {
 
 /* ── Sub-components ── */
 
-function Sidebar({ navItems, tier, stats, userEmail }: { navItems: any[]; tier: string; stats: VendorStats | null; userEmail: string | null }) {
+function Sidebar({ navItems, stats, userEmail }: { navItems: any[]; stats: VendorStats | null; userEmail: string | null }) {
   return (
     <aside style={{
       width: '240px', flexShrink: 0,

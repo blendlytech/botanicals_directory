@@ -206,7 +206,7 @@ export default function NavbarClient() {
       )}
 
       {/* Responsive Hidden CSS */}
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
         }
@@ -217,7 +217,7 @@ export default function NavbarClient() {
           background-color: var(--gold-dim);
           color: var(--gold) !important;
         }
-      `}</style>
+      `}} />
     </nav>
   );
 }

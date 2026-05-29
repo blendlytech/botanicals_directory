@@ -2,22 +2,16 @@
 
 import React from 'react';
 import {
-  Handshake,
-  BarChart3,
   Ticket,
   DollarSign,
   ArrowRight,
   ShieldCheck,
   Users,
   TrendingUp,
-  Zap,
   Globe,
   CheckCircle2,
-  Star,
   Calendar,
-  MapPin,
 } from 'lucide-react';
-import Link from 'next/link';
 
 const affiliateTiers = [
   {

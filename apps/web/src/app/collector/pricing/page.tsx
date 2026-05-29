@@ -4,17 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   ShieldCheck,
-  TrendingUp,
   Lock,
-  MapPin,
   Check,
   X as XIcon,
   Crown,
-  Sparkles,
   QrCode,
-  Users,
   Search,
-  Map,
   ArrowRight,
   HelpCircle,
   ChevronDown,

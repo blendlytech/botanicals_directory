@@ -3,17 +3,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  Star,
-  ShieldCheck,
   TrendingUp,
-  Zap,
   Lock,
   Check,
   X as XIcon,
   Crown,
-  Sparkles,
-  QrCode,
-  Users,
   Globe,
   ArrowRight,
   HelpCircle,

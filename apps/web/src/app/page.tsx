@@ -1,28 +1,11 @@
 import Image from "next/image";
-import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { ShieldCheck, MapPin, TrendingUp, ChevronRight, Star, ArrowRight, Zap, Lock, Map } from 'lucide-react';
+import { ShieldCheck, MapPin, TrendingUp, Star, ArrowRight, Zap, Map } from 'lucide-react';
 import PricingCards from "@/components/PricingCards";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const supabase = createClient();
-
-  const { data: dbEvents } = await supabase
-    .from('events')
-    .select('id, title, slug, description, event_type, is_featured, location_name, date_start')
-    .order('date_start', { ascending: true })
-    .limit(3);
-
-  const { data: dbVendors } = await supabase
-    .from('vendors')
-    .select('id, name, slug, specialty, is_verified, account_tier')
-    .order('account_tier', { ascending: false })
-    .limit(6);
-
-  const events = dbEvents || [];
-  const vendors = dbVendors || [];
 
   return (
     <div className="page-wrapper" style={{ overflow: 'hidden' }}>
@@ -238,7 +221,7 @@ export default async function Home() {
           }}>
             {/* Vendor Value */}
             <div style={{
-              background: 'linear-gradient(145deg, rgba(11,61,46,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+              background: 'linear-gradient(145deg, #0B3D2E 0%, #040806 100%)',
               border: '1px solid rgba(212,175,55,0.2)',
               borderRadius: '24px',
               padding: '3rem',
@@ -249,17 +232,17 @@ export default async function Home() {
                 <div style={{ background: 'var(--gold-dim)', padding: '1rem', borderRadius: '16px', color: 'var(--gold)' }}>
                   <TrendingUp size={28} />
                 </div>
-                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0 }}>For Vendors</h3>
+                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0, color: 'white' }}>For Vendors</h3>
               </div>
               <div style={{ marginBottom: '2rem' }}>
                 <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Zero Commission Leakage</h4>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                   Keep 100% of your margins. We eliminate the punitive 8%+ transaction fees extracted by predatory live-auction platforms like Whatnot and Palmstreet.
                 </p>
               </div>
               <div>
                 <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>De-Risked Logistics</h4>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                   No more transporting fragile biological assets blindly. Secure buyers online before you pack the van.
                 </p>
               </div>
@@ -292,7 +275,7 @@ export default async function Home() {
 
             {/* Collector Value */}
             <div style={{
-              background: 'linear-gradient(145deg, rgba(11,61,46,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+              background: 'linear-gradient(145deg, #0B3D2E 0%, #040806 100%)',
               border: '1px solid rgba(212,175,55,0.2)',
               borderRadius: '24px',
               padding: '3rem',
@@ -303,17 +286,17 @@ export default async function Home() {
                 <div style={{ background: 'var(--gold-dim)', padding: '1rem', borderRadius: '16px', color: 'var(--gold)' }}>
                   <ShieldCheck size={28} />
                 </div>
-                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0 }}>For Collectors</h3>
+                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0, color: 'white' }}>For Collectors</h3>
               </div>
               <div style={{ marginBottom: '2rem' }}>
                 <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Verified Provenance</h4>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                   The CultivarID™ system resolves genetic ambiguity. Know exactly what you're buying, shutting down the fraud associated with expensive cuttings.
                 </p>
               </div>
               <div>
                 <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Stress-Free Acquisition</h4>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                   The pre-sale reservation mechanism entirely eliminates the frantic physical rush of the expo floor. Secure your dream plant safely.
                 </p>
               </div>
