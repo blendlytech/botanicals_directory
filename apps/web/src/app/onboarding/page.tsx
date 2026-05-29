@@ -264,6 +264,27 @@ function OnboardingContent() {
               : "Claim your free directory listing in seconds. Stop the bleed and stabilize your botanical client pipeline."}
           </p>
         </div>
+
+        {/* ─── STRICT VETTING NOTICE ─── */}
+        <div style={{
+          background: 'rgba(212,175,55,0.05)',
+          border: '1px solid var(--gold-dim)',
+          borderRadius: '16px',
+          padding: '1.5rem',
+          marginBottom: '2.5rem',
+          display: 'flex',
+          gap: '1.25rem',
+          alignItems: 'flex-start'
+        }}>
+          <ShieldCheck size={28} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div>
+            <h3 style={{ color: 'var(--gold)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem', fontWeight: 800 }}>Strict Vetting Process Applied</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.6, margin: 0 }}>
+              To protect our collectors, all new vendor accounts are placed in provisional status. You will be required to submit photographic proof of ethical propagation facilities. We have <strong>zero tolerance for illegal field poaching</strong> or novice resale of common cuttings. Only proven professionals will be granted Verified Authority status.
+            </p>
+          </div>
+        </div>
+
         {error && (
           <div style={{ 
             padding: '1.25rem', 
