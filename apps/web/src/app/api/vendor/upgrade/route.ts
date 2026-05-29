@@ -33,11 +33,13 @@ export async function POST(request: Request) {
     }
 
     // Retrieve existing vendor
-    const { data: existingVendor, error: vendorError } = await supabaseAdmin
+    const { data: existingVendorData, error: vendorError } = await supabaseAdmin
       .from('vendors')
       .select('user_id, subscription_status')
       .eq('id', vendorId)
       .single();
+
+    const existingVendor = existingVendorData as any;
 
     if (vendorError || !existingVendor) {
       return NextResponse.json({ error: 'Vendor not found' }, { status: 404 });
@@ -55,67 +57,91 @@ export async function POST(request: Request) {
       }
     }
 
-    // Server-side PayPal Verification (if secret is configured)
+    // Server-side PayPal Verification (Mandatory for security)
     const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     const paypalSecret = process.env.PAYPAL_SECRET;
     
-    if (paypalClientId && paypalSecret && orderId) {
-      const paypalApiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://api-m.paypal.com' 
-        : 'https://api-m.sandbox.paypal.com';
-
-      // 1. Get access token
-      const auth = Buffer.from(`${paypalClientId}:${paypalSecret}`).toString('base64');
-      const tokenRes = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
-        method: 'POST',
-        body: 'grant_type=client_credentials',
-        headers: {
-          Authorization: `Basic ${auth}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      
-      if (!tokenRes.ok) {
-        console.error('PayPal token auth failed. Check your PAYPAL_SECRET.');
-        return NextResponse.json({ error: 'Payment verification failed' }, { status: 500 });
-      }
-      
-      const { access_token } = await tokenRes.json();
-      
-      // 2. Fetch order details
-      const orderRes = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderId}`, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      
-      if (!orderRes.ok) {
-        return NextResponse.json({ error: 'Order not found in PayPal' }, { status: 400 });
-      }
-      
-      const orderData = await orderRes.json();
-      
-      // 3. Verify order status and custom_id bindings
-      if (orderData.status !== 'COMPLETED') {
-        return NextResponse.json({ error: 'PayPal order is not COMPLETED' }, { status: 400 });
-      }
-      
-      const purchaseUnit = orderData.purchase_units?.[0];
-      if (purchaseUnit?.custom_id !== vendorId) {
-        return NextResponse.json({ error: 'Order does not match the vendor being upgraded' }, { status: 400 });
-      }
-      
-      console.log('Server-side PayPal verification successful.');
-    } else if (!paypalSecret) {
-      console.warn('PAYPAL_SECRET is not configured. Relying on client-side status payload (not secure).');
+    // Fallback block if unconfigured
+    if (!paypalClientId || !paypalSecret || paypalSecret === 'YOUR_SECRET_HERE') {
+      console.error('CRITICAL: PAYPAL_SECRET is missing or invalid. Rejecting payment.');
+      return NextResponse.json({ error: 'Server configuration error (payments disabled)' }, { status: 500 });
     }
+
+    if (!orderId) {
+      return NextResponse.json({ error: 'Order ID is required' }, { status: 400 });
+    }
+
+    const paypalApiUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://api-m.paypal.com' 
+      : 'https://api-m.sandbox.paypal.com';
+
+    // 1. Get access token
+    const auth = Buffer.from(`${paypalClientId}:${paypalSecret}`).toString('base64');
+    const tokenRes = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
+      method: 'POST',
+      body: 'grant_type=client_credentials',
+      headers: {
+        Authorization: `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    
+    if (!tokenRes.ok) {
+      console.error('PayPal token auth failed. Check your PAYPAL_SECRET.');
+      return NextResponse.json({ error: 'Payment verification failed' }, { status: 500 });
+    }
+    
+    const { access_token } = await tokenRes.json();
+    
+    // 2. Fetch order details
+    const orderRes = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    
+    if (!orderRes.ok) {
+      return NextResponse.json({ error: 'Order not found in PayPal' }, { status: 400 });
+    }
+    
+    const orderData = await orderRes.json();
+    
+    // 3. Verify order status and custom_id bindings
+    if (orderData.status !== 'COMPLETED') {
+      return NextResponse.json({ error: 'PayPal order is not COMPLETED' }, { status: 400 });
+    }
+    
+    const purchaseUnit = orderData.purchase_units?.[0];
+    if (purchaseUnit?.custom_id !== vendorId) {
+      return NextResponse.json({ error: 'Order does not match the vendor being upgraded' }, { status: 400 });
+    }
+
+    // 4. Verify exact price mapping
+    const PLAN_PRICES: Record<string, string> = {
+      'elite': '497.00',
+      'authority': '129.99',
+      'visibility': '39.99',
+      'sprout': '14.99',
+      'seedling': '14.99'
+    };
+
+    const expectedPrice = PLAN_PRICES[planId?.toLowerCase() || 'sprout'];
+    const actualPricePaid = parseFloat(purchaseUnit?.amount?.value || '0').toFixed(2);
+    const expectedPriceFormatted = parseFloat(expectedPrice).toFixed(2);
+
+    if (actualPricePaid !== expectedPriceFormatted) {
+      console.error(`Price Mismatch! Vendor ${vendorId} tried to upgrade to ${planId} but paid ${actualPricePaid} instead of ${expectedPriceFormatted}`);
+      return NextResponse.json({ error: 'Invalid payment amount for requested tier' }, { status: 400 });
+    }
+    
+    console.log(`Server-side PayPal verification successful. Paid: $${actualPricePaid} for ${planId}`);
 
     // 1. Log the transaction
     console.log(`Processing upgrade for Vendor ${vendorId} to Plan ${planId} with Order ${orderId}`);
 
     // 2. Update the vendor status in Supabase
-    const { data: vendor, error } = await supabaseAdmin
-      .from('vendors')
+    const { data: vendorData, error } = await (supabaseAdmin
+      .from('vendors') as any)
       .update({
         tier: planId || 'sprout',
         account_tier: getInternalTier(planId || 'sprout') as any,
@@ -126,6 +152,8 @@ export async function POST(request: Request) {
       .eq('id', vendorId)
       .select()
       .single();
+
+    const vendor = vendorData as any;
 
     if (error) {
       console.error('Database update error:', error);

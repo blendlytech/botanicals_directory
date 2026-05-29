@@ -20,6 +20,7 @@ export default function PayPalButton({ amount, vendorId, planId, description, on
     clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
     currency: "USD",
     intent: "capture",
+    components: "buttons",
   };
 
   return (
