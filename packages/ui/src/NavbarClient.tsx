@@ -28,7 +28,7 @@ export default function NavbarClient() {
   const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads') || pathname?.startsWith('/checkout');
   
   const brandName = isPermitRoute ? "Permit Data" : "Rare Plant Vendors";
-  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/campaign-logo.png";
+  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/facebook-logo.jpg";
   
   const navLinks = isPermitRoute ? [
     { name: 'Lead Database', href: '/leads', icon: <Database size={16} /> },
