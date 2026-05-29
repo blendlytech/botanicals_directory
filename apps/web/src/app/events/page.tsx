@@ -159,7 +159,7 @@ export default function EventsMapPage() {
                   <div className="event-card" style={{ height: '100%' }}>
                     <div className="event-card-body">
                       <div className="event-card-date">
-                        {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        {new Date(evt.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
                       </div>
                       <h3 className="event-card-title">{evt.title}</h3>
                       <div className="event-card-location">
