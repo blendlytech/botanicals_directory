@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Star, Map, ShieldCheck, TrendingUp, Zap, Lock, MapPin } from 'lucide-react';
+import { Star, Map, ShieldCheck, TrendingUp, Zap, Lock, Tag } from 'lucide-react';
 
 export default function PricingCards() {
   const [isAnnual, setIsAnnual] = useState(true); // Default to Annual pushing
@@ -51,7 +51,7 @@ export default function PricingCards() {
               gap: '0.5rem'
             }}
           >
-            Annual <span style={{ fontSize: '0.7rem', background: '#FFF', color: '#0B3D2E', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 800 }}>SAVE 20%</span>
+            Annual <span style={{ fontSize: '0.7rem', background: '#FFF', color: '#0B3D2E', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 800 }}>SAVE 17%</span>
           </button>
         </div>
       </div>
@@ -73,12 +73,12 @@ export default function PricingCards() {
           <div className="free-tier-badge" style={{ marginBottom: '1.5rem' }}>Starter</div>
           <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Sprout</h3>
           <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>
-            ${isAnnual ? '143' : '14.99'}
+            ${isAnnual ? '99' : '9.99'}
             <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>{isAnnual ? '/yr' : '/mo'}</span>
           </div>
           {isAnnual && (
             <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-1rem', marginBottom: '1.5rem' }}>
-              Saves 20% compared to monthly
+              Saves 17% compared to monthly
             </div>
           )}
           <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
@@ -104,6 +104,16 @@ export default function PricingCards() {
               <div>
                 <div style={{ fontWeight: 600 }}>Direct Inquiries</div>
                 <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Allow collectors to email you directly from your profile.</div>
+              </div>
+            </li>
+            <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+              <Tag size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  CultivarID™ Tags
+                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>ADD-ON</span>
+                </div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Laser-engraved aluminum tags at $20/tag.</div>
               </div>
             </li>
           </ul>
@@ -132,18 +142,18 @@ export default function PricingCards() {
           <h3 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'white', fontWeight: 700 }}>Bloom</h3>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: isAnnual ? '0.5rem' : '1.5rem' }}>
             <div className="pricing-price-display" style={{ color: 'var(--gold)', fontSize: '4.5rem' }}>
-              ${isAnnual ? '349' : '39'}
+              ${isAnnual ? '249' : '24'}
             </div>
             <div style={{ opacity: 0.6, fontSize: '1.2rem', color: 'white' }}>{isAnnual ? '/yr' : '.99/mo'}</div>
           </div>
           {isAnnual && (
             <div style={{ color: 'var(--gold)', fontSize: '0.9rem', fontWeight: 800, marginBottom: '1.5rem' }}>
-              Saves 27% compared to monthly
+              Saves 17% compared to monthly
             </div>
           )}
           
           <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-            Advanced analytics and lead capture for established professionals.
+            Advanced analytics and lead capture for established professionals. QR hardware tags sold separately.
           </p>
 
           <div style={{ 
@@ -169,17 +179,20 @@ export default function PricingCards() {
                 </div>
               </li>
               <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
-                <Zap size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
-                <div>
-                  <div style={{ fontWeight: 700 }}>5 Plant QRs</div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Individual QR codes to display next to your featured plants.</div>
-                </div>
-              </li>
-              <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
                 <Lock size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
                   <div style={{ fontWeight: 700 }}>Basic Analytics</div>
                   <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Track how many times your profile and plant pages are viewed.</div>
+                </div>
+              </li>
+              <li className="pricing-feature-item highlight" style={{ alignItems: 'flex-start' }}>
+                <Tag size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    CultivarID™ Tags
+                    <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.3)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>ADD-ON</span>
+                  </div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Laser-engraved aluminum tags at $20/tag.</div>
                 </div>
               </li>
             </ul>
@@ -198,50 +211,56 @@ export default function PricingCards() {
           </Link>
         </div>
 
-        {/* Canopy Tier */}
+        {/* Elite Founder Tier */}
         <div className="pricing-card pricing-card-glass" style={{ 
           padding: '4rem 2.5rem',
-          borderRadius: '32px'
+          borderRadius: '32px',
+          border: '2px solid var(--gold)',
+          background: 'linear-gradient(165deg, rgba(26,26,26,0.8) 0%, rgba(10,10,10,0.9) 100%)',
         }}>
-          <div style={{ marginBottom: '1.5rem', color: 'var(--sand)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Enterprise</div>
-          <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Canopy</h3>
-          <div className="pricing-price-display" style={{ color: 'var(--text-primary)' }}>
-            ${isAnnual ? '1,199' : '129'}
-            <span style={{ fontSize: '1.2rem', opacity: 0.4 }}>{isAnnual ? '/yr' : '.99/mo'}</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Lifetime Access</div>
+            <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--emerald)', background: 'rgba(11,61,46,0.3)', padding: '0.25rem 0.75rem', borderRadius: '20px', letterSpacing: '0.08em' }}>17 SEATS LEFT</div>
           </div>
-          {isAnnual && (
-            <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-1rem', marginBottom: '1.5rem' }}>
-              Saves 23% compared to monthly
-            </div>
-          )}
+          <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)', fontWeight: 600 }}>Elite Founder</h3>
+          <div className="pricing-price-display" style={{ color: 'var(--gold)' }}>
+            $497
+            <span style={{ fontSize: '1.2rem', opacity: 0.4, color: 'var(--text-secondary)' }}> once</span>
+          </div>
+          <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginTop: '-0.5rem', marginBottom: '1.5rem' }}>
+            Paid once, owned forever
+          </div>
           <p style={{ color: 'var(--text-secondary)', opacity: 0.8, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-            White-label infrastructure for massive greenhouse operations.
+            Unlimited showcases, exclusive Founder perks, and deeply discounted $10/tag hardware for life.
           </p>
           <ul className="pricing-feature-list">
             <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
               <Star size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600 }}>15 Plant Showcases</div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Showcase a wider variety of your premium specimens.</div>
+                <div style={{ fontWeight: 600 }}>Unlimited Showcases</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>No limits on the plants you can feature.</div>
               </div>
             </li>
             <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
-              <MapPin size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <Tag size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600 }}>Featured Spot</div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Get rotated in the &quot;Featured Vendors&quot; section on the homepage.</div>
+                <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  CultivarID™ Tags at $10/tag
+                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>50% OFF</span>
+                </div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Half the standard price on all physical hardware tags.</div>
               </div>
             </li>
             <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
               <Zap size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600 }}>Advanced Analytics</div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>See detailed geographic and temporal data on your page views.</div>
+                <div style={{ fontWeight: 600 }}>Advanced Analytics + Founder Badge</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Full suite: geographic data, permanent badge, concierge setup, and event invites.</div>
               </div>
             </li>
           </ul>
-          <Link href={`/onboarding?type=vendor&plan=canopy&billing=${isAnnual ? 'annual' : 'monthly'}`} className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem' }}>
-            Request Enterprise Access
+          <Link href="/onboarding?type=vendor&plan=elite" className="btn-ghost" style={{ marginTop: 'auto', textAlign: 'center', width: '100%', padding: '1.25rem', borderRadius: '16px', fontSize: '0.85rem', borderColor: 'var(--gold)', color: 'var(--gold)' }}>
+            Claim Lifetime Seat
           </Link>
         </div>
       </div>

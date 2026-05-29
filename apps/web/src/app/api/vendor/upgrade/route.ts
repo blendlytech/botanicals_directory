@@ -119,10 +119,10 @@ export async function POST(request: Request) {
     // 4. Verify exact price mapping
     const PLAN_PRICES: Record<string, string> = {
       'elite': '497.00',
-      'authority': '129.99',
-      'visibility': '39.99',
-      'sprout': '14.99',
-      'seedling': '14.99'
+      'visibility': '24.99',
+      'bloom': '24.99',
+      'sprout': '9.99',
+      'seedling': '9.99'
     };
 
     const expectedPrice = PLAN_PRICES[planId?.toLowerCase() || 'sprout'];

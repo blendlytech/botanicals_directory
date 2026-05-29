@@ -115,8 +115,7 @@ export default function DashboardPage() {
               <PayPalButton 
                 amount={
                   tier === 'elite' ? "497" : 
-                  tier === 'authority' ? "129.99" :
-                  tier === 'visibility' ? "39.99" : "14.99"
+                  tier === 'visibility' ? "24.99" : "9.99"
                 } 
                 vendorId={stats.id} 
                 planId={tier}

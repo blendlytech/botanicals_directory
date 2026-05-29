@@ -218,6 +218,110 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ─── PLATFORM VALUE PROPOSITION ─── */}
+      <section className="section" style={{ padding: '6rem 5%', background: 'var(--bg-surface)', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <span className="section-eyebrow">The RPV Ecosystem</span>
+            <h2 className="section-title">Engineering a <em>Frictionless</em> Market</h2>
+            <div className="section-rule" style={{ margin: '1.5rem auto' }} />
+            <p style={{ opacity: 0.8, maxWidth: '700px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.6 }}>
+              We've systematically neutralized the three primary friction points choking the high-ticket botanical niche. By aligning incentives, we unlock unprecedented value for both sides of the transaction.
+            </p>
+          </div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+            gap: '3rem',
+            position: 'relative'
+          }}>
+            {/* Vendor Value */}
+            <div style={{
+              background: 'linear-gradient(145deg, rgba(11,61,46,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+              border: '1px solid rgba(212,175,55,0.2)',
+              borderRadius: '24px',
+              padding: '3rem',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                <div style={{ background: 'var(--gold-dim)', padding: '1rem', borderRadius: '16px', color: 'var(--gold)' }}>
+                  <TrendingUp size={28} />
+                </div>
+                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0 }}>For Vendors</h3>
+              </div>
+              <div style={{ marginBottom: '2rem' }}>
+                <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Zero Commission Leakage</h4>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                  Keep 100% of your margins. We eliminate the punitive 8%+ transaction fees extracted by predatory live-auction platforms like Whatnot and Palmstreet.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>De-Risked Logistics</h4>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                  No more transporting fragile biological assets blindly. Secure buyers online before you pack the van.
+                </p>
+              </div>
+            </div>
+
+            {/* Localized Matchmaking Centerpiece */}
+            <div style={{
+              background: 'linear-gradient(135deg, var(--gold) 0%, #D4AF37 100%)',
+              borderRadius: '24px',
+              padding: '3rem',
+              color: 'var(--charcoal)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              boxShadow: '0 20px 50px rgba(212,175,55,0.2)',
+              transform: 'scale(1.05)',
+              zIndex: 2
+            }}>
+              <Map size={48} style={{ marginBottom: '1.5rem', opacity: 0.9 }} />
+              <h3 style={{ fontSize: '2rem', fontFamily: 'var(--font-heading)', margin: '0 0 1rem', fontWeight: 800 }}>
+                Localized Matchmaking
+              </h3>
+              <p style={{ fontSize: '1.05rem', fontWeight: 600, lineHeight: 1.6, opacity: 0.9 }}>
+                The ultimate strategic advantage. <br/><br/>
+                We connect digital buyers to physical expo pickups, achieving a <strong>100% plant survival rate</strong> by bypassing overnight shipping trauma completely.
+              </p>
+            </div>
+
+            {/* Collector Value */}
+            <div style={{
+              background: 'linear-gradient(145deg, rgba(11,61,46,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+              border: '1px solid rgba(212,175,55,0.2)',
+              borderRadius: '24px',
+              padding: '3rem',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                <div style={{ background: 'var(--gold-dim)', padding: '1rem', borderRadius: '16px', color: 'var(--gold)' }}>
+                  <ShieldCheck size={28} />
+                </div>
+                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-heading)', margin: 0 }}>For Collectors</h3>
+              </div>
+              <div style={{ marginBottom: '2rem' }}>
+                <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Verified Provenance</h4>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                  The CultivarID™ system resolves genetic ambiguity. Know exactly what you're buying, shutting down the fraud associated with expensive cuttings.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Stress-Free Acquisition</h4>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                  The pre-sale reservation mechanism entirely eliminates the frantic physical rush of the expo floor. Secure your dream plant safely.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── PRICING / SIGNUP FOCUS ─── */}
       <section className="section" id="pricing" style={{ padding: '4rem 5% 10rem', position: 'relative' }}>
         {/* Background Accent */}
@@ -268,7 +372,7 @@ export default async function Home() {
              </div>
              <h3 style={{ fontSize: '3rem', color: 'white', marginBottom: '1.5rem' }}>Lifetime Authority <br /> <em style={{ color: 'var(--gold)' }}>For a One-Time Fee.</em></h3>
              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem' }}>
-               Skip the subscriptions. Secure everything in the **Canopy Tier** plus exclusive Founder-only perks for life. No renewals. No future fees.
+               Skip the subscriptions. Secure unlimited plant showcases, deeply discounted CultivarID™ hardware tags at **$10/tag**, plus exclusive Founder-only perks for life. No renewals. No future fees.
              </p>
              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>

@@ -3,144 +3,96 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  Star,
   ShieldCheck,
   TrendingUp,
-  Zap,
   Lock,
+  MapPin,
   Check,
   X as XIcon,
   Crown,
   Sparkles,
   QrCode,
   Users,
-  Globe,
+  Search,
+  Map,
   ArrowRight,
   HelpCircle,
   ChevronDown,
-  Tag
+  Bell,
+  Handshake
 } from 'lucide-react';
 
 /* ──────────────────── TIER DATA ──────────────────── */
 const tiers = [
   {
-    key: 'sprout',
-    name: 'Sprout',
-    badge: 'Starter',
-    icon: <Lock size={28} />,
-    monthlyPrice: 9.99,
-    annualPrice: 99,
-    savingsPercent: 17,
-    tagline: 'Perfect for weekend market hobbyists.',
-    desc: 'Digitize your booth in 5 minutes. Get a beautiful vendor profile, a dedicated plant page, and start capturing collector attention at your next event.',
-    features: [
-      { label: '1 Plant Showcase', desc: 'A dedicated digital page for your absolute best specimen.', included: true },
-      { label: 'Vendor Linkpage', desc: 'A mobile-first profile listing your nursery info and showcase.', included: true },
-      { label: 'Direct Email Inquiries', desc: 'Allow collectors to contact you directly from your profile.', included: true },
-      { label: 'CultivarID™ Tags', desc: 'Laser-engraved anodized aluminum tags available at $20/tag.', included: true, addon: true },
-      { label: 'Priority Directory', desc: 'Appear higher when collectors search for vendors.', included: false },
-      { label: 'Scan Analytics', desc: 'Track profile and plant page views.', included: false },
-      { label: 'Featured Homepage Spot', desc: 'Get rotated in the Featured Vendors section.', included: false },
-    ],
-    cta: 'Start Growing',
-    highlight: false,
-    isElite: false,
-  },
-  {
-    key: 'bloom',
-    name: 'Bloom',
-    badge: 'Most Popular',
-    icon: <TrendingUp size={28} />,
-    monthlyPrice: 24.99,
-    annualPrice: 249,
-    savingsPercent: 17,
-    tagline: 'The choice for established vendors.',
-    desc: 'Advanced analytics and lead capture for established professionals. 5x the plant showcases, priority placement, and unbundled CultivarID™ hardware for every featured specimen.',
-    features: [
-      { label: '5 Plant Showcases', desc: 'Highlight your top 5 most valuable rare plants with dedicated pages.', included: true },
-      { label: 'Priority Directory Placement', desc: 'Appear higher when collectors search for vendors in your region.', included: true },
-      { label: 'Basic Scan Analytics', desc: 'See how many times your profile and plant pages are viewed.', included: true },
-      { label: 'Direct Email Inquiries', desc: 'Allow collectors to contact you directly from your profile.', included: true },
-      { label: 'Vendor Linkpage', desc: 'A mobile-first profile listing your nursery info and showcase.', included: true },
-      { label: 'CultivarID™ Tags', desc: 'Laser-engraved anodized aluminum tags available at $20/tag.', included: true, addon: true },
-      { label: 'Featured Homepage Spot', desc: 'Get rotated in the Featured Vendors section.', included: false },
-    ],
-    cta: 'Scale Your Nursery',
-    highlight: true,
-    isElite: false,
-    tag: 'Recommended',
-  },
-  {
-    key: 'elite',
-    name: 'Elite Founder',
-    badge: 'Lifetime Access',
-    icon: <Crown size={28} />,
-    monthlyPrice: 497,
-    annualPrice: 497,
+    key: 'free',
+    name: 'Free Account',
+    badge: 'Explorer',
+    icon: <Search size={28} />,
+    monthlyPrice: 0,
+    annualPrice: 0,
     savingsPercent: 0,
-    tagline: 'One-time investment. Owned forever.',
-    desc: 'Skip the subscriptions. Secure unlimited showcases, exclusive Founder-only perks, and deeply discounted hardware for life. No renewals. No future fees. Only 17 seats remain.',
+    tagline: 'High-volume exploration and community engagement.',
+    desc: 'Browse the directory, study genetic profiles, and track upcoming expos. Perfect for casual enthusiasts.',
     features: [
-      { label: 'Unlimited Plant Showcases', desc: 'Create beautiful digital pages for any premium plant you sell.', included: true },
-      { label: "Permanent 'Founder' Badge", desc: 'A special badge showing you were here from the start.', included: true },
-      { label: 'CultivarID™ Tags at $10/tag', desc: 'Deeply discounted laser-engraved tags — half the standard price.', included: true, addon: true },
-      { label: 'Concierge Onboarding', desc: 'We manually input your first 10 plants and optimize your profile.', included: true },
-      { label: 'Advanced Scan Analytics', desc: 'Detailed geographic and temporal data on scans.', included: true },
-      { label: 'Featured Homepage Spot', desc: 'Permanent Featured Vendor placement.', included: true },
-      { label: 'Priority Directory Placement', desc: 'Top placement in all regional searches.', included: true },
-      { label: 'Founders-Only Event Invites', desc: 'Exclusive access to private plant events and early access.', included: true },
+      { label: 'Directory Browsing', desc: 'Full access to explore verified rare plant vendors.', included: true },
+      { label: 'CultivarID™ Profiles', desc: 'Study detailed genetic and lineage profiles of premium plants.', included: true },
+      { label: 'Expo Maps', desc: 'View upcoming physical regional event maps.', included: true },
+      { label: 'Early Access Pre-Sale', desc: 'Reserve highly coveted inventory before it goes public.', included: false },
+      { label: 'Priority Alerts', desc: 'Push notifications 24 hours before inventory goes live.', included: false },
+      { label: 'Escrow Access', desc: 'Full eligibility for secure holding deposits.', included: false },
     ],
-    cta: 'Claim Lifetime Seat',
+    cta: 'Create Free Account',
     highlight: false,
-    isElite: true,
-    tag: '17 Seats Left',
+    isPremium: false,
+  },
+  {
+    key: 'premium',
+    name: 'Premium Collector',
+    badge: 'Elite Status',
+    icon: <Crown size={28} />,
+    monthlyPrice: 9.99,
+    annualPrice: 49.00,
+    savingsPercent: 59,
+    tagline: 'Extreme value for the serious botanist.',
+    desc: 'Unlock physical-event reservations, early presales, and high-value transactional tools. A digital pass that guarantees the asset represents undeniable value.',
+    features: [
+      { label: 'Directory Browsing', desc: 'Full access to explore verified rare plant vendors.', included: true },
+      { label: 'CultivarID™ Profiles', desc: 'Study detailed genetic and lineage profiles of premium plants.', included: true },
+      { label: 'Expo Maps', desc: 'View upcoming physical regional event maps.', included: true },
+      { label: 'Early Access Pre-Sale', desc: 'Reserve highly coveted inventory before it goes public.', included: true },
+      { label: 'Priority Alerts', desc: 'Push notifications 24 hours before inventory goes live.', included: true },
+      { label: 'Escrow Access', desc: 'Full eligibility for secure holding deposits for digital pre-sales.', included: true },
+    ],
+    cta: 'Upgrade to Premium',
+    highlight: true,
+    isPremium: true,
+    tag: 'Recommended',
   },
 ];
 
 /* ──────────────────── FAQ DATA ──────────────────── */
 const faqs = [
   {
-    q: 'Can I switch tiers at any time?',
-    a: 'Absolutely. You can upgrade or downgrade your plan at any time from your vendor dashboard. When upgrading, you only pay the prorated difference. When downgrading, the new rate takes effect at the next billing cycle.',
+    q: 'How does the Holding Deposit work?',
+    a: 'To secure a plant before an expo, Premium Collectors place a 10% to 20% non-refundable holding deposit via our secure platform. The vendor then holds the plant off-market. You inspect the plant in person at the expo and pay the remaining 80% to 90% directly to the vendor via cash or local POS.',
   },
   {
-    q: 'What happens to my data if I cancel?',
-    a: 'Your vendor profile and plant showcases remain publicly visible for 30 days after cancellation. After that, they are archived but never deleted. You can reactivate anytime and everything will be restored instantly.',
+    q: 'What if the plant is damaged when I inspect it?',
+    a: 'Your deposit is safe in escrow. If the plant has hidden damage or pests upon in-person inspection, the platform initiates a dispute review to protect your investment and refund your deposit.',
   },
   {
-    q: 'Is the Elite Founder Pass really a one-time payment?',
-    a: 'Yes, 100%. One payment of $497 and you own lifetime access to every feature we build — today and in the future. No renewals, no hidden fees, no catch. Once the 50 seats are gone, they\'re gone forever.',
+    q: 'Can I upgrade my Free account later?',
+    a: 'Absolutely. You can explore the directory and view CultivarID™ genetic profiles for free. Once you are ready to reserve a high-value asset before an expo, you can upgrade to Premium instantly.',
   },
   {
-    q: 'How do CultivarID™ physical tags work?',
-    a: 'Physical CultivarID™ tags are laser-engraved anodized aluminum certificates that link to your plant\'s digital provenance profile via QR code. Standard tags are $20 each for Sprout and Bloom vendors. Elite Founders get them at a deeply discounted $10/tag. Tags are custom-ordered, manufactured, and shipped directly to you.',
+    q: 'Do I still need to buy an Expo ticket?',
+    a: 'Yes, your Premium Collector pass provides early access to vendor inventory and secure escrow reservations on our platform. Physical VIP or general admission tickets to the expos are sold separately by the event organizers.',
   },
-  {
-    q: 'Do you take a cut of my sales?',
-    a: 'Never. We are not a marketplace. We are a marketing and provenance platform. You keep 100% of every sale you make. The only exception is if you voluntarily use a third-party payment processor through your profile.',
-  },
-  {
-    q: 'What payment methods do you accept?',
-    a: 'We accept all major credit cards (Visa, Mastercard, Amex, Discover) and PayPal. Elite Founder seats can also be purchased via bank transfer for qualified buyers.',
-  },
-];
-
-/* ──────────────────── COMPARISON TABLE ──────────────────── */
-const comparisonRows = [
-  { feature: 'Plant Showcases', sprout: '1', bloom: '5', elite: 'Unlimited' },
-  { feature: 'CultivarID™ Tag Price', sprout: '$20/tag', bloom: '$20/tag', elite: '$10/tag' },
-  { feature: 'Vendor Linkpage', sprout: true, bloom: true, elite: true },
-  { feature: 'Direct Email Inquiries', sprout: true, bloom: true, elite: true },
-  { feature: 'Priority Directory', sprout: false, bloom: true, elite: true },
-  { feature: 'Scan Analytics', sprout: false, bloom: 'Basic', elite: 'Advanced' },
-  { feature: 'Featured Homepage Spot', sprout: false, bloom: false, elite: 'Permanent' },
-  { feature: 'Concierge Onboarding', sprout: false, bloom: false, elite: true },
-  { feature: 'Founder Badge', sprout: false, bloom: false, elite: true },
-  { feature: 'Founders-Only Events', sprout: false, bloom: false, elite: true },
 ];
 
 /* ──────────────────── COMPONENT ──────────────────── */
-export default function PricingPage() {
+export default function CollectorPricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -153,7 +105,6 @@ export default function PricingPage() {
         textAlign: 'center',
         position: 'relative',
       }}>
-        {/* Background Glow */}
         <div style={{
           position: 'absolute',
           top: '15%',
@@ -170,7 +121,7 @@ export default function PricingPage() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto', padding: '0 5%' }}>
           <div className="hero-eyebrow" style={{ margin: '0 auto 2rem' }}>
             <div className="hero-eyebrow-dot" />
-            <span>Transparent Vendor Pricing</span>
+            <span>Collector Club Access</span>
           </div>
 
           <h1 style={{
@@ -179,14 +130,14 @@ export default function PricingPage() {
             lineHeight: 1.1,
             letterSpacing: '-0.03em',
           }}>
-            Invest in Your <br />
+            Secure Your <br />
             <em style={{
               background: 'linear-gradient(135deg, var(--gold) 0%, #F2D681 50%, var(--gold) 100%)',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontStyle: 'italic',
-            }}>Botanical Legacy</em>
+            }}>Dream Collection</em>
           </h1>
 
           <p style={{
@@ -196,8 +147,7 @@ export default function PricingPage() {
             margin: '0 auto 3rem',
             lineHeight: 1.7,
           }}>
-            Choose the plan that fits your operation. No hidden fees, no platform cuts, and
-            you can upgrade or downgrade at any time. Physical CultivarID™ tags sold separately.
+            Browse top vendors for free, or upgrade to Premium for early access and secure escrow reservations on high-value specimens before they hit the expo floor.
           </p>
 
           {/* ─── BILLING TOGGLE ─── */}
@@ -253,7 +203,7 @@ export default function PricingPage() {
                   borderRadius: '10px',
                   fontWeight: 800,
                 }}>
-                  SAVE 17%+
+                  SAVE 59%
                 </span>
               </button>
             </div>
@@ -261,12 +211,12 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ─── VENDOR VALUE PROPOSITION ─── */}
+      {/* ─── COLLECTOR VALUE PROPOSITION ─── */}
       <section className="section" style={{ padding: '4rem 5% 6rem', background: 'var(--bg)', position: 'relative' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <span className="section-eyebrow">Why Sell With Us</span>
-            <h2 className="section-title">Eradicating Industry <em>Friction</em></h2>
+            <span className="section-eyebrow">The Premium Advantage</span>
+            <h2 className="section-title">Acquire with <em>Absolute Confidence</em></h2>
             <div className="section-rule" style={{ margin: '1.5rem auto' }} />
           </div>
 
@@ -275,7 +225,7 @@ export default function PricingPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '2.5rem',
           }}>
-            {/* Value 1: Commission */}
+            {/* Value 1: Fraud */}
             <div style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--glass-border)',
@@ -284,15 +234,15 @@ export default function PricingPage() {
               transition: 'transform 0.3s ease',
             }}>
               <div style={{ background: 'var(--gold-dim)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--gold)' }}>
-                <TrendingUp size={32} />
+                <QrCode size={32} />
               </div>
-              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>Zero Commission Leakage</h3>
+              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>Genetic Provenance Verified</h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                Predatory live-auction platforms like Whatnot and Palmstreet extract up to 8% (or more) of your hard-earned margins. We take <strong>0% commission</strong> on your sales.
+                The proprietary CultivarID™ system resolves the industry’s most critical vulnerability: the inability to verify genetic lineage. We shut down the rampant fraud associated with expensive, unverified cuttings.
               </p>
             </div>
 
-            {/* Value 2: Logistics */}
+            {/* Value 2: Chaos */}
             <div style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--glass-border)',
@@ -301,15 +251,15 @@ export default function PricingPage() {
               transition: 'transform 0.3s ease',
             }}>
               <div style={{ background: 'var(--gold-dim)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--gold)' }}>
-                <Globe size={32} />
+                <Lock size={32} />
               </div>
-              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>De-Risked Venue Logistics</h3>
+              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>Stress-Free Acquisition</h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                No more transporting fragile, high-value biological assets blindly to physical venues. Secure buyers via pre-sale with our localized matchmaking before you even pack the van.
+                Our pre-sale reservation mechanism entirely eliminates the frantic, highly stressful physical rush of the expo floor. Secure your dream plants online and pick them up safely at your leisure.
               </p>
             </div>
 
-            {/* Value 3: Growth */}
+            {/* Value 3: Shipping */}
             <div style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--glass-border)',
@@ -318,11 +268,11 @@ export default function PricingPage() {
               transition: 'transform 0.3s ease',
             }}>
               <div style={{ background: 'var(--gold-dim)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--gold)' }}>
-                <Crown size={32} />
+                <ShieldCheck size={32} />
               </div>
-              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>Ultimate Margin Protection</h3>
+              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>Zero Shipping Hazards</h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                Every dollar saved from live-auction commissions directly funds your growth. Reinvest in premium tissue culture, genetics, and scale your nursery operation.
+                Shipping delicate flora overnight during extreme weather is an existential gamble. Our localized matchmaking model keeps plants safe from temperature shock and courier trauma.
               </p>
             </div>
           </div>
@@ -335,18 +285,13 @@ export default function PricingPage() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '2rem',
-          maxWidth: '1100px',
+          maxWidth: '900px',
           margin: '0 auto',
           alignItems: 'stretch',
         }}>
           {tiers.map((tier) => {
-            const price = tier.isElite
-              ? tier.monthlyPrice
-              : isAnnual
-                ? tier.annualPrice
-                : tier.monthlyPrice;
-            const period = tier.isElite ? 'once' : isAnnual ? '/yr' : '/mo';
-            const billingParam = isAnnual ? 'annual' : 'monthly';
+            const price = isAnnual ? tier.annualPrice : tier.monthlyPrice;
+            const period = isAnnual ? '/yr' : '/mo';
 
             return (
               <div
@@ -357,28 +302,21 @@ export default function PricingPage() {
                   borderRadius: '28px',
                   background: tier.highlight
                     ? 'linear-gradient(165deg, #0B3D2E 0%, #072A1F 100%)'
-                    : tier.isElite
-                      ? 'linear-gradient(165deg, #1a1a1a 0%, #0a0a0a 100%)'
-                      : 'var(--bg-card)',
+                    : 'var(--bg-card)',
                   border: tier.highlight
                     ? '3px solid var(--gold)'
-                    : tier.isElite
-                      ? '2px solid var(--gold)'
-                      : '1px solid var(--glass-border)',
-                  color: (tier.highlight || tier.isElite) ? 'white' : 'var(--text-primary)',
+                    : '1px solid var(--glass-border)',
+                  color: tier.highlight ? 'white' : 'var(--text-primary)',
                   display: 'flex',
                   flexDirection: 'column',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   boxShadow: tier.highlight
                     ? '0 25px 60px rgba(11,61,46,0.3)'
-                    : tier.isElite
-                      ? '0 0 50px rgba(212,175,55,0.15)'
-                      : 'var(--card-shadow)',
+                    : 'var(--card-shadow)',
                   transform: tier.highlight ? 'scale(1.03)' : 'scale(1)',
                   zIndex: tier.highlight ? 2 : 1,
                 }}
               >
-                {/* Tag Badge */}
                 {tier.tag && (
                   <div style={{
                     position: 'absolute',
@@ -400,14 +338,13 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                {/* Badge + Icon */}
                 <div style={{ marginBottom: '1.5rem' }}>
                   <div style={{
                     fontSize: '0.65rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em',
-                    color: (tier.highlight || tier.isElite) ? 'var(--gold)' : 'var(--text-secondary)',
+                    color: tier.highlight ? 'var(--gold)' : 'var(--text-secondary)',
                     marginBottom: '0.75rem',
                   }}>
                     {tier.badge}
@@ -433,22 +370,21 @@ export default function PricingPage() {
                   </p>
                 </div>
 
-                {/* Price */}
                 <div style={{ marginBottom: '1.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
-                    <span style={{ fontSize: '1.2rem', fontWeight: 700, color: (tier.highlight || tier.isElite) ? 'var(--gold)' : 'inherit' }}>$</span>
+                    <span style={{ fontSize: '1.2rem', fontWeight: 700, color: tier.highlight ? 'var(--gold)' : 'inherit' }}>$</span>
                     <span style={{
                       fontSize: '3.5rem',
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
-                      color: (tier.highlight || tier.isElite) ? 'var(--gold)' : 'inherit',
+                      color: tier.highlight ? 'var(--gold)' : 'inherit',
                       lineHeight: 1,
                     }}>
-                      {tier.isElite ? '497' : Math.floor(price).toLocaleString()}
+                      {price === 0 ? '0' : price.toFixed(price % 1 === 0 ? 0 : 2)}
                     </span>
-                    <span style={{ fontSize: '1rem', opacity: 0.5, marginLeft: '0.25rem' }}>{period}</span>
+                    {price > 0 && <span style={{ fontSize: '1rem', opacity: 0.5, marginLeft: '0.25rem' }}>{period}</span>}
                   </div>
-                  {isAnnual && !tier.isElite && (
+                  {isAnnual && tier.isPremium && (
                     <div style={{
                       fontSize: '0.75rem',
                       fontWeight: 700,
@@ -458,21 +394,10 @@ export default function PricingPage() {
                       Save {tier.savingsPercent}% vs monthly
                     </div>
                   )}
-                  {tier.isElite && (
-                    <div style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      color: 'var(--gold)',
-                      marginTop: '0.5rem',
-                    }}>
-                      Paid once, owned forever
-                    </div>
-                  )}
                 </div>
 
-                {/* CTA */}
                 <Link
-                  href={tier.isElite ? `/onboarding?type=vendor&plan=elite` : `/onboarding?type=vendor&plan=${tier.key}&billing=${billingParam}`}
+                  href={`/collector/signup?plan=${tier.key}`}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -480,8 +405,8 @@ export default function PricingPage() {
                     gap: '0.5rem',
                     padding: '1rem',
                     borderRadius: '14px',
-                    background: tier.highlight ? 'var(--gold)' : tier.isElite ? 'var(--gold)' : 'var(--emerald)',
-                    color: (tier.highlight || tier.isElite) ? 'var(--charcoal)' : 'white',
+                    background: tier.highlight ? 'var(--gold)' : 'var(--emerald)',
+                    color: tier.highlight ? 'var(--charcoal)' : 'white',
                     textDecoration: 'none',
                     fontWeight: 700,
                     fontSize: '0.85rem',
@@ -494,7 +419,6 @@ export default function PricingPage() {
                   {tier.cta} <ArrowRight size={16} />
                 </Link>
 
-                {/* Features */}
                 <div style={{
                   fontSize: '0.65rem',
                   fontWeight: 800,
@@ -520,7 +444,7 @@ export default function PricingPage() {
                         height: '20px',
                         borderRadius: '50%',
                         background: f.included
-                          ? (tier.highlight || tier.isElite)
+                          ? tier.highlight
                             ? 'rgba(212,175,55,0.2)'
                             : 'var(--gold-dim)'
                           : 'transparent',
@@ -536,20 +460,7 @@ export default function PricingPage() {
                           : <XIcon size={10} strokeWidth={2} />}
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          {f.label}
-                          {(f as any).addon && (
-                            <span style={{
-                              fontSize: '0.55rem',
-                              background: 'rgba(212,175,55,0.15)',
-                              color: 'var(--gold)',
-                              padding: '0.15rem 0.4rem',
-                              borderRadius: '6px',
-                              fontWeight: 800,
-                              letterSpacing: '0.05em',
-                            }}>ADD-ON</span>
-                          )}
-                        </span>
+                        <span style={{ fontWeight: 600 }}>{f.label}</span>
                         <span style={{ fontSize: '0.72rem', opacity: 0.7, marginTop: '1px', lineHeight: 1.35 }}>{f.desc}</span>
                       </div>
                     </li>
@@ -561,105 +472,84 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ─── HARDWARE CALLOUT ─── */}
-      <section className="section" style={{ background: 'var(--bg)', paddingTop: '2rem', paddingBottom: '4rem' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 5%' }}>
+      {/* ─── ESCROW EXPLANATION ─── */}
+      <section className="section" style={{ background: 'var(--bg-surface)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 5%', textAlign: 'center' }}>
+          <div className="section-header" style={{ marginBottom: '3rem' }}>
+            <span className="section-eyebrow">Hybrid Payment Architecture</span>
+            <h2 className="section-title">The Secure <em>Holding Deposit</em> System</h2>
+            <div className="section-rule" style={{ margin: '1rem auto' }} />
+          </div>
+
+          <p style={{
+            fontSize: '1.1rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '700px',
+            margin: '0 auto 4rem',
+            lineHeight: 1.7,
+          }}>
+            For digital pre-sales involving $500–$1,000 botanical assets, trust is fragile. Our secure escrow mechanism protects both you and the vendor.
+          </p>
+
           <div style={{
-            background: 'linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(11,61,46,0.1) 100%)',
-            border: '1px solid rgba(212,175,55,0.2)',
-            borderRadius: '24px',
-            padding: '2.5rem',
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '2rem',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            textAlign: 'left',
           }}>
             <div style={{
-              width: '60px', height: '60px', borderRadius: '16px',
-              background: 'var(--gold-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0,
+              background: 'var(--bg-card)',
+              padding: '2rem',
+              borderRadius: '20px',
+              border: '1px solid var(--glass-border)',
             }}>
-              <Tag size={28} color="var(--gold)" />
-            </div>
-            <div style={{ flex: 1, minWidth: '250px' }}>
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-                CultivarID™ Physical Hardware Tags
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-                Laser-engraved anodized aluminum tags act as premium, physical proof of pedigree. Tags are custom-ordered, manufactured, and shipped directly to you. Standard price: <strong style={{ color: 'var(--gold)' }}>$20/tag</strong>. Elite Founders: <strong style={{ color: 'var(--gold)' }}>$10/tag</strong>.
+              <div style={{
+                width: '50px', height: '50px', borderRadius: '50%', background: 'var(--gold-dim)',
+                color: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem'
+              }}>
+                <Lock size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>1. The Lock</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                You place a minor 10% to 20% holding deposit via our integrated payment gateway. This locks the reservation and the vendor pulls the plant off the market.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ─── COMPARISON TABLE ─── */}
-      <section className="section" style={{ background: 'var(--bg-surface)' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 5%' }}>
-          <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <span className="section-eyebrow">Compare Plans</span>
-            <h2 className="section-title">Feature-by-Feature <em>Breakdown</em></h2>
-            <div className="section-rule" />
-          </div>
-
-          <div style={{
-            overflowX: 'auto',
-            borderRadius: '20px',
-            border: '1px solid var(--glass-border)',
-            background: 'var(--bg-card)',
-            boxShadow: 'var(--card-shadow)',
-          }}>
-            <table style={{
-              width: '100%',
-              borderCollapse: 'collapse',
-              fontSize: '0.85rem',
-              minWidth: '550px',
+            <div style={{
+              background: 'var(--bg-card)',
+              padding: '2rem',
+              borderRadius: '20px',
+              border: '1px solid var(--glass-border)',
             }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
-                  <th style={{ textAlign: 'left', padding: '1.25rem 1.5rem', fontWeight: 700, color: 'var(--text-secondary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Feature</th>
-                  {['Sprout', 'Bloom', 'Elite Founder'].map((name, i) => (
-                    <th key={name} style={{
-                      padding: '1.25rem 1rem',
-                      textAlign: 'center',
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      color: i === 1 ? 'var(--gold)' : 'var(--text-primary)',
-                    }}>
-                      {name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((row, idx) => (
-                  <tr key={row.feature} style={{
-                    borderBottom: idx < comparisonRows.length - 1 ? '1px solid var(--glass-border)' : 'none',
-                  }}>
-                    <td style={{ padding: '1rem 1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                      {row.feature}
-                    </td>
-                    {(['sprout', 'bloom', 'elite'] as const).map(tierKey => {
-                      const val = row[tierKey];
-                      return (
-                        <td key={tierKey} style={{ padding: '1rem', textAlign: 'center' }}>
-                          {val === true ? (
-                            <Check size={18} color="var(--gold)" strokeWidth={3} />
-                          ) : val === false ? (
-                            <XIcon size={16} color="var(--text-secondary)" style={{ opacity: 0.3 }} />
-                          ) : (
-                            <span style={{ fontWeight: 600, color: tierKey === 'elite' ? 'var(--gold)' : 'var(--text-primary)' }}>
-                              {val}
-                            </span>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              <div style={{
+                width: '50px', height: '50px', borderRadius: '50%', background: 'var(--gold-dim)',
+                color: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem'
+              }}>
+                <Search size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>2. The Inspection</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                At the physical expo, you inspect the live plant in person to ensure it matches the CultivarID™ profile, free of hidden damage or pests.
+              </p>
+            </div>
+
+            <div style={{
+              background: 'var(--bg-card)',
+              padding: '2rem',
+              borderRadius: '20px',
+              border: '1px solid var(--glass-border)',
+            }}>
+              <div style={{
+                width: '50px', height: '50px', borderRadius: '50%', background: 'var(--gold-dim)',
+                color: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem'
+              }}>
+                <Handshake size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>3. The Settlement</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                Once satisfied, you pay the remaining balance directly to the vendor via cash or local POS. You bypass heavy digital processing fees and walk away with your verified asset.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -742,7 +632,7 @@ export default function PricingPage() {
         position: 'relative',
       }}>
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px', margin: '0 auto' }}>
-          <Crown size={48} color="var(--gold)" style={{ marginBottom: '1.5rem' }} />
+          <Bell size={48} color="var(--gold)" style={{ marginBottom: '1.5rem' }} />
           <h2 style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
@@ -750,8 +640,8 @@ export default function PricingPage() {
             marginBottom: '1.5rem',
             lineHeight: 1.1,
           }}>
-            Ready to Dominate <br />
-            <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Your Next Expo?</em>
+            Don't Miss <br />
+            <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>The Next Drop</em>
           </h2>
           <p style={{
             color: 'rgba(255,255,255,0.7)',
@@ -759,25 +649,15 @@ export default function PricingPage() {
             lineHeight: 1.7,
             marginBottom: '3rem',
           }}>
-            Join 200+ verified vendors already using Rare Plant Vendors to capture leads,
-            build provenance, and sell more at every event.
+            Premium Collectors receive notifications 24 hours before a highly coveted inventory goes public.
           </p>
           <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/onboarding?type=vendor&plan=bloom" className="btn-primary" style={{
+            <Link href="/collector/signup?plan=premium" className="btn-primary" style={{
               padding: '1.25rem 3rem',
               borderRadius: '16px',
               fontSize: '1rem',
             }}>
-              Start with Bloom
-            </Link>
-            <Link href="/onboarding?type=vendor&plan=elite" className="btn-ghost" style={{
-              padding: '1.25rem 3rem',
-              borderRadius: '16px',
-              fontSize: '1rem',
-              color: 'white',
-              borderColor: 'rgba(255,255,255,0.3)',
-            }}>
-              Claim Lifetime Access
+              Join Premium Collector Club
             </Link>
           </div>
         </div>

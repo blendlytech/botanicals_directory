@@ -148,9 +148,8 @@ function OnboardingContent() {
               amount={
                 isMiamiDeal ? "1.00" :
                 selectedPlan === 'elite' ? "497" : 
-                selectedPlan === 'canopy' ? "129.99" :
-                selectedPlan === 'bloom' ? "39.99" :
-                selectedPlan === 'sprout' ? "14.99" : "14.99"
+                selectedPlan === 'bloom' ? "24.99" :
+                selectedPlan === 'sprout' ? "9.99" : "9.99"
               } 
               vendorId={createdVendorId} 
               planId={isMiamiDeal ? 'elite' : selectedPlan}

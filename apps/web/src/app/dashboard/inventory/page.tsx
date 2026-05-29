@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 import { ImageUpload } from "@rpv/ui";
+import { QrCode, ShieldCheck, CheckCircle2, Lock } from 'lucide-react';
 
 interface InventoryItem {
   id: string;
@@ -13,6 +14,19 @@ interface InventoryItem {
   status: string;
   image_url: string | null;
   created_at: string;
+  propagation_method?: string | null;
+  mother_plant_url?: string | null;
+  geographic_origin?: string | null;
+  variegation_type?: string | null;
+  stem_node_url?: string | null;
+  leaf_progression_urls?: string[] | null;
+  temperature_min?: number | null;
+  temperature_max?: number | null;
+  humidity_min?: number | null;
+  humidity_max?: number | null;
+  current_substrate?: string | null;
+  pest_mitigation_log?: string | null;
+  qr_generated?: boolean;
 }
 
 const TIER_LIMITS: Record<string, number | null> = {
@@ -28,8 +42,17 @@ export default function InventoryPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [generatingQR, setGeneratingQR] = useState(false);
   const [editItem, setEditItem] = useState<InventoryItem | null>(null);
-  const [form, setForm] = useState({ species_name: '', variety: '', price: '', quantity: '1', status: 'available', image_url: '' });
+  
+  const [form, setForm] = useState({ 
+    species_name: '', variety: '', price: '', quantity: '1', status: 'available', image_url: '',
+    propagation_method: '', geographic_origin: '', variegation_type: 'None', 
+    temperature_min: '', temperature_max: '', humidity_min: '', humidity_max: '',
+    current_substrate: '', pest_mitigation_log: '', mother_plant_url: '', stem_node_url: '',
+    leaf_progression_1: '', leaf_progression_2: ''
+  });
+  
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,7 +91,13 @@ export default function InventoryPage() {
 
   const openAdd = () => {
     setEditItem(null);
-    setForm({ species_name: '', variety: '', price: '', quantity: '1', status: 'available', image_url: '' });
+    setForm({ 
+      species_name: '', variety: '', price: '', quantity: '1', status: 'available', image_url: '',
+      propagation_method: '', geographic_origin: '', variegation_type: 'None', 
+      temperature_min: '', temperature_max: '', humidity_min: '', humidity_max: '',
+      current_substrate: '', pest_mitigation_log: '', mother_plant_url: '', stem_node_url: '',
+      leaf_progression_1: '', leaf_progression_2: ''
+    });
     setShowForm(true);
   };
 
@@ -81,16 +110,25 @@ export default function InventoryPage() {
       quantity: item.quantity?.toString() || '1',
       status: item.status,
       image_url: item.image_url || '',
+      propagation_method: item.propagation_method || '',
+      geographic_origin: item.geographic_origin || '',
+      variegation_type: item.variegation_type || 'None',
+      temperature_min: item.temperature_min?.toString() || '',
+      temperature_max: item.temperature_max?.toString() || '',
+      humidity_min: item.humidity_min?.toString() || '',
+      humidity_max: item.humidity_max?.toString() || '',
+      current_substrate: item.current_substrate || '',
+      pest_mitigation_log: item.pest_mitigation_log || '',
+      mother_plant_url: item.mother_plant_url || '',
+      stem_node_url: item.stem_node_url || '',
+      leaf_progression_1: item.leaf_progression_urls?.[0] || '',
+      leaf_progression_2: item.leaf_progression_urls?.[1] || '',
     });
     setShowForm(true);
   };
 
-  const handleSave = async () => {
-    if (!vendorId || !form.species_name.trim()) return;
-    setSaving(true);
-    const supabase = createClient();
-
-    const payload = {
+  const buildPayload = () => {
+    return {
       vendor_id: vendorId,
       species_name: form.species_name.trim(),
       variety: form.variety.trim() || null,
@@ -98,7 +136,26 @@ export default function InventoryPage() {
       quantity: form.quantity ? parseInt(form.quantity) : 1,
       status: form.status,
       image_url: form.image_url.trim() || null,
+      propagation_method: form.propagation_method || null,
+      geographic_origin: form.geographic_origin.trim() || null,
+      variegation_type: form.variegation_type !== 'None' ? form.variegation_type : null,
+      temperature_min: form.temperature_min ? parseInt(form.temperature_min) : null,
+      temperature_max: form.temperature_max ? parseInt(form.temperature_max) : null,
+      humidity_min: form.humidity_min ? parseInt(form.humidity_min) : null,
+      humidity_max: form.humidity_max ? parseInt(form.humidity_max) : null,
+      current_substrate: form.current_substrate || null,
+      pest_mitigation_log: form.pest_mitigation_log.trim() || null,
+      mother_plant_url: form.mother_plant_url || null,
+      stem_node_url: form.stem_node_url || null,
+      leaf_progression_urls: [form.leaf_progression_1, form.leaf_progression_2].filter(Boolean),
     };
+  };
+
+  const handleSave = async () => {
+    if (!vendorId || !form.species_name.trim()) return;
+    setSaving(true);
+    const supabase = createClient();
+    const payload = buildPayload();
 
     if (editItem) {
       const { data } = await supabase.from('inventory').update(payload).eq('id', editItem.id).select().single();
@@ -110,6 +167,49 @@ export default function InventoryPage() {
 
     setSaving(false);
     setShowForm(false);
+  };
+
+  const handleGenerateQR = async () => {
+    if (!editItem) return;
+    
+    const needsMotherPlant = ['Top-Cutting', 'Mid-Cutting'].includes(form.propagation_method);
+    const needsVariegationData = form.variegation_type && form.variegation_type !== 'None';
+
+    const isValid = form.propagation_method 
+      && form.geographic_origin 
+      && form.temperature_min && form.temperature_max 
+      && form.humidity_min && form.humidity_max 
+      && form.current_substrate 
+      && form.pest_mitigation_log
+      && (!needsMotherPlant || form.mother_plant_url)
+      && (!needsVariegationData || (form.stem_node_url && form.leaf_progression_1 && form.leaf_progression_2));
+
+    if (!isValid) {
+      alert("Please complete all CultivarID™ requirements before generating a QR code and Security Kit.");
+      return;
+    }
+
+    if (!confirm('This will trigger an order for a CultivarID Aluminum Tag and Holographic Security Stickers using your monthly quota. Proceed?')) return;
+
+    setGeneratingQR(true);
+    const supabase = createClient();
+    
+    // First save the current data
+    const payload = buildPayload();
+    await supabase.from('inventory').update(payload).eq('id', editItem.id);
+
+    // Then update qr_generated status (simulating API call to fulfillment partner)
+    const { data, error } = await supabase.from('inventory').update({ qr_generated: true }).eq('id', editItem.id).select().single();
+    
+    if (data && !error) {
+      setItems(prev => prev.map(i => i.id === editItem.id ? data : i));
+      setEditItem(data);
+      alert('Success! Your CultivarID Security Kit is being laser-engraved and will ship within 48 hours.');
+    } else {
+      alert('Error generating QR. Please try again.');
+    }
+    
+    setGeneratingQR(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -283,15 +383,22 @@ export default function InventoryPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {items.map(item => (
               <div key={item.id} style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '1.25rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
-                    {item.species_name}
-                    {item.variety && <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginLeft: '0.5rem' }}>var. {item.variety}</span>}
-                  </div>
-                  <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
-                    <span style={{ color: statusColor[item.status] || 'var(--text-secondary)', fontWeight: 600, textTransform: 'capitalize' }}>● {item.status}</span>
-                    {item.price != null && <span style={{ color: 'var(--gold)', fontWeight: 600 }}>${item.price.toFixed(2)}</span>}
-                    {item.quantity != null && <span>Qty: {item.quantity}</span>}
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  {item.qr_generated && (
+                    <div title="CultivarID Tag Generated" style={{ background: 'rgba(212,175,55,0.1)', padding: '0.5rem', borderRadius: '8px', color: 'var(--gold)' }}>
+                      <ShieldCheck size={20} />
+                    </div>
+                  )}
+                  <div>
+                    <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+                      {item.species_name}
+                      {item.variety && <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginLeft: '0.5rem' }}>var. {item.variety}</span>}
+                    </div>
+                    <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
+                      <span style={{ color: statusColor[item.status] || 'var(--text-secondary)', fontWeight: 600, textTransform: 'capitalize' }}>● {item.status}</span>
+                      {item.price != null && <span style={{ color: 'var(--gold)', fontWeight: 600 }}>${item.price.toFixed(2)}</span>}
+                      {item.quantity != null && <span>Qty: {item.quantity}</span>}
+                    </div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -310,50 +417,195 @@ export default function InventoryPage() {
 
       {/* Modal form */}
       {showForm && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200, padding: '1rem' }}>
-          <div style={{ background: 'var(--bg)', border: '1px solid var(--glass-border)', borderRadius: '16px', padding: '2.5rem', width: '100%', maxWidth: '520px', maxHeight: '90vh', overflowY: 'auto' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', margin: '0 0 0.5rem', color: 'var(--text-primary)' }}>
-              {editItem ? 'Edit Plant' : 'Add Plant'}
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '2rem' }}>
-              This will appear in collector search and wishlist matching.
-            </p>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200, padding: '1rem' }}>
+          <div style={{ background: 'var(--bg)', border: '1px solid var(--glass-border)', borderRadius: '16px', padding: '2.5rem', width: '100%', maxWidth: '700px', maxHeight: '90vh', overflowY: 'auto' }}>
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+              <div>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', margin: '0 0 0.2rem', color: 'var(--text-primary)' }}>
+                  {editItem ? 'Edit Showcase Plant' : 'Add Showcase Plant'}
+                </h2>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: 0 }}>
+                  Fill out required CultivarID™ fields to generate your secure aluminum tag.
+                </p>
+              </div>
+              {editItem && (
+                <button
+                  onClick={handleGenerateQR}
+                  disabled={generatingQR || editItem.qr_generated}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.6rem 1rem',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: editItem.qr_generated ? 'rgba(46, 204, 113, 0.1)' : 'var(--gold)',
+                    color: editItem.qr_generated ? '#2ecc71' : 'var(--charcoal)',
+                    fontWeight: 700,
+                    fontSize: '0.8rem',
+                    cursor: editItem.qr_generated ? 'default' : 'pointer',
+                    opacity: generatingQR ? 0.7 : 1,
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {editItem.qr_generated ? <CheckCircle2 size={16} /> : <QrCode size={16} />}
+                  {generatingQR ? 'Generating...' : editItem.qr_generated ? 'Kit Requested' : 'Generate Security Kit'}
+                </button>
+              )}
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Species Name *</label>
-                <input className="form-input" placeholder="e.g. Monstera Obliqua Peru" value={form.species_name} onChange={e => setForm(p => ({ ...p, species_name: e.target.value }))} />
-              </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Variety / Cultivar</label>
-                <input className="form-input" placeholder="e.g. Albo Variegata" value={form.variety} onChange={e => setForm(p => ({ ...p, variety: e.target.value }))} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Price (USD)</label>
-                  <input className="form-input" type="number" placeholder="0.00" value={form.price} onChange={e => setForm(p => ({ ...p, price: e.target.value }))} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {/* BASIC DETAILS SECTION */}
+              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--gold)' }}>Basic Details</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Species Name *</label>
+                      <input className="form-input" placeholder="e.g. Monstera Obliqua Peru" value={form.species_name} onChange={e => setForm(p => ({ ...p, species_name: e.target.value }))} />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Variety / Cultivar</label>
+                      <input className="form-input" placeholder="e.g. Albo Variegata" value={form.variety} onChange={e => setForm(p => ({ ...p, variety: e.target.value }))} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Price (USD)</label>
+                      <input className="form-input" type="number" placeholder="0.00" value={form.price} onChange={e => setForm(p => ({ ...p, price: e.target.value }))} />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Quantity</label>
+                      <input className="form-input" type="number" min="1" value={form.quantity} onChange={e => setForm(p => ({ ...p, quantity: e.target.value }))} />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Status</label>
+                      <select className="form-input" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}>
+                        <option value="available">Available</option>
+                        <option value="reserved">Reserved</option>
+                        <option value="sold">Sold</option>
+                        <option value="hidden">Hidden</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <ImageUpload bucket="inventory" label="Primary Specimen Photo *" currentImageUrl={form.image_url} onUploadComplete={(url) => setForm(p => ({ ...p, image_url: url }))} />
+                  </div>
                 </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Quantity</label>
-                  <input className="form-input" type="number" min="1" value={form.quantity} onChange={e => setForm(p => ({ ...p, quantity: e.target.value }))} />
+              </div>
+
+              {/* CULTIVAR ID SECTION */}
+              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+                  <ShieldCheck size={20} color="var(--gold)" />
+                  <h3 style={{ fontSize: '1rem', color: 'white', margin: 0 }}>CultivarID™ Requirements</h3>
                 </div>
-              </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Status</label>
-                <select className="form-input" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}>
-                  <option value="available">Available</option>
-                  <option value="reserved">Reserved</option>
-                  <option value="sold">Sold</option>
-                  <option value="hidden">Hidden</option>
-                </select>
-              </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <ImageUpload 
-                  bucket="inventory" 
-                  label="Specimen Photo"
-                  currentImageUrl={form.image_url}
-                  onUploadComplete={(url) => setForm(p => ({ ...p, image_url: url }))}
-                />
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+                  These fields are mandatory to generate a physical QR tag for this plant. This creates a digital passport that guarantees provenance and acclimation data to your buyer.
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  {/* Provenance */}
+                  <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--gold)' }}>1. Provenance & Lineage</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label">Propagation Method</label>
+                        <select className="form-input" value={form.propagation_method} onChange={e => setForm(p => ({ ...p, propagation_method: e.target.value }))}>
+                          <option value="">Select Method...</option>
+                          <option value="Basal Offset">Basal Offset</option>
+                          <option value="Seed-Grown">Seed-Grown</option>
+                          <option value="Top-Cutting">Top-Cutting</option>
+                          <option value="Mid-Cutting">Mid-Cutting</option>
+                          <option value="Tissue Culture">Tissue Culture</option>
+                        </select>
+                      </div>
+                      <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label">Geographic / Nursery Origin</label>
+                        <input className="form-input" placeholder="e.g. Cultivated in-house, Miami FL" value={form.geographic_origin} onChange={e => setForm(p => ({ ...p, geographic_origin: e.target.value }))} />
+                      </div>
+                    </div>
+                    {['Top-Cutting', 'Mid-Cutting'].includes(form.propagation_method) && (
+                      <div className="form-group" style={{ marginTop: '1rem', marginBottom: 0 }}>
+                        <ImageUpload bucket="inventory" label="Mother Plant Documentation (Required for cuttings)" currentImageUrl={form.mother_plant_url} onUploadComplete={(url) => setForm(p => ({ ...p, mother_plant_url: url }))} />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Variegation */}
+                  <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--gold)' }}>2. Variegation Stability</div>
+                    <div className="form-group">
+                      <label className="form-label">Pigmentation Typology</label>
+                      <select className="form-input" value={form.variegation_type} onChange={e => setForm(p => ({ ...p, variegation_type: e.target.value }))}>
+                        <option value="None">Solid / None</option>
+                        <option value="Albo">Albo (White)</option>
+                        <option value="Aurea">Aurea (Yellow)</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Pink">Pink</option>
+                      </select>
+                    </div>
+                    {form.variegation_type !== 'None' && (
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <ImageUpload bucket="inventory" label="Stem Node Macro" currentImageUrl={form.stem_node_url} onUploadComplete={(url) => setForm(p => ({ ...p, stem_node_url: url }))} />
+                        </div>
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <ImageUpload bucket="inventory" label="Leaf Progression #1" currentImageUrl={form.leaf_progression_1} onUploadComplete={(url) => setForm(p => ({ ...p, leaf_progression_1: url }))} />
+                        </div>
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <ImageUpload bucket="inventory" label="Leaf Progression #2" currentImageUrl={form.leaf_progression_2} onUploadComplete={(url) => setForm(p => ({ ...p, leaf_progression_2: url }))} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Acclimation */}
+                  <div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--gold)' }}>3. Acclimation & Horticulture</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+                          <label className="form-label">Min Temp (°F)</label>
+                          <input className="form-input" type="number" placeholder="65" value={form.temperature_min} onChange={e => setForm(p => ({ ...p, temperature_min: e.target.value }))} />
+                        </div>
+                        <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+                          <label className="form-label">Max Temp (°F)</label>
+                          <input className="form-input" type="number" placeholder="80" value={form.temperature_max} onChange={e => setForm(p => ({ ...p, temperature_max: e.target.value }))} />
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+                          <label className="form-label">Min Humidity (%)</label>
+                          <input className="form-input" type="number" placeholder="60" value={form.humidity_min} onChange={e => setForm(p => ({ ...p, humidity_min: e.target.value }))} />
+                        </div>
+                        <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+                          <label className="form-label">Max Humidity (%)</label>
+                          <input className="form-input" type="number" placeholder="80" value={form.humidity_max} onChange={e => setForm(p => ({ ...p, humidity_max: e.target.value }))} />
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label">Current Substrate</label>
+                        <select className="form-input" value={form.current_substrate} onChange={e => setForm(p => ({ ...p, current_substrate: e.target.value }))}>
+                          <option value="">Select Substrate...</option>
+                          <option value="Sphagnum Moss">Sphagnum Moss</option>
+                          <option value="Aroid Mix">Chunky Aroid Mix</option>
+                          <option value="Fluval Stratum">Fluval Stratum</option>
+                          <option value="Tree Fern Fiber">Tree Fern Fiber</option>
+                          <option value="Leca / Semi-Hydro">Leca / Semi-Hydro</option>
+                          <option value="Pon">Pon</option>
+                        </select>
+                      </div>
+                      <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label">Pest Mitigation Log</label>
+                        <input className="form-input" placeholder="e.g. Treated with systemic granules 14 days ago" value={form.pest_mitigation_log} onChange={e => setForm(p => ({ ...p, pest_mitigation_log: e.target.value }))} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

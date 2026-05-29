@@ -157,13 +157,13 @@ export default function DetroitLandingPage() {
             <div className="pricing-card">
               <div className="card-header">
                 <h3>Sprout</h3>
-                <div className="price">$14.99<span>/mo</span></div>
+                <div className="price">$9.99<span>/mo</span></div>
               </div>
               <ul className="card-features">
                 <li>✓ Professional Profile</li>
-                <li>✓ 5 Active Listings</li>
+                <li>✓ 1 Plant Showcase</li>
                 <li>✓ Done-for-you Setup</li>
-                <li>✓ Basic CultivarID™ Integration</li>
+                <li>✓ CultivarID™ Tags at $20/tag</li>
               </ul>
               <Link href="/signup?tier=sprout&promo=detroit" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Secure My Spot</Link>
             </div>
@@ -173,32 +173,32 @@ export default function DetroitLandingPage() {
               <div className="featured-tag">MOST POPULAR FOR DETROIT</div>
               <div className="card-header">
                 <h3>Bloom</h3>
-                <div className="price">$39.99<span>/mo</span></div>
+                <div className="price">$24.99<span>/mo</span></div>
               </div>
               <ul className="card-features">
                 <li>✓ Enhanced Visual Profile</li>
-                <li>✓ 20 Active Listings</li>
+                <li>✓ 5 Plant Showcases</li>
                 <li>✓ <strong>Priority</strong> 24h Setup</li>
-                <li>✓ Full CultivarID™ Provenance</li>
+                <li>✓ CultivarID™ Tags at $20/tag</li>
                 <li>✓ Festival Priority Listing</li>
               </ul>
               <Link href="/signup?tier=bloom&promo=detroit" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>Get Festival Ready</Link>
             </div>
 
-            {/* CANOPY */}
+            {/* ELITE FOUNDER */}
             <div className="pricing-card">
               <div className="card-header">
-                <h3>Canopy</h3>
-                <div className="price">$129.99<span>/mo</span></div>
+                <h3>Elite Founder</h3>
+                <div className="price">$497<span> once</span></div>
               </div>
               <ul className="card-features">
-                <li>✓ Elite Cinematic Profile</li>
-                <li>✓ Unlimited Listings</li>
-                <li>✓ White-Glove concierge Setup</li>
-                <li>✓ Verified "Elite Grower" Badge</li>
+                <li>✓ Unlimited Showcases</li>
+                <li>✓ CultivarID™ Tags at $10/tag</li>
+                <li>✓ White-Glove Concierge Setup</li>
+                <li>✓ Permanent Founder Badge</li>
                 <li>✓ Featured Festival Showcase</li>
               </ul>
-              <Link href="/signup?tier=canopy&promo=detroit" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Go Elite</Link>
+              <Link href="/signup?tier=elite&promo=detroit" className="btn-ghost" style={{ width: '100%', textAlign: 'center' }}>Claim Lifetime Seat</Link>
             </div>
           </div>
         </section>
