@@ -1,17 +1,19 @@
 import nodemailer from 'nodemailer';
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'mail.spacemail.com',
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true, // SSL for port 465
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
+function getTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'mail.spacemail.com',
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: true, // SSL for port 465
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+}
 
 export const notificationService = {
   /**
@@ -20,7 +22,7 @@ export const notificationService = {
   async sendSubscriptionWelcomeEmail(email: string, businessName: string, tier: string) {
     const tierName = tier.charAt(0).toUpperCase() + tier.slice(1);
     
-    return transporter.sendMail({
+    return getTransporter().sendMail({
       from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
       to: email,
       subject: `Welcome to the ${tierName} Tier! - Rare Plant Vendors`,
@@ -51,7 +53,7 @@ export const notificationService = {
       ? `🔥 ELITE LEAD: Someone wants ${speciesName}!` 
       : `New Lead: Wishlist match for ${speciesName}`;
 
-    return transporter.sendMail({
+    return getTransporter().sendMail({
       from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
       to: email,
       subject: subject,
