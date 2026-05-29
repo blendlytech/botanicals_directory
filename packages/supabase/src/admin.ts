@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-let _adminClient: ReturnType<typeof createClient> | null = null;
+let _adminClient: SupabaseClient<any, 'public', any> | null = null;
 
 const getSupabaseAdmin = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -10,7 +10,7 @@ const getSupabaseAdmin = () => {
     console.warn('Supabase Admin environment variables are missing');
   }
 
-  return createClient(supabaseUrl, supabaseKey, {
+  return createClient<any>(supabaseUrl, supabaseKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false
@@ -31,4 +31,4 @@ export const supabaseAdmin = new Proxy({} as any, {
     }
     return (_adminClient as any)[prop];
   }
-}) as ReturnType<typeof createClient>;
+}) as SupabaseClient<any, 'public', any>;

@@ -32,7 +32,11 @@ export default function EventsMapPage() {
         .order('start_date', { ascending: true });
 
       if (data) {
-        setEvents(data as Event[]);
+        const filtered = (data as Event[]).filter(evt => {
+          if (!evt.start_date) return true;
+          return evt.start_date >= '2026-05-28';
+        });
+        setEvents(filtered);
       }
       setLoading(false);
     }

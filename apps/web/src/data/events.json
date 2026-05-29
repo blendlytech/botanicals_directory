@@ -1,25 +1,5 @@
 [
   {
-    "title": "Northwest Flower & Garden Festival 2026",
-    "start_date": "2026-02-11",
-    "end_date": "2026-02-15",
-    "location_name": "Seattle, WA",
-    "location_address": "Convention Center, Seattle",
-    "website_url": "https://gardenshow.com",
-    "description": "One of the largest garden festivals in North America, featuring a massive plant market and world-class display gardens.",
-    "event_type": "Convention"
-  },
-  {
-    "title": "Rare Plant & Orchid Festival 2026",
-    "start_date": "2026-05-16",
-    "end_date": "2026-05-17",
-    "location_name": "Miami, FL",
-    "location_address": "Miami, Florida",
-    "website_url": "https://rareplantfestival.com",
-    "description": "Miami's premier destination for rare aroids, orchids, and tropical exotics.",
-    "event_type": "Market"
-  },
-  {
     "title": "Southeastern Plant Symposium 2026",
     "start_date": "2026-06-12",
     "end_date": "2026-06-13",
