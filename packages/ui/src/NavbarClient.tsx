@@ -15,7 +15,8 @@ import {
   LogIn,
   UserPlus,
   DollarSign,
-  Crown
+  Crown,
+  Handshake
 } from 'lucide-react';
 
 export default function NavbarClient() {
@@ -38,6 +39,7 @@ export default function NavbarClient() {
     { name: 'Verified Vendors', href: '/vendors', icon: <ShieldCheck size={16} /> },
     { name: 'Vendor Pricing', href: '/pricing', icon: <DollarSign size={16} /> },
     { name: 'Collector Pricing', href: '/collector/pricing', icon: <Crown size={16} /> },
+    { name: 'Partners', href: '/partners', icon: <Handshake size={16} /> },
     { name: 'Detroit Expo', href: '/detroit', icon: <MapPin size={16} /> },
     { name: 'Collector Sign In', href: '/collector/login', icon: <LogIn size={16} /> },
     { name: 'Collector Register', href: '/collector/signup', icon: <UserPlus size={16} /> },
