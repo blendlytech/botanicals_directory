@@ -42,7 +42,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         price: 8500,
         status: 'available',
         quantity: 1,
-        image_url: null,
+        image_url: '/vendors/blendly-elite/plant-1.png',
         digital_passports: [{ verification_hash: 'CID-884-BTB-PSS' }],
         subscriber_feature: 'Lineage Tree'
       },
@@ -54,7 +54,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         price: 1200,
         status: 'available',
         quantity: 1,
-        image_url: null,
+        image_url: '/vendors/blendly-elite/plant-2.png',
         digital_passports: [{ verification_hash: 'CID-901-BTB-MALBO' }],
         subscriber_feature: 'Time-Lapse Growth Record'
       },
@@ -66,7 +66,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         price: 2100,
         status: 'available',
         quantity: 1,
-        image_url: null,
+        image_url: '/vendors/blendly-elite/plant-3.png',
         digital_passports: [{ verification_hash: 'CID-112-BTB-AWARO' }],
         subscriber_feature: 'Micro-Climate Data'
       },
@@ -78,7 +78,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         price: 4500,
         status: 'available',
         quantity: 1,
-        image_url: null,
+        image_url: '/vendors/blendly-elite/plant-4.png',
         digital_passports: [{ verification_hash: 'CID-445-BTB-MMINT' }],
         subscriber_feature: 'Right of First Refusal'
       },
@@ -90,7 +90,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         price: 850,
         status: 'available',
         quantity: 2,
-        image_url: null,
+        image_url: '/vendors/blendly-elite/plant-5.png',
         digital_passports: [{ verification_hash: 'CID-777-BTB-STRI' }],
         subscriber_feature: 'Direct Breeder Ping'
       }
