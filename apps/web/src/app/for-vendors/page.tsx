@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PricingToggle } from "@rpv/ui";
-import { ShieldCheck, TrendingUp, MapPin, Zap, Star, Globe, Lock, ArrowRight, ChevronRight, BarChart3, Users, Smartphone, Leaf, Tag, Award } from 'lucide-react';
+import { ShieldCheck, Zap, Star, Globe, ArrowRight, BarChart3, Users, Smartphone, Tag, Award } from 'lucide-react';
 import Link from "next/link";
 
 const authorityBenefits = [

@@ -185,7 +185,7 @@ export default function InventoryPage() {
       && (!needsVariegationData || (form.stem_node_url && form.leaf_progression_1 && form.leaf_progression_2));
 
     if (!isValid) {
-      alert("Please complete all CultivarID™ requirements before generating a QR code and Security Kit.");
+      alert("Please complete all CultivarID™ requirements before requesting your NFC Tag and Security Kit.");
       return;
     }
 
@@ -204,9 +204,9 @@ export default function InventoryPage() {
     if (data && !error) {
       setItems(prev => prev.map(i => i.id === editItem.id ? data : i));
       setEditItem(data);
-      alert('Success! Your CultivarID Security Kit is being laser-engraved and will ship within 48 hours.');
+      alert('Success! Your CultivarID Security Kit is being provisioned and will ship within 48 hours.');
     } else {
-      alert('Error generating QR. Please try again.');
+      alert('Error requesting kit. Please try again.');
     }
     
     setGeneratingQR(false);
@@ -502,7 +502,7 @@ export default function InventoryPage() {
                   <h3 style={{ fontSize: '1rem', color: 'white', margin: 0 }}>CultivarID™ Requirements</h3>
                 </div>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-                  These fields are mandatory to generate a physical QR tag for this plant. This creates a digital passport that guarantees provenance and acclimation data to your buyer.
+                  These fields are mandatory to generate a physical NFC tag for this plant. This creates a digital passport that guarantees provenance and acclimation data to your buyer.
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>

@@ -153,7 +153,7 @@ export default function PricingCards() {
           )}
           
           <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-            Advanced analytics and lead capture for established professionals. QR hardware tags sold separately.
+            Advanced analytics and lead capture for established professionals. NFC hardware tags sold separately.
           </p>
 
           <div style={{ 

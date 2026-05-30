@@ -305,7 +305,7 @@ export default function VerifyPassportPage({ params }: { params: { hash: string 
                     <Link href={`/vendors/${passport.vendors?.slug}`} className="btn-primary" style={{ padding: '1.2rem 2.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       Shop Now <ArrowRight size={18} />
                     </Link>
-                    <Link href={`/signup?interest=${encodeURIComponent(passport.specimen_name)}&source=qr`} className="btn-ghost" style={{ padding: '1.2rem 2.5rem' }}>
+                    <Link href={`/signup?interest=${encodeURIComponent(passport.specimen_name)}&source=nfc`} className="btn-ghost" style={{ padding: '1.2rem 2.5rem' }}>
                       Track Variety
                     </Link>
                   </div>

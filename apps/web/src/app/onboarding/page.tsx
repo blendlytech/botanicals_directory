@@ -138,7 +138,7 @@ function OnboardingContent() {
           </h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', lineHeight: 1.6 }}>
             {isMiamiDeal 
-              ? `You're one step away from joining the Elite 100 in Miami. Activate your QR suite now for just $1.00.`
+              ? `You're one step away from joining the Elite 100 in Miami. Activate your NFC suite now for just $1.00.`
               : `Your account has been created. To activate your status and unlock lead matching, please complete your payment.`
             }
           </p>

@@ -7,7 +7,7 @@ This document outlines the complete Standard Operating Procedure (SOP) for fulfi
 Based on the strategic analysis of the market for a bootstrapped, Shopify-integrated deployment:
 
 1. **Software Provider: Ixkio (Flex Pro Tier)**
-   * **Why:** Ixkio provides native "Shopify CodeLink" integration. It handles the secure generation of NFC URLs and securely injects the digital birth certificate data directly onto your existing Shopify storefront, preventing unauthorized access without a physical tap.
+   * **Why:** Ixkio provides native "Shopify CodeLink" integration. It handles the secure generation of NFC URLs and securely injects the digital birth certificate data directly onto your existing website, preventing unauthorized access without a physical tap.
    * **Cost to You:** $85 / month (supports up to 50,000 scans and 5,000 unique tags).
 
 2. **Hardware Dropshipper: Seritag**
@@ -17,6 +17,7 @@ Based on the strategic analysis of the market for a bootstrapped, Shopify-integr
 ---
 
 ## 1. The Transaction & Vendor Onboarding
+
 The process begins the moment the vendor purchases the Elite package.
 
 | Actor | Action Required |
@@ -28,6 +29,7 @@ The process begins the moment the vendor purchases the Elite package.
 ---
 
 ## 2. On-Demand Tag Dropshipping ($10 / Tag)
+
 Hardware fulfillment is outsourced on a per-order basis to Seritag.
 
 | Actor | Action Required |
@@ -40,6 +42,7 @@ Hardware fulfillment is outsourced on a per-order basis to Seritag.
 ---
 
 ## 3. The "Blank Tag / Claim" Process (At the Greenhouse)
+
 The tags arrive "blank" (pointing to an empty profile). The vendor does all the data entry.
 
 | Actor | Action Required |
@@ -58,11 +61,13 @@ The tags arrive "blank" (pointing to an empty profile). The vendor does all the 
 This section clearly defines the financial liabilities and profit margins for both you (RPV) and the Vendor.
 
 ### Costs Incurred by the Vendor
+
 * **Upfront Cost:** $497.00 (One-time Elite Founders Lifetime fee).
 * **Variable Cost:** $10.00 per tag (Ordered on-demand when they have a plant to sell).
 * *Total Cost for 5 plants:* $497 + $50 = **$547.00**
 
 ### Costs Incurred by You (RPV)
+
 * **Fixed Software Overhead:** $85.00 / month (Ixkio Flex Pro subscription, paid *after* you secure your first $497 sale).
 * **Variable Hardware Cost (per 5-tag order):** 
   * 5x Seritag Nylon NTAG213 Tags (~$1.50 ea) = $7.50
@@ -70,6 +75,7 @@ This section clearly defines the financial liabilities and profit margins for bo
   * *Total Cost of Goods Sold (COGS) for 5 tags:* **~$11.50**
 
 ### Your Profit Margins
+
 * **Onboarding Profit:** $497.00 - $0 COGS = **$497.00 Profit** (100% Margin, covers almost 6 months of Ixkio).
 * **Hardware Order Profit (5 tags):** $50.00 (Revenue) - $11.50 (COGS) = **$38.50 Profit** (77% Margin).
 

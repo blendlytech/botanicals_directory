@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch all verified vendors for dynamic routes
     const { data: vendors, error } = await supabaseAdmin
       .from('vendors')
-      .select('slug, updated_at')
+      .select('slug, created_at')
       .eq('is_verified', true);
 
     if (error) {
@@ -33,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const vendorRoutes = vendors.map((vendor: any) => ({
       url: `${baseUrl}/vendors/${vendor.slug}`,
-      lastModified: vendor.updated_at || new Date().toISOString(),
+      lastModified: vendor.created_at || new Date().toISOString(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     }));

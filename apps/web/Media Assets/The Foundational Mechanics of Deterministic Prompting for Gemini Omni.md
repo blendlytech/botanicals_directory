@@ -78,13 +78,13 @@ To operationalize these models across a marketing agency, professionals rely on 
 
 Optimized for platforms characterized by rapid scrolling, such as TikTok, Instagram Reels, and YouTube Shorts. This prompt prioritizes an aggressive hook and energetic transitions over slow, methodical pacing.
 
-> ### **Prompt Structure**
+> ### **Prompt Structure (Archetype 1: Social Media Ad)**
 >
 > ```text
 > Create a short vertical social media ad. Use the uploaded product image as the main subject. Start with a visually strong first second. Use quick but clean camera movement and energetic transitions. The video should show the product in a modern lifestyle setting. The style should feel bold, bright, and attention-grabbing. Keep the product identity consistent. Format the video for vertical mobile viewing. Avoid slow pacing. Avoid cluttered backgrounds.
 > ```
 >
-> ### **Commercial Application**
+> ### **Commercial Application (Archetype 1: Social Media Ad)**
 >
 > The explicit instruction to "start with a visually strong first second" manipulates the model to place dynamic motion at the very beginning of the timeline, capturing audience attention before they scroll past. Specifying "vertical mobile viewing" ensures the focal points remain centered, avoiding the awkward cropping that occurs when 16:9 videos are forcefully adapted for social feeds.
 
@@ -92,13 +92,13 @@ Optimized for platforms characterized by rapid scrolling, such as TikTok, Instag
 
 Designed for creating background elements for Software as a Service (SaaS) tools, AI platforms, or corporate landing pages. The primary objective is visual interest without cognitive overload.
 
-> ### **Prompt Structure**
+> ### **Prompt Structure (Archetype 2: Website Hero Video)**
 >
 > ```text
 > Create a short website hero video for an AI tool. Use a clean dark interface style with soft glowing elements. Show abstract AI generation activity, smooth transitions, and subtle motion. The video should feel modern, reliable, and professional. Use slow camera movement and avoid fast cuts. Leave visual space in the center for headline text. The final result should work as a background video on a landing page. Do not add unreadable text. Do not make the interface too busy. Do not use chaotic motion.
 > ```
 >
-> ### **Commercial Application**
+> ### **Commercial Application (Archetype 2: Website Hero Video)**
 >
 > The instruction to "leave visual space in the center for headline text" is a crucial directorial command. It forces the AI to construct a composition with negative space, ensuring that when the web developer overlays HTML text on the video, the typography remains highly legible against the background.
 
