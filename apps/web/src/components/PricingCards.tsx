@@ -113,7 +113,7 @@ export default function PricingCards() {
                   CultivarID™ Tags
                   <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>ADD-ON</span>
                 </div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Laser-engraved aluminum tags at $20/tag.</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Tamper-evident Nylon NFC tags at $20/tag.</div>
               </div>
             </li>
           </ul>
@@ -192,7 +192,7 @@ export default function PricingCards() {
                     CultivarID™ Tags
                     <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.3)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>ADD-ON</span>
                   </div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Laser-engraved aluminum tags at $20/tag.</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px', color: 'white', fontWeight: 400 }}>Tamper-evident Nylon NFC tags at $15/tag.</div>
                 </div>
               </li>
             </ul>
@@ -231,7 +231,7 @@ export default function PricingCards() {
             Paid once, owned forever
           </div>
           <p style={{ color: 'white', opacity: 0.9, marginBottom: '2.5rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-            Unlimited showcases, exclusive Founder perks, and deeply discounted $10/tag hardware for life.
+            Unlimited showcases, exclusive Founder perks, and deeply discounted $5/tag hardware for life.
           </p>
           <ul className="pricing-feature-list">
             <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
@@ -245,10 +245,10 @@ export default function PricingCards() {
               <Tag size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
                 <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  CultivarID™ Tags at $10/tag
-                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>50% OFF</span>
+                  CultivarID™ Tags at $5/tag
+                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>FIRST 5 FREE</span>
                 </div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Half the standard price on all physical hardware tags.</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Your first 5 CultivarID Nylon NFC tags are FREE. Then just $5/tag.</div>
               </div>
             </li>
             <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>

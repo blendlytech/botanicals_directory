@@ -31,7 +31,7 @@ const tiers = [
       { label: '1 Plant Showcase', desc: 'A dedicated digital page for your absolute best specimen.', included: true },
       { label: 'Vendor Linkpage', desc: 'A mobile-first profile listing your nursery info and showcase.', included: true },
       { label: 'Direct Email Inquiries', desc: 'Allow collectors to contact you directly from your profile.', included: true },
-      { label: 'CultivarID™ Tags', desc: 'Laser-engraved anodized aluminum tags available at $20/tag.', included: true, addon: true },
+      { label: 'CultivarID™ Tags', desc: 'Tamper-evident Nylon NFC tags available at $20/tag.', included: true, addon: true },
       { label: 'Priority Directory', desc: 'Appear higher when collectors search for vendors.', included: false },
       { label: 'Scan Analytics', desc: 'Track profile and plant page views.', included: false },
       { label: 'Featured Homepage Spot', desc: 'Get rotated in the Featured Vendors section.', included: false },
@@ -56,7 +56,7 @@ const tiers = [
       { label: 'Basic Scan Analytics', desc: 'See how many times your profile and plant pages are viewed.', included: true },
       { label: 'Direct Email Inquiries', desc: 'Allow collectors to contact you directly from your profile.', included: true },
       { label: 'Vendor Linkpage', desc: 'A mobile-first profile listing your nursery info and showcase.', included: true },
-      { label: 'CultivarID™ Tags', desc: 'Laser-engraved anodized aluminum tags available at $20/tag.', included: true, addon: true },
+      { label: 'CultivarID™ Tags', desc: 'Tamper-evident Nylon NFC tags available at $15/tag.', included: true, addon: true },
       { label: 'Featured Homepage Spot', desc: 'Get rotated in the Featured Vendors section.', included: false },
     ],
     cta: 'Scale Your Nursery',
@@ -77,7 +77,7 @@ const tiers = [
     features: [
       { label: 'Unlimited Plant Showcases', desc: 'Create beautiful digital pages for any premium plant you sell.', included: true },
       { label: "Permanent 'Founder' Badge", desc: 'A special badge showing you were here from the start.', included: true },
-      { label: 'CultivarID™ Tags at $10/tag', desc: 'Deeply discounted laser-engraved tags — half the standard price.', included: true, addon: true },
+      { label: 'CultivarID™ Tags at $5/tag', desc: 'Your first 5 CultivarID Nylon NFC tags are FREE. Then just $5/tag.', included: true, addon: true },
       { label: 'Concierge Onboarding', desc: 'We manually input your first 10 plants and optimize your profile.', included: true },
       { label: 'Advanced Scan Analytics', desc: 'Detailed geographic and temporal data on scans.', included: true },
       { label: 'Featured Homepage Spot', desc: 'Permanent Featured Vendor placement.', included: true },
@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     q: 'How do CultivarID™ physical tags work?',
-    a: 'Physical CultivarID™ tags are laser-engraved anodized aluminum certificates that link to your plant\'s digital provenance profile via QR code. Standard tags are $20 each for Sprout and Bloom vendors. Elite Founders get them at a deeply discounted $10/tag. Tags are custom-ordered, manufactured, and shipped directly to you.',
+    a: 'Physical CultivarID™ tags are tamper-evident Nylon NFC tags that link to your plant\'s digital provenance profile via NFC tap. Tags are $20 each for Sprout and $15 for Bloom vendors. Elite Founders get their first 5 tags for FREE, then just $5/tag. Tags are custom-ordered, provisioned, and shipped directly to you.',
   },
   {
     q: 'Do you take a cut of my sales?',
@@ -122,7 +122,7 @@ const faqs = [
 /* ──────────────────── COMPARISON TABLE ──────────────────── */
 const comparisonRows = [
   { feature: 'Plant Showcases', sprout: '1', bloom: '5', elite: 'Unlimited' },
-  { feature: 'CultivarID™ Tag Price', sprout: '$20/tag', bloom: '$20/tag', elite: '$10/tag' },
+  { feature: 'CultivarID™ Tag Price', sprout: '$20/tag', bloom: '$15/tag', elite: '$5/tag (First 5 Free)' },
   { feature: 'Vendor Linkpage', sprout: true, bloom: true, elite: true },
   { feature: 'Direct Email Inquiries', sprout: true, bloom: true, elite: true },
   { feature: 'Priority Directory', sprout: false, bloom: true, elite: true },
@@ -580,7 +580,7 @@ export default function PricingPage() {
                 CultivarID™ Physical Hardware Tags
               </h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-                Laser-engraved anodized aluminum tags act as premium, physical proof of pedigree. Tags are custom-ordered, manufactured, and shipped directly to you. Standard price: <strong style={{ color: 'var(--gold)' }}>$20/tag</strong>. Elite Founders: <strong style={{ color: 'var(--gold)' }}>$10/tag</strong>.
+                Tamper-evident Nylon NFC tags act as secure, physical proof of pedigree. Tags are custom-ordered, provisioned, and shipped directly to you. Sprout: <strong style={{ color: 'var(--gold)' }}>$20/tag</strong>. Bloom: <strong style={{ color: 'var(--gold)' }}>$15/tag</strong>. Elite Founders: <strong style={{ color: 'var(--gold)' }}>$5/tag (First 5 FREE)</strong>.
               </p>
             </div>
           </div>

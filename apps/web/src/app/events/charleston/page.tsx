@@ -247,7 +247,7 @@ export default function CharlestonShowPage() {
             <div className="feature-card">
               <div className="feature-icon"><QrCode color="var(--gold)" /></div>
               <h3 className="feature-title">Instant Verification</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Scan QR codes at the Charleston show to instantly see care logs and genetic lineage.</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Tap NFC tags at the Charleston show to instantly see care logs and genetic lineage.</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon"><ShieldCheck color="var(--gold)" /></div>
@@ -258,7 +258,7 @@ export default function CharlestonShowPage() {
           
           <div style={{ marginTop: '3rem', padding: '2rem', background: 'var(--gold-dim)', borderRadius: '16px', border: '1px dashed var(--gold)' }}>
             <p style={{ fontWeight: 600, color: 'var(--gold)', letterSpacing: '0.05em' }}>
-              "Collectors at the Charleston show are looking for QR codes. Don't let your collection stay in the analog age."
+              "Collectors at the Charleston show are looking for NFC tags. Don't let your collection stay in the analog age."
             </p>
           </div>
         </div>
@@ -281,11 +281,11 @@ export default function CharlestonShowPage() {
           </h2>
           <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, marginBottom: '3rem' }}>
             Collectors will be using the CultivarID scanner to find their next "Grail." 
-            Vendors with QR codes appear 10x more professional and trustworthy. 
+            Vendors with NFC tags appear 10x more professional and trustworthy. 
             We are giving CultivarID away for <strong>FREE</strong> to our Collector Founding Subscribers to ensure they are scanning <em>your</em> plants.
           </p>
           <Link href="/onboarding" className="btn-primary" style={{ padding: '1.25rem 3.5rem', borderRadius: '50px', background: '#fff', color: '#0B3D2E' }}>
-            Get Your Vendor QR Kit
+            Get Your Vendor NFC Kit
           </Link>
         </div>
       </section>

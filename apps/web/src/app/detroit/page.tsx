@@ -100,9 +100,9 @@ export default function DetroitLandingPage() {
             </div>
             <div className="feature-card">
               <div style={{ fontSize: '2rem', color: 'var(--gold)', marginBottom: '1rem' }}>02</div>
-              <h3 style={{ marginBottom: '1rem' }}>The Secure QR</h3>
+              <h3 style={{ marginBottom: '1rem' }}>The Secure NFC Tap</h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                You get unique QR codes for your tags. Scans show the plant's story, care tips, and **curated botanical facts** about the species.
+                You get unique NFC chips in your tags. Taps show the plant's story, care tips, and **curated botanical facts** about the species.
               </p>
             </div>
             <div className="feature-card">
@@ -121,10 +121,10 @@ export default function DetroitLandingPage() {
             <div className="pitch-content">
               <h2 className="section-title">Subscribers are <em>Searching</em>.</h2>
               <p>
-                Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ QR Codes at the festival.</strong>
+                Our 15,000+ active subscribers have been notified: <strong>Look for the CultivarID™ NFC Tags at the festival.</strong>
               </p>
               <p>
-                &quot;Think of it as a <strong>Digital Passport</strong> for your plants. It&apos;s a secure QR code you put on your plant tags. When a collector scans it, they see the exact lineage, care history, and proof that it came from your nursery.&quot;
+                &quot;Think of it as a <strong>Digital Passport</strong> for your plants. It&apos;s a secure NFC chip you put on your plant tags. When a collector taps it, they see the exact lineage, care history, and proof that it came from your nursery.&quot;
               </p>
               <div className="urgency-tag">
                 OFFER EXPIRES IN 2 HOURS
@@ -179,7 +179,7 @@ export default function DetroitLandingPage() {
                 <li>✓ Enhanced Visual Profile</li>
                 <li>✓ 5 Plant Showcases</li>
                 <li>✓ <strong>Priority</strong> 24h Setup</li>
-                <li>✓ CultivarID™ Tags at $20/tag</li>
+                <li>✓ CultivarID™ Tags at $15/tag</li>
                 <li>✓ Festival Priority Listing</li>
               </ul>
               <Link href="/signup?tier=bloom&promo=detroit" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>Get Festival Ready</Link>
@@ -193,7 +193,7 @@ export default function DetroitLandingPage() {
               </div>
               <ul className="card-features">
                 <li>✓ Unlimited Showcases</li>
-                <li>✓ CultivarID™ Tags at $10/tag</li>
+                <li>✓ CultivarID™ Tags at $5/tag (First 5 Free)</li>
                 <li>✓ White-Glove Concierge Setup</li>
                 <li>✓ Permanent Founder Badge</li>
                 <li>✓ Featured Festival Showcase</li>

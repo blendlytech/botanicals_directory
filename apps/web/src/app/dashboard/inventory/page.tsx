@@ -189,7 +189,7 @@ export default function InventoryPage() {
       return;
     }
 
-    if (!confirm('This will trigger an order for a CultivarID Aluminum Tag and Holographic Security Stickers using your monthly quota. Proceed?')) return;
+    if (!confirm('This will trigger an order for a CultivarID Nylon NFC Tag and Holographic Security Stickers using your monthly quota. Proceed?')) return;
 
     setGeneratingQR(true);
     const supabase = createClient();
@@ -426,7 +426,7 @@ export default function InventoryPage() {
                   {editItem ? 'Edit Showcase Plant' : 'Add Showcase Plant'}
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: 0 }}>
-                  Fill out required CultivarID™ fields to generate your secure aluminum tag.
+                  Fill out required CultivarID™ fields to provision your secure Nylon NFC tag.
                 </p>
               </div>
               {editItem && (
