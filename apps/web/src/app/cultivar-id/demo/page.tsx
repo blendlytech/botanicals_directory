@@ -26,9 +26,14 @@ export default function CultivarIDDemoPage() {
 
       {/* Hero Section */}
       <div style={{ position: 'relative', height: '55vh', width: '100%', overflow: 'hidden' }}>
-        <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to bottom, #0a1a0f, #050505)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontSize: '8rem', opacity: 0.15 }}>🌿</span>
-        </div>
+        <Image
+          src="/monstera_nfc_tag.png"
+          alt="Monstera Deliciosa Albo with CultivarID NFC Tag"
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
+          priority
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, #050505 100%)' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '4rem 5%', background: 'linear-gradient(to top, #050505, transparent)' }}>
           <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
