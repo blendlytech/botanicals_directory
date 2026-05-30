@@ -1,77 +1,18 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import { Html5Qrcode } from 'html5-qrcode';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Camera, ShieldCheck, X, RefreshCw, Zap } from 'lucide-react';
+import { ShieldCheck, Smartphone, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import './scan.css';
 
-export default function QRScannerPage() {
+export default function VerifyScannerPage() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
-  const [isScanning, setIsScanning] = useState(false);
-  const scannerRef = useRef<Html5Qrcode | null>(null);
+  const [hash, setHash] = useState('');
 
-  useEffect(() => {
-    // Only run on client
-    if (typeof window === 'undefined') return;
-
-    const startScanner = async () => {
-      try {
-        const html5QrCode = new Html5Qrcode("reader");
-        scannerRef.current = html5QrCode;
-        setIsScanning(true);
-
-        const config = { 
-          fps: 10, 
-          qrbox: { width: 280, height: 280 },
-          aspectRatio: 1.0
-        };
-
-        await html5QrCode.start(
-          { facingMode: "environment" }, 
-          config,
-          (decodedText) => {
-            handleScanSuccess(decodedText);
-          },
-          (errorMessage) => {
-            // Silently ignore scan errors
-          }
-        );
-      } catch (err: any) {
-        console.error("Scanner Error:", err);
-        setError("Camera access denied or not available. Please ensure you've granted camera permissions.");
-        setIsScanning(false);
-      }
-    };
-
-    startScanner();
-
-    return () => {
-      if (scannerRef.current && scannerRef.current.isScanning) {
-        scannerRef.current.stop().catch(err => console.error("Stop Error:", err));
-      }
-    };
-  }, []);
-
-  const handleScanSuccess = (decodedText: string) => {
-    let hash = "";
-    if (decodedText.includes('rareplantvendors.com/verify/')) {
-      const parts = decodedText.split('/verify/');
-      hash = parts[parts.length - 1].split('?')[0].split('#')[0];
-    } else if (decodedText.length === 8 || decodedText.length === 12) {
-      hash = decodedText;
-    }
-
-    if (hash) {
-      if (scannerRef.current) {
-        scannerRef.current.stop().then(() => {
-          router.push(`/verify/${hash}`);
-        });
-      } else {
-        router.push(`/verify/${hash}`);
-      }
+  const handleVerify = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (hash.trim()) {
+      router.push(`/verify/${hash.trim()}`);
     }
   };
 
@@ -87,80 +28,70 @@ export default function QRScannerPage() {
             <span>CultivarID Authentication</span>
           </div>
           <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', marginBottom: '1rem' }}>
-            Specimen <em>Scanner</em>
+            Verify a <em>Specimen</em>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '400px', margin: '0 auto' }}>
-            Point your camera at a CultivarID QR code to verify the provenance and authenticity of this specimen.
+            No app required. Just tap your phone or enter the Plant ID manually.
           </p>
         </div>
 
         <div style={{ 
-          position: 'relative', 
-          width: '100%', 
-          aspectRatio: '1', 
-          background: '#000', 
+          background: 'var(--bg-card)', 
           borderRadius: '32px', 
-          overflow: 'hidden',
+          padding: '4rem 2rem',
           border: '1px solid var(--glass-border)',
-          boxShadow: '0 0 50px rgba(0,0,0,0.5)'
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+          textAlign: 'center'
         }}>
-          <div id="reader" style={{ width: '100%', height: '100%' }}></div>
-
+          
           <div style={{ 
-            position: 'absolute', 
-            top: 0, left: 0, right: 0, bottom: 0, 
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
+            width: '120px', 
+            height: '120px', 
+            borderRadius: '50%', 
+            background: 'rgba(212,175,55,0.1)', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            margin: '0 auto 2rem',
+            border: '2px dashed var(--gold)'
           }}>
-            <div style={{ 
-              width: '280px', 
-              height: '280px', 
-              border: '2px solid rgba(212,175,55,0.3)',
-              borderRadius: '24px',
-              position: 'relative'
-            }}>
-              <div style={{ position: 'absolute', top: '-2px', left: '-2px', width: '30px', height: '30px', borderTop: '4px solid var(--gold)', borderLeft: '4px solid var(--gold)', borderTopLeftRadius: '24px' }}></div>
-              <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '30px', height: '30px', borderTop: '4px solid var(--gold)', borderRight: '4px solid var(--gold)', borderTopRightRadius: '24px' }}></div>
-              <div style={{ position: 'absolute', bottom: '-2px', left: '-2px', width: '30px', height: '30px', borderBottom: '4px solid var(--gold)', borderLeft: '4px solid var(--gold)', borderBottomLeftRadius: '24px' }}></div>
-              <div style={{ position: 'absolute', bottom: '-2px', right: '-2px', width: '30px', height: '30px', borderBottom: '4px solid var(--gold)', borderRight: '4px solid var(--gold)', borderBottomRightRadius: '24px' }}></div>
-
-              {isScanning && (
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '0', 
-                  left: '10%', 
-                  right: '10%', 
-                  height: '2px', 
-                  background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
-                  boxShadow: '0 0 15px var(--gold)',
-                  animation: 'scanLine 3s linear infinite'
-                }}></div>
-              )}
-            </div>
+            <Smartphone size={48} color="var(--gold)" />
           </div>
 
-          {error && (
-            <div style={{ 
-              position: 'absolute', 
-              top: 0, left: 0, right: 0, bottom: 0, 
-              background: 'rgba(0,0,0,0.8)', 
-              display: 'flex', 
-              flexDirection: 'column',
-              alignItems: 'center', 
-              justifyContent: 'center',
-              padding: '2rem',
-              textAlign: 'center'
-            }}>
-              <X size={48} color="#e74c3c" style={{ marginBottom: '1.5rem' }} />
-              <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Camera Error</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '2rem' }}>{error}</p>
-              <button onClick={() => window.location.reload()} className="btn-primary" style={{ padding: '0.8rem 2rem' }}>
-                Try Again
-              </button>
-            </div>
-          )}
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>Tap to Verify</h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '350px', margin: '0 auto' }}>
+            Simply hold the top of your unlocked smartphone near the CultivarID™ Nylon NFC tag on the plant's stem. 
+            The digital passport will open automatically.
+          </p>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '3rem 0 2rem' }}>
+            <div style={{ flex: 1, height: '1px', background: 'var(--glass-border)' }}></div>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>OR ENTER ID</span>
+            <div style={{ flex: 1, height: '1px', background: 'var(--glass-border)' }}></div>
+          </div>
+
+          <form onSubmit={handleVerify} style={{ display: 'flex', gap: '0.5rem', maxWidth: '400px', margin: '0 auto' }}>
+            <input 
+              type="text" 
+              placeholder="e.g. A9B2-C3D4" 
+              value={hash}
+              onChange={(e) => setHash(e.target.value)}
+              style={{ 
+                flex: 1, 
+                padding: '1rem 1.5rem', 
+                borderRadius: '12px', 
+                border: '1px solid var(--glass-border)',
+                background: 'rgba(0,0,0,0.3)',
+                color: 'white',
+                fontSize: '1rem',
+                outline: 'none'
+              }}
+            />
+            <button type="submit" className="btn-primary" style={{ padding: '0 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ArrowRight size={20} />
+            </button>
+          </form>
+
         </div>
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
