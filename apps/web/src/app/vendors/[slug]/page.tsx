@@ -11,20 +11,111 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
   const { slug } = params;
   const supabase = createClient();
 
-  const { data: vendor, error } = await supabase
-    .from('vendors')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  let vendor: any;
+  let inventory: any[] = [];
 
-  if (error || !vendor) notFound();
+  if (slug === 'blendly-tech-botanticals-elite') {
+    vendor = {
+      id: 'demo-blendly-id',
+      slug: 'blendly-tech-botanticals-elite',
+      name: 'Blendly Tech Botanicals',
+      owner_name: 'Dr. Evelyn Blendly',
+      is_elite: true,
+      elite_number: 12,
+      is_verified: true,
+      location_city: 'Seattle',
+      location_state: 'WA',
+      website_url: 'https://blendlytechbotanicals.com',
+      instagram: '@blendlytech',
+      specialty: ['Aroids', 'Tissue Culture', 'Rare Genetics'],
+      bio: 'At Blendly Tech Botanicals, we merge advanced tissue culture protocols with world-class rare plant genetics. Our sterile laboratory ensures zero pest introduction, while our rigorous documentation protocols guarantee absolute genetic lineage. We do not just sell plants; we sell verified, appreciating botanical assets.',
+      logo_url: null,
+      contact_email: 'elite@blendlytech.com'
+    };
 
-  const { data: inventory } = await supabase
-    .from('inventory')
-    .select('*, digital_passports(verification_hash)')
-    .eq('vendor_id', vendor.id)
-    .eq('status', 'available')
-    .order('created_at', { ascending: false });
+    inventory = [
+      {
+        id: 'inv-1',
+        vendor_id: 'demo-blendly-id',
+        species_name: 'Philodendron spiritus-sancti',
+        variety: 'Mature Specimen',
+        price: 8500,
+        status: 'available',
+        quantity: 1,
+        image_url: null,
+        digital_passports: [{ verification_hash: 'CID-884-BTB-PSS' }],
+        subscriber_feature: 'Lineage Tree'
+      },
+      {
+        id: 'inv-2',
+        vendor_id: 'demo-blendly-id',
+        species_name: 'Monstera deliciosa',
+        variety: 'borsigiana Albo-Variegata',
+        price: 1200,
+        status: 'available',
+        quantity: 1,
+        image_url: null,
+        digital_passports: [{ verification_hash: 'CID-901-BTB-MALBO' }],
+        subscriber_feature: 'Time-Lapse Growth Record'
+      },
+      {
+        id: 'inv-3',
+        vendor_id: 'demo-blendly-id',
+        species_name: 'Anthurium warocqueanum',
+        variety: 'Esmeralda Dark Morph',
+        price: 2100,
+        status: 'available',
+        quantity: 1,
+        image_url: null,
+        digital_passports: [{ verification_hash: 'CID-112-BTB-AWARO' }],
+        subscriber_feature: 'Micro-Climate Data'
+      },
+      {
+        id: 'inv-4',
+        vendor_id: 'demo-blendly-id',
+        species_name: 'Monstera adansonii',
+        variety: 'laniata Mint Variegated',
+        price: 4500,
+        status: 'available',
+        quantity: 1,
+        image_url: null,
+        digital_passports: [{ verification_hash: 'CID-445-BTB-MMINT' }],
+        subscriber_feature: 'Right of First Refusal'
+      },
+      {
+        id: 'inv-5',
+        vendor_id: 'demo-blendly-id',
+        species_name: 'Scindapsus pictus',
+        variety: 'Tricolor',
+        price: 850,
+        status: 'available',
+        quantity: 2,
+        image_url: null,
+        digital_passports: [{ verification_hash: 'CID-777-BTB-STRI' }],
+        subscriber_feature: 'Direct Breeder Ping'
+      }
+    ];
+  } else {
+    const { data: dbVendor, error } = await supabase
+      .from('vendors')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error || !dbVendor) notFound();
+    vendor = dbVendor;
+
+    const { data: dbInventory } = await supabase
+      .from('inventory')
+      .select('*, digital_passports(verification_hash)')
+      .eq('vendor_id', vendor.id)
+      .eq('status', 'available')
+      .order('created_at', { ascending: false });
+    
+    if (dbInventory) {
+      inventory = dbInventory;
+    }
+  }
 
   const location = [vendor.location_city, vendor.location_state || vendor.location_country].filter(Boolean).join(', ');
   const initials = vendor.name ? vendor.name.substring(0, 2).toUpperCase() : 'V';
@@ -189,7 +280,13 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                         <div className="elite-inv-body">
                           <div className="elite-inv-variety">{item.variety ? `var. ${item.variety}` : 'Rare Specimen'}</div>
                           <h3 className="elite-inv-name">{item.species_name}</h3>
-                          <div className="elite-inv-footer">
+                          {item.subscriber_feature && (
+                            <div style={{ marginTop: '0.5rem', marginBottom: '0.5rem', padding: '0.4rem 0.6rem', background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '4px', fontSize: '0.7rem', color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                              <strong>Elite Feature:</strong> {item.subscriber_feature}
+                            </div>
+                          )}
+                          <div className="elite-inv-footer" style={{ marginTop: 'auto' }}>
                             <span className="elite-inv-price">{item.price ? `$${item.price}` : 'Price on Request'}</span>
                             <span className="elite-inv-cta">{hash ? 'View CultivarID →' : 'Inquire →'}</span>
                           </div>
@@ -310,6 +407,26 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
           <aside className="elite-sidebar">
             {/* Concierge contact card */}
             <EliteConciergeForm vendorId={vendor.id} vendorName={vendor.name} />
+
+            {/* Transparency Analytics */}
+            {slug === 'blendly-tech-botanticals-elite' && (
+              <div className="elite-trust-card" style={{ marginBottom: '1.5rem', borderColor: 'rgba(212,175,55,0.4)', background: 'linear-gradient(180deg, rgba(212,175,55,0.05) 0%, rgba(8,18,13,1) 100%)' }}>
+                <div className="elite-trust-heading" style={{ color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                  Transparency Analytics
+                </div>
+                <ul className="elite-trust-list">
+                  <li className="elite-trust-item">
+                    <span className="trust-icon trust-green" style={{ background: 'rgba(212,175,55,0.2)', color: 'var(--gold)' }}>%</span>
+                    <div><strong>100% Scan Rate</strong><span style={{color: '#aaa', display: 'block', fontSize: '0.75rem'}}>All inventory hardware-tagged</span></div>
+                  </li>
+                  <li className="elite-trust-item">
+                    <span className="trust-icon trust-green" style={{ background: 'rgba(212,175,55,0.2)', color: 'var(--gold)' }}>🧬</span>
+                    <div><strong>0% Genetic Reversion</strong><span style={{color: '#aaa', display: 'block', fontSize: '0.75rem'}}>On Albo varieties (12-mo avg)</span></div>
+                  </li>
+                </ul>
+              </div>
+            )}
 
             {/* Trust metrics */}
             <div className="elite-trust-card">
