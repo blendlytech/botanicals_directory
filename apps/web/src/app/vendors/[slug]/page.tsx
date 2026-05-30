@@ -45,54 +45,6 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
         image_url: '/vendors/blendly-elite/plant-1.png',
         digital_passports: [{ verification_hash: 'CID-884-BTB-PSS' }],
         subscriber_feature: 'Lineage Tree'
-      },
-      {
-        id: 'inv-2',
-        vendor_id: 'demo-blendly-id',
-        species_name: 'Monstera deliciosa',
-        variety: 'borsigiana Albo-Variegata',
-        price: 1200,
-        status: 'available',
-        quantity: 1,
-        image_url: '/vendors/blendly-elite/plant-2.png',
-        digital_passports: [{ verification_hash: 'CID-901-BTB-MALBO' }],
-        subscriber_feature: 'Time-Lapse Growth Record'
-      },
-      {
-        id: 'inv-3',
-        vendor_id: 'demo-blendly-id',
-        species_name: 'Anthurium warocqueanum',
-        variety: 'Esmeralda Dark Morph',
-        price: 2100,
-        status: 'available',
-        quantity: 1,
-        image_url: '/vendors/blendly-elite/plant-3.png',
-        digital_passports: [{ verification_hash: 'CID-112-BTB-AWARO' }],
-        subscriber_feature: 'Micro-Climate Data'
-      },
-      {
-        id: 'inv-4',
-        vendor_id: 'demo-blendly-id',
-        species_name: 'Monstera adansonii',
-        variety: 'laniata Mint Variegated',
-        price: 4500,
-        status: 'available',
-        quantity: 1,
-        image_url: '/vendors/blendly-elite/plant-4.png',
-        digital_passports: [{ verification_hash: 'CID-445-BTB-MMINT' }],
-        subscriber_feature: 'Right of First Refusal'
-      },
-      {
-        id: 'inv-5',
-        vendor_id: 'demo-blendly-id',
-        species_name: 'Scindapsus pictus',
-        variety: 'Tricolor',
-        price: 850,
-        status: 'available',
-        quantity: 2,
-        image_url: '/vendors/blendly-elite/plant-5.png',
-        digital_passports: [{ verification_hash: 'CID-777-BTB-STRI' }],
-        subscriber_feature: 'Direct Breeder Ping'
       }
     ];
   } else {
