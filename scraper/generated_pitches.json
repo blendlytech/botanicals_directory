@@ -4,36 +4,62 @@
     "specialty": [
       "Orchids"
     ],
-    "website_url": null,
+    "website_url": "https://efgorchids.com/",
     "location": null,
     "booth_number": "E1",
-    "contact_email": null,
-    "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "contact_email": "efg.orchids@gmail.com",
+    "contact_phone": "386-738-8600",
+    "outreach": {
+      "compliment": "We're reaching out to EFG Orchids because of your exceptional legacy and renowned reputation in the orchid community. Your extensive expertise and breathtaking collection of rare and award-winning orchid specimens are precisely what we aim to highlight on our platform. We recognize your standing as a top-tier vendor, likely exhibiting at major botanical events, and believe your offerings are a perfect fit for our exclusive founding cohort.",
+      "instagram_dm": "Hi EFG Orchids! 👋 Always admired your stunning orchid collection and expertise. \n\nWe're Rare Plant Vendors (RPV) — the premier directory for top growers like yourselves. Imagine connecting directly with collectors, 0% commission on sales, and securing your prized specimens with CultivarID digital provenance.\n\nWe're launching our Elite Founder Pass pre-sale, strictly limited to 50 top vendors nationwide. Only 17 spots left! It's a $497 one-time payment for unlimited showcases, a permanent 'Elite Founder' badge, and access to CultivarID. No recurring fees, ever.\n\nQuick 2-min chat to see a preview before the public waitlist next week? 🌱",
+      "email_draft": {
+        "subject": "Exclusive Invitation for EFG Orchids: Elevate Your Sales with 0% Commission & Provenance on RPV",
+        "salutation": "Dear EFG Orchids Team,",
+        "body": [
+          "We're reaching out today because we've long admired your exceptional legacy in the orchid community and your truly breathtaking collections. Your dedication to cultivating and showcasing rare and high-quality orchids like yours is precisely what the Rare Plant Vendors (RPV) platform aims to celebrate and support. As you prepare for upcoming expos and sales, we wanted to connect about an exclusive opportunity.",
+          "RPV is launching as the premier verified botanical event directory and provenance marketplace, built specifically for high-end vendors like EFG Orchids. We understand the significant impact that 8-12% platform commissions on sites like Whatnot or eBay have on your margins. Our solution is simple yet powerful: RPV connects you directly with serious collectors, eliminating those painful transaction fees entirely. Imagine retaining 100% of your sale directly in your pocket.",
+          "To ensure the highest quality network, we're extending a highly exclusive invitation to join our pre-sale as an 'Elite Founder.' This is a one-time payment of $497, granting you a permanent position in our directory without any recurring subscriptions or commission fees, ever. We are strictly limiting this founding cohort to just 50 top vendors nationwide, and with only 17 seats remaining, this is a truly rare opportunity.",
+          "As an Elite Founder, you'll receive a permanent 'Elite Founder' badge on your profile, unlimited specimen showcases, first access to local collector inquiries, and discounted access to our new CultivarID physical NFC tags ($10/tag). CultivarID allows you to digitally secure the provenance and authenticity of your prized orchid specimens, building unparalleled trust with collectors.",
+          "Would you be open to a brief 2-minute call to discuss how RPV and CultivarID can significantly enhance your direct sales and reputation, or would you prefer a preview link of the directory before we open the public waitlist next week?"
+        ],
+        "closing": "Sincerely,\n\nThe Rare Plant Vendors Team"
+      },
+      "generated_at": "2026-05-29T22:16:27.789Z"
+    }
   },
   {
     "name": "Aroid Greenhouses",
     "specialty": [
       "Aroids"
     ],
-    "website_url": null,
+    "website_url": "https://aroidgreenhouses.com/",
     "location": null,
     "booth_number": "E2",
     "contact_email": null,
-    "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "instagram": "aroidgreenhouses",
+    "outreach": {
+      "compliment": "We are reaching out to Aroid Greenhouses because their reputation for cultivating and supplying exceptional aroids is widely recognized in the high-end botanical community. Their consistent presence at major expos signifies a commitment to quality and a prominent standing amongst rare plant vendors, making them an ideal candidate for our exclusive founding cohort.",
+      "instagram_dm": "Hi @aroidgreenhouses! Your aroid collection is truly exceptional. We're Rare Plant Vendors (RPV), launching the premier marketplace for high-end botanicals with our CultivarID tech.\n\nWe're inviting only 50 top sellers to our Elite Founder Pass – just 17 seats left! It's a ONE-TIME $497 payment, letting you bypass those painful 8-12% platform commissions forever.\n\nYou'll get unlimited showcases, a permanent 'Elite Founder' badge, direct buyer connections, & secure provenance with CultivarID NFC tags.\n\nWould you be open to a quick 2-min chat or seeing a preview before our public waitlist opens next week?",
+      "email_draft": "Subject: Exclusive Invitation: Secure Your Elite Founder Pass on Rare Plant Vendors (RPV) - Aroid Greenhouses\n\nDear Aroid Greenhouses Team,\n\nWe're reaching out from Rare Plant Vendors (RPV) because we've been consistently impressed by your unparalleled Aroid collection and your significant presence within the high-end botanical community, particularly as exhibitors at major expos like IAS. Your dedication to quality truly stands out.\n\nWe understand that high-volume sales on existing platforms often come with significant costs—typically 8-12% in transaction fees that directly cut into your margins. We believe top-tier vendors like Aroid Greenhouses deserve a better model.\n\nRare Plant Vendors is launching as the premier verified botanical event directory and provenance marketplace, featuring our innovative CultivarID digital scanning technology. Our platform connects you DIRECTLY with serious collectors for local meetups or direct sales, ensuring 0% commission on your transactions forever.\n\nWe are currently extending an exclusive invitation to just 50 founding vendors nationwide for our \"Elite Founder Pass.\" This is a one-time payment of $497—no recurring subscriptions, no platform fees, ever. Given the caliber of your offerings, we would be honored to have Aroid Greenhouses among our founding cohort. There are only 17 seats remaining.\n\nAs an Elite Founder, you'll receive a permanent 'Elite Founder' badge on your profile, the ability to showcase an unlimited number of specimens, first access to local collector inquiries, and the opportunity to secure the provenance of your rarest plants with CultivarID physical NFC tags at a special rate of just $10/tag.\n\nWould you be open to a brief 2-minute call to discuss how the Elite Founder Pass can benefit Aroid Greenhouses, or would you prefer a preview link to the directory before we open our public waitlist next week?\n\nWarmly,\n\n[Your Name/RPV Team]\nCloser Agent, Rare Plant Vendors",
+      "generated_at": "2026-05-29T22:16:46.104Z"
+    }
   },
   {
     "name": "Dandi Plants",
     "specialty": [
-      "Aroids"
+      "Aroids",
+      "Tropical Plants"
     ],
-    "website_url": null,
+    "website_url": "http://www.dandiplants.com/",
     "location": null,
     "booth_number": "D2",
     "contact_email": null,
-    "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "outreach": {
+      "compliment": "Reaching out to Dandi Plants specifically because of their widely recognized exceptional collection of rare aroids and tropical plants, often showcased at premier botanical events. Their dedication to quality and unique specimens makes them an ideal candidate for our exclusive founding cohort, aligning perfectly with the high standard we're setting for Rare Plant Vendors.",
+      "instagram_dm": "Hi Dandi Plants,\n\nAbsolutely admire your incredible collection of aroids and tropicals! 🌱 We're launching Rare Plant Vendors (RPV), a new platform designed for top-tier vendors like you.\n\nOur 'Elite Founder Pass' offers 0% commission direct sales, connecting you straight with collectors—no more 8-12% fees! This is a one-time $497 payment for unlimited showcases, a permanent 'Elite Founder' badge, and access to our CultivarID provenance tech.\n\nStrictly limited to 50 founders, and only 17 seats remain. We specifically want vendors like you who exhibit at major shows.\n\nWould you be open to a quick 2-minute chat or seeing a preview link before our public waitlist opens next week?\n\nBest,\n[Your Name/RPV Team]",
+      "email_draft": "Subject: Exclusive Invitation: Elite Founder Pass for Dandi Plants – Rare Plant Vendors & CultivarID Launch\n\nDear Dandi Plants Team,\n\nMy name is [Your Name] and I'm reaching out from Rare Plant Vendors (RPV), the premier verified botanical event directory and provenance marketplace. We've been following Dandi Plants' impressive work, particularly your exceptional collection of rare aroids and tropical plants often showcased at top-tier expos. Your dedication to cultivating and sourcing unique specimens truly stands out in the community.\n\nWe understand that for high-end vendors like yourselves, transaction fees on existing platforms (often 8-12%) can significantly cut into your margins. That's why we're launching RPV – a platform designed to connect you *directly* with serious collectors for local meetups or direct sales, entirely free of commission fees.\n\nAs we prepare for our public launch, we are curating an exclusive founding group of just 50 elite vendors nationwide – we currently have only 17 seats remaining. We believe Dandi Plants would be an invaluable addition to this select cohort. This is where our 'Elite Founder Pass' comes in: a one-time payment of $497 (no recurring subscriptions, ever). This pass secures your position as a founding member, eliminating those painful 8%+ platform fees forever.\n\nThe Elite Founder Pass isn't just about avoiding fees; it grants you permanent perks: unlimited specimen showcases on your profile, a distinguished 'Elite Founder' badge, and first priority for local collector inquiries. Furthermore, you'll gain access to our innovative 'CultivarID' digital provenance scanning technology, allowing you to secure specimen authenticity with physical NFC tags at a special founder rate of just $10/tag, building unparalleled trust with your collectors.\n\nGiven Dandi Plants' reputation and presence at major events, we specifically want you in this initial founding group. Would you be open to a brief 2-3 minute chat next week to discuss this further, or would you prefer a preview link of the directory before the public waitlist opens? We're confident RPV will be a game-changer for your direct sales.\n\nThank you for your time and consideration.\n\nWarm regards,\n\n[Your Name]\nCloser Agent, Rare Plant Vendors",
+      "generated_at": "2026-05-29T22:17:05.742Z"
+    }
   },
   {
     "name": "Vicky's Orchids",
@@ -44,52 +70,84 @@
     "location": null,
     "booth_number": "A1",
     "contact_email": null,
-    "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "outreach": {
+      "compliment": "We are reaching out to Vicky's Orchids specifically because of their widely recognized expertise and dedication to cultivating and showcasing an exquisite collection of orchids. Their reputation for quality and the diversity of their specimens make them an ideal candidate for our exclusive 'Elite Founder Pass' cohort, designed for the top 50 high-end vendors in the country.",
+      "instagram_dm": "Hi Vicky! Your passion for cultivating such exquisite orchids truly shines through – your collection is remarkable! 🌿 We're building Rare Plant Vendors (RPV), a new platform connecting top growers like you directly with collectors, completely commission-free. \n\nWe're inviting only 50 founding members to our Elite Founder Pass ($497 one-time, *17 seats left*). This means 0% transaction fees, unlimited showcases, a permanent 'Elite Founder' badge, and first access to our CultivarID provenance tech. \n\nWould you be open to a quick 2-min chat or seeing a preview link before our public waitlist opens? No pressure at all!",
+      "email_draft": {
+        "subject": "An Exclusive Invitation for Vicky's Orchids: Join the RPV Founding 50 (0% Commissions!)",
+        "salutation": "Dear Vicky,",
+        "body_paragraphs": [
+          "My name is [Your Name], and I'm reaching out from Rare Plant Vendors (RPV), the premier verified botanical event directory and provenance marketplace. We've been deeply impressed by your exceptional work at Vicky's Orchids – your dedication to cultivating such pristine and rare orchid specimens is truly remarkable, and it's clear you're a leader in the orchid community.",
+          "We're currently in the pre-launch phase of RPV, hand-selecting a cohort of the top 50 high-end plant vendors in the country to become our 'Elite Founders'. Given your standing and the quality of your collection, we believe Vicky's Orchids would be an invaluable addition to this exclusive group.",
+          "We understand that platforms like Whatnot, Palmstreet, or eBay can cut into your hard-earned revenue with 8-12% transaction fees. Our mission with RPV is to revolutionize how high-end collectors connect directly with esteemed vendors like yourself. As an RPV Elite Founder, you'll benefit from a direct connection model, enabling local meetups or direct sales, meaning you keep 100% of your profits – forever, with 0% commission fees.",
+          "To solidify our founding community, we're offering the 'Elite Founder Pass' – a one-time payment of $497, with absolutely no recurring subscriptions or hidden platform fees ever. This is a truly unique, permanent offer. We are strictly limiting this to just 50 founding seats nationwide, and as of today, only 17 seats remain available.",
+          "The Elite Founder Pass includes:",
+          "    *   Permanent 0% Commission: Never lose another percentage of your sales.",
+          "    *   Unlimited Specimen Showcases: Highlight your entire exquisite collection.",
+          "    *   Permanent 'Elite Founder' Badge: Elevate your profile with a distinction of trust and quality.",
+          "    *   First Access to Local Collector Inquiries: Be the first to connect with serious local buyers.",
+          "    *   Exclusive Access to CultivarID NFC Tags: Secure the provenance of your prized specimens with our new digital scanning technology for just $10/tag, building unparalleled trust with collectors.",
+          "This opportunity is designed to reward early adopters who share our vision for a more transparent and profitable plant marketplace. Would you be open to a brief 2-minute call to discuss how RPV can benefit Vicky's Orchids, or perhaps I could send you a quick preview link of the directory before our public waitlist opens next week? No pressure, just an introduction."
+        ],
+        "closing": "Warmly,\n\n[Your Name]\nFounder, Rare Plant Vendors (RPV)"
+      },
+      "generated_at": "2026-05-29T22:17:19.040Z"
+    }
+  },
+  {
+    "name": "Jack Nealon Art",
+    "specialty": [
+      "Plant Art"
+    ],
+    "website_url": null,
+    "location": null,
+    "booth_number": "A2",
+    "contact_email": null,
+    "outreach": {
+      "compliment": "We're continually impressed by the unique vision and artistry Jack Nealon Art brings to the botanical world, truly capturing the essence of rare plants in your work. Your presence at major expos like IAS highlights the significant artistic contribution you make to our shared passion.",
+      "instagram_dm": "Hi Jack Nealon Art,\n\nLove your work – truly elevates the plant scene! Your unique botanical artistry is exceptional.\n\nWe're Rare Plant Vendors (RPV), building the premier directory for top-tier creators & sellers like you. We're launching CultivarID, our digital provenance tech.\n\nWe're pre-selling 50 Elite Founder Passes (only 17 left!). A one-time $497 secures 0% commission direct sales, unlimited art showcases, and your permanent 'Elite Founder' badge. Perfect for connecting your art directly with serious collectors, avoiding other platform fees.\n\nWould you be open to a quick 2-min chat or seeing a preview link before our public waitlist opens?\n\nBest,\nRPV Team",
+      "email_draft": "Subject: Exclusive Invitation for Jack Nealon Art: Elite Founder Pass & CultivarID\n\nDear Jack Nealon,\n\nWe at Rare Plant Vendors (RPV) have long admired the distinctive artistry that Jack Nealon Art contributes to the botanical community. Your ability to capture the intricate beauty and spirit of rare plants is truly exceptional, and your presence at prominent events like the IAS Expo underscores your significant impact on our shared passion.\n\nWe are reaching out to a select group of the country's most respected creators and vendors, like yourself, for an exclusive pre-sale opportunity.\n\nAs the premier verified botanical event directory and provenance marketplace, RPV is designed to directly connect top-tier artists and sellers with serious collectors, bypassing the significant transaction fees (often 8-12%) commonly found on other sales platforms. We're also launching CultivarID, our innovative digital provenance scanning technology, which ensures trust and authenticity for every specimen or art piece linked to a botanical origin.\n\nWe believe your unique art would thrive in our curated ecosystem. To mark our launch, we're offering the 'Elite Founder Pass.' This is a one-time payment of $497 – no recurring subscriptions, no platform commissions, ever. We are strictly limiting this to just 50 founding seats, and only 17 remain.\n\nAs an Elite Founder, you will receive:\n*   **0% Commission Direct Sales:** Connect directly with serious collectors and keep 100% of your earnings.\n*   **Unlimited Art Showcases:** Feature as many of your incredible works as you wish.\n*   **Permanent 'Elite Founder' Badge:** A distinguished mark on your profile, highlighting your status.\n*   **First Access to Collector Inquiries:** Be prioritized for collectors seeking unique botanical art.\n*   **Exclusive CultivarID Access:** Get physical NFC tags at just $10/tag to secure provenance for specific art pieces or inspire collectors with the origin of your subjects.\n\nThis is a unique chance to secure a permanent, commission-free presence on a platform dedicated to high-end botanical commerce and artistry. Would you be open to a brief 2-minute call to discuss how RPV and CultivarID can amplify your reach, or perhaps I could send you a quick preview link of the directory before our public waitlist opens next week?\n\nThank you for considering this invitation.\n\nWarmly,\n\n[Your Name/RPV Team]\nCloser Agent, Rare Plant Vendors",
+      "generated_at": "2026-05-29T22:17:32.531Z"
+    }
   },
   {
     "name": "Blooming Paradise",
     "specialty": [
-      "General Plants"
+      "Tropical Plants",
+      "Flowering Plants"
     ],
     "website_url": null,
     "location": null,
     "booth_number": "A3",
     "contact_email": null,
     "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 27.099040523s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"27s\"}]}}"
   },
   {
     "name": "Redland Nursery",
     "specialty": [
-      "General Plants"
+      "Tropical Plants",
+      "Nursery Stock"
     ],
-    "website_url": null,
-    "location": "Redland, FL",
+    "website_url": "https://www.redlandnursery.com/",
+    "location": null,
     "booth_number": "A4",
     "contact_email": null,
-    "outreach": {
-      "compliment": "We've long admired Redland Nursery's esteemed presence and the exceptional diversity and quality you bring to the Redland botanical community. Your reputation for cultivating outstanding specimens truly precedes you, especially among discerning collectors who frequent major expos.",
-      "instagram_dm": "Hi Redland Nursery! We deeply admire your esteemed presence & the exceptional diversity you bring to the Redland botanical community. Your reputation precedes you!\n\nWe're launching Rare Plant Vendors (RPV) – a new verified directory & provenance marketplace specifically for top nurseries like yours. Our Elite Founder Pass helps you connect directly with collectors, avoiding those painful 8-12% platform commissions forever. It's a one-time $497 payment for unlimited showcases & CultivarID access.\n\nOnly 17 founder seats left!\n\nWould you be open to a quick 2-min chat or seeing a preview link before our public waitlist opens?",
-      "email_draft": "Subject: Exclusive Invitation for Redland Nursery: Secure 0% Commission & Provenance with Rare Plant Vendors (RPV)\n\nDear Redland Nursery Team,\n\nAs a pillar of the Redland botanical community, your nursery's reputation for cultivating an exceptional diversity of high-quality specimens is truly well-known and admired among serious collectors. It's precisely why we're reaching out to you.\n\nWe are the team behind Rare Plant Vendors (RPV), the premier verified botanical event directory and provenance marketplace, and we’re currently in the pre-sale phase for our exclusive founding cohort.\n\nWe understand that high-end nurseries like yours often face significant challenges with existing sales platforms, particularly the burdensome 8-12% commission fees that erode your hard-earned profits. Our vision for RPV is to revolutionize this by connecting you directly with passionate collectors, enabling 0% commission sales – whether for local meetups or direct shipping.\n\nTo ensure a high-caliber network, we're strictly limiting our initial 'Elite Founder Pass' cohort to just 50 top-tier vendors nationwide, and only 17 seats now remain. This is a unique, one-time payment of $497 – no recurring subscriptions, no platform fees ever. As an Elite Founder, you'll receive permanent perks including unlimited specimen showcases, a distinctive 'Elite Founder' badge on your profile, first access to local collector inquiries, and discounted access to our 'CultivarID' physical NFC tags ($10/tag) to secure specimen provenance and build unparalleled trust with your buyers.\n\nGiven Redland Nursery's standing in the industry, we believe you'd be an invaluable addition to this exclusive group. Would you be open to a brief 2-minute call to discuss how this could permanently benefit your business, or perhaps a preview link to the directory before our public waitlist officially opens next week?\n\nWarmly,\nThe Rare Plant Vendors Team",
-      "generated_at": "2026-05-29T21:35:40.688Z"
-    }
+    "outreach": null,
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 22.572931885s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"22s\"}]}}"
   },
   {
     "name": "Big Shoulders Nursery",
     "specialty": [
-      "General Plants"
+      "Tropical Plants",
+      "Nursery Stock"
     ],
-    "website_url": null,
+    "website_url": "https://www.bigshouldersnursery.com/",
     "location": null,
     "booth_number": "A5",
     "contact_email": null,
-    "outreach": {
-      "compliment": "Acknowledging 'Big Shoulders Nursery's' impressive presence at major events like the IAS Expo, we recognize their dedication to cultivating and offering a diverse, high-quality selection of plants to the enthusiast community. Their reputation for quality and engagement is exactly what we seek for our founding cohort.",
-      "instagram_dm": "Hi Big Shoulders Nursery,\n\nWe've admired your exceptional work at expos like IAS. You consistently bring top-tier quality to the plant community.\n\nWe're Rare Plant Vendors (RPV) – launching the premier 0% commission marketplace, connecting top growers like you directly with collectors. Say goodbye to 8-12% platform fees!\n\nWe're inviting only 50 founding nurseries to pilot our CultivarID tech and gain permanent 'Elite Founder' status. It's a one-time $497 payment – no subscriptions, ever. Only 17 seats left!\n\nThis secures unlimited showcases, an exclusive badge, and first access to local inquiries.\n\nOpen to a quick 2-min chat or a preview link before our public waitlist opens next week?\n\nBest,\nThe RPV Team",
-      "email_draft": "Subject: Invitation: Elite Founder Pass for Big Shoulders Nursery (0% Commission, 17 Seats Remaining)\n\nDear Big Shoulders Nursery Team,\n\nWe at Rare Plant Vendors (RPV) have been following your impressive work and consistent presence at major events like the IAS Expo. Your dedication to cultivating and offering a diverse, high-quality selection truly stands out in the plant community, and we deeply respect the passion you bring to the field.\n\nWe're reaching out today because we’re launching a new platform, RPV, the premier verified botanical event directory and provenance marketplace, and we're curating our initial cohort of Elite Founders from the top 50 vendors in the country – a group we feel Big Shoulders Nursery undoubtedly belongs to. Our goal is to empower high-end growers like yourselves by connecting you directly with serious collectors, completely free from the burdensome 8-12% transaction fees imposed by platforms like Whatnot, Palmstreet, or eBay.\n\nFor a limited time, we're offering an exclusive \"Elite Founder Pass\" for a one-time payment of $497. This pass isn't a subscription; it's a permanent membership designed to replace those recurring commission losses with direct, 0% fee sales. We are strictly limiting this founding group to 50 members, and with only 17 seats remaining, the opportunity is incredibly scarce.\n\nAs an Elite Founder, you'll secure permanent perks including unlimited specimen showcases on your profile, a distinguished \"Elite Founder\" badge, and first access to local collector inquiries in your area. You'll also gain preferential access to our new \"CultivarID\" physical NFC tags at just $10/tag – a powerful tool to verify your specimens' provenance and build unmatched trust with your collectors.\n\nWould you be open to a quick 2-minute chat sometime next week, or perhaps reviewing a preview link of the directory before the public waitlist opens? We believe this represents a unique opportunity for Big Shoulders Nursery to significantly enhance your direct sales and brand reputation without any ongoing fees.\n\nWarmly,\n\n[Your Name/RPV Team]\nFounder, Rare Plant Vendors",
-      "generated_at": "2026-05-29T21:35:55.686Z"
-    }
+    "outreach": null,
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 17.907578257s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"17s\"}]}}"
   },
   {
     "name": "PhilodenDream",
@@ -97,75 +155,50 @@
       "Philodendrons",
       "Aroids"
     ],
-    "website_url": null,
+    "website_url": "https://www.instagram.com/yulia.alexan",
     "location": null,
     "booth_number": "A6",
     "contact_email": null,
-    "outreach": {
-      "compliment": "We've long admired PhilodenDream's exceptional work, particularly your exquisite Philodendron and rare Aroid selections. Your dedication to cultivating and showcasing such unique genetics at various expos truly stands out, making you a perfect fit for our founding cohort.",
-      "instagram_dm": "Hi PhilodenDream! 👋 Your Philodendron & Aroid collection is truly stunning.\n\nWe're Rare Plant Vendors (RPV) – launching a premier, commission-free directory & marketplace with our new CultivarID provenance tech. We're inviting only 50 top vendors like you nationwide, and just 17 Elite Founder Pass seats remain!\n\nPitch: One-time $497 payment eliminates ALL 8-12% platform transaction fees forever. Get unlimited showcases, a permanent 'Elite Founder' badge, direct collector access, and CultivarID NFC tags for just $10/tag.\n\nWould you be open to a quick 2-minute chat or seeing a preview link before our public waitlist opens next week? 🌿",
-      "email_draft": "Subject: Invitation: Elite Founder Pass for PhilodenDream – Rare Plant Vendors (RPV) & CultivarID\n\nDear PhilodenDream Team,\n\nWe've long admired PhilodenDream's exceptional work, particularly your exquisite Philodendron and rare Aroid selections. Your dedication to cultivating and showcasing such unique genetics at various expos truly stands out, and we believe you are exactly the caliber of vendor we want in our exclusive founding cohort.\n\nWe're reaching out from Rare Plant Vendors (RPV), the premier verified botanical event directory and provenance marketplace. We understand that high-end sellers often lose significant margins (8-12%) to platform commissions. RPV is built differently: a direct-to-collector directory designed for local meetups or direct sales, ensuring 0% commission on your transactions. We're building a trusted space where quality plants meet serious collectors.\n\nWe're currently in pre-sale for our Elite Founder Pass, strictly limited to 50 top-tier vendors nationwide – and only 17 seats remain. This is a one-time payment of $497, granting you permanent access with no recurring subscriptions or platform fees ever.\n\nAs an Elite Founder, you'll receive unlimited specimen showcases, a permanent 'Elite Founder' badge on your profile, first access to local collector inquiries, and discounted access to our CultivarID physical NFC tags at just $10/tag to secure and build trust in your specimen provenance.\n\nWe would be honored to have PhilodenDream join our founding cohort. Would you be open to a quick 2-minute call to discuss this further, or would you prefer a preview link of the RPV directory before we open the public waitlist next week?\n\nSincerely,\nThe Rare Plant Vendors Team",
-      "generated_at": "2026-05-29T21:36:04.652Z"
-    }
+    "outreach": null,
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\\nPlease retry in 14.831442776s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"5\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"14s\"}]}}"
   },
   {
     "name": "Hortikult",
     "specialty": [
-      "General Plants"
+      "Tropical Plants",
+      "Houseplants"
     ],
-    "website_url": null,
+    "website_url": "https://hortikult.com/",
     "location": null,
     "booth_number": "A7",
     "contact_email": null,
-    "outreach": {
-      "compliment": "We've long admired Hortikult's impressive and diverse collection, especially your consistent presence and high-quality offerings at major events like the IAS Expo. Your dedication to the plant community is truly commendable.",
-      "instagram_dm": "Hi @Hortikult! 👋 We're big fans of your incredible, diverse collection and reputation at major shows like IAS Expo. \n\nWe're Rare Plant Vendors (RPV), building the premier directory for top sellers. We're launching our *Elite Founder Pass*—a one-time $497 payment—to offer 0% commission sales, unlimited showcases, and CultivarID provenance. No more 8-12% platform fees!\n\nOnly 17 of 50 founding seats remain. Would you be open to a quick 2-min chat or seeing a preview before the public waitlist opens? It could save you thousands annually.",
-      "email_draft": "Subject: Exclusive Invitation: Secure Your Spot as an Elite Founder on Rare Plant Vendors (0% Commission)\n\nDear Hortikult Team,\n\nWe've long admired Hortikult's impressive and diverse collection, especially your consistent presence and high-quality offerings at major events like the IAS Expo. Your dedication to the plant community is truly commendable. We're reaching out from Rare Plant Vendors (RPV), the premier verified botanical event directory and provenance marketplace, because we're currently assembling an exclusive cohort of founding members.\n\nAs a high-volume vendor, you're likely familiar with the significant dent that platform transaction fees (often 8-12%) can make in your margins when selling through marketplaces. Our mission at RPV is to revolutionize this by connecting top-tier sellers directly with serious collectors for local meetups or direct sales, completely bypassing those costly commissions.\n\nWe're currently in the pre-sale phase for our *Elite Founder Pass*. This is a unique, one-time payment of $497, granting you permanent access to RPV without any recurring subscriptions or transaction fees—ever. As an Elite Founder, you'll enjoy unlimited specimen showcases, a permanent 'Elite Founder' badge on your profile, first access to local collector inquiries, and the ability to secure provenance with our new CultivarID physical NFC tags at just $10/tag. We are strictly limiting this founding cohort to just 50 vendors nationwide, and only 17 seats now remain.\n\nThis is an opportunity to not only secure substantial savings annually by eliminating commission fees but also to solidify your reputation and build trust through verifiable provenance. Would you be open to a quick 2-minute call to discuss how this could benefit Hortikult, or perhaps I could send over a preview link of the directory before we open our public waitlist next week?\n\nWarmly,\n\n[Your Name/RPV Team]",
-      "generated_at": "2026-05-29T21:36:15.178Z"
-    }
-  },
-  {
-    "name": "Bactra",
-    "specialty": [
-      "General Plants"
-    ],
-    "website_url": null,
-    "location": null,
-    "booth_number": "A12",
-    "contact_email": null,
-    "outreach": {
-      "compliment": "We're reaching out to Bactra specifically because of their consistently high-quality and diverse botanical offerings, which have made them a standout vendor at major plant expos. Their reputation for curating exceptional 'General Plants' aligns perfectly with the caliber of founding members we're seeking for Rare Plant Vendors.",
-      "instagram_dm": "Hi Bactra! Been so impressed by your diverse and high-quality specimens, always a highlight at expos. 🌱\n\nWe're launching Rare Plant Vendors (RPV) with CultivarID — a new platform connecting top vendors like you directly with collectors, completely commission-free (0% vs. 8-12% elsewhere!).\n\nWe're offering a limited Elite Founder Pass ($497 one-time) for unlimited showcases, a permanent 'Elite Founder' badge, and first access to new features. Only 17 of 50 seats remain!\n\nWould you be open to a quick 2-minute chat or seeing a preview link before our public waitlist opens? No pressure, just value. 😊",
-      "email_draft": "Subject: Exclusive Invitation for Bactra: Secure 0% Commission Sales with RPV's Elite Founder Pass (17 Seats Remaining)\n\nDear Bactra Team,\n\nI've long admired the exceptional quality and diversity of your botanical offerings at Bactra. Your consistent presence as a leading vendor at major plant expos, where your curated collection stands out, is truly impressive.\n\nWe're reaching out today from Rare Plant Vendors (RPV), a new, premier verified botanical event directory and provenance marketplace, featuring our innovative CultivarID digital scanning technology. Our mission is to empower high-end vendors like you by eliminating painful transaction fees and fostering direct connections with serious collectors.\n\nWe understand that platform commissions (often 8-12%) significantly cut into your margins. RPV offers a powerful alternative: a direct-to-collector directory where you pay 0% commission on sales. This means more profit for you, whether through local meetups or direct shipping arrangements you make.\n\nWe're currently in a pre-sale phase for our \"Elite Founder Pass,\" strictly limited to just 50 top vendors nationwide — and only 17 seats remain. For a one-time payment of $497 (no recurring subscriptions, no platform fees ever), this pass grants you permanent perks: unlimited specimen showcases, a distinctive \"Elite Founder\" badge on your profile, first access to local collector inquiries, and physical CultivarID NFC tags at just $10/tag to securely establish and verify specimen provenance, building unparalleled trust with your buyers.\n\nGiven your reputation and expertise, we would be honored to include Bactra in our founding cohort. Would you be open to a brief 2-minute chat to discuss how this could benefit your business, or would you prefer to see a preview link of the directory before our public waitlist officially opens next week?\n\nWarmly,\n\nThe Rare Plant Vendors Team",
-      "generated_at": "2026-05-29T21:36:28.901Z"
-    }
-  },
-  {
-    "name": "ileafU",
-    "specialty": [
-      "General Plants"
-    ],
-    "website_url": null,
-    "location": null,
-    "booth_number": "A13",
-    "contact_email": null,
     "outreach": null,
-    "error": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 7.880240157s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"7s\"}]}}"
   },
   {
     "name": "Life is Koconut",
     "specialty": [
-      "Coconut Plants"
+      "Tropical Plants",
+      "Palms"
     ],
     "website_url": null,
     "location": null,
     "booth_number": "A14",
     "contact_email": null,
-    "outreach": {
-      "compliment": "We've been genuinely impressed by 'Life is Koconut' and your unique dedication to high-quality coconut plants, especially given how specialized and rewarding that niche is. Your focus truly stands out in the rare plant community.",
-      "instagram_dm": "Hi Life is Koconut,\n\nWe're Rare Plant Vendors (RPV), the premier verified botanical directory and provenance marketplace, launching soon with our new CultivarID technology.\n\nYour work with specialized coconut plants is exceptional, and we're inviting a select 50 founding vendors to bypass painful 8-12% platform fees forever.\n\nOur 'Elite Founder Pass' is a one-time $497 investment for unlimited showcases, an 'Elite Founder' badge, and direct collector connections—0% commission. Only 17 spots remain!\n\nWould you be open to a quick 2-minute chat or seeing a preview of the RPV directory before the public waitlist opens next week? We believe this could be a game-changer for your business.",
-      "email_draft": "Subject: Exclusive Invitation: Life is Koconut + Rare Plant Vendors (RPV) Founding Cohort\n\nDear Life is Koconut Team,\n\nWe at Rare Plant Vendors (RPV) have been following your impressive work and unique specialization in high-quality coconut plants. Your dedication to such a distinct niche truly sets 'Life is Koconut' apart, and it's this level of quality and expertise that we aim to highlight on our new platform.\n\nRPV is launching as the premier verified botanical event directory and provenance marketplace, designed to connect top-tier vendors like yourselves directly with serious collectors. We've developed CultivarID, a digital provenance scanning technology, to build unprecedented trust in rare plant transactions.\n\nAs we prepare for our public launch, we are curating a prestigious group of just 50 founding vendors across the country—the 'Elite Founder Cohort'. We recognize that high-end sellers often lose a significant portion (8-12%) of their earnings to platform commissions on other marketplaces. Our model eliminates these fees, connecting you directly with collectors for local meetups or direct sales, ensuring you retain 100% of your revenue.\n\nFor a one-time payment of $497, the 'Elite Founder Pass' offers permanent perks: unlimited specimen showcases, a distinctive 'Elite Founder' badge on your profile, first access to local collector inquiries, and access to CultivarID physical NFC tags at just $10/tag to secure your specimen provenance and enhance buyer trust. This is not a recurring subscription; it's a one-time investment for lifelong benefits.\n\nWe currently have only 17 of these exclusive founding seats remaining. Given your standing and unique offerings, we believe 'Life is Koconut' would be an invaluable addition to this initial cohort.\n\nWould you be open to a brief 2-minute call to discuss this opportunity further, or perhaps I could send you a preview link of the RPV directory before our public waitlist opens next week?\n\nWarmly,\n\nThe Rare Plant Vendors Team",
-      "generated_at": "2026-05-29T21:36:38.502Z"
-    }
+    "outreach": null,
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 7.675325768s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"7s\"}]}}"
+  },
+  {
+    "name": "Scindapsus Borneo",
+    "specialty": [
+      "Scindapsus",
+      "Aroids"
+    ],
+    "website_url": "https://www.scindapsusborneo.com/",
+    "location": null,
+    "booth_number": "B2",
+    "contact_email": null,
+    "outreach": null,
+    "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 1.781985928s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"1s\"}]}}"
   }
 ]
