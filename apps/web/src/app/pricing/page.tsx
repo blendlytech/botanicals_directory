@@ -12,11 +12,34 @@ import {
   ArrowRight,
   HelpCircle,
   ChevronDown,
-  Tag
+  Tag,
+  Leaf
 } from 'lucide-react';
 
 /* ──────────────────── TIER DATA ──────────────────── */
 const tiers = [
+  {
+    key: 'seedling',
+    name: 'Seedling',
+    badge: 'Free Listing',
+    icon: <Leaf size={28} />,
+    monthlyPrice: 0,
+    annualPrice: 0,
+    savingsPercent: 0,
+    tagline: 'Get your nursery on the map.',
+    desc: 'Establish your digital presence. Get a basic directory listing so collectors can find your location, bio, and contact details.',
+    features: [
+      { label: 'Basic Linkpage Profile', desc: 'Listing your bio, location, and social links.', included: true },
+      { label: 'Direct Email Inquiries', desc: 'Allow collectors to contact you directly from your profile.', included: true },
+      { label: 'Plant Showcases', desc: 'List and highlight your rare specimens. Upgrade to Sprout to list 1 plant.', included: false },
+      { label: 'CultivarID™ Tags', desc: 'Physical NFC provenance tagging.', included: false },
+      { label: 'Priority Directory', desc: 'Standard search ranking.', included: false },
+      { label: 'Scan Analytics', desc: 'Track profile views.', included: false },
+    ],
+    cta: 'Register Free',
+    highlight: false,
+    isElite: false,
+  },
   {
     key: 'sprout',
     name: 'Sprout',
@@ -121,16 +144,16 @@ const faqs = [
 
 /* ──────────────────── COMPARISON TABLE ──────────────────── */
 const comparisonRows = [
-  { feature: 'Plant Showcases', sprout: '1', bloom: '5', elite: 'Unlimited' },
-  { feature: 'CultivarID™ Tag Price', sprout: '$20/tag', bloom: '$15/tag', elite: '$5/tag (First 5 Free)' },
-  { feature: 'Vendor Linkpage', sprout: true, bloom: true, elite: true },
-  { feature: 'Direct Email Inquiries', sprout: true, bloom: true, elite: true },
-  { feature: 'Priority Directory', sprout: false, bloom: true, elite: true },
-  { feature: 'Scan Analytics', sprout: false, bloom: 'Basic', elite: 'Advanced' },
-  { feature: 'Featured Homepage Spot', sprout: false, bloom: false, elite: 'Permanent' },
-  { feature: 'Concierge Onboarding', sprout: false, bloom: false, elite: true },
-  { feature: 'Founder Badge', sprout: false, bloom: false, elite: true },
-  { feature: 'Founders-Only Events', sprout: false, bloom: false, elite: true },
+  { feature: 'Plant Showcases', seedling: '0', sprout: '1', bloom: '5', elite: 'Unlimited' },
+  { feature: 'CultivarID™ Tag Price', seedling: 'Not Available', sprout: '$20/tag', bloom: '$15/tag', elite: '$5/tag (First 5 Free)' },
+  { feature: 'Vendor Linkpage', seedling: true, sprout: true, bloom: true, elite: true },
+  { feature: 'Direct Email Inquiries', seedling: true, sprout: true, bloom: true, elite: true },
+  { feature: 'Priority Directory', seedling: false, sprout: false, bloom: true, elite: true },
+  { feature: 'Scan Analytics', seedling: false, sprout: false, bloom: 'Basic', elite: 'Advanced' },
+  { feature: 'Featured Homepage Spot', seedling: false, sprout: false, bloom: false, elite: 'Permanent' },
+  { feature: 'Concierge Onboarding', seedling: false, sprout: false, bloom: false, elite: true },
+  { feature: 'Founder Badge', seedling: false, sprout: false, bloom: false, elite: true },
+  { feature: 'Founders-Only Events', seedling: false, sprout: false, bloom: false, elite: true },
 ];
 
 /* ──────────────────── COMPONENT ──────────────────── */
@@ -329,7 +352,7 @@ export default function PricingPage() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '2rem',
-          maxWidth: '1100px',
+          maxWidth: '1300px',
           margin: '0 auto',
           alignItems: 'stretch',
         }}>
@@ -612,14 +635,14 @@ export default function PricingPage() {
               <thead>
                 <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
                   <th style={{ textAlign: 'left', padding: '1.25rem 1.5rem', fontWeight: 700, color: 'var(--text-secondary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Feature</th>
-                  {['Sprout', 'Bloom', 'Elite Founder'].map((name, i) => (
+                  {['Seedling', 'Sprout', 'Bloom', 'Elite Founder'].map((name, i) => (
                     <th key={name} style={{
                       padding: '1.25rem 1rem',
                       textAlign: 'center',
                       fontFamily: 'var(--font-heading)',
                       fontSize: '1rem',
                       fontWeight: 700,
-                      color: i === 1 ? 'var(--gold)' : 'var(--text-primary)',
+                      color: i === 2 ? 'var(--gold)' : 'var(--text-primary)',
                     }}>
                       {name}
                     </th>
@@ -634,7 +657,7 @@ export default function PricingPage() {
                     <td style={{ padding: '1rem 1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                       {row.feature}
                     </td>
-                    {(['sprout', 'bloom', 'elite'] as const).map(tierKey => {
+                    {(['seedling', 'sprout', 'bloom', 'elite'] as const).map(tierKey => {
                       const val = row[tierKey];
                       return (
                         <td key={tierKey} style={{ padding: '1rem', textAlign: 'center' }}>
