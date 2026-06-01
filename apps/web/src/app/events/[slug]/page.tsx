@@ -173,7 +173,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
                           <img 
                             src="/generated-badges/elite-founder-badge.jpg" 
                             alt="Elite Founder" 
-                            style={{ width: '80px', height: '80px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                            style={{ width: '100px', height: '100px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))' }} 
                             title="Elite Founder - Lifetime Elite Member"
                           />
                         )}
