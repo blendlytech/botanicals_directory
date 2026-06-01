@@ -220,41 +220,41 @@ export default async function Home() {
             alignItems: 'center'
           }}>
             {/* Left: Interactive Visualization */}
-            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ 
-                position: 'absolute', 
-                inset: '-20px', 
-                background: 'var(--gold-dim)', 
-                filter: 'blur(40px)', 
-                borderRadius: '50%',
-                zIndex: 0,
-                opacity: 0.5
-              }}></div>
-              
-              {/* The Physical Tag Image */}
-              <Image 
-                src="/monstera_nfc_tag.png" 
-                alt="CultivarID NFC Tag on Monstera" 
-                width={500} 
-                height={700} 
-                style={{ 
-                  width: '90%', 
-                  height: 'auto', 
-                  borderRadius: '24px', 
-                  position: 'relative', 
-                  zIndex: 1,
-                  boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-                  border: '1px solid rgba(212,175,55,0.3)',
-                  transform: 'translateX(-5%)'
-                }} 
-              />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ 
+                  position: 'absolute', 
+                  inset: '-20px', 
+                  background: 'var(--gold-dim)', 
+                  filter: 'blur(40px)', 
+                  borderRadius: '50%',
+                  zIndex: 0,
+                  opacity: 0.5
+                }}></div>
+                
+                {/* The Physical Tag Image */}
+                <Image 
+                  src="/monstera_nfc_tag.png" 
+                  alt="CultivarID NFC Tag on Monstera" 
+                  width={500} 
+                  height={700} 
+                  style={{ 
+                    width: '90%', 
+                    height: 'auto', 
+                    borderRadius: '24px', 
+                    position: 'relative', 
+                    zIndex: 1,
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+                    border: '1px solid rgba(212,175,55,0.3)',
+                  }} 
+                />
+              </div>
 
               {/* The Digital Birth Certificate (Floating UI) */}
               <div className="digital-passport-mockup" style={{
-                position: 'absolute',
-                left: '-10%',
-                bottom: '5%',
-                width: '320px',
+                position: 'relative',
+                width: '100%',
+                maxWidth: '380px',
                 background: 'rgba(11, 61, 46, 0.85)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
@@ -263,7 +263,6 @@ export default async function Home() {
                 padding: '1.5rem',
                 zIndex: 2,
                 boxShadow: '0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.15)',
-                transform: 'translateY(20px)'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(212,175,55,0.3)', paddingBottom: '0.5rem' }}>
                   <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em' }}>CULTIVAR ID PASSPORT</span>
