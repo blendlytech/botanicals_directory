@@ -227,8 +227,8 @@ export default function PricingToggle() {
                       {f.included ? <Check size={12} strokeWidth={3} /> : <div style={{ width: '4px', height: '4px', background: 'currentColor', borderRadius: '50%' }} />}
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontWeight: 600 }}>{f.title}</span>
-                      <span style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px', lineHeight: 1.3 }}>{f.desc}</span>
+                      <span style={{ fontWeight: 600, color: (tier.highlight || isElite) ? '#FFFFFF' : 'var(--text-primary)' }}>{f.title}</span>
+                      <span style={{ fontSize: '0.75rem', opacity: (tier.highlight || isElite) ? 0.9 : 0.8, marginTop: '2px', lineHeight: 1.3, color: (tier.highlight || isElite) ? '#F5F0E8' : 'var(--text-secondary)' }}>{f.desc}</span>
                     </div>
                   </li>
                 ))}

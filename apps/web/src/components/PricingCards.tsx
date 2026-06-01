@@ -234,28 +234,28 @@ export default function PricingCards() {
             Unlimited showcases, exclusive Founder perks, and deeply discounted $5/tag hardware for life.
           </p>
           <ul className="pricing-feature-list">
-            <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+            <li className="pricing-feature-item" style={{ alignItems: 'flex-start', color: '#FFFFFF' }}>
               <Star size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600 }}>Unlimited Showcases</div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>No limits on the plants you can feature.</div>
+                <div style={{ fontWeight: 600, color: '#FFFFFF' }}>Unlimited Showcases</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.85, marginTop: '2px', color: '#F5F0E8' }}>No limits on the plants you can feature.</div>
               </div>
             </li>
-            <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+            <li className="pricing-feature-item" style={{ alignItems: 'flex-start', color: '#FFFFFF' }}>
               <Tag size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#FFFFFF' }}>
                   CultivarID™ Tags at $5/tag
-                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.15)', color: 'var(--gold)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>FIRST 5 FREE</span>
+                  <span style={{ fontSize: '0.55rem', background: 'rgba(212,175,55,0.25)', color: 'var(--gold-light)', padding: '0.15rem 0.4rem', borderRadius: '6px', fontWeight: 800 }}>FIRST 5 FREE</span>
                 </div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Your first 5 CultivarID Nylon NFC tags are FREE. Then just $5/tag.</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.85, marginTop: '2px', color: '#F5F0E8' }}>Your first 5 CultivarID Nylon NFC tags are FREE. Then just $5/tag.</div>
               </div>
             </li>
-            <li className="pricing-feature-item" style={{ alignItems: 'flex-start' }}>
+            <li className="pricing-feature-item" style={{ alignItems: 'flex-start', color: '#FFFFFF' }}>
               <Zap size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 600 }}>Advanced Analytics + Founder Badge</div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>Full suite: geographic data, permanent badge, concierge setup, and event invites.</div>
+                <div style={{ fontWeight: 600, color: '#FFFFFF' }}>Advanced Analytics + Founder Badge</div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.85, marginTop: '2px', color: '#F5F0E8' }}>Full suite: geographic data, permanent badge, concierge setup, and event invites.</div>
               </div>
             </li>
           </ul>

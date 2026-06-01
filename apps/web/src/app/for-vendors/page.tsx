@@ -235,7 +235,7 @@ export default function ForVendors() {
             <h2 className="section-title" style={{ color: 'white', fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
               Own It <em>Forever.</em>
             </h2>
-            <p className="section-desc" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '700px', margin: '1.5rem auto' }}>
+            <p className="section-desc" style={{ color: '#F5F0E8', fontSize: '1.1rem', maxWidth: '700px', margin: '1.5rem auto' }}>
               One payment. Lifetime access to unlimited plant showcases, the lowest tag pricing, and permanent Founder status in the Rare Plant Vendors network.
             </p>
           </div>
