@@ -16,7 +16,9 @@ export default async function Home() {
       <section className="hero" style={{ 
         paddingTop: '10rem', 
         paddingBottom: '6rem',
-        position: 'relative' 
+        position: 'relative',
+        background: 'linear-gradient(90deg, #040806 0%, #0B3D2E 50%, #040806 100%)',
+        borderBottom: '1px solid var(--gold)'
       }}>
         <div className="hero-grid-overlay" style={{ opacity: 0.15 }}></div>
         
@@ -45,7 +47,8 @@ export default async function Home() {
             marginBottom: '1.5rem',
             letterSpacing: '-0.03em',
             fontWeight: 700,
-            lineHeight: 1.1
+            lineHeight: 1.1,
+            color: '#FFFFFF'
           }}>
             Introducing <br />
             <em style={{ 
@@ -63,7 +66,7 @@ export default async function Home() {
             maxWidth: '700px', 
             margin: '0 auto 4rem',
             fontSize: '1.25rem', 
-            opacity: 0.9,
+            color: '#F5F0E8',
             lineHeight: 1.6
           }}>
             The definitive digital passport for botanical provenance. 

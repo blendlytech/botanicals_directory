@@ -163,7 +163,7 @@ function NavDropdown({
           borderRadius: '100px',
           fontSize: '0.85rem',
           fontWeight: 600,
-          color: isOpen ? 'var(--gold)' : 'var(--text-nav)',
+          color: isOpen ? 'var(--gold)' : '#F5F0E8',
           background: isOpen ? 'var(--gold-dim)' : 'none',
           border: 'none',
           cursor: 'pointer',
@@ -241,10 +241,14 @@ export default function NavbarClient() {
     padding: '0.5rem 1rem',
     borderRadius: '100px',
     transition: 'all 0.5s ease',
-    backgroundColor: isScrolled ? 'var(--bg-nav-scrolled)' : 'var(--bg-nav)',
-    border: isScrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
-    boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.1)' : 'none',
-    backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+    background: isPermitRoute 
+      ? (isScrolled ? 'var(--bg-nav-scrolled)' : 'var(--bg-nav)')
+      : 'linear-gradient(90deg, #040806 0%, #0B3D2E 50%, #040806 100%)',
+    border: isPermitRoute
+      ? (isScrolled ? '1px solid var(--glass-border)' : '1px solid transparent')
+      : '1px solid var(--gold)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.4)',
+    backdropFilter: 'blur(10px)',
   };
 
   const btnStyles: React.CSSProperties = {
@@ -376,7 +380,7 @@ export default function NavbarClient() {
           <span style={{ 
             fontSize: '1.1rem', 
             fontWeight: 700, 
-            color: isPermitRoute ? '#0088FF' : 'var(--text-nav)',
+            color: isPermitRoute ? '#0088FF' : '#F5F0E8',
             fontFamily: 'var(--font-heading)',
             letterSpacing: '-0.02em'
           }}>
@@ -415,8 +419,8 @@ export default function NavbarClient() {
               fontWeight: 700,
               textDecoration: 'none',
               transition: 'all 0.3s ease',
-              border: '1px solid var(--glass-border)',
-              color: 'var(--text-nav)',
+              border: '1px solid var(--gold)',
+              color: '#F5F0E8',
               background: 'transparent',
             }}>
               Collector Waitlist 🔥
@@ -431,7 +435,9 @@ export default function NavbarClient() {
             style={{ 
               display: 'flex', alignItems: 'center', justifyContent: 'center', 
               width: '40px', height: '40px', borderRadius: '50%', border: 'none',
-              backgroundColor: 'var(--bg-surface)', cursor: 'pointer', color: 'var(--text-primary)'
+              backgroundColor: isPermitRoute ? 'var(--bg-surface)' : 'rgba(255, 255, 255, 0.1)',
+              cursor: 'pointer', 
+              color: isPermitRoute ? 'var(--text-primary)' : '#FFFFFF'
             }}
             className="mobile-toggle"
           >
