@@ -219,8 +219,8 @@ export default async function Home() {
             gap: '4rem',
             alignItems: 'center'
           }}>
-            {/* Left: Image */}
-            <div style={{ position: 'relative' }}>
+            {/* Left: Interactive Visualization */}
+            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
               <div style={{ 
                 position: 'absolute', 
                 inset: '-20px', 
@@ -230,21 +230,71 @@ export default async function Home() {
                 zIndex: 0,
                 opacity: 0.5
               }}></div>
+              
+              {/* The Physical Tag Image */}
               <Image 
                 src="/monstera_nfc_tag.png" 
                 alt="CultivarID NFC Tag on Monstera" 
-                width={600} 
-                height={800} 
+                width={500} 
+                height={700} 
                 style={{ 
-                  width: '100%', 
+                  width: '90%', 
                   height: 'auto', 
                   borderRadius: '24px', 
                   position: 'relative', 
                   zIndex: 1,
                   boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-                  border: '1px solid rgba(212,175,55,0.3)'
+                  border: '1px solid rgba(212,175,55,0.3)',
+                  transform: 'translateX(-5%)'
                 }} 
               />
+
+              {/* The Digital Birth Certificate (Floating UI) */}
+              <div className="digital-passport-mockup" style={{
+                position: 'absolute',
+                right: '-5%',
+                bottom: '10%',
+                width: '320px',
+                background: 'rgba(11, 61, 46, 0.85)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid var(--gold)',
+                borderRadius: '20px',
+                padding: '1.5rem',
+                zIndex: 2,
+                boxShadow: '0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.15)',
+                transform: 'translateY(20px)'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(212,175,55,0.3)', paddingBottom: '0.5rem' }}>
+                  <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em' }}>CULTIVAR ID PASSPORT</span>
+                  <ShieldCheck size={16} color="var(--gold)" />
+                </div>
+                
+                <h4 style={{ color: 'white', fontSize: '1.2rem', marginBottom: '0.2rem', fontFamily: 'var(--font-heading)' }}>Monstera Deliciosa Albo</h4>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                  <div style={{ width: '8px', height: '8px', background: '#4ADE80', borderRadius: '50%', boxShadow: '0 0 10px #4ADE80' }}></div>
+                  <span style={{ color: '#4ADE80', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.05em' }}>VERIFIED AUTHENTIC</span>
+                </div>
+
+                <div style={{ background: 'rgba(0,0,0,0.3)', borderRadius: '12px', padding: '1rem', marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                    <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>Originator</span>
+                    <span style={{ color: 'white', fontSize: '0.75rem', fontWeight: 600 }}>Agri-Starts Inc.</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                    <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>Genesis Date</span>
+                    <span style={{ color: 'white', fontSize: '0.75rem', fontWeight: 600 }}>Oct 12, 2025</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>Lineage ID</span>
+                    <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 600 }}>#CID-892-A4X</span>
+                  </div>
+                </div>
+
+                <div style={{ width: '100%', height: '40px', background: 'var(--gold)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0B3D2E', fontSize: '0.8rem', fontWeight: 800 }}>
+                  VIEW FULL RECORD
+                </div>
+              </div>
             </div>
 
             {/* Right: The Steps */}
