@@ -21,7 +21,17 @@ interface VendorInfo {
   tier: string;
 }
 
-const TIER_LIMITS: Record<string, number> = { seedling: 0, verified: 5, pro: 20, elite: Infinity };
+const TIER_LIMITS: Record<string, number> = {
+  seedling: 0,
+  free: 0,
+  sprout: 1,
+  bloom: 5,
+  visibility: 5,
+  verified: 5,
+  authority: 20,
+  pro: 20,
+  elite: Infinity
+};
 
 export default function PassportsDashboard() {
   const [passports, setPassports] = useState<Passport[]>([]);
@@ -76,7 +86,7 @@ export default function PassportsDashboard() {
     setLoading(false);
   }
 
-  const vendorTier = vendor?.tier || 'seedling';
+  const vendorTier = vendor?.tier?.toLowerCase() || 'seedling';
   const limit = TIER_LIMITS[vendorTier] || 0;
   
   // Calculate current month's usage

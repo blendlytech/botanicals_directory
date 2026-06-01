@@ -77,15 +77,24 @@ export default function DashboardPage() {
 
   if (loading) return <LoadingScreen />;
 
-  const tier = stats?.account_tier || stats?.tier || 'seedling';
+  const tier = stats?.tier?.toLowerCase() || stats?.account_tier || 'seedling';
   const tierLabel: Record<string, string> = {
     seedling: 'Seedling (Free)',
+    free: 'Seedling (Free)',
+    sprout: 'Sprout Member',
+    bloom: 'Bloom Member',
     visibility: 'Growth Member',
     authority: 'Authority Suite',
     elite: 'Elite Member',
   };
   const inventoryLimit: Record<string, number | null> = {
-    seedling: 1, visibility: 5, authority: 5, elite: null,
+    seedling: 0,
+    free: 0,
+    sprout: 1,
+    bloom: 5,
+    visibility: 5,
+    authority: 5,
+    elite: null,
   };
   const limit = inventoryLimit[tier];
 

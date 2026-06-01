@@ -201,6 +201,137 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ─── WHAT IS CULTIVAR ID ─── */}
+      <section className="section" style={{ padding: '8rem 5%', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <span className="section-eyebrow">The Technology</span>
+            <h2 className="section-title">What is <em>CultivarID?</em></h2>
+            <div className="section-rule" style={{ margin: '1.5rem auto' }} />
+            <p style={{ opacity: 0.8, maxWidth: '800px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.6 }}>
+              CultivarID is our proprietary provenance system utilizing encrypted NFC technology to link physical botanical specimens directly to an immutable digital passport.
+            </p>
+          </div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+            gap: '4rem',
+            alignItems: 'center'
+          }}>
+            {/* Left: Image */}
+            <div style={{ position: 'relative' }}>
+              <div style={{ 
+                position: 'absolute', 
+                inset: '-20px', 
+                background: 'var(--gold-dim)', 
+                filter: 'blur(40px)', 
+                borderRadius: '50%',
+                zIndex: 0,
+                opacity: 0.5
+              }}></div>
+              <Image 
+                src="/monstera_nfc_tag.png" 
+                alt="CultivarID NFC Tag on Monstera" 
+                width={600} 
+                height={800} 
+                style={{ 
+                  width: '100%', 
+                  height: 'auto', 
+                  borderRadius: '24px', 
+                  position: 'relative', 
+                  zIndex: 1,
+                  boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+                  border: '1px solid rgba(212,175,55,0.3)'
+                }} 
+              />
+            </div>
+
+            {/* Right: The Steps */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              {/* Step 1 */}
+              <div style={{
+                background: 'linear-gradient(145deg, rgba(11,61,46,0.6) 0%, rgba(4,8,6,0.8) 100%)',
+                border: '1px solid rgba(212,175,55,0.2)',
+                borderRadius: '24px',
+                padding: '2rem',
+                display: 'flex',
+                gap: '1.5rem',
+                alignItems: 'flex-start'
+              }}>
+                <div style={{ 
+                  width: '56px', height: '56px', flexShrink: 0,
+                  background: 'var(--gold-dim)', borderRadius: '16px', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                  color: 'var(--gold)' 
+                }}>
+                  <ShieldCheck size={28} />
+                </div>
+                <div>
+                  <h3 style={{ color: 'white', fontSize: '1.3rem', marginBottom: '0.5rem' }}>1. The Physical Tag</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                    Each verified plant receives a weather-resistant, serialized NFC (Near Field Communication) tag securely attached to the pot or mounting.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(11,61,46,0.4) 100%)',
+                border: '1px solid var(--gold)',
+                borderRadius: '24px',
+                padding: '2rem',
+                display: 'flex',
+                gap: '1.5rem',
+                alignItems: 'flex-start',
+                boxShadow: '0 10px 30px rgba(212,175,55,0.1)'
+              }}>
+                <div style={{ 
+                  width: '56px', height: '56px', flexShrink: 0,
+                  background: 'var(--gold)', borderRadius: '16px', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                  color: 'var(--charcoal)' 
+                }}>
+                  <Zap size={28} />
+                </div>
+                <div>
+                  <h3 style={{ color: 'white', fontSize: '1.3rem', marginBottom: '0.5rem' }}>2. Tap to Authenticate</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                    Anyone with a smartphone can simply tap the physical tag. No app required. This instantly decrypts and loads the plant's official digital record.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div style={{
+                background: 'linear-gradient(145deg, rgba(11,61,46,0.6) 0%, rgba(4,8,6,0.8) 100%)',
+                border: '1px solid rgba(212,175,55,0.2)',
+                borderRadius: '24px',
+                padding: '2rem',
+                display: 'flex',
+                gap: '1.5rem',
+                alignItems: 'flex-start'
+              }}>
+                <div style={{ 
+                  width: '56px', height: '56px', flexShrink: 0,
+                  background: 'var(--gold-dim)', borderRadius: '16px', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                  color: 'var(--gold)' 
+                }}>
+                  <Star size={28} />
+                </div>
+                <div>
+                  <h3 style={{ color: 'white', fontSize: '1.3rem', marginBottom: '0.5rem' }}>3. Verified Provenance</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                    View the complete lineage, grower details, genetic confirmation, and historical transactions. Transfer ownership seamlessly when resold.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── PLATFORM VALUE PROPOSITION ─── */}
       <section className="section" style={{ padding: '6rem 5%', background: 'var(--bg-surface)', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>

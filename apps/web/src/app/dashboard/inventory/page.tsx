@@ -30,7 +30,13 @@ interface InventoryItem {
 }
 
 const TIER_LIMITS: Record<string, number | null> = {
-  seedling: 1, visibility: 3, authority: 5, elite: 10,
+  seedling: 0,
+  free: 0,
+  sprout: 1,
+  bloom: 5,
+  visibility: 5,
+  authority: 5,
+  elite: null,
 };
 
 export default function InventoryPage() {
@@ -71,7 +77,7 @@ export default function InventoryPage() {
       if (!vendor) { setLoading(false); return; }
       setVendorId(vendor.id);
       setVendorName(vendor.name || null);
-      setVendorTier(vendor.account_tier || vendor.tier || 'seedling');
+      setVendorTier(vendor.tier?.toLowerCase() || vendor.account_tier || 'seedling');
       setVendorSlug(vendor.slug);
 
       const { data } = await supabase
