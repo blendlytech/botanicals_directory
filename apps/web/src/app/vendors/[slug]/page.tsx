@@ -138,9 +138,17 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                 <p className="elite-byline">Curated by {vendor.owner_name}</p>
               )}
 
-              <div className="elite-badge-row">
+              <div className="elite-badge-row" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <span className="elite-badge-pill">✦ Elite Member</span>
                 {vendor.is_verified && <span className="elite-verified-pill">✓ Verified Grower</span>}
+                {vendor.is_elite && (
+                  <img 
+                    src="/generated-badges/elite-founder-badge.jpg" 
+                    alt="Elite Founder" 
+                    style={{ width: '28px', height: '28px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                    title="Elite Founder - Lifetime Elite Member"
+                  />
+                )}
                 {/* Special Digital Badges */}
                 <span className="elite-verified-pill" style={{background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)'}} title="Maintains own sterile tissue culture laboratory">🔬 Tissue Culture Lab</span>
                 <span className="elite-verified-pill" style={{background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)'}} title="Tracks detailed multi-generational genetic histories">🧬 Genetic Historian</span>
@@ -438,6 +446,14 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
               <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "2.5rem", margin: 0, color: "var(--text-primary)" }}>{vendor.name}</h1>
               {vendor.is_verified ? <span className="verified-badge">✓ Verified Grower</span> : <span className="free-tier-badge">Seedling</span>}
+              {vendor.is_elite && (
+                <img 
+                  src="/generated-badges/elite-founder-badge.jpg" 
+                  alt="Elite Founder" 
+                  style={{ width: '28px', height: '28px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                  title="Elite Founder - Lifetime Elite Member"
+                />
+              )}
               <span className="verified-badge" style={{background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)'}}>🔬 Tissue Culture Lab</span>
               <span className="verified-badge" style={{background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)'}}>🧬 Genetic Historian</span>
             </div>

@@ -165,9 +165,19 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
                         <div className="vendor-avatar" style={{ width: 56, height: 56, fontSize: "1.1rem" }}>{initials}</div>
                       )}
                       
-                      {v.is_verified && (
-                        <span className="verified-badge" style={{ fontSize: "0.62rem" }}><ShieldCheck size={10} /> Verified</span>
-                      )}
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.25rem' }}>
+                        {v.is_verified && (
+                          <span className="verified-badge" style={{ fontSize: "0.62rem" }}><ShieldCheck size={10} /> Verified</span>
+                        )}
+                        {v.is_elite && (
+                          <img 
+                            src="/generated-badges/elite-founder-badge.jpg" 
+                            alt="Elite Founder" 
+                            style={{ width: '40px', height: '40px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                            title="Elite Founder - Lifetime Elite Member"
+                          />
+                        )}
+                      </div>
                     </div>
 
                     <div className="vendor-name" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>{v.name}</div>

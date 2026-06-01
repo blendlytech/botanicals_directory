@@ -111,6 +111,14 @@ export default async function VendorsPage() {
                       {v.is_verified && (
                         <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
                       )}
+                      {v.account_tier === 'elite' && (
+                        <img 
+                          src="/generated-badges/elite-founder-badge.jpg" 
+                          alt="Elite Founder" 
+                          style={{ width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))', marginTop: '0.25rem' }} 
+                          title="Elite Founder - Lifetime Elite Member"
+                        />
+                      )}
                       {!isClaimed && (
                         <span className="elite-badge" style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)', boxShadow: 'none', fontSize: '0.6rem' }}>
                           <LockKeyhole size={10} /> Unclaimed
