@@ -168,7 +168,7 @@ export default async function Home() {
                 textShadow: '0 2px 10px rgba(0,0,0,0.5)'
               }}>
                 <span>FOUNDING SEATS CAPACITY</span>
-                <span style={{ color: 'var(--gold)', fontSize: '1.2rem' }}>17 OF 50 LEFT</span>
+                <span style={{ color: 'var(--gold)', fontSize: '1.2rem' }}>36 OF 50 LEFT</span>
               </div>
               <div style={{ 
                 height: '14px', 
@@ -531,7 +531,7 @@ export default async function Home() {
           <div style={{ flex: '1 1 500px' }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
                 <div className="scarcity-pill" style={{ background: 'var(--gold)', color: '#0B3D2E' }}>Elite Founder Pass</div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.1em' }}>17 SEATS REMAINING</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '0.1em' }}>36 SEATS REMAINING</span>
              </div>
              <h3 style={{ fontSize: '3rem', color: 'white', marginBottom: '1.5rem' }}>Lifetime Authority <br /> <em style={{ color: 'var(--gold)' }}>For a One-Time Fee.</em></h3>
              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem' }}>
@@ -634,7 +634,7 @@ export default async function Home() {
             margin: '0 auto 3.5rem',
             color: 'var(--cream)'
           }}>
-            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>17</span> Founding Seats remain. <br />
+            Only <span style={{ color: 'var(--gold)', fontWeight: 700 }}>36</span> Founding Seats remain. <br />
             Join the elite circle of verified plant professionals today.
           </p>
           
