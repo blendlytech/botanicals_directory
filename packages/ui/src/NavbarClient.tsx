@@ -331,10 +331,11 @@ export default function NavbarClient() {
             src={brandLogo}
             alt={brandName}
             style={{ 
-              width: '40px', 
-              height: '40px', 
+              width: '52px', 
+              height: '52px', 
               objectFit: 'contain',
-              display: 'block'
+              display: 'block',
+              transition: 'transform 0.3s ease'
             }}
           />
           <span style={{ 
