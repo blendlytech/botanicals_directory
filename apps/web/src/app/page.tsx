@@ -73,7 +73,7 @@ export default async function Home() {
             Secure your legacy, verify your specimens, and connect directly with serious collectors.
           </p>
 
-          {/* ─── EXPLAINER VIDEO SHOWCASE ─── */}
+          {/* ─── EXPLAINER PHOTO SHOWCASE ─── */}
           <div style={{
             maxWidth: '1000px',
             margin: '0 auto',
@@ -86,24 +86,20 @@ export default async function Home() {
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <video 
-              className="hero-video"
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              src="https://dkdrvfemtyuapzuwyrgt.supabase.co/storage/v1/object/public/marketing/rpv-explainer-detroit.mp4"
+            <Image 
+              src="/founding_seats_released.png" 
+              alt="50 Founding Seats Released" 
+              width={1000} 
+              height={560} 
               style={{ 
                 width: '100%', 
-                height: '100%', 
+                height: 'auto', 
                 objectFit: 'cover',
                 borderRadius: '24px',
                 display: 'block',
                 boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
               }}
-            >
-              Your browser does not support the video tag.
-            </video>
+            />
             
             {/* Gloss Overlay */}
             <div style={{
@@ -300,14 +296,14 @@ export default async function Home() {
 
               {/* Step 2 */}
               <div style={{
-                background: 'linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(11,61,46,0.4) 100%)',
+                background: 'linear-gradient(135deg, rgba(143,113,0,0.8) 0%, rgba(11,61,46,0.9) 100%)',
                 border: '1px solid var(--gold)',
                 borderRadius: '24px',
                 padding: '2rem',
                 display: 'flex',
                 gap: '1.5rem',
                 alignItems: 'flex-start',
-                boxShadow: '0 10px 30px rgba(212,175,55,0.1)'
+                boxShadow: '0 10px 40px rgba(143,113,0,0.2)'
               }}>
                 <div style={{ 
                   width: '56px', height: '56px', flexShrink: 0,
