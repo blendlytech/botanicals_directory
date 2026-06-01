@@ -97,7 +97,7 @@ export default async function VendorsPage() {
                 
                 <div className="vendor-card-content">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                    <div className="vendor-avatar" style={(v.logo_url || isClaimed) ? { padding: 0, overflow: 'hidden' } : {}}>
+                    <div className="vendor-avatar" style={(v.logo_url || isClaimed) ? { width: '112px', height: '112px', padding: 0, overflow: 'hidden' } : { width: '112px', height: '112px' }}>
                       {v.logo_url ? (
                         <img src={v.logo_url} alt={`${v.name} logo`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       ) : isClaimed ? (
