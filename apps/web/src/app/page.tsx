@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, MapPin, TrendingUp, Star, ArrowRight, Zap, Map } from 'lucide-react';
 import PricingCards from "@/components/PricingCards";
@@ -72,44 +71,6 @@ export default async function Home() {
             The definitive digital passport for botanical provenance. 
             Secure your legacy, verify your specimens, and connect directly with serious collectors.
           </p>
-
-          {/* ─── EXPLAINER PHOTO SHOWCASE ─── */}
-          <div style={{
-            maxWidth: '1000px',
-            margin: '0 auto',
-            padding: '2rem',
-            background: 'rgba(255,255,255,0.03)',
-            borderRadius: '40px',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 40px 100px rgba(0,0,0,0.6)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            <Image 
-              src="/founding_seats_released.png" 
-              alt="50 Founding Seats Released" 
-              width={1000} 
-              height={560} 
-              style={{ 
-                width: '100%', 
-                height: 'auto', 
-                objectFit: 'cover',
-                borderRadius: '24px',
-                display: 'block',
-                boxShadow: '0 0 50px rgba(11, 61, 46, 0.5)'
-              }}
-            />
-            
-            {/* Gloss Overlay */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              pointerEvents: 'none',
-              background: 'linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%)',
-              borderRadius: '40px'
-            }}></div>
-          </div>
 
           {/* ─── SCARCITY STATUS BAR ─── */}
           <div style={{
