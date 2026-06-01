@@ -197,7 +197,7 @@ export default function NavbarClient() {
   const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads') || pathname?.startsWith('/checkout');
   
   const brandName = isPermitRoute ? "Permit Data" : "Rare Plant Vendors";
-  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/brand-seal.png";
+  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/vendors/blendly-elite/brand-logo-bkgrmvd.png";
 
   const permitLinks = [
     { name: 'Lead Database', href: '/leads', icon: <Database size={16} /> },
