@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, MapPin, TrendingUp, Star, ArrowRight, Zap, Map } from 'lucide-react';
 import PricingCards from "@/components/PricingCards";
