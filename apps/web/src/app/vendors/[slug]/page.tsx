@@ -145,7 +145,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                   <img 
                     src="/generated-badges/elite-founder-badge.jpg" 
                     alt="Elite Founder" 
-                    style={{ width: '56px', height: '56px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                    style={{ width: '72px', height: '72px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))' }} 
                     title="Elite Founder - Lifetime Elite Member"
                   />
                 )}
@@ -450,7 +450,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                 <img 
                   src="/generated-badges/elite-founder-badge.jpg" 
                   alt="Elite Founder" 
-                  style={{ width: '56px', height: '56px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))' }} 
+                  style={{ width: '72px', height: '72px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))' }} 
                   title="Elite Founder - Lifetime Elite Member"
                 />
               )}

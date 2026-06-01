@@ -115,7 +115,7 @@ export default async function VendorsPage() {
                         <img 
                           src="/generated-badges/elite-founder-badge.jpg" 
                           alt="Elite Founder" 
-                          style={{ width: '96px', height: '96px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.4))', marginTop: '0.25rem' }} 
+                          style={{ width: '120px', height: '120px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))', marginTop: '0.25rem' }} 
                           title="Elite Founder - Lifetime Elite Member"
                         />
                       )}
