@@ -12,10 +12,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    const stored = localStorage.getItem('rpv-theme') as Theme | null;
-    const initial = stored || 'light';
+    // Force light theme ('Parchment Edition') as default and override any dark preference
+    const initial = 'light';
     setTheme(initial);
     document.documentElement.setAttribute('data-theme', initial);
+    localStorage.setItem('rpv-theme', initial);
   }, []);
 
   const toggleTheme = () => {
