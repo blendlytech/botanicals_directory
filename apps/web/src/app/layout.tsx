@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/icon.png" />
+        <link rel="icon" href="/vendors/blendly-elite/brand-logo.svg" type="image/svg+xml" />
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
