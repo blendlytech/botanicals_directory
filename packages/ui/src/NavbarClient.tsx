@@ -197,7 +197,7 @@ export default function NavbarClient() {
   const isPermitRoute = pathname?.startsWith('/permits') || pathname?.startsWith('/leads') || pathname?.startsWith('/checkout');
   
   const brandName = isPermitRoute ? "Permit Data" : "Rare Plant Vendors";
-  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/vendors/blendly-elite/brand-logo-bkgrmvd.png";
+  const brandLogo = isPermitRoute ? "/permit-data-logo.png" : "/vendors/blendly-elite/brand-logo-bkgrmvd.svg";
 
   const permitLinks = [
     { name: 'Lead Database', href: '/leads', icon: <Database size={16} /> },
@@ -224,7 +224,7 @@ export default function NavbarClient() {
 
   const navStyles: React.CSSProperties = {
     position: 'fixed',
-    top: 0,
+    top: isPermitRoute ? 0 : '38px',
     left: 0,
     right: 0,
     zIndex: 1000,
@@ -322,8 +322,43 @@ export default function NavbarClient() {
   };
 
   return (
-    <nav style={navStyles}>
-      <div style={containerStyles}>
+    <>
+      {!isPermitRoute && (
+        <Link href="/pricing" className="announcement-bar">
+          <div className="marquee-container">
+            <div className="marquee-content">
+              <div className="marquee-item">
+                🔥 <span>FOUNDER SCARCITY:</span> ONLY 36 OF 50 ELITE FOUNDER SEATS REMAINING
+              </div>
+              <div className="marquee-item">
+                ✦ <span>0% COMMISSION:</span> LOCK IN PERMANENT 0% TRANSACTION FEES FOREVER
+              </div>
+              <div className="marquee-item">
+                ✦ SECURE PHYSICAL SPECIMEN NFC TAGS & BIRTH CERTIFICATES
+              </div>
+              <div className="marquee-item">
+                ✦ <span>ACT NOW:</span> CLAIM FOUNDER STATUS & SECURE SEAT →
+              </div>
+            </div>
+            <div className="marquee-content" aria-hidden="true">
+              <div className="marquee-item">
+                🔥 <span>FOUNDER SCARCITY:</span> ONLY 36 OF 50 ELITE FOUNDER SEATS REMAINING
+              </div>
+              <div className="marquee-item">
+                ✦ <span>0% COMMISSION:</span> LOCK IN PERMANENT 0% TRANSACTION FEES FOREVER
+              </div>
+              <div className="marquee-item">
+                ✦ SECURE PHYSICAL SPECIMEN NFC TAGS & BIRTH CERTIFICATES
+              </div>
+              <div className="marquee-item">
+                ✦ <span>ACT NOW:</span> CLAIM FOUNDER STATUS & SECURE SEAT →
+              </div>
+            </div>
+          </div>
+        </Link>
+      )}
+      <nav style={navStyles}>
+        <div style={containerStyles}>
         
         {/* Logo */}
         <Link href={isPermitRoute ? "/permits" : "/"} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
@@ -517,7 +552,60 @@ export default function NavbarClient() {
           from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
           to   { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
+        @keyframes marquee {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .marquee-container {
+          overflow: hidden;
+          white-space: nowrap;
+          display: flex;
+          width: 100%;
+        }
+        .marquee-content {
+          display: inline-flex;
+          white-space: nowrap;
+          animation: marquee 25s linear infinite;
+        }
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0 2rem;
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #FFFFFF;
+        }
+        .marquee-item span {
+          color: var(--gold);
+        }
+        .announcement-bar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 38px;
+          background: linear-gradient(90deg, #040806 0%, #0B3D2E 50%, #040806 100%);
+          border-bottom: 1px solid var(--gold);
+          display: flex;
+          align-items: center;
+          z-index: 2001;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+          cursor: pointer;
+          transition: background 0.3s ease;
+          text-decoration: none;
+        }
+        .announcement-bar:hover {
+          background: linear-gradient(90deg, #08120d 0%, #145A43 50%, #08120d 100%);
+        }
+        .announcement-bar:hover .marquee-item {
+          color: var(--gold-light);
+        }
       `}} />
     </nav>
+  </>
   );
 }
