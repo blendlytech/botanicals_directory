@@ -39,7 +39,7 @@ export default function RootLayout({
         <ThemeProvider>
           <NavbarClient />
           {children}
-          <FooterClient />
+          <FooterClient / >
         </ThemeProvider>
       </body>
     </html>
