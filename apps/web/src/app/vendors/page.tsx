@@ -79,7 +79,7 @@ export default async function VendorsPage() {
               'https://images.unsplash.com/photo-1466781783364-391eaf50cf2a?auto=format&fit=crop&q=80&w=800',
               'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=800'
             ];
-            const bgImage = backgrounds[idx % backgrounds.length];
+            const bgImage = v.hero_url || backgrounds[idx % backgrounds.length];
 
             return (
               <div 
