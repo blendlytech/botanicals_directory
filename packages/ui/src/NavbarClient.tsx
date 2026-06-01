@@ -340,7 +340,7 @@ export default function NavbarClient() {
           <span style={{ 
             fontSize: '1.1rem', 
             fontWeight: 700, 
-            color: isPermitRoute ? '#0088FF' : 'var(--emerald)',
+            color: isPermitRoute ? '#0088FF' : 'var(--text-nav)',
             fontFamily: 'var(--font-heading)',
             letterSpacing: '-0.02em'
           }}>
