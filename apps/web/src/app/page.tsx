@@ -252,8 +252,8 @@ export default async function Home() {
               {/* The Digital Birth Certificate (Floating UI) */}
               <div className="digital-passport-mockup" style={{
                 position: 'absolute',
-                right: '-5%',
-                bottom: '10%',
+                left: '-10%',
+                bottom: '5%',
                 width: '320px',
                 background: 'rgba(11, 61, 46, 0.85)',
                 backdropFilter: 'blur(16px)',
@@ -320,7 +320,7 @@ export default async function Home() {
                 <div>
                   <h3 style={{ color: 'white', fontSize: '1.3rem', marginBottom: '0.5rem' }}>1. The Physical Tag</h3>
                   <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
-                    Each verified plant receives a weather-resistant, serialized NFC (Near Field Communication) tag securely attached to the pot or mounting.
+                    Each verified plant receives a weather-resistant, serialized NFC (Near Field Communication) tag securely attached to the plant stem, but designed to not cause any stem damage.
                   </p>
                 </div>
               </div>
