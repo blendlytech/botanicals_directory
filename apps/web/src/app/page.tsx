@@ -10,36 +10,7 @@ export default async function Home() {
   return (
     <div className="page-wrapper" style={{ overflow: 'hidden' }}>
       
-      {/* ─── DETROIT EXPO EMERGENCY ALERT ─── */}
-      <div style={{ 
-        background: 'var(--gold)', 
-        color: 'black', 
-        padding: '0.75rem 5%', 
-        textAlign: 'center', 
-        fontSize: '0.8rem', 
-        fontWeight: 800, 
-        letterSpacing: '0.15em',
-        position: 'sticky',
-        top: '80px',
-        zIndex: 900,
-        boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '1.5rem'
-      }}>
-        <span>DETROIT EXPO PUSH: 12/40 VENDORS SECURED</span>
-        <Link href="/detroit" style={{ 
-          background: 'black', 
-          color: 'white', 
-          padding: '0.3rem 1rem', 
-          borderRadius: '4px',
-          textDecoration: 'none',
-          fontSize: '0.7rem'
-        }}>
-          CLAIM YOUR 24H SETUP →
-        </Link>
-      </div>
+      
       
       {/* ─── HERO SECTION: CULTIVAR ID RELEASE ─── */}
       <section className="hero" style={{ 
