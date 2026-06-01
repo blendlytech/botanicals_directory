@@ -11,7 +11,7 @@ export default async function VendorsPage() {
   // Fetch active vendors
   const { data: vendors, error } = await supabase
     .from('vendors')
-    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url')
+    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url, hero_url, is_elite')
     .order('account_tier', { ascending: false }) 
     .order('name', { ascending: true });
 
