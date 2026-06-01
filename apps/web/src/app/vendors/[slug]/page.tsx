@@ -79,7 +79,15 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
 
         {/* ── CINEMATIC HERO ── */}
-        <div className="elite-hero">
+        <div 
+          className="elite-hero" 
+          style={vendor.hero_url ? { 
+            backgroundImage: `linear-gradient(145deg, rgba(3,15,8,0.95) 0%, rgba(11,61,46,0.8) 45%, rgba(5,25,18,0.95) 100%), url('${vendor.hero_url}')`, 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center', 
+            backgroundRepeat: 'no-repeat' 
+          } : undefined}
+        >
           {/* Floating bokeh particles */}
           {[...Array(14)].map((_, i) => (
             <div
