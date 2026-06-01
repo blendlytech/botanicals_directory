@@ -123,7 +123,7 @@ export default async function VendorsPage() {
                     <h3 className="vendor-name" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{v.name}</h3>
                   </Link>
                   
-                  <p className="vendor-specialty">{v.specialty || 'Rare Plant Specialist'}</p>
+                  <p className="vendor-specialty">{Array.isArray(v.specialty) ? v.specialty.join(', ') : (v.specialty || 'Rare Plant Specialist')}</p>
                   
                   {location && (
                     <p className="vendor-location" style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
