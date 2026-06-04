@@ -4,8 +4,12 @@ import { ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import AttendanceButton from "../../components/AttendanceButton";
+import PresaleClaim from "../../components/PresaleClaim";
 
 export const revalidate = 60;
+
+const PRESALE_DEPOSIT_PCT = 10;
+const PRESALE_WINDOW_HOURS = 48;
 
 function formatDate(start: string | null, end: string | null) {
   if (!start) return "Date TBA";
@@ -39,8 +43,50 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
     .filter(Boolean)
     .sort((a: any, b: any) => (b.is_elite ? 1 : 0) - (a.is_elite ? 1 : 0));
 
-  const dateStr = formatDate(event.date_start, event.date_end);
+  const dateStr = formatDate(event.date_start || event.start_date, event.date_end || event.end_date);
   const location = event.location_name || event.location_address || "Location TBA";
+
+  // ── Expo Pre-Sale Showroom ──────────────────────────────────────────────
+  // Plants vendors have staged for this expo, revealed to Premium collectors
+  // in the 24h window before doors open. See implementation_plan.md §5.
+  const { data: presaleRaw } = await supabase
+    .from("inventory")
+    .select("id, vendor_id, species_name, variety, price, image_url, status, vendors(name, slug)")
+    .eq("event_id", event.id)
+    .in("status", ["available", "reserved"]);
+  const presaleItems = (presaleRaw || []) as any[];
+
+  // Per-vendor pickup deadlines for this expo (forfeiture terms shown on each claim).
+  const { data: evRows } = await supabase
+    .from("event_vendors")
+    .select("vendor_id, pickup_deadline")
+    .eq("event_id", event.id);
+  const pickupByVendor = new Map<string, string | null>(
+    (evRows || []).map((r: any) => [r.vendor_id, r.pickup_deadline])
+  );
+
+  let collectorTier: string | null = null;
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    const { data: collector } = await supabase
+      .from("collectors")
+      .select("tier")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    collectorTier = (collector as any)?.tier ?? null;
+  }
+  const isPremium = collectorTier === "premium";
+
+  const startRaw = event.date_start || event.start_date;
+  const endRaw = event.date_end || event.end_date || startRaw;
+  const startMs = startRaw ? new Date(startRaw).getTime() : null;
+  const endBound = endRaw ? new Date(endRaw).getTime() + 86400000 : (startMs != null ? startMs + 86400000 : null);
+  const opensAtMs = startMs != null ? startMs - PRESALE_WINDOW_HOURS * 3600 * 1000 : null;
+  const now = Date.now();
+  const presaleWindowOpen = opensAtMs != null && now >= opensAtMs && (endBound == null || now <= endBound);
+  const opensAtStr = opensAtMs != null
+    ? new Date(opensAtMs).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" }) + " UTC"
+    : null;
 
   return (
     <main style={{ minHeight: "100vh", paddingBottom: "6rem" }}>
@@ -112,6 +158,96 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
           </div>
         </div>
       </div>
+
+      {/* Expo Pre-Sale Showroom */}
+      {presaleItems.length > 0 && (
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "4rem 5% 0" }}>
+          <div style={{
+            background: "linear-gradient(135deg, #0B3D2E 0%, #040806 100%)",
+            border: "1px solid var(--gold)",
+            borderRadius: "24px",
+            padding: "2.5rem",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "2rem" }}>
+              <div>
+                <div style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.5rem" }}>
+                  ✦ Collector Pre-Sale · 48h Early Access
+                </div>
+                <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "2rem", margin: 0, color: "#fff" }}>
+                  Reserve Before Doors Open
+                </h2>
+                <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", marginTop: "0.5rem", maxWidth: "580px" }}>
+                  {presaleItems.length} plant{presaleItems.length === 1 ? "" : "s"} staged for this expo. Collectors can place a {PRESALE_DEPOSIT_PCT}% deposit to hold a plant, then pick it up in person by the vendor&apos;s deadline — beating the door rush.
+                </p>
+              </div>
+            </div>
+
+            {presaleWindowOpen && isPremium ? (
+              <div className="vendors-grid">
+                {presaleItems.map((item) => {
+                  const vendor = Array.isArray(item.vendors) ? item.vendors[0] : item.vendors;
+                  return (
+                    <div key={item.id} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--glass-border)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                      <div style={{ height: "160px", background: "var(--bg-card)", overflow: "hidden" }}>
+                        {item.image_url
+                          ? <img src={item.image_url} alt={item.species_name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.5rem", opacity: 0.4 }}>🪴</div>}
+                      </div>
+                      <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", flex: 1 }}>
+                        <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.1rem", color: "#fff", margin: "0 0 0.2rem" }}>
+                          {item.species_name}{item.variety ? <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}> var. {item.variety}</span> : null}
+                        </h3>
+                        {vendor?.slug ? (
+                          <Link href={`/vendors/${vendor.slug}`} style={{ fontSize: "0.75rem", color: "var(--gold)", textDecoration: "none", marginBottom: "0.75rem" }}>
+                            {vendor.name}
+                          </Link>
+                        ) : <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginBottom: "0.75rem" }}>{vendor?.name}</span>}
+                        {item.price != null && (
+                          <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--gold)", marginBottom: "1rem" }}>${item.price.toFixed(2)}</div>
+                        )}
+                        <div style={{ marginTop: "auto" }}>
+                          <PresaleClaim
+                            inventoryId={item.id}
+                            eventId={event.id}
+                            price={item.price}
+                            depositPct={PRESALE_DEPOSIT_PCT}
+                            pickupDeadline={pickupByVendor.get(item.vendor_id) ?? null}
+                            alreadyReserved={item.status === "reserved"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div style={{ textAlign: "center", padding: "2.5rem 1rem", background: "rgba(0,0,0,0.25)", borderRadius: "16px", border: "1px dashed rgba(212,175,55,0.4)" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>🔒</div>
+                {!presaleWindowOpen ? (
+                  <>
+                    <h3 style={{ fontFamily: "var(--font-heading)", color: "#fff", margin: "0 0 0.5rem" }}>Pre-Sale Opens 48 Hours Before Doors</h3>
+                    <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", margin: "0 0 1.5rem" }}>
+                      {opensAtStr ? <>Reservations unlock around <strong style={{ color: "var(--gold)" }}>{opensAtStr}</strong>.</> : "Reservations unlock as the event approaches."} Members get first pick.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 style={{ fontFamily: "var(--font-heading)", color: "#fff", margin: "0 0 0.5rem" }}>Premium Collectors Are Reserving Now</h3>
+                    <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", margin: "0 0 1.5rem" }}>
+                      Early access to this expo&apos;s pre-sale shelf is a Premium Collector benefit. Upgrade to reserve plants before the floor opens.
+                    </p>
+                  </>
+                )}
+                <Link href="/collector/pricing" className="btn-primary" style={{ textDecoration: "none" }}>
+                  {presaleWindowOpen ? "Unlock Early Access →" : "Become a Premium Collector →"}
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Vendor roster */}
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "4rem 5% 0" }}>

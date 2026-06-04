@@ -1,241 +1,86 @@
 'use client';
 
 import { useState } from "react";
-import { ShieldCheck, Zap, Star, Lock, ChevronRight, Globe, TrendingUp, MapPin, AlertCircle, Check } from 'lucide-react';
+import { TrendingUp, Check, ChevronRight, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+
+const FEATURES = [
+  { title: "Unlimited Inventory Listings", desc: "List every plant you sell — no caps, with full photo galleries." },
+  { title: "Premium Placement & Badge", desc: "Priority directory ranking, featured rotation, and the verified vendor badge." },
+  { title: "Expo Pre-Sale Engine", desc: "Verify expo attendance and stage inventory for 48h collector pre-sale." },
+  { title: "Direct Lead Capture", desc: "Collectors contact and reserve from you directly — 0% sales commission." },
+  { title: "CultivarID™ Tags (add-on)", desc: "Optional tamper-evident Nylon NFC provenance hardware, on-demand." },
+];
 
 export default function PricingToggle() {
   const [isAnnual, setIsAnnual] = useState(true);
 
-  const tiers = [
-    {
-      name: "Sprout",
-      planId: "sprout",
-      badge: "Starter",
-      icon: <Lock size={24} />,
-      priceMonthly: 9.99,
-      priceAnnual: 99,
-      period: isAnnual ? "/yr" : "/mo",
-      desc: "Perfect for weekend market hobbyists.",
-      features: [
-        { title: "1 Showcase Plant Profile", desc: "A dedicated public web page for your absolute best specimen.", included: true },
-        { title: "Mobile Linkpage", desc: "A beautiful mobile-first profile page listing your nursery info.", included: true },
-        { title: "Nylon NFC Tags at $20/tag", desc: "Order tamper-evident CultivarID hardware on-demand.", included: true },
-        { title: "Direct Email Inquiries", desc: "Allow collectors to contact you directly from your profile.", included: true },
-        { title: "Priority Directory Placement", desc: "Appear higher in regional searches.", included: false },
-        { title: "Detailed Analytics", desc: "Track profile and plant page views.", included: false },
-      ],
-      cta: "Get Sprout",
-      highlight: false,
-    },
-    {
-      name: "Bloom",
-      planId: "bloom",
-      badge: "Most Popular",
-      icon: <TrendingUp size={24} />,
-      priceMonthly: 24.99,
-      priceAnnual: 249,
-      period: isAnnual ? "/yr" : "/mo",
-      desc: "The choice for established vendors.",
-      features: [
-        { title: "5 Showcase Plant Profiles", desc: "Highlight your top 5 most valuable rare plants with dedicated pages.", included: true },
-        { title: "Priority Directory Placement", desc: "Appear higher when collectors search for vendors in your region.", included: true },
-        { title: "Nylon NFC Tags at $15/tag", desc: "Order tamper-evident CultivarID hardware on-demand.", included: true },
-        { title: "Basic Scan Analytics", desc: "See how many times your profile and plant pages are viewed.", included: true },
-        { title: "Featured Homepage Spot", desc: "Get rotated in the 'Featured Vendors' section.", included: false },
-      ],
-      cta: "Grow with Bloom",
-      highlight: true,
-      tag: "Recommended",
-    },
-    {
-      name: "Elite Founder",
-      planId: "elite",
-      badge: "Lifetime Access",
-      icon: <Star size={24} />,
-      priceMonthly: 497,
-      priceAnnual: 497,
-      period: "once",
-      desc: "One-time investment. Owned forever.",
-      features: [
-        { title: "Unlimited Plant Profiles", desc: "Create beautiful digital pages for any premium plant you sell.", included: true },
-        { title: "Permanent 'Founder' Badge", desc: "A special badge on your profile showing you were here from the start.", included: true },
-        { title: "Nylon NFC Tags at $5/tag", desc: "Your first 5 CultivarID hardware tags are included FREE.", included: true },
-        { title: "Concierge Onboarding", desc: "We manually input your first 10 plants and optimize your profile for you.", included: true },
-      ],
-      cta: "Claim Lifetime Seat",
-      highlight: false,
-      tag: "17 Seats Left",
-      isElite: true,
-    },
-  ];
-
-  const styles = {
-    card: (highlight: boolean, isElite: boolean) => ({
-      position: 'relative' as const,
-      padding: '3rem 2rem',
-      borderRadius: '24px',
-      background: highlight ? 'var(--emerald)' : isElite ? 'var(--charcoal)' : 'var(--bg-card)',
-      border: highlight ? '2px solid var(--gold)' : isElite ? '2px solid var(--gold)' : '1px solid var(--glass-border)',
-      color: highlight ? 'white' : isElite ? 'white' : 'var(--text-primary)',
-      display: 'flex',
-      flexDirection: 'column' as const,
-      transition: 'all 0.3s ease',
-      boxShadow: highlight ? '0 20px 50px rgba(11,61,46,0.2)' : isElite ? '0 0 40px var(--gold-dim)' : 'var(--card-shadow)',
-      scale: highlight ? '1.05' : '1',
-      zIndex: highlight ? 2 : 1,
-    }),
-    toggle: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      background: 'var(--bg-surface)',
-      padding: '0.4rem',
-      borderRadius: '50px',
-      border: '1px solid var(--glass-border)',
-      marginBottom: '4rem',
-    },
-    toggleBtn: (active: boolean) => ({
-      padding: '0.6rem 1.5rem',
-      borderRadius: '50px',
-      border: 'none',
-      cursor: 'pointer',
-      fontSize: '0.75rem',
-      fontWeight: 700,
-      letterSpacing: '0.1em',
-      textTransform: 'uppercase' as const,
-      background: active ? 'var(--gold)' : 'transparent',
-      color: active ? 'var(--charcoal)' : 'var(--text-secondary)',
-      transition: 'all 0.2s ease',
-    }),
-    fomo: {
-      maxWidth: '700px',
-      margin: '0 auto 4rem',
-      padding: '2.5rem',
-      background: 'var(--gold-dim)',
-      border: '1px solid var(--gold)',
-      borderRadius: '20px',
-      textAlign: 'center' as const,
-    }
-  };
+  const price = isAnnual ? 249 : 24.99;
+  const period = isAnnual ? "/yr" : "/mo";
+  const billingParam = isAnnual ? "annual" : "monthly";
 
   return (
-    <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
-      
+    <div style={{ width: '100%', maxWidth: '560px', margin: '0 auto', padding: '0 1.5rem' }}>
       {/* FOMO Section */}
-      <div style={styles.fomo}>
+      <div style={{ maxWidth: '700px', margin: '0 auto 3rem', padding: '2.5rem', background: 'var(--gold-dim)', border: '1px solid var(--gold)', borderRadius: '20px', textAlign: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginBottom: '1rem', color: 'var(--gold)' }}>
           <AlertCircle size={24} />
           <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', margin: 0, fontWeight: 700 }}>Don&apos;t Lose Sales to the Booth Next Door</h3>
         </div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
-          The cost of <strong>Sprout</strong> is less than printing a single batch of flyers. 
-          The real cost? The thousands in lost revenue because your neighbor booth has <strong>CultivarID</strong> to capture leads, and you don&apos;t.
+          One membership costs less than a single batch of flyers. The real cost? The thousands in
+          lost revenue when your neighbor&apos;s booth captures pre-sale leads and yours doesn&apos;t.
         </p>
       </div>
 
       {/* Toggle */}
-      <div style={{ textAlign: 'center' }}>
-        <div style={styles.toggle}>
-          <button onClick={() => setIsAnnual(false)} style={styles.toggleBtn(!isAnnual)}>Monthly</button>
-          <button onClick={() => setIsAnnual(true)} style={styles.toggleBtn(isAnnual)}>
-            Annually <span style={{ marginLeft: '0.5rem', opacity: 0.8, fontSize: '0.6rem' }}>Save 20%</span>
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', background: 'var(--bg-surface)', padding: '0.4rem', borderRadius: '50px', border: '1px solid var(--glass-border)' }}>
+          <button onClick={() => setIsAnnual(false)} style={{ padding: '0.6rem 1.5rem', borderRadius: '50px', border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', background: !isAnnual ? 'var(--gold)' : 'transparent', color: !isAnnual ? 'var(--charcoal)' : 'var(--text-secondary)' }}>Monthly</button>
+          <button onClick={() => setIsAnnual(true)} style={{ padding: '0.6rem 1.5rem', borderRadius: '50px', border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', background: isAnnual ? 'var(--gold)' : 'transparent', color: isAnnual ? 'var(--charcoal)' : 'var(--text-secondary)' }}>
+            Annually <span style={{ marginLeft: '0.5rem', opacity: 0.8, fontSize: '0.6rem' }}>Save 17%</span>
           </button>
         </div>
       </div>
 
-      {/* Grid */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
-        gap: '2rem', 
-        alignItems: 'stretch',
-        paddingBottom: '4rem'
-      }}>
-        {tiers.map((tier) => {
-          const price = isAnnual ? tier.priceAnnual : tier.priceMonthly;
-          const isElite = !!tier.isElite;
-          
-          return (
-            <div key={tier.name} style={styles.card(tier.highlight, isElite)}>
-              {tier.tag && (
-                <div style={{ 
-                  position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)',
-                  background: tier.highlight ? 'var(--gold)' : 'var(--emerald)',
-                  color: tier.highlight ? 'var(--charcoal)' : 'white',
-                  padding: '0.3rem 1rem', borderRadius: '20px', fontSize: '0.65rem', fontWeight: 800,
-                  letterSpacing: '0.1em', textTransform: 'uppercase', whiteSpace: 'nowrap'
-                }}>
-                  {tier.tag}
+      {/* Single plan card */}
+      <div style={{ paddingBottom: '4rem' }}>
+        <div style={{ background: 'linear-gradient(135deg, var(--gold) 0%, #F2D681 100%)', color: 'var(--charcoal)', borderRadius: '16px 16px 0 0', padding: '0.85rem 1.5rem', textAlign: 'center', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.03em' }}>
+          🌱 First 50 Vendors Get Their First Year FREE
+        </div>
+        <div style={{ background: 'var(--emerald)', border: '2px solid var(--gold)', borderTop: 'none', borderRadius: '0 0 24px 24px', padding: '3rem 2rem', color: 'white', boxShadow: '0 20px 50px rgba(11,61,46,0.25)' }}>
+          <div style={{ color: 'var(--gold)', marginBottom: '1rem' }}><TrendingUp size={24} /></div>
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', margin: '0 0 0.5rem' }}>Vendor Membership</h3>
+          <p style={{ fontSize: '0.85rem', opacity: 0.85, lineHeight: 1.4, marginBottom: '1.5rem' }}>Everything you need to sell more at every expo.</p>
+
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--gold)' }}>$</span>
+            <span style={{ fontSize: '3rem', fontWeight: 700, fontFamily: 'var(--font-heading)', color: 'var(--gold)' }}>{price}</span>
+            <span style={{ fontSize: '1rem', opacity: 0.7 }}>{period}</span>
+          </div>
+
+          <Link
+            href={`/onboarding?type=vendor&plan=bloom&billing=${billingParam}`}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '1rem', borderRadius: '12px', background: 'var(--gold)', color: 'var(--charcoal)', textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem', marginBottom: '2rem' }}
+          >
+            Become a Member <ChevronRight size={16} />
+          </Link>
+
+          <div style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, marginBottom: '1rem' }}>What&apos;s included:</div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            {FEATURES.map((f, i) => (
+              <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.82rem' }}>
+                <div style={{ width: '18px', height: '18px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', flexShrink: 0, marginTop: '2px' }}>
+                  <Check size={12} strokeWidth={3} />
                 </div>
-              )}
-
-              <div style={{ marginBottom: '2rem' }}>
-                <div style={{ color: tier.highlight ? 'var(--gold)' : 'var(--gold)', marginBottom: '1rem' }}>
-                  {tier.icon}
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontWeight: 600, color: '#FFFFFF' }}>{f.title}</span>
+                  <span style={{ fontSize: '0.75rem', opacity: 0.9, marginTop: '2px', lineHeight: 1.3, color: '#F5F0E8' }}>{f.desc}</span>
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', margin: '0 0 0.5rem' }}>{tier.name}</h3>
-                <p style={{ fontSize: '0.8rem', opacity: 0.8, lineHeight: 1.4 }}>{tier.desc}</p>
-              </div>
-
-              <div style={{ marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 700 }}>$</span>
-                  <span style={{ fontSize: '3rem', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
-                    {Math.floor(price)}
-                  </span>
-                  <span style={{ fontSize: '1rem', opacity: 0.7 }}>{tier.period}</span>
-                </div>
-                {isAnnual && tier.period !== "once" && (
-                  <div style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: (tier.highlight || isElite) ? 'white' : 'var(--emerald)', marginTop: '0.5rem' }}>
-                    Billed Annually
-                  </div>
-                )}
-              </div>
-
-              <Link 
-                href={`/onboarding?plan=${tier.planId}`}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'none';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-                style={{ 
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                  padding: '1rem', borderRadius: '12px', background: tier.highlight ? 'var(--gold)' : isElite ? 'var(--gold)' : 'var(--emerald)',
-                  color: tier.highlight ? 'var(--charcoal)' : isElite ? 'var(--charcoal)' : 'white',
-                  textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem', marginBottom: '2rem',
-                  transition: 'all 0.2s ease', textAlign: 'center'
-                }}
-              >
-                {tier.cta} <ChevronRight size={16} />
-              </Link>
-
-              <div style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, marginBottom: '1rem' }}>
-                What&apos;s included:
-              </div>
-
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                {tier.features.map((f, i) => (
-                  <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.82rem', opacity: f.included ? 1 : 0.4 }}>
-                    <div style={{ 
-                      width: '18px', height: '18px', borderRadius: '50%', background: f.included ? ((tier.highlight || isElite) ? 'rgba(255,255,255,0.2)' : 'var(--gold-dim)') : 'transparent',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: (tier.highlight || isElite) ? 'white' : 'var(--gold)', flexShrink: 0, marginTop: '2px'
-                    }}>
-                      {f.included ? <Check size={12} strokeWidth={3} /> : <div style={{ width: '4px', height: '4px', background: 'currentColor', borderRadius: '50%' }} />}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontWeight: 600, color: (tier.highlight || isElite) ? '#FFFFFF' : 'var(--text-primary)' }}>{f.title}</span>
-                      <span style={{ fontSize: '0.75rem', opacity: (tier.highlight || isElite) ? 0.9 : 0.8, marginTop: '2px', lineHeight: 1.3, color: (tier.highlight || isElite) ? '#F5F0E8' : 'var(--text-secondary)' }}>{f.desc}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

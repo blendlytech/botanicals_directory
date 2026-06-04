@@ -10,9 +10,13 @@ interface PayPalButtonProps {
   planId?: string;
   description?: string;
   onSuccess?: (details: any) => void;
+  /** API route to credit the payment to. Defaults to the vendor upgrade endpoint. */
+  endpoint?: string;
+  /** Key under which the paid entity id is sent to the endpoint. Defaults to 'vendorId'. */
+  idKey?: string;
 }
 
-export default function PayPalButton({ amount, vendorId, planId, description, onSuccess }: PayPalButtonProps) {
+export default function PayPalButton({ amount, vendorId, planId, description, onSuccess, endpoint = '/api/vendor/upgrade', idKey = 'vendorId' }: PayPalButtonProps) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
@@ -70,11 +74,11 @@ export default function PayPalButton({ amount, vendorId, planId, description, on
               // Call our internal API to upgrade the vendor (if applicable)
               if (vendorId !== 'pilot-contractor') {
                 try {
-                  const res = await fetch('/api/vendor/upgrade', {
+                  const res = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                      vendorId,
+                      [idKey]: vendorId,
                       orderId: data.orderID,
                       planId,
                       details

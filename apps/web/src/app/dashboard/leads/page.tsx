@@ -72,6 +72,7 @@ export default function LeadsDashboard() {
   const navItems = [
     { href: '/dashboard', label: '⚡ Overview' },
     { href: '/dashboard/inventory', label: '🌿 Inventory' },
+    { href: '/dashboard/expos', label: '🎪 Expos' },
     { href: '/dashboard/leads', label: '🎯 Leads', active: true },
     { href: '/dashboard/passports', label: '📜 Passports' },
     { href: '/dashboard/analytics', label: '📊 Analytics' },

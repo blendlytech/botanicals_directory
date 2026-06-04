@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { ShieldCheck, ArrowRight, Lock, User, Mail, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { PayPalButton } from '@rpv/ui';
 
-export default function CollectorSignupPage() {
+function CollectorSignupContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
@@ -15,24 +16,45 @@ export default function CollectorSignupPage() {
     interest: 'Rare Aroids'
   });
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isPremium = searchParams.get('plan') === 'premium';
+  const [payingCollectorId, setPayingCollectorId] = useState<string | null>(null);
+  // Live founding price: $49 while spots remain, else the standard $98.
+  const [foundingOpen, setFoundingOpen] = useState(true);
+
+  useEffect(() => {
+    if (!isPremium) return;
+    fetch('/api/founding-stats')
+      .then((r) => r.json())
+      .then((d) => setFoundingOpen((d?.collector?.left ?? 0) > 0))
+      .catch(() => {});
+  }, [isPremium]);
+
+  const price = foundingOpen ? '49.00' : '98.00';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
-    
+
     try {
       const res = await fetch('/api/collector/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       });
-      
+
       const data = await res.json();
-      
+
       if (!res.ok) throw new Error(data.error || 'Signup failed');
-      
-      // Redirect to success page to check email
+
+      // Premium plan → collect the $49 membership before finishing.
+      if (isPremium && data.collector_id) {
+        setPayingCollectorId(data.collector_id);
+        return;
+      }
+
+      // Free account → check email
       router.push('/collector/signup/success');
     } catch (err: any) {
       setError(err.message || 'Signup failed');
@@ -40,6 +62,45 @@ export default function CollectorSignupPage() {
       setIsSubmitting(false);
     }
   };
+
+  if (payingCollectorId) {
+    return (
+      <main className="hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10rem 5% 5rem' }}>
+        <div className="hero-grid-overlay"></div>
+        <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 10, background: 'var(--bg-card)', border: '1px solid var(--gold)', borderRadius: '24px', padding: '3rem', textAlign: 'center', boxShadow: '0 30px 60px var(--gold-dim)' }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 1.5rem' }}>
+            <div className="hero-eyebrow-dot"></div>
+            <span>Final Step: Activate Membership</span>
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', marginBottom: '0.75rem' }}>
+            Collector Membership
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
+            {foundingOpen && <span style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'line-through' }}>$98</span>}
+            <span style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--gold)', fontFamily: 'var(--font-heading)' }}>${foundingOpen ? '49' : '98'}</span>
+            <span style={{ opacity: 0.6 }}>/yr</span>
+          </div>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: 1.6 }}>
+            48-hour early access to expo inventory and the ability to hold plants with a 10% deposit. {foundingOpen ? 'Founding half-off rate.' : 'Standard annual rate.'}
+          </p>
+          <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '1.5rem' }}>
+            <PayPalButton
+              amount={price}
+              vendorId={payingCollectorId}
+              idKey="collectorId"
+              endpoint="/api/collector/upgrade"
+              planId="premium"
+              description="RPV Collector Membership (Annual)"
+              onSuccess={() => { router.push('/collector/signup/success'); }}
+            />
+          </div>
+          <p style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+            Secure transaction via PayPal. We&apos;ve emailed a link to verify your account.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="hero" style={{ minHeight: '100vh', padding: '10rem 5% 5rem' }}>
@@ -175,5 +236,13 @@ export default function CollectorSignupPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function CollectorSignupPage() {
+  return (
+    <Suspense fallback={<main className="hero" style={{ minHeight: '100vh' }} />}>
+      <CollectorSignupContent />
+    </Suspense>
   );
 }

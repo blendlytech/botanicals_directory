@@ -29,13 +29,15 @@ interface InventoryItem {
   qr_generated?: boolean;
 }
 
+// Single paid membership = unlimited listings (null). Free/legacy tiers stay capped.
 const TIER_LIMITS: Record<string, number | null> = {
   seedling: 0,
   free: 0,
   sprout: 1,
-  bloom: 5,
-  visibility: 5,
-  authority: 5,
+  bloom: null,
+  bloom_annual: null,
+  visibility: null,
+  authority: null,
   elite: null,
 };
 
@@ -243,6 +245,7 @@ export default function InventoryPage() {
   const navItems = [
     { href: '/dashboard', label: '⚡ Overview' },
     { href: '/dashboard/inventory', label: '🌿 Inventory', active: true },
+    { href: '/dashboard/expos', label: '🎪 Expos' },
     { href: '/dashboard/leads', label: '🎯 Leads' },
     { href: '/dashboard/passports', label: '📜 Passports' },
     { href: '/dashboard/analytics', label: '📊 Analytics' },

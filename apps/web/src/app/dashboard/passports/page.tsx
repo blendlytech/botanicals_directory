@@ -134,6 +134,7 @@ export default function PassportsDashboard() {
   const navItems = [
     { href: '/dashboard', label: '⚡ Overview' },
     { href: '/dashboard/inventory', label: '🌿 Inventory' },
+    { href: '/dashboard/expos', label: '🎪 Expos' },
     { href: '/dashboard/leads', label: '🎯 Leads' },
     { href: '/dashboard/passports', label: '📜 Passports', active: true },
     { href: '/dashboard/analytics', label: '📊 Analytics' },

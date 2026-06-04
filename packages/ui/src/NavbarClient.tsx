@@ -21,15 +21,14 @@ import {
   Leaf,
   Compass,
   Smartphone,
-  Award,
   Sparkles
 } from 'lucide-react';
 
 /* ─────────────── DROPDOWN DATA ─────────────── */
 const vendorDropdown = [
+  { name: 'Claim Your Listing', href: '/vendors', icon: <ShieldCheck size={16} />, desc: 'Find & claim your free profile' },
   { name: 'Why RPV?', href: '/for-vendors', icon: <Store size={16} />, desc: 'See what makes us different' },
   { name: 'Vendor Pricing', href: '/pricing', icon: <DollarSign size={16} />, desc: 'Plans starting at $9.99/mo' },
-  { name: 'CultivarID™ Demo', href: '/cultivar-id/demo', icon: <Award size={16} />, desc: 'See a live birth certificate' },
   { name: 'Vendor Login', href: '/login', icon: <LogIn size={16} />, desc: 'Access your dashboard' },
 ];
 
@@ -328,34 +327,34 @@ export default function NavbarClient() {
   return (
     <>
       {!isPermitRoute && (
-        <Link href="/pricing" className="announcement-bar">
+        <Link href="/vendors" className="announcement-bar">
           <div className="marquee-container">
             <div className="marquee-content">
               <div className="marquee-item">
-                🔥 <span>FOUNDER SCARCITY:</span> ONLY 36 OF 50 ELITE FOUNDER SEATS REMAINING
+                🌿 <span>THE DIRECTORY:</span> SEARCH VERIFIED RARE PLANT VENDORS NEAR YOU
               </div>
               <div className="marquee-item">
-                ✦ <span>0% COMMISSION:</span> LOCK IN PERMANENT 0% TRANSACTION FEES FOREVER
+                ✦ FILTER BY LOCATION, SPECIALTY &amp; SHIPPING
               </div>
               <div className="marquee-item">
-                ✦ SECURE PHYSICAL SPECIMEN NFC TAGS & BIRTH CERTIFICATES
+                ✦ <span>VENDORS:</span> CLAIM YOUR FREE DIRECTORY LISTING TODAY
               </div>
               <div className="marquee-item">
-                ✦ <span>ACT NOW:</span> CLAIM FOUNDER STATUS & SECURE SEAT →
+                ✦ <span>COLLECTORS:</span> BUY FROM TRUSTED, REVIEWED GROWERS →
               </div>
             </div>
             <div className="marquee-content" aria-hidden="true">
               <div className="marquee-item">
-                🔥 <span>FOUNDER SCARCITY:</span> ONLY 36 OF 50 ELITE FOUNDER SEATS REMAINING
+                🌿 <span>THE DIRECTORY:</span> SEARCH VERIFIED RARE PLANT VENDORS NEAR YOU
               </div>
               <div className="marquee-item">
-                ✦ <span>0% COMMISSION:</span> LOCK IN PERMANENT 0% TRANSACTION FEES FOREVER
+                ✦ FILTER BY LOCATION, SPECIALTY &amp; SHIPPING
               </div>
               <div className="marquee-item">
-                ✦ SECURE PHYSICAL SPECIMEN NFC TAGS & BIRTH CERTIFICATES
+                ✦ <span>VENDORS:</span> CLAIM YOUR FREE DIRECTORY LISTING TODAY
               </div>
               <div className="marquee-item">
-                ✦ <span>ACT NOW:</span> CLAIM FOUNDER STATUS & SECURE SEAT →
+                ✦ <span>COLLECTORS:</span> BUY FROM TRUSTED, REVIEWED GROWERS →
               </div>
             </div>
           </div>
@@ -426,8 +425,8 @@ export default function NavbarClient() {
               Collector Waitlist 🔥
             </Link>
           )}
-          <Link href={isPermitRoute ? "/leads" : "/onboarding"} style={btnStyles} className="desktop-nav">
-            {isPermitRoute ? 'Lead Database →' : 'Join as Vendor →'}
+          <Link href={isPermitRoute ? "/leads" : "/vendors"} style={btnStyles} className="desktop-nav">
+            {isPermitRoute ? 'Lead Database →' : 'Claim Your Listing →'}
           </Link>
 
           <button 
@@ -465,8 +464,8 @@ export default function NavbarClient() {
             <MobileSection title="Discover" items={discoverDropdown} />
             
             <div style={{ borderTop: '1px solid var(--glass-border)', marginTop: '0.5rem', paddingTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <Link 
-                href="/onboarding"
+              <Link
+                href="/vendors"
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
                   display: 'block',
@@ -480,7 +479,7 @@ export default function NavbarClient() {
                   textDecoration: 'none',
                 }}
               >
-                Join as Vendor →
+                Claim Your Listing →
               </Link>
               <Link 
                 href="/collector/waitlist"

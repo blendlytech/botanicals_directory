@@ -98,6 +98,7 @@ export default function SettingsPage() {
   const navItems = [
     { href: '/dashboard', label: '⚡ Overview' },
     { href: '/dashboard/inventory', label: '🌿 Inventory' },
+    { href: '/dashboard/expos', label: '🎪 Expos' },
     { href: '/dashboard/leads', label: '🎯 Leads' },
     { href: '/dashboard/passports', label: '📜 Passports' },
     { href: '/dashboard/analytics', label: '📊 Analytics' },

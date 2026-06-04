@@ -5,21 +5,50 @@ import Link from "next/link";
 
 export const revalidate = 60;
 
-export default async function VendorsPage() {
+type VendorsSearchParams = {
+  q?: string;
+  location?: string;
+  specialty?: string;
+  shipping?: string;
+};
+
+export default async function VendorsPage({ searchParams }: { searchParams?: VendorsSearchParams }) {
   const supabase = createClient();
+
+  const q = (searchParams?.q || '').trim().toLowerCase();
+  const locationFilter = (searchParams?.location || '').trim().toLowerCase();
+  const specialtyFilter = (searchParams?.specialty || '').trim().toLowerCase();
+  // NOTE: `shipping` is accepted from the directory search but not yet filterable —
+  // the shipping fields land with the schema work in implementation_plan.md §2.
+  const hasFilters = !!(q || locationFilter || specialtyFilter || searchParams?.shipping);
 
   // Fetch active vendors
   const { data: vendors, error } = await supabase
     .from('vendors')
     .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url, hero_url, is_elite')
-    .order('account_tier', { ascending: false }) 
+    .order('account_tier', { ascending: false })
     .order('name', { ascending: true });
 
   if (error) {
     console.error("Error fetching vendors:", error);
   }
 
-  const vendorsList = [...(vendors || [])].sort((a, b) => {
+  const specialtyText = (s: unknown) => (Array.isArray(s) ? s.join(' ') : String(s || '')).toLowerCase();
+
+  const filteredVendors = (vendors || []).filter((v) => {
+    const locText = [v.location_city, v.location_state, v.location_country].filter(Boolean).join(' ').toLowerCase();
+    const specText = specialtyText(v.specialty);
+
+    if (q) {
+      const haystack = `${v.name} ${specText} ${locText}`.toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    if (locationFilter && !locText.includes(locationFilter)) return false;
+    if (specialtyFilter && !specText.includes(specialtyFilter)) return false;
+    return true;
+  });
+
+  const vendorsList = [...filteredVendors].sort((a, b) => {
     const aVerifiedElite = a.is_verified && a.account_tier === 'elite';
     const bVerifiedElite = b.is_verified && b.account_tier === 'elite';
 
@@ -48,21 +77,50 @@ export default async function VendorsPage() {
           <div className="section-rule" style={{ margin: '2rem 0 0' }}></div>
         </div>
 
-        {/* Search & Filter Bar (Themed) */}
-        <div className="search-bar-container" style={{ marginBottom: '4rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        {/* Search & Filter Bar (Themed) — GET form keeps results shareable/server-rendered */}
+        <form method="GET" action="/vendors" className="search-bar-container" style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <div style={{ position: 'relative', flex: 1, minWidth: '300px' }}>
             <Search className="search-icon" style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--gold)', opacity: 0.6 }} size={20} />
-            <input 
-              type="text" 
-              placeholder="Search by name, genus, or location..." 
+            <input
+              type="text"
+              name="q"
+              defaultValue={searchParams?.q || ''}
+              placeholder="Search by name, genus, or location..."
               className="newsletter-input"
               style={{ paddingLeft: '3.5rem', width: '100%', borderRadius: '12px' }}
             />
           </div>
-          <button className="btn-ghost" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderRadius: '12px' }}>
+          <input
+            type="text"
+            name="location"
+            defaultValue={searchParams?.location || ''}
+            placeholder="Location"
+            className="newsletter-input"
+            style={{ width: '180px', borderRadius: '12px' }}
+          />
+          <select name="specialty" defaultValue={searchParams?.specialty || ''} className="newsletter-input" style={{ width: '180px', borderRadius: '12px' }}>
+            <option value="">All specialties</option>
+            {['Aroids', 'Hoyas', 'Philodendron', 'Anthurium', 'Begonias', 'Orchids', 'Carnivorous', 'Succulents & Cacti'].map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+          <button type="submit" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderRadius: '12px' }}>
             <Filter size={18} />
-            Advanced Filters
+            Filter
           </button>
+        </form>
+
+        {/* Results summary */}
+        <div style={{ marginBottom: '3rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            <strong style={{ color: 'var(--gold)' }}>{vendorsList.length}</strong> {vendorsList.length === 1 ? 'vendor' : 'vendors'}
+            {hasFilters ? ' match your search' : ' in the directory'}
+          </span>
+          {hasFilters && (
+            <Link href="/vendors" style={{ fontSize: '0.8rem', color: 'var(--gold)', textDecoration: 'underline' }}>
+              Clear filters
+            </Link>
+          )}
         </div>
 
         {/* Vendor Grid */}

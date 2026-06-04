@@ -7,6 +7,7 @@ function getInternalTier(tier: string): string {
   const mapping: Record<string, string> = {
     'sprout': 'seedling',
     'bloom': 'visibility',
+    'bloom_annual': 'visibility',
     'canopy': 'authority',
     'elite': 'elite',
     'free': 'seedling',
@@ -121,6 +122,7 @@ export async function POST(request: Request) {
       'elite': '497.00',
       'visibility': '24.99',
       'bloom': '24.99',
+      'bloom_annual': '249.00',
       'sprout': '9.99',
       'seedling': '9.99'
     };
@@ -158,6 +160,34 @@ export async function POST(request: Request) {
     if (error) {
       console.error('Database update error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // ── Founding offer: first 50 membership vendors get a free year on top of purchase ──
+    const FOUNDING_VENDOR_CAP = 50;
+    const isMembershipPlan = planId === 'bloom' || planId === 'bloom_annual';
+    if (isMembershipPlan && !vendor?.is_founding_vendor) {
+      try {
+        const { count } = await supabaseAdmin
+          .from('vendors')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_founding_vendor', true);
+        const claimed = count ?? 0;
+        if (claimed < FOUNDING_VENDOR_CAP) {
+          const paidMonths = planId === 'bloom_annual' ? 12 : 1;
+          const freeUntil = new Date();
+          freeUntil.setMonth(freeUntil.getMonth() + paidMonths + 12); // paid term + a free year
+          await (supabaseAdmin.from('vendors') as any)
+            .update({
+              is_founding_vendor: true,
+              founding_number: claimed + 1,
+              founding_free_until: freeUntil.toISOString(),
+            })
+            .eq('id', vendorId);
+        }
+      } catch (foundingErr) {
+        // Non-fatal — the membership is already active; founding status is a bonus.
+        console.error('Founding vendor assignment skipped:', foundingErr);
+      }
     }
 
     // 3. Send Welcome Email

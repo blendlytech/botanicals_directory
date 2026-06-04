@@ -12,6 +12,9 @@ function OnboardingContent() {
   const selectedPlan = searchParams.get('plan') || 'seedling';
   const deal = searchParams.get('deal');
   const isMiamiDeal = deal === 'miami';
+  const isAnnual = searchParams.get('billing') === 'annual';
+  // The single vendor membership bills $24.99/mo or $249/yr; annual uses a distinct plan id.
+  const payPlan = isMiamiDeal ? 'elite' : (selectedPlan === 'bloom' && isAnnual ? 'bloom_annual' : selectedPlan);
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -144,15 +147,16 @@ function OnboardingContent() {
           </p>
           
           <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: '16px', marginBottom: '2rem' }}>
-            <PayPalButton 
+            <PayPalButton
               amount={
                 isMiamiDeal ? "1.00" :
-                selectedPlan === 'elite' ? "497" : 
-                selectedPlan === 'bloom' ? "24.99" :
-                selectedPlan === 'sprout' ? "9.99" : "9.99"
-              } 
-              vendorId={createdVendorId} 
-              planId={isMiamiDeal ? 'elite' : selectedPlan}
+                payPlan === 'elite' ? "497" :
+                payPlan === 'bloom_annual' ? "249" :
+                payPlan === 'bloom' ? "24.99" :
+                payPlan === 'sprout' ? "9.99" : "9.99"
+              }
+              vendorId={createdVendorId}
+              planId={payPlan}
               onSuccess={() => { window.location.href = '/dashboard'; }}
             />
           </div>

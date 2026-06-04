@@ -29,12 +29,14 @@ export async function POST(request: Request) {
     const actionLink = linkData.properties.action_link;
 
     // 2. Insert into collectors table
-    const { error: dbError } = await supabase
+    const { data: collectorRow, error: dbError } = await supabase
       .from('collectors')
       .insert({
         user_id: userId,
         full_name: data.name
-      });
+      })
+      .select('id')
+      .single();
 
     if (dbError) {
       console.error('Supabase insert error:', dbError);
@@ -42,6 +44,8 @@ export async function POST(request: Request) {
       await supabase.auth.admin.deleteUser(userId);
       return NextResponse.json({ error: dbError.message }, { status: 500 });
     }
+
+    const collectorId = (collectorRow as any)?.id ?? null;
 
     // 3. Send Verification Email via Spaceship SMTP
     const transporter = nodemailer.createTransport({
@@ -79,10 +83,10 @@ export async function POST(request: Request) {
       });
     } catch (mailError) {
       console.error('Failed to send verification email:', mailError);
-      return NextResponse.json({ success: true, email_sent: false, message: 'Account created but failed to send verification email.' });
+      return NextResponse.json({ success: true, email_sent: false, collector_id: collectorId, message: 'Account created but failed to send verification email.' });
     }
 
-    return NextResponse.json({ success: true, email_sent: true });
+    return NextResponse.json({ success: true, email_sent: true, collector_id: collectorId });
   } catch (error: any) {
     console.error('Server error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
