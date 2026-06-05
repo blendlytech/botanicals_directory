@@ -305,14 +305,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
                         {v.is_verified && (
                           <span className="verified-badge" style={{ fontSize: "0.62rem" }}><ShieldCheck size={10} /> Verified</span>
                         )}
-                        {v.is_elite && (
-                          <img 
-                            src="/generated-badges/elite-founder-badge.jpg" 
-                            alt="Elite Founder" 
-                            style={{ width: '100px', height: '100px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))' }} 
-                            title="Elite Founder - Lifetime Elite Member"
-                          />
-                        )}
+
                       </div>
                     </div>
 

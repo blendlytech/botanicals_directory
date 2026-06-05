@@ -169,14 +169,7 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
                       {v.is_verified && (
                         <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
                       )}
-                      {v.account_tier === 'elite' && (
-                        <img 
-                          src="/generated-badges/elite-founder-badge.jpg" 
-                          alt="Elite Founder" 
-                          style={{ width: '120px', height: '120px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.5))', marginTop: '0.25rem' }} 
-                          title="Elite Founder - Lifetime Elite Member"
-                        />
-                      )}
+
                       {!isClaimed && (
                         <span className="elite-badge" style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)', boxShadow: 'none', fontSize: '0.6rem' }}>
                           <LockKeyhole size={10} /> Unclaimed
