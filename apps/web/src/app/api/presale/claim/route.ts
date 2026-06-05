@@ -5,14 +5,55 @@ import { createClient } from '@/utils/supabase/server';
 /**
  * Expo pre-sale deposit + claim.
  * A Premium collector pays a 10% holding deposit via PayPal; this route verifies the
- * captured order server-side (amount + custom_id) before creating the claim and pulling
- * the plant off-market. 5% of the deposit is recorded for the affiliate expo host.
+ * captured order server-side, then creates the claim and pulls the plant off-market.
+ *
+ * Race safety: the client captures the deposit BEFORE calling us, so any path that
+ * rejects after capture (plant already claimed/sold, wrong amount, etc.) AUTO-REFUNDS
+ * the PayPal capture so the losing collector is never left out of pocket.
  * See implementation_plan.md §5.
  */
 const DEPOSIT_PCT = 10;
 const AFFILIATE_PCT = 5;
-
 const round2 = (n: number) => Math.round(n * 100) / 100;
+
+const paypalApiUrl = process.env.NODE_ENV === 'production'
+  ? 'https://api-m.paypal.com'
+  : 'https://api-m.sandbox.paypal.com';
+
+async function getPayPalToken(): Promise<string | null> {
+  const id = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+  const secret = process.env.PAYPAL_SECRET;
+  if (!id || !secret || secret === 'YOUR_SECRET_HERE') return null;
+  const auth = Buffer.from(`${id}:${secret}`).toString('base64');
+  const res = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
+    method: 'POST',
+    body: 'grant_type=client_credentials',
+    headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+  if (!res.ok) return null;
+  const { access_token } = await res.json();
+  return access_token;
+}
+
+/** Refund a capture in full. Returns true on success; logs loudly on failure for manual follow-up. */
+async function refundCapture(captureId: string, token: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${paypalApiUrl}/v2/payments/captures/${captureId}/refund`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    if (!res.ok) {
+      const body = await res.text();
+      console.error(`CRITICAL: deposit refund FAILED for capture ${captureId} — manual refund required. ${body}`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error(`CRITICAL: deposit refund threw for capture ${captureId} — manual refund required.`, err);
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -31,18 +72,46 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Payment not completed' }, { status: 400 });
     }
 
+    const token = await getPayPalToken();
+    if (!token) {
+      console.error('CRITICAL: PayPal not configured. Rejecting deposit (no capture made server-side).');
+      return NextResponse.json({ error: 'Server configuration error (payments disabled)' }, { status: 500 });
+    }
+
+    // Fetch the order; confirm it's captured and grab the capture id up front so we can
+    // refund on ANY later rejection.
+    const orderRes = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!orderRes.ok) {
+      return NextResponse.json({ error: 'Order not found in PayPal' }, { status: 400 });
+    }
+    const orderData = await orderRes.json();
+    const purchaseUnit = orderData.purchase_units?.[0];
+    const captureId: string | undefined = purchaseUnit?.payments?.captures?.[0]?.id;
+
+    if (orderData.status !== 'COMPLETED' || !captureId) {
+      // Not actually captured — nothing to refund.
+      return NextResponse.json({ error: 'PayPal order is not captured' }, { status: 400 });
+    }
+
+    // From here payment is captured — every failure path must refund.
+    const fail = async (status: number, error: string) => {
+      const refunded = await refundCapture(captureId, token);
+      return NextResponse.json(
+        { error: refunded ? `${error} Your deposit has been refunded.` : `${error} A refund is being processed.`, refunded },
+        { status }
+      );
+    };
+
     // Collector must exist and be Premium.
     const { data: collector } = await supabaseAdmin
       .from('collectors')
       .select('id, tier')
       .eq('user_id', user.id)
       .maybeSingle();
-    if (!collector) {
-      return NextResponse.json({ error: 'Not a collector account' }, { status: 403 });
-    }
-    if ((collector as any).tier !== 'premium') {
-      return NextResponse.json({ error: 'Premium membership required' }, { status: 403 });
-    }
+    if (!collector) return fail(403, 'Not a collector account.');
+    if ((collector as any).tier !== 'premium') return fail(403, 'Premium membership required.');
 
     // Inventory must be staged for an expo and still available.
     const { data: item } = await supabaseAdmin
@@ -50,61 +119,20 @@ export async function POST(request: Request) {
       .select('id, price, event_id, vendor_id, status')
       .eq('id', inventoryId)
       .single();
-    if (!item) {
-      return NextResponse.json({ error: 'Plant not found' }, { status: 404 });
-    }
-    if (!(item as any).event_id) {
-      return NextResponse.json({ error: 'Plant is not staged for an expo' }, { status: 400 });
-    }
-    if ((item as any).status === 'sold') {
-      return NextResponse.json({ error: 'Plant already sold' }, { status: 409 });
-    }
-    if ((item as any).price == null) {
-      return NextResponse.json({ error: 'Vendor has not set a price' }, { status: 400 });
-    }
+    if (!item) return fail(404, 'Plant not found.');
+    if (!(item as any).event_id) return fail(400, 'Plant is not staged for an expo.');
+    if ((item as any).status === 'sold') return fail(409, 'Plant already sold.');
+    if ((item as any).price == null) return fail(400, 'Vendor has not set a price.');
 
-    const expectedDeposit = round2((item as any).price * (DEPOSIT_PCT / 100));
-
-    // ── Server-side PayPal verification ──
-    const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
-    const paypalSecret = process.env.PAYPAL_SECRET;
-    if (!paypalClientId || !paypalSecret || paypalSecret === 'YOUR_SECRET_HERE') {
-      console.error('CRITICAL: PAYPAL_SECRET missing/invalid. Rejecting deposit.');
-      return NextResponse.json({ error: 'Server configuration error (payments disabled)' }, { status: 500 });
-    }
-    const paypalApiUrl = process.env.NODE_ENV === 'production'
-      ? 'https://api-m.paypal.com'
-      : 'https://api-m.sandbox.paypal.com';
-
-    const auth = Buffer.from(`${paypalClientId}:${paypalSecret}`).toString('base64');
-    const tokenRes = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
-      method: 'POST',
-      body: 'grant_type=client_credentials',
-      headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' },
-    });
-    if (!tokenRes.ok) {
-      return NextResponse.json({ error: 'Payment verification failed' }, { status: 500 });
-    }
-    const { access_token } = await tokenRes.json();
-
-    const orderRes = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderId}`, {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
-    if (!orderRes.ok) {
-      return NextResponse.json({ error: 'Order not found in PayPal' }, { status: 400 });
-    }
-    const orderData = await orderRes.json();
-    if (orderData.status !== 'COMPLETED') {
-      return NextResponse.json({ error: 'PayPal order is not COMPLETED' }, { status: 400 });
-    }
-    const purchaseUnit = orderData.purchase_units?.[0];
+    // Amount + ownership verification.
     if (purchaseUnit?.custom_id !== inventoryId) {
-      return NextResponse.json({ error: 'Order does not match this plant' }, { status: 400 });
+      return fail(400, 'Payment does not match this plant.');
     }
+    const expectedDeposit = round2((item as any).price * (DEPOSIT_PCT / 100));
     const actualPaid = parseFloat(purchaseUnit?.amount?.value || '0').toFixed(2);
     if (actualPaid !== expectedDeposit.toFixed(2)) {
       console.error(`Deposit mismatch on ${inventoryId}: paid ${actualPaid}, expected ${expectedDeposit.toFixed(2)}`);
-      return NextResponse.json({ error: 'Invalid deposit amount', expected: expectedDeposit.toFixed(2) }, { status: 400 });
+      return fail(400, 'Deposit amount did not match the listed price.');
     }
 
     // Snapshot the vendor's pickup deadline for this expo.
@@ -117,7 +145,8 @@ export async function POST(request: Request) {
 
     const affiliateCut = round2(expectedDeposit * (AFFILIATE_PCT / 100));
 
-    // Create the claim. UNIQUE(inventory_id) guards against a double-claim race.
+    // Create the claim. UNIQUE(inventory_id) is the race guard — if someone else's
+    // deposit landed first, this throws 23505 and we refund this collector.
     const { error: claimErr } = await supabaseAdmin.from('event_presale_claims').insert({
       event_id: (item as any).event_id,
       inventory_id: inventoryId,
@@ -130,11 +159,10 @@ export async function POST(request: Request) {
     });
     if (claimErr) {
       if ((claimErr as any).code === '23505') {
-        // Someone else's deposit landed first — flag for refund follow-up.
-        return NextResponse.json({ error: 'This plant was just reserved by another collector. Your deposit will be refunded.' }, { status: 409 });
+        return fail(409, 'This plant was just reserved by another collector.');
       }
       console.error('Claim insert error:', claimErr);
-      return NextResponse.json({ error: (claimErr as any).message }, { status: 500 });
+      return fail(500, 'Could not record your reservation.');
     }
 
     await supabaseAdmin.from('inventory').update({ status: 'reserved' }).eq('id', inventoryId);

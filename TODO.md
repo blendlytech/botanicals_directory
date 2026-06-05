@@ -73,17 +73,20 @@ File: `apps/web/src/app/dashboard/crm/page.tsx` (NEW)
       — `apps/web/src/app/dashboard/expos/page.tsx`, gated to active vendor membership
 - [x] Vendor dashboard: per-expo **pickup deadline** control (`event_vendors.pickup_deadline`)
 - [x] Schema: `inventory.event_id`, `collectors.tier`, `event_presale_claims`, pickup/affiliate fields
-      — migration `apps/web/supabase/migrations/20260604_expo_presale.sql` (⚠️ NOT yet applied)
+      — migration `20260604_expo_presale.sql` ✅ APPLIED & verified (2026-06-04)
 - [x] Vendor dashboard: assign which plants (with photos) they are bringing to the expo
 - [x] 48h gated pre-sale showroom on `/events/[slug]` — paid Collectors only, only in the 48h pre-event window
 - [x] Pre-sale claim → `event_presale_claims` (10% deposit + 5% affiliate cut + pickup deadline/forfeiture terms),
       sets inventory `reserved` (`apps/web/src/app/components/PresaleClaim.tsx`)
-- [x] Collector $49 signup → sets `tier = premium` via `api/collector/upgrade` (PayPal-verified) — ⚠️ needs migration applied
+- [x] Collector $49 signup → sets `tier = premium` via `api/collector/upgrade` (PayPal-verified) — ✅ schema applied
 - [x] **10% deposit charged on claim** — `api/presale/claim` verifies the PayPal deposit server-side,
       then creates the `deposit_paid` claim + reserves the plant (records 5% affiliate cut + pickup deadline)
-- [ ] **Known gap:** simultaneous deposits on the same plant — UNIQUE(inventory_id) lets one win; the
-      loser's capture needs a refund path (currently just returns a 409 telling them they'll be refunded)
-- [ ] **Deferred:** 48h "inventory goes live" alerts for paid collectors
+- [x] **Race-safe deposits** — any post-capture rejection (already-claimed/sold/wrong amount) now
+      **auto-refunds** the PayPal capture; buyer sees the real "deposit refunded" message. Refund
+      failures log CRITICAL for manual follow-up.
+- [x] **48h "inventory live" alerts** — hourly cron `api/cron/presale-alerts` emails premium collectors
+      once when an expo's 48h pre-sale window opens (tracks `events.presale_alert_sent_at`);
+      registered in `apps/web/vercel.json`. ⚠️ Migration `20260604_presale_alerts.sql` NOT yet applied
 - [ ] **Deferred:** affiliate host model + 5% deposit payout ledger (fields stubbed: `events.affiliate_user_id`, `claims.affiliate_cut_amount`)
 
 ## 6. Pricing Pages — Single-Tier Rewrite
@@ -98,7 +101,7 @@ File: `apps/web/src/app/dashboard/crm/page.tsx` (NEW)
 - [x] **Live founding counter** — `api/founding-stats` drives "X of 50 / X of 100 left" on both pricing banners
 - [x] **Founding enforcement** — server-capped: vendor upgrade grants founding free-year to first 50
       (`is_founding_vendor`, `founding_free_until`); collector upgrade enforces $49 (first 100) then $98,
-      with "spots filled" UI states. Migration: `20260604_founding_offers.sql` (⚠️ NOT yet applied)
+      with "spots filled" UI states. Migration: `20260604_founding_offers.sql` ✅ APPLIED & verified (2026-06-04)
 - [ ] **Not enforced:** actual recurring billing / honoring `founding_free_until` at renewal (membership is
       currently a one-time PayPal capture, not a recurring subscription — no renewal cycle to waive yet)
 - [x] Removed dead `PricingCards.tsx`; `PricingToggle` updated — remaining stale copy sweep on `/for-vendors` body still open

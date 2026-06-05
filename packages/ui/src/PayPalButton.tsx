@@ -92,7 +92,13 @@ export default function PayPalButton({ amount, vendorId, planId, description, on
                       router.push(`/claim/success?vendorId=${vendorId}`);
                     }
                   } else {
-                    setError("Payment received, but failed to update your account. Please contact support.");
+                    // Surface the server's specific message (e.g. "deposit has been refunded").
+                    let msg = "Payment received, but we couldn't finalize it. Please contact support.";
+                    try {
+                      const body = await res.json();
+                      if (body?.error) msg = body.error;
+                    } catch { /* keep fallback */ }
+                    setError(msg);
                   }
                 } catch (err) {
                   setError("Connection error. Please contact support with your PayPal Order ID.");

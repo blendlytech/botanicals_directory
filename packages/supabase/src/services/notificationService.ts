@@ -46,6 +46,30 @@ export const notificationService = {
   },
 
   /**
+   * Sends a Premium collector the 48h "pre-sale is live" alert for an expo.
+   */
+  async sendPresaleLiveAlert(email: string, collectorName: string, eventTitle: string, eventUrl: string, plantCount: number) {
+    return getTransporter().sendMail({
+      from: `"${process.env.SMTP_FROM_NAME || 'Rare Plant Vendors'}" <${process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER}>`,
+      to: email,
+      subject: `⏳ 48-Hour Early Access is LIVE — ${eventTitle}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e4c97a; border-radius: 8px; padding: 30px; background-color: #fafaf8; color: #0a1a0f;">
+          <h1 style="color: #c9a84c; text-align: center;">Your Early Access Has Begun</h1>
+          <p>Hi ${collectorName || 'Collector'},</p>
+          <p>The pre-sale shelf for <strong>${eventTitle}</strong> just went live — and as a Premium Collector you're seeing it <strong>48 hours before the public</strong>.</p>
+          <p><strong>${plantCount}</strong> plant${plantCount === 1 ? '' : 's'} ${plantCount === 1 ? 'is' : 'are'} staged. Place a 10% deposit to hold what you want and pick it up in person — before the door rush.</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${eventUrl}" style="background-color: #c9a84c; color: #0a1a0f; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Reserve Before the Floor Opens</a>
+          </div>
+          <p style="font-size: 0.8em; color: #666;">Deposits are held until the vendor's pickup deadline; retrieve in person or the deposit is forfeited.</p>
+          <p style="font-size: 0.8em; color: #666; margin-top: 20px;">— The Rare Plant Vendors Team</p>
+        </div>
+      `,
+    });
+  },
+
+  /**
    * Sends a lead notification to a vendor.
    */
   async sendLeadNotification(email: string, businessName: string, speciesName: string, isElite: boolean) {
