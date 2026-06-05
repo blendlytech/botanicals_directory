@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: 'Do you take a cut of my sales?',
-    a: 'Never. We are a marketing and provenance platform, not a marketplace. You keep 100% of every sale. The only platform money tied to a transaction is the optional collector pre-sale deposit (of which 5% goes to the affiliate expo host).',
+    a: 'Never. We are a marketing and provenance platform, not a marketplace. You keep 100% of every sale. The only platform money tied to a transaction is the optional collector pre-sale deposit (of which half goes to the affiliate expo host).',
   },
   {
     q: 'How do CultivarID™ physical tags work?',

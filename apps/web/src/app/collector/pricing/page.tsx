@@ -161,7 +161,7 @@ export default function CollectorPricingPage() {
             {[
               { icon: <Lock size={24} />, title: '1. The Lock', body: 'During the 48h pre-sale window you place a 10% deposit. The vendor pulls the plant off-market and holds it for you.' },
               { icon: <Clock size={24} />, title: '2. The Deadline', body: 'You must retrieve the plant in person by the vendor’s set pickup deadline — or the deposit is forfeited and the plant goes back on the floor.' },
-              { icon: <Handshake size={24} />, title: '3. The Settlement', body: 'Inspect the live plant at the expo, then pay the remaining 90% directly to the vendor. 5% of your deposit supports the affiliate expo host.' },
+              { icon: <Handshake size={24} />, title: '3. The Settlement', body: 'Inspect the live plant at the expo, then pay the remaining 90% directly to the vendor. Half of your deposit supports the affiliate expo host.' },
             ].map((s) => (
               <div key={s.title} style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '20px', border: '1px solid var(--glass-border)' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'var(--gold-dim)', color: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>

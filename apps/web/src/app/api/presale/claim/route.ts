@@ -13,7 +13,8 @@ import { createClient } from '@/utils/supabase/server';
  * See implementation_plan.md §5.
  */
 const DEPOSIT_PCT = 10;
-const AFFILIATE_PCT = 5;
+// Affiliate expo host earns half the deposit (50% of the 10% hold = 5% of the sale price).
+const AFFILIATE_PCT = 50;
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
 const paypalApiUrl = process.env.NODE_ENV === 'production'

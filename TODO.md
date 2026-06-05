@@ -67,7 +67,7 @@ File: `apps/web/src/app/dashboard/crm/page.tsx` (NEW)
 ## 5. Expo Pre-Sale Engine (Single Paid-Tier Monetization)
 
 > Expo (`/events`) tab is permanent/core. Single paid tier each side (see §6 pricing).
-> **48h** early window · **10%** deposit · vendor-set pickup deadline w/ forfeiture · **5%** to affiliate host.
+> **48h** early window · **10%** deposit · vendor-set pickup deadline w/ forfeiture · **50% of the deposit** to affiliate host.
 
 - [x] Vendor dashboard: self-verify / withdraw attendance at an upcoming expo (`event_vendors`)
       — `apps/web/src/app/dashboard/expos/page.tsx`, gated to active vendor membership
@@ -76,18 +76,19 @@ File: `apps/web/src/app/dashboard/crm/page.tsx` (NEW)
       — migration `20260604_expo_presale.sql` ✅ APPLIED & verified (2026-06-04)
 - [x] Vendor dashboard: assign which plants (with photos) they are bringing to the expo
 - [x] 48h gated pre-sale showroom on `/events/[slug]` — paid Collectors only, only in the 48h pre-event window
-- [x] Pre-sale claim → `event_presale_claims` (10% deposit + 5% affiliate cut + pickup deadline/forfeiture terms),
+- [x] Pre-sale claim → `event_presale_claims` (10% deposit + 50%-of-deposit affiliate cut + pickup deadline/forfeiture terms),
       sets inventory `reserved` (`apps/web/src/app/components/PresaleClaim.tsx`)
 - [x] Collector $49 signup → sets `tier = premium` via `api/collector/upgrade` (PayPal-verified) — ✅ schema applied
 - [x] **10% deposit charged on claim** — `api/presale/claim` verifies the PayPal deposit server-side,
-      then creates the `deposit_paid` claim + reserves the plant (records 5% affiliate cut + pickup deadline)
+      then creates the `deposit_paid` claim + reserves the plant (records 50%-of-deposit affiliate cut + pickup deadline)
 - [x] **Race-safe deposits** — any post-capture rejection (already-claimed/sold/wrong amount) now
       **auto-refunds** the PayPal capture; buyer sees the real "deposit refunded" message. Refund
       failures log CRITICAL for manual follow-up.
 - [x] **48h "inventory live" alerts** — hourly cron `api/cron/presale-alerts` emails premium collectors
       once when an expo's 48h pre-sale window opens (tracks `events.presale_alert_sent_at`);
-      registered in `apps/web/vercel.json`. ⚠️ Migration `20260604_presale_alerts.sql` NOT yet applied
-- [ ] **Deferred:** affiliate host model + 5% deposit payout ledger (fields stubbed: `events.affiliate_user_id`, `claims.affiliate_cut_amount`)
+      registered in `apps/web/vercel.json`. ✅ Migration applied & verified; `CRON_SECRET` set (also
+      secured the pre-existing `release-leads` + `wishlist/release` crons)
+- [ ] **Deferred:** affiliate host model + payout ledger for the 50%-of-deposit cut (fields stubbed: `events.affiliate_user_id`, `claims.affiliate_cut_amount`)
 
 ## 6. Pricing Pages — Single-Tier Rewrite
 

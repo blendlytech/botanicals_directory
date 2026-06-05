@@ -20,7 +20,7 @@ CREATE INDEX IF NOT EXISTS idx_inventory_event_id ON inventory (event_id);
 ALTER TABLE event_vendors
   ADD COLUMN IF NOT EXISTS pickup_deadline TIMESTAMP WITH TIME ZONE;
 
--- Signed affiliate host for an event (earns 5% of deposits).
+-- Signed affiliate host for an event (earns 50% of each deposit = half the 10% hold).
 ALTER TABLE events
   ADD COLUMN IF NOT EXISTS affiliate_user_id UUID;
 

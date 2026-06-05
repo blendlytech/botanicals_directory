@@ -17,7 +17,7 @@ CREATE INDEX IF NOT EXISTS idx_inventory_event_id ON inventory (event_id);
 ALTER TABLE event_vendors
   ADD COLUMN IF NOT EXISTS pickup_deadline TIMESTAMP WITH TIME ZONE;
 
--- Signed affiliate host for an event — earns 5% of deposits placed against it.
+-- Signed affiliate host for an event — earns 50% of each deposit (half the 10% hold).
 ALTER TABLE events
   ADD COLUMN IF NOT EXISTS affiliate_user_id UUID;
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS event_presale_claims (
   status TEXT NOT NULL DEFAULT 'reserved',
   deposit_amount NUMERIC,
   deposit_pct INTEGER DEFAULT 10,
-  -- 5% of the deposit is owed to the event's affiliate host.
+  -- 50% of the deposit is owed to the event's affiliate host.
   affiliate_cut_amount NUMERIC,
   -- Snapshot of the vendor's pickup deadline at claim time (forfeiture terms).
   pickup_deadline TIMESTAMP WITH TIME ZONE,

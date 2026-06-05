@@ -73,8 +73,8 @@ the same "early access" they otherwise pay dearly for at the door.
 
 **Deposit forfeiture terms:** Each claim shows "Collector must retrieve the plant by
 {date/time}, set by the vendor for that expo. If not retrieved, the 10% deposit is forfeited
-and the vendor may sell the plant on the expo floor." **5% of every deposit** is paid out to
-the signed affiliate expo host for that event.
+and the vendor may sell the plant on the expo floor." **50% of every deposit** (half the 10%
+hold) is paid out to the signed affiliate expo host for that event.
 
 #### Already in place (reuse, do not rebuild)
 - `/events` map + `/events/[slug]` detail with `event_vendors` roster.
@@ -99,7 +99,7 @@ the signed affiliate expo host for that event.
 #### [NEW] Pre-sale claim / holding-deposit flow
 - Paid Collector "Claim" → sets inventory `reserved`, records the claim with the **10% deposit**
   and the snapshotted pickup deadline + forfeiture terms (deposit collection via PayPal = next pass).
-- **Affiliate payout:** 5% of each deposit is allocated to the event's signed affiliate host.
+- **Affiliate payout:** 50% of each deposit (half the 10% hold) is allocated to the event's signed affiliate host.
 
 ### 6. Finalized Pricing & Single-Tier Model
 
@@ -116,7 +116,7 @@ One paid tier each for vendors and collectors (no multi-tier ladder).
 - **Founding offer:** marketed as **half-off $98 → $49** for the first **100** collectors.
 
 #### Affiliate expo hosts
-- Signed affiliate hosts earn **5% of all deposits** placed against their event's inventory.
+- Signed affiliate hosts earn **50% of every deposit** (half the 10% hold) placed against their event's inventory.
 
 ## Verification Plan
 
