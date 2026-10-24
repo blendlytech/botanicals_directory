@@ -28,7 +28,7 @@ import {
 const vendorDropdown = [
   { name: 'Claim Your Listing', href: '/vendors', icon: <ShieldCheck size={16} />, desc: 'Find & claim your free profile' },
   { name: 'Why RPV?', href: '/for-vendors', icon: <Store size={16} />, desc: 'See what makes us different' },
-  { name: 'Vendor Pricing', href: '/pricing', icon: <DollarSign size={16} />, desc: 'Plans starting at $9.99/mo' },
+  { name: 'Vendor Pricing', href: '/pricing', icon: <DollarSign size={16} />, desc: 'Free listing & vendor membership' },
   { name: 'Vendor Login', href: '/login', icon: <LogIn size={16} />, desc: 'Access your dashboard' },
 ];
 
@@ -40,7 +40,7 @@ const collectorDropdown = [
 ];
 
 const discoverDropdown = [
-  { name: 'Verified Vendors', href: '/vendors', icon: <ShieldCheck size={16} />, desc: 'Browse trusted growers' },
+  { name: 'Vendor Directory', href: '/vendors', icon: <ShieldCheck size={16} />, desc: 'Find growers by specialty' },
   { name: 'Expos & Events', href: '/events', icon: <Calendar size={16} />, desc: 'Upcoming rare plant shows' },
   { name: 'Partners', href: '/partners', icon: <Handshake size={16} />, desc: 'Strategic partnerships' },
 ];

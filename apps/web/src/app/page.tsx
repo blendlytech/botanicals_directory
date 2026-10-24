@@ -11,7 +11,7 @@ export default async function Home() {
   // Featured vendors for the directory — verified/claimed growers surface first.
   const { data: vendors } = await supabase
     .from('vendors')
-    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url, hero_url')
+    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, ownership_verified_at, user_id, logo_url, hero_url')
     .order('account_tier', { ascending: false })
     .order('name', { ascending: true });
 
@@ -77,7 +77,7 @@ export default async function Home() {
               backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontStyle: 'italic',
-            }}>Verified</em> Rare Plant Vendors
+            }}>Specialist</em> Rare Plant Vendors
           </h1>
 
           <p className="hero-sub" style={{
@@ -87,8 +87,7 @@ export default async function Home() {
             color: '#F5F0E8',
             lineHeight: 1.6,
           }}>
-            Search the most trusted directory of rare plant specialists. Filter by location,
-            specialty, and shipping — and connect directly with growers, no middleman.
+            Search rare plant specialists by location and specialty, then connect directly with growers. Confirm shipping and pickup options with each business.
           </p>
 
           <HeroSearch />
@@ -101,7 +100,7 @@ export default async function Home() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '3rem' }}>
             <div>
               <span className="section-eyebrow">Featured Growers</span>
-              <h2 className="section-title" style={{ marginTop: '0.5rem' }}>Recently Added <em>Vendors</em></h2>
+              <h2 className="section-title" style={{ marginTop: '0.5rem' }}>Explore <em>Vendors</em></h2>
             </div>
             <Link href="/vendors" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: '12px' }}>
               Browse All Vendors <ArrowRight size={18} />
@@ -138,8 +137,8 @@ export default async function Home() {
                           )}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
-                          {v.is_verified ? (
-                            <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
+                          {v.ownership_verified_at ? (
+                            <span className="verified-badge" title="Business listing ownership reviewed; not a plant quality guarantee"><ShieldCheck size={12} /> Listing ownership checked</span>
                           ) : !isClaimed ? (
                             <span className="elite-badge" style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)', boxShadow: 'none', fontSize: '0.6rem' }}>
                               <LockKeyhole size={10} /> Unclaimed
@@ -206,8 +205,7 @@ export default async function Home() {
               Claim Your <em>Free Listing</em>
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '620px', margin: '0 auto 2.5rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
-              Collectors are searching for growers like you right now. Claim your directory profile to
-              control how your business appears, capture leads, and get found — at no cost.
+              Request ownership of your directory profile to manage your business details and help collectors find you. No membership purchase is required.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link href="/vendors" className="btn-primary" style={{ padding: '1.1rem 2.5rem', borderRadius: '14px', display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -229,17 +227,16 @@ export default async function Home() {
             <h2 className="section-title">Shop Rare Plants with <em>Confidence</em></h2>
             <div className="section-rule" style={{ margin: '1.5rem auto' }} />
             <p style={{ opacity: 0.8, maxWidth: '700px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.6 }}>
-              Skip the scams and the guesswork. Find verified specialists, compare real reviews,
-              and acquire your next rare plant from a source you can trust.
+              Compare growers, explore their specialties, and contact them directly about availability, plant condition, and pickup.
             </p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem' }}>
             {[
-              { icon: <BadgeCheck size={28} />, title: 'Verified Vendors', desc: 'Every featured grower is vetted, so you know exactly who you are buying from.' },
-              { icon: <Star size={28} />, title: 'Real Reviews', desc: 'Browse aggregated 4-star-and-up reviews pulled from trusted platforms.' },
+              { icon: <BadgeCheck size={28} />, title: 'Vendor Profiles', desc: 'Explore growers and their specialties. A directory listing is not an endorsement.' },
+              { icon: <Star size={28} />, title: 'Do Your Research', desc: 'Check the seller’s own website, policies, and independent reviews before buying.' },
               { icon: <Bookmark size={28} />, title: 'Save Your Shortlist', desc: 'Bookmark favorite vendors and the rare plants you are hunting for.' },
-              { icon: <Bell size={28} />, title: 'Priority Alerts', desc: 'Get notified when your saved vendors drop new inventory or restock.' },
+              { icon: <Bell size={28} />, title: 'Explore Events', desc: 'Find plant events and confirm attendance and entry requirements with the organizer.' },
             ].map((f) => (
               <div key={f.title} style={{
                 background: 'linear-gradient(145deg, #0B3D2E 0%, #040806 100%)',
