@@ -12,7 +12,9 @@ authentication or regulatory-document replacement promises.
 
 This direction supersedes the older marketing recommendations in the V2 blueprint,
 outreach dossier, implementation_plan.md and TODO.md. Those files remain historical
-context. Existing customer contracts and paid benefits must be reconciled individually.
+context. The owner confirmed US registration and no existing PayPal customers on
+2026-10-24. See [Stripe cutover requirements](02-stripe-cutover.md) for the updated
+payment scope. Preserve free accounts and directory data.
 
 ## Delivered in this slice
 - Free email sign-in and ownership-review request, replacing the paid claim pitch.
@@ -85,19 +87,22 @@ personal information. Contact the requester manually after the decision.
 No notifications have been sent by this implementation.
 
 ## Next slice: Stripe subscriptions and Connect reservations
-Before implementation, obtain business/account country, currency, seller geography,
-and an inventory of existing purchases/founding benefits/open deposits. Never put
-keys in source or chat; configure deployment secrets.
+Business registration country is confirmed as United States. The owner reports no
+existing PayPal customers, so no PayPal customer or membership migration is planned.
+USD is the proposed launch currency; seller geography remains an open requirement
+for the later reservation phase. Never put keys in source or chat; configure deployment secrets.
 
 Membership work: server-created Checkout sessions with price IDs; customer/subscription
 mapping; webhook signature verification and event deduplication; paid-through entitlement;
-renewal failure, cancellation, refunds; Customer Portal; explicit founder benefit migration.
+renewal failure, cancellation, refunds; Customer Portal. No legacy founder or lifetime
+offers will be carried into new Stripe subscriptions.
 
 Reservation work: one seller/specimen per reservation; decide charge type and seller of
 record; Connect onboarding; server eligibility and event-time checks; short stock holds;
 payment/reservation IDs; atomic DB stock transitions; reconciliation; refund queue; pickup
 confirmation; cancellation and no-show terms. No host share of the customer's deposit.
-Retain historical PayPal refund/reconciliation capability. Do not bill twice.
+No PayPal migration is planned based on the owner's confirmation. Check payment records
+before retiring credentials; investigate any unexpected transactions without deleting data.
 
 Release gates: replayed webhooks, concurrent buyers, expired holds, late payment success,
 lost-network retries, failed refunds, event cancellation, subscription expiry,
