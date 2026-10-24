@@ -2,6 +2,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { researchForListing } from "@/lib/researched-vendors";
+import ResearchedVendorProfile from "@/components/ResearchedVendorProfile";
 
 import EliteConciergeForm from "../../components/EliteConciergeForm";
 
@@ -56,6 +58,9 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
     if (error || !dbVendor) notFound();
     vendor = dbVendor;
+
+    const researched = researchForListing(vendor);
+    if (researched) return <ResearchedVendorProfile profile={researched} managed={!!vendor.user_id} />;
 
     const { data: dbInventory } = await supabase
       .from('inventory')

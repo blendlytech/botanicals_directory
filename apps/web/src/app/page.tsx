@@ -1,3 +1,4 @@
+import { withResearch, researchedVendors } from "@/lib/researched-vendors";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { ShieldCheck, MapPin, Star, ArrowRight, Search, BadgeCheck, Bell, Bookmark, LockKeyhole } from 'lucide-react';
@@ -9,19 +10,19 @@ export default async function Home() {
   const supabase = createClient();
 
   // Featured vendors for the directory — verified/claimed growers surface first.
-  const { data: vendors } = await supabase
+  const { data: rawVendors } = await supabase
     .from('vendors')
     .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, ownership_verified_at, user_id, logo_url, hero_url')
     .order('account_tier', { ascending: false })
     .order('name', { ascending: true });
 
-  const featured = [...(vendors || [])]
-    .sort((a, b) => {
-      const aRank = (a.is_verified ? 2 : 0) + (a.user_id ? 1 : 0);
-      const bRank = (b.is_verified ? 2 : 0) + (b.user_id ? 1 : 0);
-      return bRank - aRank;
-    })
-    .slice(0, 6);
+  const vendors = (rawVendors || []).map(withResearch);
+
+  // Editorial selection, not paid placement or a claim of vendor participation.
+  const featured = researchedVendors.flatMap(p => {
+    const vendor = vendors.find(v => v.slug === p.slug);
+    return vendor ? [vendor] : [];
+  });
 
   const fallbackBackgrounds = [
     'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800',
@@ -99,14 +100,15 @@ export default async function Home() {
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '3rem' }}>
             <div>
-              <span className="section-eyebrow">Featured Growers</span>
-              <h2 className="section-title" style={{ marginTop: '0.5rem' }}>Explore <em>Vendors</em></h2>
+              <span className="section-eyebrow">Florida grower guide</span>
+              <h2 className="section-title" style={{ marginTop: '0.5rem' }}>Meet Six <em>Plant Businesses</em></h2>
             </div>
             <Link href="/vendors" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: '12px' }}>
               Browse All Vendors <ArrowRight size={18} />
             </Link>
           </div>
 
+          <p style={{ color: "var(--text-secondary)", marginBottom: "1.5rem", lineHeight: 1.7 }}>An editorial selection researched from official business websites. Inclusion does not imply membership, partnership or endorsement.</p>
           {featured.length > 0 ? (
             <div className="vendors-grid">
               {featured.map((v, idx) => {
@@ -163,8 +165,8 @@ export default async function Home() {
                             View Profile
                           </Link>
                         ) : (
-                          <Link href={`/claim/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
-                            Claim Listing
+                          <Link href={`/vendors/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
+                            View Profile
                           </Link>
                         )}
                       </div>

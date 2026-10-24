@@ -1,3 +1,4 @@
+import { withResearch } from "@/lib/researched-vendors";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { Search, MapPin, ShieldCheck, Star, AlertTriangle, ArrowRight, LockKeyhole, Filter, ChevronRight } from 'lucide-react';
@@ -23,11 +24,13 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
   const hasFilters = !!(q || locationFilter || specialtyFilter);
 
   // Fetch active vendors
-  const { data: vendors, error } = await supabase
+  const { data: rawVendors, error } = await supabase
     .from('vendors')
     .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, ownership_verified_at, user_id, logo_url, hero_url, is_elite')
     .order('account_tier', { ascending: false })
     .order('name', { ascending: true });
+
+  const vendors = (rawVendors || []).map(withResearch);
 
   if (error) {
     console.error("Error fetching vendors:", error);
@@ -191,8 +194,8 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
 
                   {!isClaimed ? (
                     <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
-                      <Link href={`/claim/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
-                        Claim Listing
+                      <Link href={`/vendors/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
+                        View Profile
                       </Link>
                     </div>
                   ) : (
