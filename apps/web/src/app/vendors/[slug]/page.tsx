@@ -2,6 +2,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { researchForListing } from "@/lib/researched-vendors";
+import ResearchedVendorProfile from "@/components/ResearchedVendorProfile";
 
 import EliteConciergeForm from "../../components/EliteConciergeForm";
 
@@ -56,6 +58,9 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
     if (error || !dbVendor) notFound();
     vendor = dbVendor;
+
+    const researched = researchForListing(vendor);
+    if (researched) return <ResearchedVendorProfile profile={researched} managed={!!vendor.user_id} />;
 
     const { data: dbInventory } = await supabase
       .from('inventory')
@@ -148,11 +153,9 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
 
               <div className="elite-badge-row" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <span className="elite-badge-pill">✦ Elite Member</span>
-                {vendor.is_verified && <span className="elite-verified-pill">✓ Verified Grower</span>}
+                {vendor.ownership_verified_at && <span className="elite-verified-pill">✓ Listing ownership checked</span>}
 
                 {/* Special Digital Badges */}
-                <span className="elite-verified-pill" style={{background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)'}} title="Maintains own sterile tissue culture laboratory">🔬 Tissue Culture Lab</span>
-                <span className="elite-verified-pill" style={{background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)'}} title="Tracks detailed multi-generational genetic histories">🧬 Genetic Historian</span>
               </div>
 
               <div className="elite-meta-row">
@@ -310,37 +313,7 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
               </div>
             </section>
 
-            {/* Vouched By Endorsements */}
-            <section className="elite-section">
-              <div className="elite-section-label">Endorsements</div>
-              <h2 className="elite-section-heading">Vouched By</h2>
-              <div className="elite-vouched-grid">
-                <div className="elite-vouched-card">
-                  <div className="elite-vouched-quote">
-                    "I've sourced some of my rarest philodendrons from their private drops. Unmatched quality and genetics. They are the gold standard."
-                  </div>
-                  <div className="elite-vouched-user">
-                    <div className="elite-vouched-avatar">M</div>
-                    <div>
-                      <span className="elite-vouched-name">Mickel D.</span>
-                      <span className="elite-vouched-role">Verified Collector</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="elite-vouched-card">
-                  <div className="elite-vouched-quote">
-                    "Flawless packaging and root systems. The CultivarID integration gives me peace of mind for my high-ticket investments."
-                  </div>
-                  <div className="elite-vouched-user">
-                    <div className="elite-vouched-avatar">S</div>
-                    <div>
-                      <span className="elite-vouched-name">Sarah Jenkins</span>
-                      <span className="elite-vouched-role">Aroid Specialist</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            {/* Endorsements require documented customer permission and evidence. */}
 
             {/* Lineage Showcase */}
             <section className="elite-section" style={{ paddingBottom: '0' }}>
@@ -400,18 +373,9 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
                     {vendor.elite_number && <span>Founder #{vendor.elite_number}</span>}
                   </div>
                 </li>
-                <li className="elite-trust-item">
-                  <span className="trust-icon trust-green">✓</span>
-                  <div><strong>Identity Verified</strong><span>Gov ID &amp; Business</span></div>
-                </li>
-                <li className="elite-trust-item">
-                  <span className="trust-icon trust-green">✓</span>
-                  <div><strong>Geo-Location Verified</strong><span>Physical nursery confirmed</span></div>
-                </li>
-                <li className="elite-trust-item">
-                  <span className="trust-icon trust-green">✓</span>
-                  <div><strong>Priority Response</strong><span>Replies within 24 hrs</span></div>
-                </li>
+                
+                
+                
               </ul>
             </div>
 
@@ -446,10 +410,8 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
           <div style={{ flex: 1, minWidth: "300px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
               <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "2.5rem", margin: 0, color: "var(--text-primary)" }}>{vendor.name}</h1>
-              {vendor.is_verified ? <span className="verified-badge">✓ Verified Grower</span> : <span className="free-tier-badge">Seedling</span>}
+              {vendor.ownership_verified_at ? <span className="verified-badge">✓ Listing ownership checked</span> : <span className="free-tier-badge">Seedling</span>}
 
-              <span className="verified-badge" style={{background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)'}}>🔬 Tissue Culture Lab</span>
-              <span className="verified-badge" style={{background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)'}}>🧬 Genetic Historian</span>
             </div>
             {vendor.owner_name && <div style={{ fontSize: "1.1rem", color: "var(--text-secondary)", marginBottom: "1rem", fontWeight: 500 }}>by {vendor.owner_name}</div>}
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
@@ -542,10 +504,9 @@ export default async function VendorProfilePage({ params }: { params: { slug: st
             <h3 style={{ fontSize: "1rem", margin: "0 0 1rem", borderBottom: "1px solid var(--glass-border)", paddingBottom: "0.5rem" }}>Contact Vendor</h3>
             <a href={`mailto:${vendor.contact_email}`} className="btn-primary" style={{ width: "100%", textAlign: "center", padding: "0.8rem", textDecoration: "none", display: "block" }}>Send Inquiry</a>
             <div style={{ marginTop: "2rem" }}>
-              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem", fontWeight: 600 }}>Trust Metrics</div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem", fontWeight: 600 }}>Before you buy</div>
+              <p>Confirm plant condition, seller policies, and pickup details directly. Listing ownership checks do not guarantee plant quality.</p>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "var(--text-primary)" }}><span style={{ color: "var(--emerald)" }}>✓</span> Identity Verified</li>
-                <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "var(--text-primary)" }}><span style={{ color: "var(--emerald)" }}>✓</span> Geo-Location Verified</li>
               </ul>
             </div>
           </div>

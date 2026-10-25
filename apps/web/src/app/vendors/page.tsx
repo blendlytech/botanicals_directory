@@ -1,3 +1,4 @@
+import { withResearch } from "@/lib/researched-vendors";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { Search, MapPin, ShieldCheck, Star, AlertTriangle, ArrowRight, LockKeyhole, Filter, ChevronRight } from 'lucide-react';
@@ -20,14 +21,16 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
   const specialtyFilter = (searchParams?.specialty || '').trim().toLowerCase();
   // NOTE: `shipping` is accepted from the directory search but not yet filterable —
   // the shipping fields land with the schema work in implementation_plan.md §2.
-  const hasFilters = !!(q || locationFilter || specialtyFilter || searchParams?.shipping);
+  const hasFilters = !!(q || locationFilter || specialtyFilter);
 
   // Fetch active vendors
-  const { data: vendors, error } = await supabase
+  const { data: rawVendors, error } = await supabase
     .from('vendors')
-    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, user_id, logo_url, hero_url, is_elite')
+    .select('name, slug, specialty, location_city, location_state, location_country, account_tier, is_verified, ownership_verified_at, user_id, logo_url, hero_url, is_elite')
     .order('account_tier', { ascending: false })
     .order('name', { ascending: true });
+
+  const vendors = (rawVendors || []).map(withResearch);
 
   if (error) {
     console.error("Error fetching vendors:", error);
@@ -67,12 +70,12 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
     <main className="page-wrapper">
       <section className="section" style={{ paddingTop: '10rem' }}>
         <div className="section-header" style={{ textAlign: 'left', marginBottom: '4rem' }}>
-          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Global Botanical Registry</div>
+          <div className="section-eyebrow" style={{ padding: '0.4rem 1.25rem' }}>Rare Plant Directory</div>
           <h1 className="section-title" style={{ fontSize: ' clamp(2.5rem, 6vw, 4.5rem)', maxWidth: '800px' }}>
-            Discover Verified <em>Elite Growers</em>
+            Discover <em>Rare Plant Growers</em>
           </h1>
           <p className="section-desc" style={{ margin: '1.5rem 0 0', maxWidth: '700px' }}>
-            Browse the most exclusive network of rare plant specialists. Claim your listing to access the Authority Suite and secure your market position.
+            Find specialists by location and plant type. Vendors can request ownership of their directory listing at no cost.
           </p>
           <div className="section-rule" style={{ margin: '2rem 0 0' }}></div>
         </div>
@@ -127,7 +130,6 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
         <div className="vendors-grid">
           {vendorsList.map((v, idx) => {
             const location = [v.location_city, v.location_state || v.location_country].filter(Boolean).join(', ');
-            const mockViews = Math.floor(Math.random() * 55) + 12;
             const isClaimed = !!v.user_id;
             
             // Premium background images for verified vendors
@@ -166,8 +168,8 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
                     </div>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
-                      {v.is_verified && (
-                        <span className="verified-badge"><ShieldCheck size={12} /> Verified</span>
+                      {v.ownership_verified_at && (
+                        <span className="verified-badge" title="Business listing ownership reviewed; not a plant quality guarantee"><ShieldCheck size={12} /> Listing ownership checked</span>
                       )}
 
                       {!isClaimed && (
@@ -192,16 +194,8 @@ export default async function VendorsPage({ searchParams }: { searchParams?: Ven
 
                   {!isClaimed ? (
                     <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
-                      <div style={{ marginBottom: '1rem' }}>
-                        <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <AlertTriangle size={12} /> Potential Leads
-                        </span>
-                        <p style={{ fontSize: '0.8rem', opacity: 0.7, marginTop: '0.25rem' }}>
-                          <strong>{mockViews}</strong> profile views this month
-                        </p>
-                      </div>
-                      <Link href={`/claim/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
-                        Claim Listing
+                      <Link href={`/vendors/${v.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', fontSize: '0.7rem' }}>
+                        View Profile
                       </Link>
                     </div>
                   ) : (

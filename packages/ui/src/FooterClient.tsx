@@ -37,35 +37,26 @@ export default function FooterClient() {
             />
             <span className="logo-text" style={{ fontSize: "1.2rem" }}>Rare Plant Vendors</span>
           </Link>
-          <p>The world&apos;s premier directory for rare botanical events, verified growers, and serious collectors. Est. 2026.</p>
+          <p>Find plant businesses, explore their specialties and discover upcoming events. Connect directly with sellers and organizers.</p>
         </div>
 
         <div className="footer-col">
           <h4>Directory</h4>
           <Link href="/vendors" id="footer-vendors-link">Browse Vendors</Link>
           <Link href="/events" id="footer-events-link">Upcoming Events</Link>
-          <Link href="/partners" id="footer-partners-link">Partners</Link>
+          
         </div>
 
         <div className="footer-col">
           <h4>For Vendors</h4>
           <Link href="/vendors" id="footer-claim-link">Claim Your Listing</Link>
-          <Link href="/for-vendors" id="footer-list-booth-link">The Authority Suite</Link>
+          <Link href="/for-vendors" id="footer-list-booth-link">Free Vendor Listings</Link>
           <Link href="/pricing" id="footer-pricing-link">Pricing</Link>
-        </div>
-
-        <div className="footer-col">
-          <h4>CultivarID™</h4>
-          <Link href="/cultivar-id" id="footer-passport-link">CultivarID Overview</Link>
-          <Link href="/cultivar-id/demo" id="footer-cultivar-demo-link">Live Demo</Link>
-          <Link href="/scan" id="footer-cultivar-link">Verify a Plant</Link>
         </div>
 
         <div className="footer-col">
           <h4>Company</h4>
           <Link href="/about" id="footer-about-link">About Us</Link>
-          <a href="#" id="footer-blog-link">Blog</a>
-          <a href="#" id="footer-contact-link">Contact</a>
           <Link href="/privacy" id="footer-privacy-link">Privacy Policy</Link>
           <Link href="/terms" id="footer-terms-link">Terms of Service</Link>
         </div>
@@ -74,7 +65,7 @@ export default function FooterClient() {
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Rare Plant Vendors. All rights reserved.</span>
         <span style={{ fontFamily: "var(--font-heading)", fontStyle: "italic", color: "var(--gold)", opacity: 1 }}>
-          The Rolex of Plant Sites™
+          Discover growers. Connect directly.
         </span>
       </div>
     </footer>

@@ -2,33 +2,26 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, MapPin, Leaf, Truck } from 'lucide-react';
+import { Search, MapPin, Leaf } from 'lucide-react';
 
 /* Specialty options surfaced as the directory's primary filter facets. */
 export const SPECIALTIES = [
   'Aroids',
-  'Hoyas',
+  'Hoya',
   'Philodendron',
   'Anthurium',
-  'Begonias',
+  'Begonia',
   'Orchids',
   'Carnivorous',
   'Succulents & Cacti',
 ];
 
-const SHIPPING_OPTIONS = [
-  { value: '', label: 'Any availability' },
-  { value: 'ships', label: 'Ships nationwide' },
-  { value: 'local', label: 'Local pickup' },
-  { value: 'international', label: 'Ships international' },
-];
 
 export default function HeroSearch() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
-  const [shipping, setShipping] = useState('');
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -36,7 +29,6 @@ export default function HeroSearch() {
     if (query.trim()) params.set('q', query.trim());
     if (location.trim()) params.set('location', location.trim());
     if (specialty) params.set('specialty', specialty);
-    if (shipping) params.set('shipping', shipping);
     router.push(`/vendors${params.toString() ? `?${params.toString()}` : ''}`);
   }
 
@@ -102,11 +94,11 @@ export default function HeroSearch() {
         />
       </div>
 
-      {/* Mandatory directory facets: Location · Specialties · Shipping */}
+      {/* Directory facets: Location and Specialties */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
           gap: '1rem',
           marginBottom: '1.5rem',
         }}
@@ -144,22 +136,6 @@ export default function HeroSearch() {
           </div>
         </div>
 
-        <div>
-          <label style={labelStyle} htmlFor="hero-shipping">Shipping</label>
-          <div style={{ position: 'relative' }}>
-            <Truck size={18} style={iconStyle} />
-            <select
-              id="hero-shipping"
-              value={shipping}
-              onChange={(e) => setShipping(e.target.value)}
-              style={fieldStyle}
-            >
-              {SHIPPING_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-          </div>
-        </div>
       </div>
 
       <button

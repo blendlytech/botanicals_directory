@@ -147,7 +147,7 @@ export async function POST(request: Request) {
       .update({
         tier: planId || 'sprout',
         account_tier: getInternalTier(planId || 'sprout') as any,
-        is_verified: true,
+        // A payment changes membership, never ownership verification.
         is_elite: planId === 'elite' || planId === 'canopy',
         subscription_status: 'active',
       })

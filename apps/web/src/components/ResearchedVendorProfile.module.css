@@ -1,0 +1,26 @@
+.page { background: #f7f5ee; color: #203d31; min-height: 100vh; padding: 11rem 1.25rem 5rem; }
+.wrap { max-width: 1120px; margin: auto; }
+.back { color: #285d46; font-size: .95rem; text-decoration: underline; text-underline-offset: 4px; }
+.hero { display: flex; gap: 1.6rem; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid #cdd8cc; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.12; margin: .5rem 0 .8rem; color: #163e2e; }
+.monogram { width: 100px; height: 100px; border-radius: 24px; background: #143e2d; color: #ead9a3; display: grid; place-items: center; font-size: 2rem; flex-shrink: 0; font-family: Georgia, serif; }
+.eyebrow { text-transform: uppercase; font-size: .75rem; letter-spacing: .12em; font-weight: 700; color: #426451; margin: 0 0 .5rem; }
+.location { color: #536556; margin: 0 0 1rem; }
+.tags { display: flex; gap: .5rem; flex-wrap: wrap; }
+.tags span { padding: .4rem .8rem; background: #e8eee3; border-radius: 20px; font-size: .8rem; color: #284e36; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 3rem; padding: 2.5rem 0; }
+.content section { margin-bottom: 2.3rem; }
+.page h2 { font-size: 1.35rem; color: #183e2c; line-height: 1.35; margin: 0 0 .8rem; }
+.content p, .aside p { line-height: 1.8; margin: 0 0 1rem; }
+.content a { color: #265b43; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.sources { border-top: 1px solid #cdd8cc; padding-top: 1.5rem; font-size: .9rem; }
+.sources ul { padding-left: 1.2rem; line-height: 2; }
+.shop, .owner { padding: 1.6rem; border: 1px solid #cdd8cc; border-radius: 18px; background: #fffef9; }
+.owner { margin-top: 1rem; background: #edf1e8; }
+.primary, .secondary { display: block; text-align: center; padding: .9rem 1rem; border-radius: 8px; font-weight: 600; text-decoration: none; line-height: 1.4; }
+.primary { background: #194d35; color: #fff; }
+.secondary { border: 1px solid #325c43; color: #244f36; background: transparent; }
+.page .small { font-size: .8rem; line-height: 1.6; color: #536556; margin: .8rem 0 0; overflow-wrap: anywhere; }
+.note { border-top: 1px solid #cdd8cc; padding-top: 1.5rem; font-size: .85rem; line-height: 1.7; color: #536556; }
+.page a:focus-visible { outline: 3px solid #97720d; outline-offset: 5px; }
+@media (max-width: 720px) { .page { padding-top: 10rem; } .grid { grid-template-columns: 1fr; gap: .5rem; } .hero { align-items: flex-start; gap: 1rem; } .monogram { width: 60px; height: 60px; font-size: 1.4rem; border-radius: 16px; } .hero h1 { overflow-wrap: anywhere; } }
