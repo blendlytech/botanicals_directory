@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import DirectoryNavigation from './DirectoryNavigation';
 import { usePathname } from 'next/navigation';
 import { 
   Menu, 
@@ -220,6 +221,8 @@ export default function NavbarClient() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, [activeDropdown]);
+
+  if (!isPermitRoute) return <DirectoryNavigation />;
 
   const navStyles: React.CSSProperties = {
     position: 'fixed',

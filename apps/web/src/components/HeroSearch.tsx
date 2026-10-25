@@ -7,10 +7,10 @@ import { Search, MapPin, Leaf } from 'lucide-react';
 /* Specialty options surfaced as the directory's primary filter facets. */
 export const SPECIALTIES = [
   'Aroids',
-  'Hoyas',
+  'Hoya',
   'Philodendron',
   'Anthurium',
-  'Begonias',
+  'Begonia',
   'Orchids',
   'Carnivorous',
   'Succulents & Cacti',
@@ -98,7 +98,7 @@ export default function HeroSearch() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
           gap: '1rem',
           marginBottom: '1.5rem',
         }}

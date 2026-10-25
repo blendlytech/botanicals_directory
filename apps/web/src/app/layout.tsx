@@ -17,8 +17,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Rare Plant Vendors | The Premier Botanical Event Directory",
-  description: "Discover the world's most exclusive rare plant expos, Collectors preview and claim verified vendor inventory 24 hours before doors open Est. 2026.",
+  title: "Rare Plant Vendors | Find Growers and Plant Events",
+  description: "Find rare plant nurseries and specialists by location and specialty. Explore upcoming plant events and connect directly with businesses.",
 };
 
 export const viewport: Viewport = {
